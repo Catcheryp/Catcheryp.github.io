@@ -16,10 +16,10 @@ side_bar_repo_limit: 5
 #      Author      #
 # ---------------- #
 author: Catcher
-organization: zkh360.com
-organization_url: http://www.zkh360.com
-github_username: mzlogin
-location: Wuhan, China
+organization: HIT
+#organization_url: http://www.zkh360.com
+github_username: Catcheryp
+location: Harbin, China
 email: catcheryp@gmail.com
 
 # ---------------- #
@@ -31,12 +31,12 @@ navs:
     label: 首页
 
   -
-    href: /categories/
-    label: 分类
-
-  -
     href: /archives/
     label: 归档
+
+  -
+    href: /categories/
+    label: 分类
 
   # -
   #   href: /wiki/
@@ -62,12 +62,12 @@ markdown: kramdown
 kramdown:
     input: GFM
 highlighter: rouge
-paginate: 8
+paginate: 20
 lsi: false
 quiet: false
 excerpt_separator: "\n\n"
 permalink: /:year/:month/:day/:title/
-gems:
+plugins:
     - jekyll-github-metadata
     - rouge
 #     - jekyll-html-pipeline
@@ -76,10 +76,10 @@ gems:
     - jekyll-feed
     - jemoji
 #     - jekyll-mentions
-collections:
-    wiki:
-        output: true
-        permalink: /wiki/:path/
+# collections:
+#     wiki:
+#         output: true
+#         permalink: /wiki/:path/
 
 repository: Catcheryp/Catcheryp.github.io
 

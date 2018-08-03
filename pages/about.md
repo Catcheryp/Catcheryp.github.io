@@ -1,32 +1,33 @@
 ---
 layout: page
 title: About
-description: 打码改变世界
-keywords: Zhuang Ma, 马壮
+description: 锲而不舍，聚沙成塔.
+keywords: YP
 comments: true
 menu: 关于
 permalink: /about/
 ---
 
-我是马壮，码而生，码而立。
+```python 
+"""
+知识面，决定看到的攻击面有多⼴，知识链，决定发动的杀伤链有多深。
+学会如何学习，培养学习习惯，锻造学习力。
+为了能到远方，脚下的每一步都不能少。
+拥有快速学习能力的白帽子，是不能有短板的，有的只是大量的标准板和⼏块长板。
+---@ringzero
+"""
 
-仰慕「优雅编码的艺术」。
+Name = 'Catcher'
+Description = 'Just a student now. And focus on web security.'
 
-坚信熟能生巧，努力改变人生。
+Github = 'https://github.com/Catcheryp'
+Blog = 'https://pengyang.me'
+Email = 'catcheryp@gmail.com'
 
-## 联系
+while True:
+	Programing
+	Reading
+	Running
+	Fighting
 
-{% for website in site.data.social %}
-* {{ website.sitename }}：[@{{ website.name }}]({{ website.url }})
-{% endfor %}
-
-## Skill Keywords
-
-{% for category in site.data.skills %}
-### {{ category.name }}
-<div class="btn-inline">
-{% for keyword in category.keywords %}
-<button class="btn btn-outline" type="button">{{ keyword }}</button>
-{% endfor %}
-</div>
-{% endfor %}
+```

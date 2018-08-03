@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Categories &mdash; Evil</title>
+    <title>博客加小绿锁 &mdash; Evil</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -23,26 +23,28 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/categories/">
+    <link rel="canonical" href="http://localhost:4000/2018/05/29/https/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
     
-    <meta property="og:title" content="Categories">
+    <meta property="og:title" content="博客加小绿锁">
       
-    <meta name="keywords" content="分类">
-    <meta name="og:keywords" content="分类">
+    <meta name="keywords" content="Web Security">
+    <meta name="og:keywords" content="Web Security">
       
-    <meta name="description" content="哈哈，你找到了我的文章基因库">
-    <meta name="og:description" content="哈哈，你找到了我的文章基因库">
+    <meta name="description" content="给博客添加小绿锁，将 http 转到 https。">
+    <meta name="og:description" content="给博客添加小绿锁，将 http 转到 https。">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/categories/">
+    <meta property="og:url" content="http://localhost:4000/2018/05/29/https/">
     <meta property="og:site_name" content="Evil">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2018-05-29">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -63,7 +65,7 @@
                 
                 <a href="http://localhost:4000/archives/" class=" site-header-nav-item" target="" title="归档">归档</a>
                 
-                <a href="http://localhost:4000/categories/" class=" selected  site-header-nav-item" target="" title="分类">分类</a>
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类">分类</a>
                 
                 <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
                 
@@ -74,104 +76,89 @@
     </header>
     <!-- / header -->
 
-    <section class="collection-head small geopattern" data-pattern-id="Categories">
-    <div class="container">
-        <div class="columns">
-            <div class="column three-fourths">
-                <div class="collection-title">
-                    <h1 class="collection-header">Categories</h1>
-                </div>
-            </div>
+    <section class="collection-head small geopattern" data-pattern-id="博客加小绿锁">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">博客加小绿锁</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2018/05/29
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#technique" title="technique">technique</a>
+          </span>
+          
         </div>
+      </div>
     </div>
+  </div>
+</div>
 </section>
 <!-- / .banner -->
 <section class="container content">
-    <div class="columns">
-        <div class="column three-fourths" >
-            <article class="article-content markdown-body">
-                <section class="container posts-content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>给博客添加小绿锁，将 http 转到 https。
+<!--more--></p>
+
+<h2 id="0x01-tips">0x01 Tips</h2>
+<p>我是利用<a href="https://www.netlify.com/">Netlify</a>来给博客添加https的，具体的步骤我就不做赘述了，这里给出两个链接基本涵盖了可能遇到的问题。 <br />
+(1)<a href="https://blog.stogov.cc/articles/2017-07/%E5%88%A9%E7%94%A8netlify%E4%B8%BAgithub-pages-with-custom-domain%E5%AE%9E%E7%8E%B0https%E8%AE%BF%E9%97%AE">利用Netlify为GitHub Pages with Custom Domain实现HTTPS访问</a><br />
+(2)<a href="https://jaeger.itscoder.com/web/2017/08/30/github-page-https">GitHub Page 博客自定义域名添加 HTTPS 支持</a></p>
+
+<p>需要注意的是：</p>
+<ul>
+  <li>确保你的仓库里有Gemfile文件;</li>
+  <li>删除你仓库里面的CNAME文件;</li>
+  <li>在Netlify上操作完毕后大概需要等1小时左右才能看到博客加了https;</li>
+</ul>
+
+<p><br /><br /></p>
+
+<h2 id="0x02-尴尬">0x02 尴尬</h2>
+<p>之所以说尴尬是因为我在用完这种方式成功给博客加了小绿锁之后，又发现从5月1号开始，<a href="https://blog.github.com/2018-05-01-github-pages-custom-domains-https/">github已经支持给自定义的域名加小绿锁了</a>。真的是很无语，有一种「若不自宫，也能成功」的感觉……</p>
 
 
-<h3>CTF</h3>
-<ol class="posts-list" id="CTF">
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
 
-<li class="posts-list-item">
-<span class="posts-list-meta">2018-08-03</span>
-<a class="posts-list-name" href="http://localhost:4000/2018/08/03/bk_dc/">多次(Bugku Web)</a>
-</li>
+  
 
-<li class="posts-list-item">
-<span class="posts-list-meta">2018-07-27</span>
-<a class="posts-list-name" href="http://localhost:4000/2018/07/27/bugku1/">Bugku writeup(WEB)</a>
-</li>
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2018/05/29/https/',
+            clientID: '5a59fdc570f933e0c2ee',
+            clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
+            repo: 'blogcomments',
+            owner: 'Catcheryp',
+            admin: ['Catcheryp'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
 
-</ol>
 
-<h3>SQL注入</h3>
-<ol class="posts-list" id="SQL注入">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2018-08-01</span>
-<a class="posts-list-name" href="http://localhost:4000/2018/08/01/sql_injection1/">SQL注入的套路</a>
-</li>
-
-</ol>
-
-<h3>technique</h3>
-<ol class="posts-list" id="technique">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2018-05-29</span>
-<a class="posts-list-name" href="http://localhost:4000/2018/05/29/https/">博客加小绿锁</a>
-</li>
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2018-05-04</span>
-<a class="posts-list-name" href="http://localhost:4000/2018/05/04/recognize/">网络流量加密识别</a>
-</li>
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2018-04-26</span>
-<a class="posts-list-name" href="http://localhost:4000/2018/04/26/ss/">搭建梯子</a>
-</li>
-
-</ol>
-
-<h3>书</h3>
-<ol class="posts-list" id="书">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2018-06-02</span>
-<a class="posts-list-name" href="http://localhost:4000/2018/06/02/zyshnh/">追忆似水年华</a>
-</li>
-
-</ol>
-
-<h3>杂</h3>
-<ol class="posts-list" id="杂">
-
-<li class="posts-list-item">
-<span class="posts-list-meta">2018-07-31</span>
-<a class="posts-list-name" href="http://localhost:4000/2018/07/31/blog_theme/">博客皮肤</a>
-</li>
-
-</ol>
-
-</section>
-<!-- /section.content -->
-
-            </article>
-            <div class="share">
-                <!--<div class="share-component"></div>-->
-            </div>
-            <div class="comment">
-                
-
-            </div>
-        </div>
-        <div class="column one-fourth">
-            
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
 <h3>Search</h3>
 <div id="site_search">
     <input type="text" id="search_box" placeholder="Search">
@@ -196,51 +183,22 @@ SimpleJekyllSearch({
 })
 </script>
 
-            
-<h3>Blog Categories</h3>
-<div id="blog-categories">
-  <ul class="list-group">
     
+
     
-    <li class="list-group-item">
-    <a href="#CTF">CTF</a>
-    <span class="badge">2</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#SQL注入">SQL注入</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#technique">technique</a>
-    <span class="badge">3</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#书">书</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="#杂">杂</a>
-    <span class="badge">1</span>
-    </li>
-    
-  </ul>
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
 </div>
 
-<script type="text/javascript">
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
 
-  $(document).ready(function(){
-    $("#blog-categories li").css('text-transform','capitalize')
-  });
-
-</script>
-
-
-        </div>
-    </div>
+  </div>
+</div>
 </section>
 <!-- /section.content -->
 
