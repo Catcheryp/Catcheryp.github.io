@@ -95,17 +95,17 @@ disqus:
     username: 
 # https://imsun.net/posts/gitment-introduction/
 gitment:
-    owner: mzlogin
-    repo: blog-comments
+    owner: Catcheryp
+    repo: blogcomments
     oauth:
-        client_id: d2e1cbbd298958076462
-        client_secret: b42a4178e5fd4a7cf63189ef4b1453b05c375709
+        client_id: 5a59fdc570f933e0c2ee
+        client_secret: 4bfb41f4315d6e67dc7d994890a4fc8bf9dee142
 # https://github.com/gitalk/gitalk#install
 gitalk:
-    owner: mzlogin
-    repo: blog-comments
-    clientID: d2e1cbbd298958076462
-    clientSecret: b42a4178e5fd4a7cf63189ef4b1453b05c375709
+    owner: Catcher
+    repo: blogcomments
+    clientID: 5a59fdc570f933e0c2ee
+    clientSecret: 4bfb41f4315d6e67dc7d994890a4fc8bf9dee142
 # 在使用其它评论组件时可点击显示 Disqus
 lazy_load_disqus : false
 
