@@ -1,4 +1,11 @@
+.col-box{
+	margin-left: 20px;
+
+}
 .col-box-title{
-	margin-left: 50px;
+	margin-bottom: 10px;
+}
+
+.post-list{
 	margin-bottom: 10px;
 }

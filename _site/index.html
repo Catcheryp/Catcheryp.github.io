@@ -450,7 +450,7 @@ SimpleJekyllSearch({
 
 -->
             <div class="col-box">
-  <div class="col-box-title" >Newest Posts</div>
+  <div class="col-box-title" ><h3>Newest Posts</h3></div>
   <ul class="post-list">
     
       <li><a class="post-link" href="/2018/08/03/bk_dc/">多次(Bugku Web)</a></li>
@@ -471,6 +471,49 @@ SimpleJekyllSearch({
     
   </ul>
 </div>
+
+
+            
+<h3>Blog Categories</h3>
+<div id="blog-categories">
+  <ul class="list-group">
+    
+    
+    <li class="list-group-item">
+    <a href="http://localhost:4000/categories/">CTF</a>
+    <span class="badge">2</span>
+    </li>
+    
+    <li class="list-group-item">
+    <a href="http://localhost:4000/categories/">SQL注入</a>
+    <span class="badge">1</span>
+    </li>
+    
+    <li class="list-group-item">
+    <a href="http://localhost:4000/categories/">technique</a>
+    <span class="badge">3</span>
+    </li>
+    
+    <li class="list-group-item">
+    <a href="http://localhost:4000/categories/">书</a>
+    <span class="badge">1</span>
+    </li>
+    
+    <li class="list-group-item">
+    <a href="http://localhost:4000/categories/">杂</a>
+    <span class="badge">1</span>
+    </li>
+    
+  </ul>
+</div>
+
+<script type="text/javascript">
+
+  $(document).ready(function(){
+    $("#blog-categories li").css('text-transform','capitalize')
+  });
+
+</script>
 
 
         </div>
@@ -496,7 +539,7 @@ SimpleJekyllSearch({
     <footer class="container">
         <div class="site-footer" role="contentinfo">
             <div class="copyright left mobile-block">
-                    © 2015
+                    © 2018
                     <span title="Catcher">Catcher</span>
                     <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
             </div>
