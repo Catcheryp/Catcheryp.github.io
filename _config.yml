@@ -4,10 +4,10 @@
 baseurl:
 url: https://pengyang.me
 date_format: "ordinal"
-title: 码志
-subtitle: "打码改变人生"
-description: "马壮的个人博客"
-keywords: 码志, Zhuang Ma, mzlogin, mazhuang
+title: Evil
+subtitle: "锲而不舍，聚沙成塔."
+description: "Catcher's blog"
+keywords: Web Security
 timezone: Asia/Shanghai
 encoding: "utf-8"
 side_bar_repo_limit: 5
@@ -15,12 +15,12 @@ side_bar_repo_limit: 5
 # ---------------- #
 #      Author      #
 # ---------------- #
-author: Zhuang Ma
+author: Catcher
 organization: zkh360.com
 organization_url: http://www.zkh360.com
 github_username: mzlogin
 location: Wuhan, China
-email: chumpma@gmail.com
+email: catcheryp@gmail.com
 
 # ---------------- #
 #    Navigation    #
@@ -34,13 +34,13 @@ navs:
     href: /categories/
     label: 分类
 
-#   -
-#     href: /archives/
-#     label: 归档
-
   -
-    href: /wiki/
-    label: 维基
+    href: /archives/
+    label: 归档
+
+  # -
+  #   href: /wiki/
+  #   label: 维基
 
   -
     href: /links/
@@ -81,7 +81,7 @@ collections:
         output: true
         permalink: /wiki/:path/
 
-repository: mzlogin/mzlogin.github.io
+repository: Catcheryp/Catcheryp.github.io
 
 # ---------------- #
 #      Comments    #
@@ -102,7 +102,7 @@ gitment:
         client_secret: 4bfb41f4315d6e67dc7d994890a4fc8bf9dee142
 # https://github.com/gitalk/gitalk#install
 gitalk:
-    owner: Catcher
+    owner: Catcheryp
     repo: blogcomments
     clientID: 5a59fdc570f933e0c2ee
     clientSecret: 4bfb41f4315d6e67dc7d994890a4fc8bf9dee142
