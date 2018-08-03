@@ -82,6 +82,7 @@ plugins:
 #         permalink: /wiki/:path/
 
 repository: Catcheryp/Catcheryp.github.io
+github: [metadata]
 
 # ---------------- #
 #      Comments    #
