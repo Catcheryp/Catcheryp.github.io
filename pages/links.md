@@ -14,3 +14,5 @@ permalink: /links/
 - **Chybeta** [https://chybeta.github.io](https://chybeta.github.io)
 - **酷壳** [https://coolshell.cn/](https://coolshell.cn/)
 - **阮一峰** [http://www.ruanyifeng.com](http://www.ruanyifeng.com)
+- **码志** [https://mazhuang.org/](https://mazhuang.org/)
+
