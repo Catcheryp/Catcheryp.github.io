@@ -8,9 +8,9 @@ menu: 链接
 permalink: /links/
 ---
 
-> God made relatives. Thank God we can choose our friends.
-
-{% for link in site.data.links %}
-* [{{ link.name }}]({{ link.url }})
-{% endfor %}
-
+- **razrLeLe** [https://yueyu.io/](https://yueyu.io/)
+- **xunge** [http://xunge.me](http://xunge.me)
+- **phith0n** [https://www.leavesongs.com](https://www.leavesongs.com)
+- **Chybeta** [https://chybeta.github.io](https://chybeta.github.io)
+- **酷壳** [https://coolshell.cn/](https://coolshell.cn/)
+- **阮一峰** [http://www.ruanyifeng.com](http://www.ruanyifeng.com)
