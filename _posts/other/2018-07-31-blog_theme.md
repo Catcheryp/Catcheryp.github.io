@@ -1,7 +1,7 @@
 ---
 title: 博客皮肤
 layout: post
-categories: 杂
+categories: 其他
 ---
 博客换过 n 个主题了，wordpress、hexo、jekyll 都用过，这里就记录一下好看的主题，持续更新......
 <!--more-->

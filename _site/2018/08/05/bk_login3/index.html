@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>博客皮肤 &mdash; Evil</title>
+    <title>login3(SKCTF) &mdash; Evil</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -23,29 +23,29 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/2018/07/31/blog_theme/">
+    <link rel="canonical" href="http://localhost:4000/2018/08/05/bk_login3/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
     <link rel="shortcut icon" href="http://localhost:4000/images/favicon.jpg" >
     
-    <meta property="og:title" content="博客皮肤">
+    <meta property="og:title" content="login3(SKCTF)">
       
     <meta name="keywords" content="Web Security">
     <meta name="og:keywords" content="Web Security">
       
-    <meta name="description" content="博客换过 n 个主题了，wordpress、hexo、jekyll 都用过，这里就记录一下好看的主题，持续更新……">
-    <meta name="og:description" content="博客换过 n 个主题了，wordpress、hexo、jekyll 都用过，这里就记录一下好看的主题，持续更新……">
+    <meta name="description" content="一道 SQL 注入的题目，里面有不少绕过的技巧，值得好好来分析一下。">
+    <meta name="og:description" content="一道 SQL 注入的题目，里面有不少绕过的技巧，值得好好来分析一下。">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/2018/07/31/blog_theme/">
+    <meta property="og:url" content="http://localhost:4000/2018/08/05/bk_login3/">
     <meta property="og:site_name" content="Evil">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
     
-    <meta property="article:published_time" content="2018-07-31">
+    <meta property="article:published_time" content="2018-08-05">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -75,22 +75,22 @@
     </header>
     <!-- / header -->
 
-    <section class="collection-head small geopattern" data-pattern-id="博客皮肤">
+    <section class="collection-head small geopattern" data-pattern-id="login3(SKCTF)">
 <div class="container">
   <div class="columns">
     <div class="column three-fourths">
       <div class="collection-title">
-        <h1 class="collection-header">博客皮肤</h1>
+        <h1 class="collection-header">login3(SKCTF)</h1>
         <div class="collection-info">
           
           <span class="meta-info">
-            <span class="octicon octicon-calendar"></span> 2018/07/31
+            <span class="octicon octicon-calendar"></span> 2018/08/05
           </span>
           
           
           <span class="meta-info">
             <span class="octicon octicon-file-directory"></span>
-            <a href="http://localhost:4000/categories/#其他" title="其他">其他</a>
+            <a href="http://localhost:4000/categories/#CTF" title="CTF">CTF</a>
           </span>
           
         </div>
@@ -104,45 +104,28 @@
 <div class="columns">
   <div class="column three-fourths" >
     <article class="article-content markdown-body">
-    <p>博客换过 n 个主题了，wordpress、hexo、jekyll 都用过，这里就记录一下好看的主题，持续更新……
-<!--more--></p>
+    <p>一道 SQL 注入的题目，里面有不少绕过的技巧，值得好好来分析一下。</p>
 
-<h2 id="0x01-jekyll">0x01 jekyll</h2>
-<ul>
-  <li>
-    <p><a href="https://sootspirits.github.io/">Soot Spirits Jekyll Theme</a><br />
-<img src="http://localhost:4000/images/blog/blog_theme1.png" alt="demo1" /></p>
-  </li>
-  <li>
-    <p><a href="https://github.com/mzlogin/mzlogin.github.io">码志</a>
-<img src="http://localhost:4000/images/blog/blog_theme2.png" alt="demo2" /></p>
-  </li>
-  <li>
-    <p><a href="https://blog.kejun.me/">MDUI </a>
-<img src="http://localhost:4000/images/blog/blog_theme3.png" alt="demo3" /></p>
-  </li>
-  <li>
-    <p><a href="https://taylantatli.github.io/Moon/">TaylanTatli/Moon</a>
-<img src="http://localhost:4000/images/blog/blog_theme4.png" alt="demo4" /></p>
-  </li>
-  <li>
-    <p><a href="https://github.com/laobubu/jekyll-theme-EasyBook">easybook</a>
-<img src="http://localhost:4000/images/blog/blog_theme5.png" alt="demo5" /></p>
-  </li>
-</ul>
+<!--more-->
 
-<h2 id="0x02-hexo">0x02 hexo</h2>
+<h2 id="0x01-题目">0x01 题目</h2>
 
-<ul>
-  <li><a href="http://wps2015.org/"> Landscape-plus</a>
-<img src="http://localhost:4000/images/blog/blog_theme6.png" alt="demo6" /></li>
-</ul>
+<p><a href="http://ctf.bugku.com/challenges">题目链接</a></p>
 
-<h2 id="0x03-wordpress">0x03 wordpress</h2>
+<p><img src="http://localhost:4000/images/blog/bk_log3.png" alt="多次" /></p>
 
-<ul>
-  <li><a href="https://lms.im/theme/wordpress-theme-bluesky">bluesky</a></li>
-</ul>
+<h2 id="0x02-解答">0x02 解答</h2>
+
+<h3 id="step1尝试">step1:尝试</h3>
+
+<p>拿到这种题目首先就是测试一下输入，我一般是用<code class="highlighter-rouge">admin admin</code>作为用户名和密码来测试，此时回显<code class="highlighter-rouge">password error!</code>也就是用户名是存在的，只是密码错误。</p>
+
+<p>然后测试一下<code class="highlighter-rouge">123 admin</code>，回显的是<code class="highlighter-rouge">username does not exist!</code>。这说明了啥呢？说明了在后台是对用户名进行查询了的，我们不妨猜测一下后台的 SQL 语句:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>select username, password from users where username='XXX'
+</code></pre></div></div>
+
+<p>根据以上分析，我们其实可以根据回显的不同进行布尔盲注。</p>
 
 
     </article>
@@ -160,7 +143,7 @@
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
         <script>
         var gitalk = new Gitalk({
-            id: '/2018/07/31/blog_theme/',
+            id: '/2018/08/05/bk_login3/',
             clientID: '5a59fdc570f933e0c2ee',
             clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
             repo: 'blogcomments',

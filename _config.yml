@@ -17,7 +17,7 @@ side_bar_repo_limit: 5
 # ---------------- #
 author: Catcher
 organization: 0days
-#organization_url: http://www.zkh360.com
+organization_url: https://twitter.com/catcheryp
 github_username: Catcheryp
 location: Harbin, China
 email: catcheryp@gmail.com
@@ -26,9 +26,6 @@ email: catcheryp@gmail.com
 #    Navigation    #
 # ---------------- #
 navs:
-  -
-    href: /
-    label: 首页
 
   -
     href: /archives/
@@ -37,10 +34,6 @@ navs:
   -
     href: /categories/
     label: 分类
-
-  # -
-  #   href: /wiki/
-  #   label: 维基
 
   -
     href: /links/
@@ -62,7 +55,7 @@ markdown: kramdown
 kramdown:
     input: GFM
 highlighter: rouge
-paginate: 20
+paginate: 10
 lsi: false
 quiet: false
 excerpt_separator: "\n\n"
