@@ -30,4 +30,6 @@ categories: 其他
 ## 0x03 wordpress
 
 - [bluesky](https://lms.im/theme/wordpress-theme-bluesky)
+<br>
+![demo7]({{ site.url }}/images/blog/blog_theme7.jpg)
 

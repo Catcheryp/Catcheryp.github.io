@@ -137,8 +137,9 @@
   <li><code class="highlighter-rouge">mid(xxx,from 1 for 1)</code> (for 和逗号被过滤)&lt;—&gt;<code class="highlighter-rouge">ascii()</code>(如果传入一个字符串那么就会取第一个字符的ascii码值)</li>
 </ol>
 
-<p>下面就是按照 SQL 注入的一般套路来：
-<strong>1.先查询数据库名</strong></p>
+<p>下面就是按照 SQL 注入的一般套路来：</p>
+
+<p><strong>1.先查询数据库名</strong></p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>admin'^(ascii(mid(database()from(1)))&lt;&gt;1)#
 </code></pre></div></div>

