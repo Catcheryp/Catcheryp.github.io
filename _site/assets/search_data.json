@@ -31,6 +31,13 @@
   
   
   
+    {
+      "title"    : "Collections",
+      "url"      : "http://localhost:4000/collections/"
+    } ,
+  
+  
+  
   
   
     {

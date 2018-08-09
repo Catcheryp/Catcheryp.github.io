@@ -8,6 +8,8 @@ menu: 关于
 permalink: /about/
 ---
 
+## ...me
+
 ```python 
 """
 知识面，决定看到的攻击面有多⼴，知识链，决定发动的杀伤链有多深。
@@ -29,5 +31,11 @@ while True:
 	Reading
 	Running
 	Fighting
-
 ```
+
+
+
+## ...links
+
+- **razrLeLe** [https://yueyu.io/](https://yueyu.io/)
+- **xunge** [http://xunge.me](http://xunge.me)
