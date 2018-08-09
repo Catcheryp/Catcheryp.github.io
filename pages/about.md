@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: about-page
 title: About
 description: 锲而不舍，聚沙成塔.
 keywords: YP
