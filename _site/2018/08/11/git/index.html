@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>页面没有找到 &mdash; Evil</title>
+    <title>Git常用命令 &mdash; Evil</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -23,27 +23,29 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/404.html">
+    <link rel="canonical" href="http://localhost:4000/2018/08/11/git/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
     <link rel="shortcut icon" href="http://localhost:4000/images/favicon.jpg" >
     
-    <meta property="og:title" content="页面没有找到">
+    <meta property="og:title" content="Git常用命令">
       
-    <meta name="keywords" content="404">
-    <meta name="og:keywords" content="404">
+    <meta name="keywords" content="Web Security">
+    <meta name="og:keywords" content="Web Security">
       
-    <meta name="description" content="你来到了一片荒芜之地">
-    <meta name="og:description" content="你来到了一片荒芜之地">
+    <meta name="description" content="记录那些常用的 git 命令，持续更新……">
+    <meta name="og:description" content="记录那些常用的 git 命令，持续更新……">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/404.html">
+    <meta property="og:url" content="http://localhost:4000/2018/08/11/git/">
     <meta property="og:site_name" content="Evil">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2018-08-11">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -73,66 +75,92 @@
     </header>
     <!-- / header -->
 
-    <section class="collection-head small geopattern" data-pattern-id="页面没有找到">
-    <div class="container">
-        <div class="collection-title">
-            <h1 class="collection-header">页面没有找到</h1>
-            
+    <section class="collection-head small geopattern" data-pattern-id="Git常用命令">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">Git常用命令</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2018/08/11
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#编程基础" title="编程基础">编程基础</a>
+          </span>
+          
         </div>
+      </div>
     </div>
+  </div>
+</div>
 </section>
 <!-- / .banner -->
- <section class="container content">
-        <div class="columns">
-            <div class="column two-thirds" >
-                <article class="article-content markdown-body">
-                    <p>你来到这个页面，通常有两个原因。</p>
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>记录那些常用的 git 命令，持续更新……</p>
 
-<h2 id="一链接错误">一、链接错误</h2>
+<!--more-->
 
-<p>原因：博客搬迁造成的旧链接失效。</p>
+<h3 id="1修改之后提交">1.修改之后提交</h3>
 
-<p><strong>备用办法：</strong> 在「<a href="/categories/">分类</a>」中找。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/Catcheryp/Catcheryp.github.io.git
+git add .
+git commit -m "XXX"
+git push
+</code></pre></div></div>
 
-<h2 id="二维度攻击">二、维度攻击</h2>
+<h3 id="2打标签发布">2.打标签发布</h3>
 
-<p>不明力量入侵，你想要访问的页面被摧毁了。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git tag v0.1-alpha   #创建轻量标签
+git push origin --tags   #把所有不在远程仓库服务器上的标签全部传送到那里
+git tag   #在 Git 中列出已有的标签
+</code></pre></div></div>
 
-<!----------------------------------------------------------------
-         mm
-      /^(  )^\                     Ascii arts included in this page:
-      \,(..),/                     - R2D2, provided by: http://www.chris.com/
-        V~~V                       - Texts, generated from: http://www.network-science.de/ascii/  
-                                   http:// cnfeat.github.io
-            
------------------------------------------------------------------->
+<h3 id="参考">参考：</h3>
 
-<style>
-    pre {
-          background: none;
-          border: none;
-    }
-  </style>
+<p><a href="https://git-scm.com/book/zh/v2">https://git-scm.com/book/zh/v2</a></p>
 
-<pre>         
----x-----mm--
-      /^(  )^\
-      \,(..),/        Oops...
-        V~~V                     
-一定是发生了什么可怕的事情....
-    </pre>
 
-                </article>
-                <div class="share">
-                    <!--<div class="share-component"></div>-->
-                </div>
-                <div class="comment">
-                    
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
 
-                </div>
-            </div>
-            <div class="column one-fourth">
-                
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2018/08/11/git/',
+            clientID: '5a59fdc570f933e0c2ee',
+            clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
+            repo: 'blogcomments',
+            owner: 'Catcheryp',
+            admin: ['Catcheryp'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
 <h3>Search</h3>
 <div id="site_search">
     <input type="text" id="search_box" placeholder="Search">
@@ -157,61 +185,24 @@ SimpleJekyllSearch({
 })
 </script>
 
-                <!--<h3>My Popular Repositories</h3>
+    
 
--->
-                
-<h3>Blog Categories</h3>
-<div id="blog-categories">
-  <ul class="list-group">
     
-    
-    <li class="list-group-item">
-    <a href="http://localhost:4000/categories/#CTF">CTF</a>
-    <span class="badge">3</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="http://localhost:4000/categories/#SQL注入">SQL注入</a>
-    <span class="badge">4</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="http://localhost:4000/categories/#technique">technique</a>
-    <span class="badge">3</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="http://localhost:4000/categories/#其他">其他</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="http://localhost:4000/categories/#编程基础">编程基础</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="http://localhost:4000/categories/#读书">读书</a>
-    <span class="badge">2</span>
-    </li>
-    
-  </ul>
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
 </div>
 
-<script type="text/javascript">
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
 
-  $(document).ready(function(){
-    $("#blog-categories li").css('text-transform','capitalize')
-  });
-
-</script>
-
-
-            </div>
-        </div>
-    </section>
-    <!-- /section.content -->
+  </div>
+</div>
+</section>
+<!-- /section.content -->
 
     <footer class="container">
         <div class="site-footer" role="contentinfo">
