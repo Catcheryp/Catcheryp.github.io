@@ -68,25 +68,27 @@
   
   
   
+  
+  
 
   
     {
       "title"    : "搭建梯子",
-      "category" : "tech",
+      "category" : "折腾",
       
       "url"      : "http://localhost:4000/2018/04/26/ss/"
     } ,
   
     {
       "title"    : "网络流量加密识别",
-      "category" : "tech",
+      "category" : "program",
       
       "url"      : "http://localhost:4000/2018/05/04/recognize/"
     } ,
   
     {
       "title"    : "博客加小绿锁",
-      "category" : "tech",
+      "category" : "折腾",
       
       "url"      : "http://localhost:4000/2018/05/29/https/"
     } ,
@@ -107,7 +109,7 @@
   
     {
       "title"    : "博客皮肤",
-      "category" : "tech",
+      "category" : "折腾",
       
       "url"      : "http://localhost:4000/2018/07/31/blog_theme/"
     } ,
@@ -127,17 +129,17 @@
     } ,
   
     {
-      "title"    : "当我谈跑步时，我谈些什么",
-      "category" : "读书",
-      
-      "url"      : "http://localhost:4000/2018/08/05/tpb/"
-    } ,
-  
-    {
       "title"    : "login3(SKCTF)",
       "category" : "CTF",
       
       "url"      : "http://localhost:4000/2018/08/05/bk_login3/"
+    } ,
+  
+    {
+      "title"    : "当我谈跑步时，我谈些什么",
+      "category" : "读书",
+      
+      "url"      : "http://localhost:4000/2018/08/05/tpb/"
     } ,
   
     {

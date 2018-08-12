@@ -1,8 +1,8 @@
 ---
 title: 网络流量加密识别
 layout: post
-categories: tech
-tags: tech
+categories: program
+tags: coding
 ---
 实验室的任务，搬砖的日常......
 
