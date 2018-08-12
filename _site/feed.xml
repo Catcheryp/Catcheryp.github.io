@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-12T10:34:15+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">时间盲注的套路</title><link href="http://localhost:4000/2018/08/11/time_ij/" rel="alternate" type="text/html" title="时间盲注的套路" /><published>2018-08-11T00:00:00+08:00</published><updated>2018-08-11T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/11/time_ij</id><content type="html" xml:base="http://localhost:4000/2018/08/11/time_ij/">&lt;p&gt;记录时间盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-9(基于时间的GET单引号盲注)。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-12T10:45:29+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">时间盲注的套路</title><link href="http://localhost:4000/2018/08/11/time_ij/" rel="alternate" type="text/html" title="时间盲注的套路" /><published>2018-08-11T00:00:00+08:00</published><updated>2018-08-11T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/11/time_ij</id><content type="html" xml:base="http://localhost:4000/2018/08/11/time_ij/">&lt;p&gt;记录时间盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-9(基于时间的GET单引号盲注)。&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -23,9 +23,9 @@ id=1' and sleep(5) --+ ---&amp;gt; 延时 5 秒，说明可以进行时间注入
 benchmark()	适用 MySQL 4/5 ，延时时间执行。 ---&amp;gt; benchmark(10000000,encode('hello','mom')) 执行该语句需要约 3.6 秒
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;**if语句：&lt;code class=&quot;highlighter-rouge&quot;&gt;if(expr1,expr2,expr3)&lt;/code&gt; 若expr1为真，返回expr2，否则返回expr3 **&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;if语句：&lt;code class=&quot;highlighter-rouge&quot;&gt;if(expr1,expr2,expr3)&lt;/code&gt; 若expr1为真，返回expr2，否则返回expr3&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;**注入时候是根据 sleep(5) 并结合 if(,,) 判断来的，条件正确就有五秒延迟，不正确就没有五秒延迟。 **&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注入时候是根据 sleep(5) 并结合 if(,,) 判断来的，条件正确就有五秒延迟，不正确就没有五秒延迟。&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;payload：&lt;/strong&gt;&lt;/p&gt;
 

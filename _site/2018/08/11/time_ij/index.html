@@ -136,9 +136,9 @@ id=1' and sleep(5) --+ ---&gt; 延时 5 秒，说明可以进行时间注入
 benchmark()	适用 MySQL 4/5 ，延时时间执行。 ---&gt; benchmark(10000000,encode('hello','mom')) 执行该语句需要约 3.6 秒
 </code></pre></div></div>
 
-<p>**if语句：<code class="highlighter-rouge">if(expr1,expr2,expr3)</code> 若expr1为真，返回expr2，否则返回expr3 **</p>
+<p><strong>if语句：<code class="highlighter-rouge">if(expr1,expr2,expr3)</code> 若expr1为真，返回expr2，否则返回expr3</strong></p>
 
-<p>**注入时候是根据 sleep(5) 并结合 if(,,) 判断来的，条件正确就有五秒延迟，不正确就没有五秒延迟。 **</p>
+<p><strong>注入时候是根据 sleep(5) 并结合 if(,,) 判断来的，条件正确就有五秒延迟，不正确就没有五秒延迟。</strong></p>
 
 <p><strong>payload：</strong></p>
 
