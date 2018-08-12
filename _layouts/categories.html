@@ -20,7 +20,6 @@ layout: default
                 
 
                 <section class="container posts-content">
-                <h1>{{ page.category }}</h1>
                 <ol class="posts-list" id="{{ category[0] }}">
                 {% for post in site.posts %}
                   {% for category in post.categories %}
