@@ -10,6 +10,8 @@
   
   
   
+  
+  
     {
       "title"    : "About",
       "url"      : "http://localhost:4000/about/"
@@ -20,13 +22,6 @@
     {
       "title"    : "Archives",
       "url"      : "http://localhost:4000/archives/"
-    } ,
-  
-  
-  
-    {
-      "title"    : "Categories",
-      "url"      : "http://localhost:4000/categories/"
     } ,
   
   
@@ -51,6 +46,21 @@
   
   
   
+    {
+      "title"    : "Tags",
+      "url"      : "http://localhost:4000/tags/"
+    } ,
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   
@@ -62,21 +72,21 @@
   
     {
       "title"    : "搭建梯子",
-      "category" : "technique",
+      "category" : "tech",
       
       "url"      : "http://localhost:4000/2018/04/26/ss/"
     } ,
   
     {
       "title"    : "网络流量加密识别",
-      "category" : "technique",
+      "category" : "tech",
       
       "url"      : "http://localhost:4000/2018/05/04/recognize/"
     } ,
   
     {
       "title"    : "博客加小绿锁",
-      "category" : "technique",
+      "category" : "tech",
       
       "url"      : "http://localhost:4000/2018/05/29/https/"
     } ,
@@ -97,14 +107,14 @@
   
     {
       "title"    : "博客皮肤",
-      "category" : "其他",
+      "category" : "tech",
       
       "url"      : "http://localhost:4000/2018/07/31/blog_theme/"
     } ,
   
     {
       "title"    : "SQL注入的套路",
-      "category" : "SQL注入",
+      "category" : "web安全",
       
       "url"      : "http://localhost:4000/2018/08/01/sql_injection1/"
     } ,
@@ -132,28 +142,28 @@
   
     {
       "title"    : "sqli-labs Less-5",
-      "category" : "SQL注入",
+      "category" : "web安全",
       
       "url"      : "http://localhost:4000/2018/08/09/sqli-l5/"
     } ,
   
     {
       "title"    : "Git常用命令",
-      "category" : "编程基础",
+      "category" : "program",
       
       "url"      : "http://localhost:4000/2018/08/11/git/"
     } ,
   
     {
       "title"    : "布尔盲注的套路",
-      "category" : "SQL注入",
+      "category" : "web安全",
       
       "url"      : "http://localhost:4000/2018/08/11/bool_ij/"
     } ,
   
     {
       "title"    : "时间盲注的套路",
-      "category" : "SQL注入",
+      "category" : "web安全",
       
       "url"      : "http://localhost:4000/2018/08/11/time_ij/"
     } 

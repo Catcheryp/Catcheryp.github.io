@@ -12,3 +12,16 @@ code, pre{
 	-o-tab-size: 4;
 	tab-size: 4;
 }
+
+/*tags部分*/
+#tag{
+  background-color: #6a9fb5;
+}
+
+#tag:hover{
+  background-color: #4183c4;
+}
+
+#blog-tags > a:hover{
+  text-decoration: none;
+}

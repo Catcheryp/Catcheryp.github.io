@@ -1,0 +1,16 @@
+
+<h3>Tags</h3>
+
+<div id="blog-tags">
+    {% assign sorted_tags = site.tags | sort %}
+    {% for tag in sorted_tags %}
+    <a href="#{{ tag[0] }}">
+    <span class="badge" id="tag">
+    {{ tag | first }}
+    <span>{{ tag[1].size }}</span>
+    </span>
+    </a>
+    {% endfor %}
+</div>
+
+

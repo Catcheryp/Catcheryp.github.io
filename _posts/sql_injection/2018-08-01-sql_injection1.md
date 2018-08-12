@@ -1,7 +1,8 @@
 ---
 title: SQL注入的套路
 layout: post
-categories: SQL注入
+categories: web安全
+tags: sql注入
 ---
 记录一般的 SQL 注入的套路，持续更新......
 <!--more-->

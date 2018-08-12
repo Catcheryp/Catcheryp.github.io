@@ -32,8 +32,8 @@ navs:
     label: 归档
 
   -
-    href: /categories/
-    label: 分类
+    href: /tags/
+    label: 标签
 
   -
     href: /links/
