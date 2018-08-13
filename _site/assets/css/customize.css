@@ -25,3 +25,14 @@ code, pre{
 #blog-tags > a:hover{
   text-decoration: none;
 }
+
+/*archives tags*/
+.posts-list-item1 a{
+	font-size: 15px;
+	font-weight: normal;
+    font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
+	color: #666;
+}
+.posts-list-item1{
+	line-height: 10px;
+}

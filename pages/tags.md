@@ -14,9 +14,9 @@ permalink: /tags/
 <h3>{{ tag | first }}</h3>
 <ol class="posts-list" id="{{ tag[0] }}">
 {% for post in tag.last %}
-<li class="posts-list-item">
+<li class="posts-list-item1">
 <span class="posts-list-meta">{{ post.date | date:"%Y-%m-%d" }}</span>
-<a class="posts-list-name" href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
+<a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
 </li>
 {% endfor %}
 </ol>
