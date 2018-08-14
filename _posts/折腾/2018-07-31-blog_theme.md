@@ -23,6 +23,8 @@ tags: blog-theme
   ![demo5]({{ site.url }}/images/blog/blog_theme5.png)
 - [jekyll-clean-dark](https://github.com/streetturtle/streetturtle.github.io)
   ![demo6]({{ site.url }}/images/blog/blog_theme8.png)
+- [de4dcr0w](https://de4dcr0w.github.io/)
+  ![demo9]({{ site.url }}/images/blog/blog_theme9.png)
 
 ## 0x02 hexo
 
