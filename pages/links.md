@@ -53,10 +53,21 @@ permalink: /links/
 ## 安全技术
 
 - [知道创宇 https://paper.seebug.org/](https://paper.seebug.org/)
-
 - [先知社区 https://xz.aliyun.com/](https://xz.aliyun.com/)
-
+- [SecWiki https://www.sec-wiki.com/skill/2](https://www.sec-wiki.com/skill/2)
 - [安全客 https://www.anquanke.com/knowledge](https://www.anquanke.com/knowledge)
+
+
+
+## 教程
+
+- [Vue.js](https://vuejscaff.com/courses)
+
+- [Laravel](https://laravel-china.org/courses)
+
+- [Django](https://www.zmrenwu.com/tutorials/)
+
+  
 
   
 

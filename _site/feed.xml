@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-14T18:37:32+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">never give up(Bugku)</title><link href="http://localhost:4000/2018/08/13/bk_ng/" rel="alternate" type="text/html" title="never give up(Bugku)" /><published>2018-08-13T00:00:00+08:00</published><updated>2018-08-13T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/13/bk_ng</id><content type="html" xml:base="http://localhost:4000/2018/08/13/bk_ng/">&lt;p&gt;Bugku 上一道比较简单的 web 题目，但是仍然有单独拿出来看看的价值。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-16T16:41:18+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">never give up(Bugku)</title><link href="http://localhost:4000/2018/08/13/bk_ng/" rel="alternate" type="text/html" title="never give up(Bugku)" /><published>2018-08-13T00:00:00+08:00</published><updated>2018-08-13T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/13/bk_ng</id><content type="html" xml:base="http://localhost:4000/2018/08/13/bk_ng/">&lt;p&gt;Bugku 上一道比较简单的 web 题目，但是仍然有单独拿出来看看的价值。&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -653,17 +653,46 @@ Table: users
 
 &lt;h3 id=&quot;1修改之后提交&quot;&gt;1.修改之后提交&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/Catcheryp/Catcheryp.github.io.git
-git add .
-git commit -m &quot;XXX&quot;
-git push
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git clone https://github.com/Catcheryp/Catcheryp.github.io.git
+$ git add .
+$ git commit -m &quot;XXX&quot;
+$ git push
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;2打标签发布&quot;&gt;2.打标签发布&lt;/h3&gt;
+&lt;h2 id=&quot;2-提交本地文件&quot;&gt;2. 提交本地文件&lt;/h2&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git tag v0.1-alpha   #创建轻量标签
-git push origin --tags   #把所有不在远程仓库服务器上的标签全部传送到那里
-git tag   #在 Git 中列出已有的标签
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cd ~/Code/test
+$ git init
+$ git add -A
+$ git commit -m &quot;Initial commit&quot;
+
+//远程创建了名为 test 的 repo
+$ git remote add origin git@github.com:Catcheryp/test.git
+$ git push -u origin master
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//创建分支 
+$ git checkout master   将当前分支切换到 master 分支上
+$ git checkout -b new-test   将会为你创建一个名为 new-test 的新分支
+
+$ git merge new-test
+$ git branch -d new-test   //删除分支
+
+$ git branch -l   //查看本地分支
+$ git branch -r   //查看远程分支
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git commit -m &quot;last&quot;
+XXX---&amp;gt;中间经历若干操作
+$ git add -A
+$ git checkout -f   放弃中间经历的若干操作，回到上次 commit 的地方
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;3打标签发布&quot;&gt;3.打标签发布&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git tag v0.1-alpha   #创建轻量标签
+$ git push origin --tags   #把所有不在远程仓库服务器上的标签全部传送到那里
+$ git tag   #在 Git 中列出已有的标签
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;参考&quot;&gt;参考：&lt;/h3&gt;
