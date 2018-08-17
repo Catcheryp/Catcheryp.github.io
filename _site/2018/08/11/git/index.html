@@ -125,7 +125,7 @@ $ git commit -m "XXX"
 $ git push
 </code></pre></div></div>
 
-<h2 id="2-提交本地文件">2. 提交本地文件</h2>
+<h3 id="2-提交本地文件">2. 提交本地文件</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd ~/Code/test
 $ git init
@@ -141,8 +141,11 @@ $ git push -u origin master
 $ git checkout master   将当前分支切换到 master 分支上
 $ git checkout -b new-test   将会为你创建一个名为 new-test 的新分支
 
-$ git merge new-test
-$ git branch -d new-test   //删除分支
+----
+$ git checkout master		//切换到主分支
+$ git merge new-test		//合并分支
+$ git branch -d new-test    //删除分支
+----
 
 $ git branch -l   //查看本地分支
 $ git branch -r   //查看远程分支
@@ -151,14 +154,14 @@ $ git branch -r   //查看远程分支
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git commit -m "last"
 XXX---&gt;中间经历若干操作
 $ git add -A
-$ git checkout -f   放弃中间经历的若干操作，回到上次 commit 的地方
+$ git checkout -f   //放弃中间经历的若干操作，回到上次 commit 的地方
 </code></pre></div></div>
 
 <h3 id="3打标签发布">3.打标签发布</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git tag v0.1-alpha   #创建轻量标签
-$ git push origin --tags   #把所有不在远程仓库服务器上的标签全部传送到那里
-$ git tag   #在 Git 中列出已有的标签
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git tag v0.1-alpha   //创建轻量标签
+$ git push origin --tags   //把所有不在远程仓库服务器上的标签全部传送到那里
+$ git tag   //在 Git 中列出已有的标签
 </code></pre></div></div>
 
 <h3 id="参考">参考：</h3>

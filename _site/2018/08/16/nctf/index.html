@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>About &mdash; Evil</title>
+    <title>NCTF writeup(WEB) &mdash; Evil</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -23,27 +23,29 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/about/">
+    <link rel="canonical" href="http://localhost:4000/2018/08/16/nctf/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
     <link rel="shortcut icon" href="http://localhost:4000/images/favicon.jpg" >
     
-    <meta property="og:title" content="About">
+    <meta property="og:title" content="NCTF writeup(WEB)">
       
-    <meta name="keywords" content="YP">
-    <meta name="og:keywords" content="YP">
+    <meta name="keywords" content="Web Security">
+    <meta name="og:keywords" content="Web Security">
       
-    <meta name="description" content="锲而不舍，聚沙成塔.">
-    <meta name="og:description" content="锲而不舍，聚沙成塔.">
+    <meta name="description" content="这篇是南邮 CTF web 题目的 writeup，写在这里作为记录。持续更新……">
+    <meta name="og:description" content="这篇是南邮 CTF web 题目的 writeup，写在这里作为记录。持续更新……">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/about/">
+    <meta property="og:url" content="http://localhost:4000/2018/08/16/nctf/">
     <meta property="og:site_name" content="Evil">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2018-08-16">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -68,63 +70,140 @@
                 
                 <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
                 
-                <a href="http://localhost:4000/about/" class=" selected  site-header-nav-item" target="" title="关于">关于</a>
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于">关于</a>
                 
             </nav>
         </div>
     </header>
     <!-- / header -->
 
-    <section class="collection-head small geopattern" data-pattern-id="About">
-    <div class="container">
-        <div class="collection-title">
-            <h1 class="collection-header">About</h1>
-            
+    <section class="collection-head small geopattern" data-pattern-id="NCTF writeup(WE">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">NCTF writeup(WEB)</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2018/08/16
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/CTF" title="CTF">CTF</a>
+          </span>
+          
+
+          
+          <span class="meta-info">
+            <span class="octicon octicon-tag"></span>
+            <a href="http://localhost:4000/tags/#CTF" title="CTF">CTF</a>
+          </span>
+          
         </div>
+      </div>
     </div>
+  </div>
+</div>
 </section>
 <!-- / .banner -->
- <section class="container content">
-        <div class="columns">
-            <div class="column three-fourths" >
-                <article class="article-content markdown-body">
-                    <h2 id="me">…me</h2>
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>这篇是南邮 CTF web 题目的 writeup，写在这里作为记录。持续更新……</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""
-知识面，决定看到的攻击面有多⼴，知识链，决定发动的杀伤链有多深。
-学会如何学习，培养学习习惯，锻造学习力。
-为了能到远方，脚下的每一步都不能少。
-拥有快速学习能力的白帽子，是不能有短板的，有的只是大量的标准板和⼏块长板。
----@ringzero
-"""</span>
+<!--more-->
 
-<span class="n">Name</span> <span class="o">=</span> <span class="s">'Catcher'</span>
-<span class="n">Description</span> <span class="o">=</span> <span class="s">'Just a student now. And focus on web security.'</span>
+<h2 id="1签到题">1.签到题</h2>
 
-<span class="n">Github</span> <span class="o">=</span> <span class="s">'https://github.com/Catcheryp'</span>
-<span class="n">Blog</span> <span class="o">=</span> <span class="s">'https://pengyang.me'</span>
-<span class="n">Email</span> <span class="o">=</span> <span class="s">'Y2F0Y2hlcnlwQGdtYWlsLmNvbQ=='</span>
+<p>查看源码(签到题似乎都是从查看源码开始)</p>
 
-<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-	<span class="n">Programing</span>
-	<span class="n">Reading</span>
-	<span class="n">Running</span>
-	<span class="n">Fighting</span>
+<h2 id="2md5-collision">2.md5 collision</h2>
+
+<p><strong>payload:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/web19/?a=240610708
 </code></pre></div></div>
 
-<h2 id="links">…links</h2>
+<h2 id="3签到2">3.签到2</h2>
 
-<ul>
-  <li><strong>razrLeLe</strong> <a href="https://yueyu.io/">https://yueyu.io/</a></li>
-  <li><strong>xunge</strong> <a href="http://xunge.me">http://xunge.me</a></li>
-</ul>
+<p><strong>tips:</strong></p>
 
-                </article>
-                <div class="share">
-                    <!--<div class="share-component"></div>-->
-                </div>
-                <div class="comment">
-                    
+<p>改 <code class="highlighter-rouge">maxlength</code></p>
+
+<h2 id="4这题不是web">4.这题不是WEB</h2>
+
+<p>猫腻在图片了</p>
+
+<h2 id="5层层递进">5.层层递进</h2>
+
+<p>扫目录 get <code class="highlighter-rouge">404.html</code></p>
+
+<p>查看源码，源码里面有猫腻，需要仔细才能搞到 flag</p>
+
+<h2 id="6aaencode">6.AAencode</h2>
+
+<p>下载下来直接拿去解密就好了</p>
+
+<h2 id="7单身二十年">7.单身二十年</h2>
+
+<p>burpsuite 抓包(对于这种有链接跳转的，基本都要用 burp 抓包)</p>
+
+<h2 id="8php-decode">8.php decode</h2>
+
+<p>代码运行一下，<code class="highlighter-rouge">return</code> -&gt;<code class="highlighter-rouge">echo</code></p>
+
+<h2 id="9文件包含">9.文件包含</h2>
+
+<p><strong>payload</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?file=php://filter/convert.base64-encode/resource=index.php
+</code></pre></div></div>
+
+<h2 id="10单身一百年也没用">10.单身一百年也没用</h2>
+
+<p>burpsuite 抓包</p>
+
+<h2 id="11download">11.Download~!</h2>
+
+<p>&lt;font color=red&gt;貌似是题目坏掉了，题目无法访问&lt;/font&gt;</p>
+
+<h2 id="12cookie">12.COOKIE</h2>
+
+<p><strong>tips:</strong></p>
+
+<p>改下 cookie</p>
+
+<h2 id="13mysql">13.MYSQL</h2>
+
+<p>intval函数向下取整，1024.1</p>
+
+<h2 id="14gbk-injection">14.GBK Injection</h2>
+
+<p><a href="https://pengyang.me/2018/08/17/slmap1/">https://pengyang.me/2018/08/17/slmap1/</a></p>
+
+<h2 id="15">15.</h2>
+
+    </article>
+  
+    <div class="newold">
+  <hr>
+  
+  <b>上一篇: <a href="/2018/08/13/bk_ng/">never give up(Bugku)</a></b><br>
+     
+  
+  <b>下一篇: <a href="/2018/08/17/slmap1/">sqlmap系列(一)</a></b>
+   
+</div><!--上一篇 下一篇-->
+
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
 
   
 
@@ -134,7 +213,7 @@
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
         <script>
         var gitalk = new Gitalk({
-            id: '/about/',
+            id: '/2018/08/16/nctf/',
             clientID: '5a59fdc570f933e0c2ee',
             clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
             repo: 'blogcomments',
@@ -148,10 +227,10 @@
   
 
 
-                </div>
-            </div>
-            <div class="column one-fourth">
-                
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
 <h3>Search</h3>
 <div id="site_search">
     <input type="text" id="search_box" placeholder="Search">
@@ -176,148 +255,24 @@ SimpleJekyllSearch({
 })
 </script>
 
-                <!--<h3>My Popular Repositories</h3>
+    
 
--->
-                
-<h3>Tags</h3>
-
-<div id="blog-tags">
     
-    
-    <a href="http://localhost:4000/tags/#CTF">
-    <span class="badge" id="tag">
-    CTF
-    <span>5</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#FQ">
-    <span class="badge" id="tag">
-    FQ
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#blog-theme">
-    <span class="badge" id="tag">
-    blog-theme
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#coding">
-    <span class="badge" id="tag">
-    coding
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#git">
-    <span class="badge" id="tag">
-    git
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#https">
-    <span class="badge" id="tag">
-    https
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#shell">
-    <span class="badge" id="tag">
-    shell
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#sqlmap">
-    <span class="badge" id="tag">
-    sqlmap
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#sql注入">
-    <span class="badge" id="tag">
-    sql注入
-    <span>4</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#thinking">
-    <span class="badge" id="tag">
-    thinking
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#读书">
-    <span class="badge" id="tag">
-    读书
-    <span>2</span>
-    </span>
-    </a>
-    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
 </div>
 
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
 
-
-                
-<h3>Categories</h3>
-<div id="blog-categories">
-  <ul class="list-group">
-    
-    
-    <li class="list-group-item">
-    <a href="http://localhost:4000/categories/CTF">CTF</a>
-    <span class="badge">5</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="http://localhost:4000/categories/program">program</a>
-    <span class="badge">2</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="http://localhost:4000/categories/web安全">web安全</a>
-    <span class="badge">6</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="http://localhost:4000/categories/折腾">折腾</a>
-    <span class="badge">3</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="http://localhost:4000/categories/有感">有感</a>
-    <span class="badge">1</span>
-    </li>
-    
-    <li class="list-group-item">
-    <a href="http://localhost:4000/categories/读书">读书</a>
-    <span class="badge">2</span>
-    </li>
-    
-  </ul>
+  </div>
 </div>
-
-<script type="text/javascript">
-
-  $(document).ready(function(){
-    $("#blog-categories li").css('text-transform','capitalize')
-  });
-
-</script>
-
-
-            </div>
-        </div>
-    </section>
-    <!-- /section.content -->
+</section>
+<!-- /section.content -->
 
     <footer class="container">
         <div class="site-footer" role="contentinfo">
