@@ -135,7 +135,7 @@
     } ,
   
     {
-      "title"    : "Bugku writeup(WEB)",
+      "title"    : "Bugku writeup(Web)",
       "category" : "CTF",
       
       "url"      : "http://localhost:4000/2018/07/27/bk_web/"
@@ -226,7 +226,7 @@
     } ,
   
     {
-      "title"    : "NCTF writeup(WEB)",
+      "title"    : "NCTF writeup(Web)",
       "category" : "CTF",
       
       "url"      : "http://localhost:4000/2018/08/16/nctf/"

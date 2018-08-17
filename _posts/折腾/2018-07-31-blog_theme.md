@@ -22,14 +22,16 @@ tags: blog-theme
 - [easybook](https://github.com/laobubu/jekyll-theme-EasyBook)
   ![demo5]({{ site.url }}/images/blog/blog_theme5.png)
 - [jekyll-clean-dark](https://github.com/streetturtle/streetturtle.github.io)
-  ![demo6]({{ site.url }}/images/blog/blog_theme8.png)
+  ![demo8]({{ site.url }}/images/blog/blog_theme8.png)
 - [de4dcr0w](https://de4dcr0w.github.io/)
   ![demo9]({{ site.url }}/images/blog/blog_theme9.png)
 
 ## 0x02 hexo
 
 - [ Landscape-plus](http://wps2015.org/)
-![demo6]({{ site.url }}/images/blog/blog_theme6.png)
+  ![demo6]({{ site.url }}/images/blog/blog_theme6.png)
+- [hexo-theme-apollo](http://youchen.me/)
+  ![demo10]({{ site.url }}/images/blog/blog_theme10.png)
 
 ## 0x03 wordpress
 
