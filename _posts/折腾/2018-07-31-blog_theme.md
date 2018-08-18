@@ -32,10 +32,14 @@ tags: blog-theme
   ![demo6]({{ site.url }}/images/blog/blog_theme6.png)
 - [hexo-theme-apollo](http://youchen.me/)
   ![demo10]({{ site.url }}/images/blog/blog_theme10.png)
+- [salt-neko](http://salt-neko.com/)
+  ![demo11]({{ site.url }}/images/blog/blog_theme11.png)
 
 ## 0x03 wordpress
 
 - [bluesky](https://lms.im/theme/wordpress-theme-bluesky)
 <br>
 ![demo7]({{ site.url }}/images/blog/blog_theme7.jpg)
+- [cos](https://evilcos.me/)
+![demo12]({{ site.url }}/images/blog/blog_theme12.png)
 
