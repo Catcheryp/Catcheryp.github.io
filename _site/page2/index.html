@@ -48,7 +48,7 @@
 <body class="home" data-mz="home">
     <header class="site-header">
         <div class="container">
-            <h1><a href="http://localhost:4000/" title="Evil"><span class="octicon octicon-terminal"></span> Evil</a></h1>
+            <h1><a href="http://localhost:4000/" title="Evil"><span class="octicon octicon-hubot"></span> Evil</a></h1>
             <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
@@ -99,6 +99,33 @@
     <div class="columns">
         <div class="column three-fourths" >
             <ol class="repo-list">
+                
+                <li class="repo-list-item">
+                    <h3 class="repo-list-name">
+                      <a href="http://localhost:4000/2018/08/11/time_ij/">时间盲注的套路</a>
+                    </h3>
+                    <p class="repo-list-description">
+                        记录时间盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-9(基于时间的GET单引号盲注)。
+                    </p>
+                    <p class="repo-list-meta">
+                        <span class="meta-info">
+                          <span class="octicon octicon-calendar"></span> 2018/08/11
+                        </span>
+                        
+                        <span class="meta-info">
+                          <span class="octicon octicon-file-directory"></span>
+                          <a href="http://localhost:4000/categories/web安全" title="web安全">web安全</a>
+                        </span>
+                        
+
+                        
+                        <span class="meta-info">
+                          <span class="octicon octicon-tag"></span>
+                          <a href="http://localhost:4000/tags/#sql注入" title="sql注入">sql注入</a>
+                        </span>
+                        
+                    </p>
+                </li>
                 
                 <li class="repo-list-item">
                     <h3 class="repo-list-name">
@@ -208,33 +235,6 @@
                     </p>
                 </li>
                 
-                <li class="repo-list-item">
-                    <h3 class="repo-list-name">
-                      <a href="http://localhost:4000/2018/08/05/tpb/">当我谈跑步时，我谈些什么</a>
-                    </h3>
-                    <p class="repo-list-description">
-                        “每天跑步对我来说好比生命线，不能说忙就抛开不管，或者停下不跑了。忙就中断跑步的话，我一辈子都无法跑步了。坚持跑步的理由不过一丝半点，中断跑步的理由却足够装满一辆大型载重卡车。我们只有将那「一丝半点的理由」一个个慎之又慎地不断打磨，见缝插针，得空就孜孜不倦地打磨他们。”   —村上春树
-                    </p>
-                    <p class="repo-list-meta">
-                        <span class="meta-info">
-                          <span class="octicon octicon-calendar"></span> 2018/08/05
-                        </span>
-                        
-                        <span class="meta-info">
-                          <span class="octicon octicon-file-directory"></span>
-                          <a href="http://localhost:4000/categories/读书" title="读书">读书</a>
-                        </span>
-                        
-
-                        
-                        <span class="meta-info">
-                          <span class="octicon octicon-tag"></span>
-                          <a href="http://localhost:4000/tags/#读书" title="读书">读书</a>
-                        </span>
-                        
-                    </p>
-                </li>
-                
             </ol>
         </div>
         <div class="column one-fourth">
@@ -272,13 +272,13 @@ SimpleJekyllSearch({
     
       <li><a class="post-link" href="/2018/08/17/slmap1/">sqlmap系列(一)</a></li>
     
+      <li><a class="post-link" href="/2018/08/17/jd00/">00截断上传</a></li>
+    
       <li><a class="post-link" href="/2018/08/16/nctf/">NCTF writeup(Web)</a></li>
     
       <li><a class="post-link" href="/2018/08/13/bk_ng/">never give up(Bugku)</a></li>
     
       <li><a class="post-link" href="/2018/08/12/to_myself/">自言自语</a></li>
-    
-      <li><a class="post-link" href="/2018/08/11/time_ij/">时间盲注的套路</a></li>
     
   </ul>
 </div>
@@ -289,6 +289,13 @@ SimpleJekyllSearch({
 
 <div id="blog-tags">
     
+    
+    <a href="http://localhost:4000/tags/#00截断">
+    <span class="badge" id="tag">
+    00截断
+    <span>1</span>
+    </span>
+    </a>
     
     <a href="http://localhost:4000/tags/#CTF">
     <span class="badge" id="tag">
@@ -389,7 +396,7 @@ SimpleJekyllSearch({
     
     <li class="list-group-item">
     <a href="http://localhost:4000/categories/web安全">web安全</a>
-    <span class="badge">6</span>
+    <span class="badge">7</span>
     </li>
     
     <li class="list-group-item">

