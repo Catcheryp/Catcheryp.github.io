@@ -36,3 +36,18 @@ code, pre{
 .posts-list-item1{
 	line-height: 10px;
 }
+
+/*categories sidebar*/
+.list-group2{
+	list-style:none;
+}
+.list-group-item2 > a:hover{
+	text-decoration: none;
+	font-weight:bold;
+}
+#nums{
+	color: #999;
+}
+
+
+
