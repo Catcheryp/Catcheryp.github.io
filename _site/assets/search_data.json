@@ -104,6 +104,8 @@
   
   
   
+  
+  
 
   
     {
@@ -244,6 +246,13 @@
       "category" : "web安全",
       
       "url"      : "http://localhost:4000/2018/08/17/slmap1/"
+    } ,
+  
+    {
+      "title"    : "NCTF 综合题2",
+      "category" : "CTF",
+      
+      "url"      : "http://localhost:4000/2018/08/19/nctfzh2/"
     } 
   
 ]
