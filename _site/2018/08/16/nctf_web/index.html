@@ -23,7 +23,7 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/2018/08/16/nctf/">
+    <link rel="canonical" href="http://localhost:4000/2018/08/16/nctf_web/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
     <link rel="shortcut icon" href="http://localhost:4000/images/favicon.jpg" >
@@ -40,7 +40,7 @@
     
         
     
-    <meta property="og:url" content="http://localhost:4000/2018/08/16/nctf/">
+    <meta property="og:url" content="http://localhost:4000/2018/08/16/nctf_web/">
     <meta property="og:site_name" content="Evil">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
@@ -212,9 +212,9 @@
 
 <h2 id="19伪装者">19.伪装者</h2>
 
-<p>XXF</p>
+<p>XFF</p>
 
-<p>我一眼看上去就知道是 XXF，但是居然试了很多次都没有成功，别人也是这样做的就成功了，<strong>可能题目坏掉了。</strong></p>
+<p>我一眼看上去就知道是 XFF，但是居然试了很多次都没有成功，别人也是这样做的就成功了，<strong>可能题目坏掉了。</strong></p>
 
 <h2 id="20header">20.Header</h2>
 
@@ -357,6 +357,21 @@ meizijiu
 
 <h2 id="36anonymous">36.Anonymous</h2>
 
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="nv">$MY</span> <span class="o">=</span> <span class="nb">create_function</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span><span class="s2">"die(`cat flag.php`);"</span><span class="p">);</span>
+<span class="nv">$hash</span> <span class="o">=</span> <span class="nb">bin2hex</span><span class="p">(</span><span class="nb">openssl_random_pseudo_bytes</span><span class="p">(</span><span class="mi">32</span><span class="p">));</span>
+<span class="k">eval</span><span class="p">(</span><span class="s2">"function SUCTF_</span><span class="nv">$hash</span><span class="s2">(){"</span>
+    <span class="o">.</span><span class="s2">"global </span><span class="se">\$</span><span class="s2">MY;"</span>
+    <span class="o">.</span><span class="s2">"</span><span class="se">\$</span><span class="s2">MY();"</span>
+    <span class="o">.</span><span class="s2">"}"</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'func_name'</span><span class="p">])){</span>
+    <span class="nv">$_GET</span><span class="p">[</span><span class="s2">"func_name"</span><span class="p">]();</span>
+    <span class="k">die</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="nb">show_source</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+</code></pre></div></div>
+
 
     </article>
   
@@ -384,7 +399,7 @@ meizijiu
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
         <script>
         var gitalk = new Gitalk({
-            id: '/2018/08/16/nctf/',
+            id: '/2018/08/16/nctf_web/',
             clientID: '5a59fdc570f933e0c2ee',
             clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
             repo: 'blogcomments',

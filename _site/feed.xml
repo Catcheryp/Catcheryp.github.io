@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-19T16:11:46+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">NCTF 综合题2</title><link href="http://localhost:4000/2018/08/19/nctfzh2/" rel="alternate" type="text/html" title="NCTF 综合题2" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/nctfzh2</id><content type="html" xml:base="http://localhost:4000/2018/08/19/nctfzh2/">&lt;p&gt;nctf 上的一道题目，需要挺多技巧的，感觉不错，所以单独拿出来分析一下。
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-19T17:23:36+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">NCTF 综合题2</title><link href="http://localhost:4000/2018/08/19/nctfzh2/" rel="alternate" type="text/html" title="NCTF 综合题2" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/nctfzh2</id><content type="html" xml:base="http://localhost:4000/2018/08/19/nctfzh2/">&lt;p&gt;nctf 上的一道题目，需要挺多技巧的，感觉不错，所以单独拿出来分析一下。
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;step1-不断尝试&quot;&gt;step1 不断尝试&lt;/h2&gt;
@@ -706,7 +706,7 @@ IIS 6 曾经出过的漏洞，处理文件父文件夹如为&lt;code class=&quot
 &lt;h2 id=&quot;0x04-参考&quot;&gt;0x04 参考&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/hack0ne/p/4603144.html&quot;&gt;https://www.cnblogs.com/hack0ne/p/4603144.html&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://www.jianshu.com/p/d6c004e2f963&quot;&gt;https://www.jianshu.com/p/d6c004e2f963&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="00截断" /><summary type="html">这里主要总结和分析一下00截断的原理以及一些利用的场景，后续可能还会补充点。</summary></entry><entry><title type="html">NCTF writeup(Web)</title><link href="http://localhost:4000/2018/08/16/nctf/" rel="alternate" type="text/html" title="NCTF writeup(Web)" /><published>2018-08-16T00:00:00+08:00</published><updated>2018-08-16T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/16/nctf</id><content type="html" xml:base="http://localhost:4000/2018/08/16/nctf/">&lt;p&gt;这篇是南邮 CTF web 题目的 writeup，写在这里作为记录。持续更新……&lt;/p&gt;
+&lt;a href=&quot;https://www.jianshu.com/p/d6c004e2f963&quot;&gt;https://www.jianshu.com/p/d6c004e2f963&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="00截断" /><summary type="html">这里主要总结和分析一下00截断的原理以及一些利用的场景，后续可能还会补充点。</summary></entry><entry><title type="html">NCTF writeup(Web)</title><link href="http://localhost:4000/2018/08/16/nctf_web/" rel="alternate" type="text/html" title="NCTF writeup(Web)" /><published>2018-08-16T00:00:00+08:00</published><updated>2018-08-16T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/16/nctf_web</id><content type="html" xml:base="http://localhost:4000/2018/08/16/nctf_web/">&lt;p&gt;这篇是南邮 CTF web 题目的 writeup，写在这里作为记录。持续更新……&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -805,9 +805,9 @@ IIS 6 曾经出过的漏洞，处理文件父文件夹如为&lt;code class=&quot
 
 &lt;h2 id=&quot;19伪装者&quot;&gt;19.伪装者&lt;/h2&gt;
 
-&lt;p&gt;XXF&lt;/p&gt;
+&lt;p&gt;XFF&lt;/p&gt;
 
-&lt;p&gt;我一眼看上去就知道是 XXF，但是居然试了很多次都没有成功，别人也是这样做的就成功了，&lt;strong&gt;可能题目坏掉了。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;我一眼看上去就知道是 XFF，但是居然试了很多次都没有成功，别人也是这样做的就成功了，&lt;strong&gt;可能题目坏掉了。&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;20header&quot;&gt;20.Header&lt;/h2&gt;
 
@@ -948,7 +948,22 @@ meizijiu
 
 &lt;h2 id=&quot;35hateit&quot;&gt;35.HateIT&lt;/h2&gt;
 
-&lt;h2 id=&quot;36anonymous&quot;&gt;36.Anonymous&lt;/h2&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">这篇是南邮 CTF web 题目的 writeup，写在这里作为记录。持续更新……</summary></entry><entry><title type="html">never give up(Bugku)</title><link href="http://localhost:4000/2018/08/13/bk_ng/" rel="alternate" type="text/html" title="never give up(Bugku)" /><published>2018-08-13T00:00:00+08:00</published><updated>2018-08-13T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/13/bk_ng</id><content type="html" xml:base="http://localhost:4000/2018/08/13/bk_ng/">&lt;p&gt;Bugku 上一道比较简单的 web 题目，但是仍然有单独拿出来看看的价值。&lt;/p&gt;
+&lt;h2 id=&quot;36anonymous&quot;&gt;36.Anonymous&lt;/h2&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$MY&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;create_function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;die(`cat flag.php`);&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$hash&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bin2hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;openssl_random_pseudo_bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;function SUCTF_&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$hash&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;(){&quot;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;global &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;MY;&quot;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;MY();&quot;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;isset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'func_name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])){&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;func_name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]();&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;die&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;show_source&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;__FILE__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">这篇是南邮 CTF web 题目的 writeup，写在这里作为记录。持续更新……</summary></entry><entry><title type="html">never give up(Bugku)</title><link href="http://localhost:4000/2018/08/13/bk_ng/" rel="alternate" type="text/html" title="never give up(Bugku)" /><published>2018-08-13T00:00:00+08:00</published><updated>2018-08-13T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/13/bk_ng</id><content type="html" xml:base="http://localhost:4000/2018/08/13/bk_ng/">&lt;p&gt;Bugku 上一道比较简单的 web 题目，但是仍然有单独拿出来看看的价值。&lt;/p&gt;
 
 &lt;!--more--&gt;
 
