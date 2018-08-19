@@ -1,11 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-19T17:46:56+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">wechall writeup</title><link href="http://localhost:4000/2018/08/19/wechall/" rel="alternate" type="text/html" title="wechall writeup" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/wechall</id><content type="html" xml:base="http://localhost:4000/2018/08/19/wechall/">&lt;p&gt;国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-19T20:29:53+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">wechall writeup</title><link href="http://localhost:4000/2018/08/19/wechall/" rel="alternate" type="text/html" title="wechall writeup" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/wechall</id><content type="html" xml:base="http://localhost:4000/2018/08/19/wechall/">&lt;p&gt;国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……&lt;/p&gt;
 
 &lt;!--more--&gt;
 
 &lt;h2 id=&quot;1training-get-sourced&quot;&gt;1.Training: Get Sourced&lt;/h2&gt;
 &lt;p&gt;查看源码&lt;/p&gt;
 
-&lt;h2 id=&quot;2training-stegano-i&quot;&gt;2.Training: Stegano I&lt;/h2&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……</summary></entry><entry><title type="html">NCTF 综合题2</title><link href="http://localhost:4000/2018/08/19/nctfzh2/" rel="alternate" type="text/html" title="NCTF 综合题2" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/nctfzh2</id><content type="html" xml:base="http://localhost:4000/2018/08/19/nctfzh2/">&lt;p&gt;nctf 上的一道题目，需要挺多技巧的，感觉不错，所以单独拿出来分析一下。
+&lt;h2 id=&quot;2training-stegano-i&quot;&gt;2.Training: Stegano I&lt;/h2&gt;
+
+&lt;p&gt;用文本编辑器查看图片&lt;/p&gt;
+
+&lt;h2 id=&quot;3training-crypto---caesar-i&quot;&gt;3.Training: Crypto - Caesar I&lt;/h2&gt;
+
+&lt;p&gt;一般的凯撒密码&lt;/p&gt;
+
+&lt;h2 id=&quot;4training-www-robots&quot;&gt;4.Training: WWW-Robots&lt;/h2&gt;
+
+&lt;p&gt;robots.txt&lt;/p&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……</summary></entry><entry><title type="html">NCTF 综合题2</title><link href="http://localhost:4000/2018/08/19/nctfzh2/" rel="alternate" type="text/html" title="NCTF 综合题2" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/nctfzh2</id><content type="html" xml:base="http://localhost:4000/2018/08/19/nctfzh2/">&lt;p&gt;nctf 上的一道题目，需要挺多技巧的，感觉不错，所以单独拿出来分析一下。
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;step1-不断尝试&quot;&gt;step1 不断尝试&lt;/h2&gt;

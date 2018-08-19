@@ -8,7 +8,7 @@ menu: 关于
 permalink: /about/
 ---
 
-<font style="font-size: 20px;font-weight:bold;;">苟有恒,何必三更眠五更起; 最无益,莫过一日暴十日寒</font>
+<font style="font-size: 20px;font-weight:bold;">苟有恒,何必三更眠五更起; 最无益,莫过一日暴十日寒</font>
 
 ## ...me
 

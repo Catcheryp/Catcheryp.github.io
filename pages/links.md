@@ -25,6 +25,8 @@ permalink: /links/
 ## 在线工具
 
 - [CTF tools](http://ctf.ssleye.com/)
+- [XSS'OR](http://xssor.io/)
+- [Regex](https://regex101.com/)
 
 
 
