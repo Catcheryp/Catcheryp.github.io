@@ -202,6 +202,26 @@
 /^(wechall4?)\.(?:jpg|gif|tiff|png|bmp)$/
 </code></pre></div></div>
 
+<h2 id="11training-php-lfi">11.Training: PHP LFI</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/challenge/training/php/lfi/up/index.php?file=../../solution.php%00
+</code></pre></div></div>
+
+<h2 id="12php-0817">12.PHP 0817</h2>
+
+<p><code class="highlighter-rouge">如果switch是数字类型的case的判断时，switch会将其中的参数转换为int类型。</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?which=solution
+</code></pre></div></div>
+
+<p>switch 在这里会将 <code class="highlighter-rouge">solution</code> 转换成 <code class="highlighter-rouge">0</code>， 从而绕过。</p>
+
+<h2 id="13training-crypto---transposition-i">13.Training: Crypto - Transposition I</h2>
+
+<p>到这里来<a href="https://www.dcode.fr/transposition-cipher">https://www.dcode.fr/transposition-cipher</a></p>
+
+<p>BY KNOWING THE KEY LENGTH =&gt; 选择 4</p>
+
 
     </article>
   
@@ -211,7 +231,7 @@
   <b>上一篇: <a href="/2018/08/19/nctfzh2/">NCTF 综合题2</a></b><br>
      
   
-  <b>下一篇: <a href="/2018/08/20/collect_mes/">渗透测试之信息收集</a></b>
+  <b>下一篇: <a href="/2018/08/20/regex/">正则表达式基础(来自 github)</a></b>
    
 </div><!--上一篇 下一篇-->
 

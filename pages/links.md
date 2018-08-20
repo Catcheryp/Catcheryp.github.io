@@ -16,6 +16,7 @@ permalink: /links/
 - Archimesan [http://archimesan.me/](http://archimesan.me/)  (CTF、前端)
 - Qiqi's Blog [http://codeqi.top/](http://codeqi.top/) CTF
 - F0rmat [https://getpass.cn/](https://getpass.cn/)  代码审计
+- JuH0n [https://www.jianshu.com/u/13c720cf85fc](https://www.jianshu.com/u/13c720cf85fc) (Web安全、PWN)
 - 柳婼 の blog [https://www.liuchuo.net/](https://www.liuchuo.net/) (PAT、LeetCode...)
 - Go0s @ 老 锥 [https://www.bodkin.ren/](https://www.bodkin.ren/) Android 安全
 - skywang [http://wangkuiwu.github.io/](http://wangkuiwu.github.io/) (数据结构与算法、Java)

