@@ -260,6 +260,13 @@
       "category" : "CTF",
       
       "url"      : "http://localhost:4000/2018/08/19/wechall/"
+    } ,
+  
+    {
+      "title"    : "渗透测试之信息收集",
+      "category" : "web安全",
+      
+      "url"      : "http://localhost:4000/2018/08/20/collect_mes/"
     } 
   
 ]

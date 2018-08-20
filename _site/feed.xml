@@ -1,4 +1,507 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-19T20:29:53+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">wechall writeup</title><link href="http://localhost:4000/2018/08/19/wechall/" rel="alternate" type="text/html" title="wechall writeup" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/wechall</id><content type="html" xml:base="http://localhost:4000/2018/08/19/wechall/">&lt;p&gt;国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-20T13:52:51+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">渗透测试之信息收集</title><link href="http://localhost:4000/2018/08/20/collect_mes/" rel="alternate" type="text/html" title="渗透测试之信息收集" /><published>2018-08-20T00:00:00+08:00</published><updated>2018-08-20T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/20/collect_mes</id><content type="html" xml:base="http://localhost:4000/2018/08/20/collect_mes/">&lt;p&gt;《Web 安全攻防》渗透测试之信息收集&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;1-收集域名信息&quot;&gt;1. 收集域名信息&lt;/h2&gt;
+
+&lt;h3 id=&quot;11-whois-查询&quot;&gt;1.1 Whois 查询&lt;/h3&gt;
+
+&lt;p&gt;I Kali 上 Whois 已经默认安装 =&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;whois sec-redclub.com&lt;/code&gt;&lt;br /&gt;
+II &lt;a href=&quot;https://whois.aizhan.com&quot;&gt;爱站工具网 &lt;/a&gt;&lt;br /&gt;
+III &lt;a href=&quot;http://whois.chinaz.com&quot;&gt;站长之家&lt;/a&gt;&lt;br /&gt;
+IV &lt;a href=&quot;https://www.virustotal.com&quot;&gt;Virus Total&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;12-备案信息查询&quot;&gt;1.2 备案信息查询&lt;/h3&gt;
+
+&lt;p&gt;I &lt;a href=&quot;http://www.beianbeian.com&quot;&gt;ICP备案查询网&lt;/a&gt;&lt;br /&gt;
+II &lt;a href=&quot;http://www.tianyancha.com&quot;&gt;天眼查 &lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2收集敏感信息&quot;&gt;2.收集敏感信息&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;a. Google 常用语法&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;关键字&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;说明&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Site&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;指定域名&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Inurl&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;URL 中存在关键字的网页&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Intext&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;网页正文中的关键字&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Filetype&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;指定文件类型&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Intitle&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;网页标题中的关键字&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;link&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;link: baidu.com 即表示返回所有和 baidu.com 做了链接的 URL&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Info&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;查找指定站点的一些基本信息&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;cache&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;搜索 Google 里关于某些内容的缓存&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;exp: &lt;code class=&quot;highlighter-rouge&quot;&gt;site:edu.cn intext:后台管理&lt;/code&gt;  =&amp;gt; 搜索网页正文中含有「后台管理」并且域名后缀是「edu.cn」的网站。&lt;/p&gt;
+
+&lt;p&gt;Google 搜索可获取的敏感信息有:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;数据库文件&lt;/li&gt;
+  &lt;li&gt;SQL 注入&lt;/li&gt;
+  &lt;li&gt;配置信息&lt;/li&gt;
+  &lt;li&gt;源代码泄露&lt;/li&gt;
+  &lt;li&gt;未授权访问&lt;/li&gt;
+  &lt;li&gt;robots.txt&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;b. Github 上查找敏感信息：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;数据库连接信息&lt;/li&gt;
+  &lt;li&gt;邮箱密码&lt;/li&gt;
+  &lt;li&gt;uc-key&lt;/li&gt;
+  &lt;li&gt;阿里的 osskey&lt;/li&gt;
+  &lt;li&gt;泄露的源代码&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;c. 乌云漏洞列表&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;查询历史漏洞信息&lt;/p&gt;
+
+&lt;h2 id=&quot;3收集子域名信息&quot;&gt;3.收集子域名信息&lt;/h2&gt;
+
+&lt;h3 id=&quot;31-子域名检测工具&quot;&gt;3.1 子域名检测工具&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Layer 子域名挖掘机&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;K8&lt;/li&gt;
+  &lt;li&gt;wydomain&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Sublist3r&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;dnsmaper&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;subDomainsBrute&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Maltego CE&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;32-搜索引擎枚举&quot;&gt;3.2 搜索引擎枚举&lt;/h3&gt;
+
+&lt;p&gt;利用 Google 语法 搜索子域名 =&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;site:baidu.com&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;33-第三方聚合应用枚举&quot;&gt;3.3 第三方聚合应用枚举&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://dnsdumpster.com&quot;&gt;DNSdumpster&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;在线 DNS 侦查&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;34-证书透明度公开日志枚举&quot;&gt;3.4 证书透明度公开日志枚举&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://crt.sh&quot;&gt;crt.sh https://crt.sh&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://censys.io&quot;&gt;censys https://censys.io&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://phpinfo.me/domian&quot;&gt;域名暴破网站&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://dns.aizhan.com&quot;&gt;IP 反查绑定域名网站&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;4收集常用端口信息&quot;&gt;4.收集常用端口信息&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;a. 常用的端口扫描工具：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Nmap&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;无状态端口扫描工具 Masscan&lt;/li&gt;
+  &lt;li&gt;ZMap&lt;/li&gt;
+  &lt;li&gt;御剑高速 TCP 端口扫描工具&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;b. 常见的端口及说明以及攻击方向&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;文件共享服务端口&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;端口号&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;端口说明&lt;/th&gt;
+      &lt;th&gt;攻击方向&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;21 / 22 / 69&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Ftp/Tftp 文件传输协议&lt;/td&gt;
+      &lt;td&gt;允许匿名的上传、下载、暴破和嗅探操作&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2049&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Nfs 服务&lt;/td&gt;
+      &lt;td&gt;配置不当&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;139&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Samba 服务&lt;/td&gt;
+      &lt;td&gt;暴破、未授权访问、远程代码执行&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;389&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Ldap 目录访问协议&lt;/td&gt;
+      &lt;td&gt;注入、允许匿名访问、弱口令&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;远程连接服务器&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;端口号&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;端口说明&lt;/th&gt;
+      &lt;th&gt;攻击方向&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;22&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;SSH 远程连接&lt;/td&gt;
+      &lt;td&gt;允许匿名的上传、下载、暴破和嗅探操作&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;23&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Telnet 远程连接&lt;/td&gt;
+      &lt;td&gt;暴破、嗅探、弱口令&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;3389&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Rdp 远程桌面连接&lt;/td&gt;
+      &lt;td&gt;Shift 后门(需要 Widows Server 2003 以下的系统)、暴破&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;5900&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;VNC&lt;/td&gt;
+      &lt;td&gt;弱口令暴破&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;5632&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;PyAnywhere&lt;/td&gt;
+      &lt;td&gt;抓密码、代码执行&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;Web 应用服务端口&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;端口号&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;端口说明&lt;/th&gt;
+      &lt;th&gt;攻击方向&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;80 / 443 / 8080&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;常见的 Web 服务端口&lt;/td&gt;
+      &lt;td&gt;Web 攻击、暴破、对应服务器版本漏洞&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;7001 / 7002&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;WebLogic 控制台&lt;/td&gt;
+      &lt;td&gt;Java 反序列化、弱口令&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8080 / 8089&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Jboss/Resin/Jetty/Jenkins&lt;/td&gt;
+      &lt;td&gt;反序列化、控制台弱口令&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;9090&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;WebSphere 控制台&lt;/td&gt;
+      &lt;td&gt;Java 反序列化、弱口令&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4848&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;GlassFish 控制台&lt;/td&gt;
+      &lt;td&gt;弱口令&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1352&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Lotus domino 邮件服务&lt;/td&gt;
+      &lt;td&gt;弱口令、信息泄露、暴破&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;10000&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Webmin-Web 控制面板&lt;/td&gt;
+      &lt;td&gt;弱口令&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;数据库服务端口&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;端口号&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;端口说明&lt;/th&gt;
+      &lt;th&gt;攻击方向&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;3306&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;MySQL&lt;/td&gt;
+      &lt;td&gt;注入、提权、暴破&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1433&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;MSSQL 数据库&lt;/td&gt;
+      &lt;td&gt;注入、提权、SA 弱口令、暴破&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1521&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Oracle 数据库&lt;/td&gt;
+      &lt;td&gt;TNS 暴破、注入、反弹 shell&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;5432&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;PostgreSQL 数据库&lt;/td&gt;
+      &lt;td&gt;暴破、注入、弱口令&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;27017/27018&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;MonogoDB&lt;/td&gt;
+      &lt;td&gt;暴破、未授权访问&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;6379&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Redis 数据库&lt;/td&gt;
+      &lt;td&gt;可尝试未授权访问、弱口令暴破&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;5000&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;SysBase/DB2 数据库&lt;/td&gt;
+      &lt;td&gt;暴破、注入&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;邮件服务端口&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;端口号&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;端口说明&lt;/th&gt;
+      &lt;th&gt;攻击方向&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;25&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;SMTP 邮件服务&lt;/td&gt;
+      &lt;td&gt;邮件伪造&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;110&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;POP3 协议&lt;/td&gt;
+      &lt;td&gt;暴破、嗅探&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;143&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;IMAP 协议&lt;/td&gt;
+      &lt;td&gt;暴破&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;网络常见协议端口&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;端口号&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;端口说明&lt;/th&gt;
+      &lt;th&gt;攻击方向&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;53&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;DNS 域名系统&lt;/td&gt;
+      &lt;td&gt;允许区域传送、DNS 劫持、缓存投毒、欺骗&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;67 / 68&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;DHCP 服务&lt;/td&gt;
+      &lt;td&gt;劫持、欺骗&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;161&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;SNMP 协议&lt;/td&gt;
+      &lt;td&gt;暴破、搜集目标内网信息&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;特殊服务端口&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;端口号&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;端口说明&lt;/th&gt;
+      &lt;th&gt;攻击方向&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2181&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Zookeeper 服务&lt;/td&gt;
+      &lt;td&gt;允许区域传送、DNS 劫持、缓存投毒、欺骗&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;8069&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Zabbix 服务&lt;/td&gt;
+      &lt;td&gt;劫持、欺骗&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;9200 / 9300&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Elasticsearch 服务&lt;/td&gt;
+      &lt;td&gt;暴破、搜集目标内网信息&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;11211&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Memcache 服务&lt;/td&gt;
+      &lt;td&gt;未授权访问&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;512 / 513 / 514&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Linux Rexe 服务&lt;/td&gt;
+      &lt;td&gt;暴破、Rlogin 登录&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;873&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Rsync 服务&lt;/td&gt;
+      &lt;td&gt;匿名访问、文件上传&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;3690&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Svn 服务&lt;/td&gt;
+      &lt;td&gt;Svn 泄露、未授权访问&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;50000&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;SAP Management Console&lt;/td&gt;
+      &lt;td&gt;远程执行&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;5指纹识别&quot;&gt;5.指纹识别&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;a. 常见的 CMS&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Dedecms&lt;/li&gt;
+  &lt;li&gt;Discuz&lt;/li&gt;
+  &lt;li&gt;PHPWEB&lt;/li&gt;
+  &lt;li&gt;PHPWind&lt;/li&gt;
+  &lt;li&gt;PHPCMS&lt;/li&gt;
+  &lt;li&gt;ECShop&lt;/li&gt;
+  &lt;li&gt;Dvbbs&lt;/li&gt;
+  &lt;li&gt;SiteWeaver&lt;/li&gt;
+  &lt;li&gt;ASPCMS&lt;/li&gt;
+  &lt;li&gt;帝国&lt;/li&gt;
+  &lt;li&gt;Z-Blog&lt;/li&gt;
+  &lt;li&gt;WordPress&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;b.指纹识别工具&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;御剑 Web 指纹识别&lt;/li&gt;
+  &lt;li&gt;WhatWeb&lt;/li&gt;
+  &lt;li&gt;WebRobo&lt;/li&gt;
+  &lt;li&gt;椰树&lt;/li&gt;
+  &lt;li&gt;轻量 WEB 指纹识别&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;c. 在线 CMS 指纹识别&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://whatweb.bugscaner.com/look/&quot;&gt;BugScaner&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.yunsee.cn/finger.html&quot;&gt;云悉指纹&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://whatweb.net/&quot;&gt;WhatWeb&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;6查找真实-ip&quot;&gt;6.查找真实 IP&lt;/h2&gt;
+
+&lt;h3 id=&quot;61-目标服务器存在-cdn&quot;&gt;6.1 目标服务器存在 CDN&lt;/h3&gt;
+
+&lt;p&gt;如果目标服务器用了 CDN，就会导致我们没法直接得到目标的真实 IP。&lt;/p&gt;
+
+&lt;h3 id=&quot;62-判断目标是否使用了-cdn&quot;&gt;6.2 判断目标是否使用了 CDN&lt;/h3&gt;
+
+&lt;p&gt;1.ping  目标主域，观察域名的解析情况，以此来判断是否使用了 CDN;&lt;/p&gt;
+
+&lt;p&gt;2.利用在线网站 &lt;a href=&quot;https://www.17ce.com&quot;&gt;17CE&lt;/a&gt;，进行全国多地区的 ping 服务器操作，然后对比每个地区 ping 出的 IP 结果，查看这些 IP 是否一致，如果都是一样的，极有可能不存在 CDN。如果 IP 大多不太一样或者规律性很强，可是尝试查询这些 IP 的归属地，判断是都存在 IP。&lt;/p&gt;
+
+&lt;h3 id=&quot;63-绕过-cdn-寻找真实-ip&quot;&gt;6.3 绕过 CDN 寻找真实 IP&lt;/h3&gt;
+
+&lt;p&gt;在确认目标用了 CDN 的情况下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;内部邮箱源&lt;/li&gt;
+  &lt;li&gt;扫描网站测试文件&lt;/li&gt;
+  &lt;li&gt;分站域名&lt;/li&gt;
+  &lt;li&gt;国外访问(&lt;a href=&quot;https://asm.ca.com/en/ping.php&quot;&gt;App Synthetic Monitor&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;查询域名解析记录(&lt;a href=&quot;https://www.netcraft.com/&quot;&gt;NETCRAFT&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;如果网站有 App，抓 App 的请求&lt;/li&gt;
+  &lt;li&gt;绕过 CloudFlare CDN 查找真实 IP(&lt;a href=&quot;http://www.crimeflare.us/cfs.html#box&quot;&gt;CloudFlareWatch&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;64-验证获取的-ip&quot;&gt;6.4 验证获取的 IP&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;看用 IP 访问的页面是否与用域名一样&lt;/li&gt;
+  &lt;li&gt;借助类似 Masscan 的工具批量扫描对应 IP 段中所有开了 80、443、8080 端口的 IP，然后逐个尝试 IP 访问，观察响应结果是否为目标站点&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;7收集敏感目录文件&quot;&gt;7.收集敏感目录文件&lt;/h2&gt;
+
+&lt;p&gt;网站目录扫描工具&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;DirBuster&lt;/li&gt;
+  &lt;li&gt;御剑后台扫描珍藏版&lt;/li&gt;
+  &lt;li&gt;wwwscan&lt;/li&gt;
+  &lt;li&gt;Spinder.py(轻量级快速单文件目录后台扫描)&lt;/li&gt;
+  &lt;li&gt;Sensitivefilescan(轻量级快速单文件目录后台扫描)&lt;/li&gt;
+  &lt;li&gt;Weakfilescan(轻量级快速单文件目录后台扫描)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;8社会工程学&quot;&gt;8.社会工程学&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;社工库&lt;/strong&gt;&lt;br /&gt;
+&lt;strong&gt;域劫持&lt;/strong&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="信息收集" /><summary type="html">《Web 安全攻防》渗透测试之信息收集</summary></entry><entry><title type="html">wechall writeup</title><link href="http://localhost:4000/2018/08/19/wechall/" rel="alternate" type="text/html" title="wechall writeup" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/wechall</id><content type="html" xml:base="http://localhost:4000/2018/08/19/wechall/">&lt;p&gt;国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -15,7 +518,77 @@
 
 &lt;h2 id=&quot;4training-www-robots&quot;&gt;4.Training: WWW-Robots&lt;/h2&gt;
 
-&lt;p&gt;robots.txt&lt;/p&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……</summary></entry><entry><title type="html">NCTF 综合题2</title><link href="http://localhost:4000/2018/08/19/nctfzh2/" rel="alternate" type="text/html" title="NCTF 综合题2" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/nctfzh2</id><content type="html" xml:base="http://localhost:4000/2018/08/19/nctfzh2/">&lt;p&gt;nctf 上的一道题目，需要挺多技巧的，感觉不错，所以单独拿出来分析一下。
+&lt;p&gt;robots.txt&lt;/p&gt;
+
+&lt;h2 id=&quot;5training-ascii&quot;&gt;5.Training: ASCII&lt;/h2&gt;
+
+&lt;p&gt;ascii 转换&lt;/p&gt;
+
+&lt;h2 id=&quot;6encodings-url&quot;&gt;6.Encodings: URL&lt;/h2&gt;
+
+&lt;p&gt;url 解码&lt;/p&gt;
+
+&lt;h2 id=&quot;7prime-factory&quot;&gt;7.Prime Factory&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isPrime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
+
+
+&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isPrime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isPrime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+        
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;8training-encodings-i&quot;&gt;8.Training: Encodings I&lt;/h2&gt;
+
+&lt;p&gt;掌握一下 wechall 赠送的 Java 小程序的使用&lt;/p&gt;
+
+&lt;h2 id=&quot;9training-programming-1&quot;&gt;9.Training: Programming 1&lt;/h2&gt;
+
+&lt;p&gt;就是不能手动来&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#coding: utf-8&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;url1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;https://www.wechall.net/challenge/training/programming1/index.php?action=request&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;url2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;https://www.wechall.net/challenge/training/programming1/index.php?answer={}&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookies_are&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'gsScrollPos-1723=; gsScrollPos-3680=0; WC=10718669-41869-tIrWzQ3iD9EFBssa'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;response1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;url2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;response2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;10training-regex&quot;&gt;10.Training: Regex&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/^$/
+/^wechall$/
+/^wechall4?\.(?:jpg|gif|tiff|png|bmp)$/
+#注意这里是只匹配：wechall4.tiff, wechall.png, wechall4.jpg, wechall.bmp，不能匹配其他的。
+#(?:exp) =&amp;gt; 匹配exp,不捕获匹配的文本，也不给此分组分配组号
+
+/^(wechall4?)\.(?:jpg|gif|tiff|png|bmp)$/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……</summary></entry><entry><title type="html">NCTF 综合题2</title><link href="http://localhost:4000/2018/08/19/nctfzh2/" rel="alternate" type="text/html" title="NCTF 综合题2" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/nctfzh2</id><content type="html" xml:base="http://localhost:4000/2018/08/19/nctfzh2/">&lt;p&gt;nctf 上的一道题目，需要挺多技巧的，感觉不错，所以单独拿出来分析一下。
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;step1-不断尝试&quot;&gt;step1 不断尝试&lt;/h2&gt;
@@ -1629,58 +2202,4 @@ Table: users
 | 12 | dhakkan  | dumbo      |
 | 14 | admin4   | admin4     |
 +----+----------+------------+
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Catcher</name></author><category term="sql注入" /><summary type="html">记录布尔盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-8(布尔型单引号GET盲注)。</summary></entry><entry><title type="html">Git常用命令</title><link href="http://localhost:4000/2018/08/11/git/" rel="alternate" type="text/html" title="Git常用命令" /><published>2018-08-11T00:00:00+08:00</published><updated>2018-08-11T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/11/git</id><content type="html" xml:base="http://localhost:4000/2018/08/11/git/">&lt;p&gt;记录那些常用的 git 命令，持续更新……&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h3 id=&quot;1修改之后提交&quot;&gt;1.修改之后提交&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git clone https://github.com/Catcheryp/Catcheryp.github.io.git
-$ git add .
-$ git commit -m &quot;XXX&quot;
-$ git push
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;2-提交本地文件&quot;&gt;2. 提交本地文件&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cd ~/Code/test
-$ git init
-$ git add -A
-$ git commit -m &quot;Initial commit&quot;
-
-//远程创建了名为 test 的 repo
-$ git init
-$ git remote add origin git@github.com:Catcheryp/test.git
-$ git push -u origin master
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//创建分支 
-$ git checkout master   将当前分支切换到 master 分支上
-$ git checkout -b new-test   将会为你创建一个名为 new-test 的新分支
-
-----
-$ git checkout master		//切换到主分支
-$ git merge new-test		//合并分支
-$ git branch -d new-test    //删除分支
-----
-
-$ git branch -l   //查看本地分支
-$ git branch -r   //查看远程分支
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git commit -m &quot;last&quot;
-XXX---&amp;gt;中间经历若干操作
-$ git add -A
-$ git checkout -f   //放弃中间经历的若干操作，回到上次 commit 的地方
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;3打标签发布&quot;&gt;3.打标签发布&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git tag v0.1-alpha   //创建轻量标签
-$ git push origin --tags   //把所有不在远程仓库服务器上的标签全部传送到那里
-$ git tag   //在 Git 中列出已有的标签
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;参考&quot;&gt;参考：&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://git-scm.com/book/zh/v2&quot;&gt;https://git-scm.com/book/zh/v2&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="git" /><summary type="html">记录那些常用的 git 命令，持续更新……</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Catcher</name></author><category term="sql注入" /><summary type="html">记录布尔盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-8(布尔型单引号GET盲注)。</summary></entry></feed>
