@@ -57,7 +57,7 @@ Google 搜索可获取的敏感信息有:
 - 阿里的 osskey
 - 泄露的源代码
 
-**c. 乌云漏洞列表**
+**c. [乌云漏洞列表](https://bugs.shuimugan.com/)**
 
 查询历史漏洞信息
 

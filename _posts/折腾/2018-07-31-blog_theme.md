@@ -25,6 +25,8 @@ tags: blog-theme
   ![demo8]({{ site.url }}/images/blog/blog_theme8.png)
 - [de4dcr0w](https://de4dcr0w.github.io/)
   ![demo9]({{ site.url }}/images/blog/blog_theme9.png)
+- [jekyll-TeXt-theme](https://tianqi.name/blog/)
+  ![demo13]({{ site.url }}/images/blog/blog_theme13.png)
 
 ## 0x02 hexo
 

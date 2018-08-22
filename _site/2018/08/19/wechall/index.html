@@ -222,6 +222,54 @@
 
 <p>BY KNOWING THE KEY LENGTH =&gt; 选择 4</p>
 
+<h2 id="14training-crypto---substitution-i">14.Training: Crypto - Substitution I</h2>
+
+<p>单表替换密码: <a href="https://quipqiup.com/">https://quipqiup.com/</a> 答案要转小写</p>
+
+<h2 id="15training-crypto---caesar-ii">15.Training: Crypto - Caesar II</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="s">"""
+6C 14 14 09 20 0F 14 07 51 20 1E 14 1A 20 18 14
+11 1B 0A 09 20 14 13 0A 20 12 14 17 0A 20 08 0D
+06 11 11 0A 13 0C 0A 20 0E 13 20 1E 14 1A 17 20
+0F 14 1A 17 13 0A 1E 53 20 79 0D 0E 18 20 14 13
+0A 20 1C 06 18 20 0B 06 0E 17 11 1E 20 0A 06 18
+1E 20 19 14 20 08 17 06 08 10 53 20 7C 06 18 13
+4C 19 20 0E 19 64 20 56 57 5D 20 10 0A 1E 18 20
+0E 18 20 06 20 16 1A 0E 19 0A 20 18 12 06 11 11
+20 10 0A 1E 18 15 06 08 0A 51 20 18 14 20 0E 19
+20 18 0D 14 1A 11 09 13 4C 19 20 0D 06 1B 0A 20
+19 06 10 0A 13 20 1E 14 1A 20 19 14 14 20 11 14
+13 0C 20 19 14 20 09 0A 08 17 1E 15 19 20 19 0D
+0E 18 20 12 0A 18 18 06 0C 0A 53 20 7C 0A 11 11
+20 09 14 13 0A 51 20 1E 14 1A 17 20 18 14 11 1A
+19 0E 14 13 20 0E 18 20 0B 12 14 17 11 18 14 13
+09 0B 0A 13 53
+"""</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="s">" "</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">" "</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="s">""</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+	<span class="n">data</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s">""</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c"># 26-128</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">129</span><span class="p">):</span>
+	<span class="n">res</span> <span class="o">=</span> <span class="s">""</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+		<span class="n">tmp</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">tmp</span> <span class="o">+</span> <span class="n">k</span> <span class="o">&gt;</span> <span class="mi">128</span><span class="p">:</span>
+			<span class="n">ch</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">tmp</span> <span class="o">+</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">128</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>	
+			<span class="n">ch</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">tmp</span> <span class="o">+</span> <span class="n">k</span><span class="p">)</span>
+		<span class="n">res</span> <span class="o">+=</span> <span class="n">ch</span>
+	<span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+	<span class="k">print</span><span class="p">(</span><span class="s">"#############################################################"</span><span class="p">)</span>
+</code></pre></div></div>
+
 
     </article>
   
