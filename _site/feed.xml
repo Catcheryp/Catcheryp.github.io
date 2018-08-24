@@ -1,4 +1,65 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-22T08:11:30+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">渗透测试之信息收集</title><link href="http://localhost:4000/2018/08/20/collect_mes/" rel="alternate" type="text/html" title="渗透测试之信息收集" /><published>2018-08-20T00:00:00+08:00</published><updated>2018-08-20T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/20/collect_mes</id><content type="html" xml:base="http://localhost:4000/2018/08/20/collect_mes/">&lt;p&gt;《Web 安全攻防》渗透测试之信息收集&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-24T15:25:33+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">Wargames-Linux 闯关游戏</title><link href="http://localhost:4000/2018/08/24/linux_game/" rel="alternate" type="text/html" title="Wargames-Linux 闯关游戏" /><published>2018-08-24T00:00:00+08:00</published><updated>2018-08-24T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/24/linux_game</id><content type="html" xml:base="http://localhost:4000/2018/08/24/linux_game/">&lt;p&gt;Linux 闯关游戏的通关秘籍，想通过&lt;a href=&quot;http://overthewire.org/wargames/&quot;&gt;这个游戏&lt;/a&gt;来熟悉 linux 命令，参考别人的通关秘籍来做的，这里主要记录一下我自己的实操过程。&lt;/p&gt;
+
+&lt;p&gt;参考:&lt;br /&gt;
+&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzI5MDQ2NjExOQ==&amp;amp;mid=2247488103&amp;amp;idx=1&amp;amp;sn=4ac1dc8457ff4c72c046221d0286ae2e&amp;amp;chksm=ec1e224fdb69ab5992e5fce1a6db4048367c4a2892259c731011b278f61d2ed5a73f28cac135&amp;amp;token=603199687&amp;amp;lang=zh_CN&amp;amp;scene=21#wechat_redirect&quot;&gt;Linux 闯关游戏之通关秘籍&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzI5MDQ2NjExOQ==&amp;amp;mid=2247488132&amp;amp;idx=1&amp;amp;sn=149447e7b24735102ae296d945980b90&amp;amp;chksm=ec1e22acdb69abba89e87c45cd4ee45ae103a552faf34d97aa46b2ef42f78aaad60060a1edfe&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0822cW0pbqBBcTAD2ymx9DWG%23rd&quot;&gt;Linux 闯关游戏之通关秘籍续&lt;/a&gt;&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;level-0--level-1&quot;&gt;Level 0 → Level 1&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ssh -p 2220 bandit0@bandit.labs.overthewire.org 
+
+$bandit0@bandit:~$ ls
+readme
+$bandit0@bandit:~$ cat readme 
+boJ9jbbUNNfktd78OOpsqOltutMc3MY1	=&amp;gt; 下一关连接 ssh 的密码
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;level-1--level-2&quot;&gt;Level 1 → Level 2&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ssh -p 2220 bandit1@bandit.labs.overthewire.org
+
+$bandit1@bandit:~$ ls
+-
+$bandit1@bandit:~$ cat ./-
+CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;level-2--level-3&quot;&gt;Level 2 → Level 3&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ssh -p 2220 bandit2@bandit.labs.overthewire.org
+$bandit2@bandit:~$ cat spaces\ in\ this\ filename	&amp;lt;=&amp;gt; 这里我直接使用 tab 键自动补齐
+UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;level-3-level-4&quot;&gt;Level 3→ Level 4&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ssh -p 2220 bandit3@bandit.labs.overthewire.org
+$bandit3@bandit:~$ cd inhere
+$bandit3@bandit:~/inhere$ cat .hidden
+pIwrPrtPN36QITSp3EQaw936yaFoFgAB
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;level-4-level-5&quot;&gt;Level 4→ Level 5&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ssh -p 2220 bandit4@bandit.labs.overthewire.org
+$bandit4@bandit:~/inhere$ ls
+-file00  -file01  -file02  -file03  -file04  -file05  -file06  -file07  -file08  -file09
+$bandit4@bandit:~/inhere$ file ./*	&amp;lt;=&amp;gt;	&quot;file&quot; 命令辨识文件类型
+./-file00: data
+./-file01: data
+./-file02: data
+./-file03: data
+./-file04: data
+./-file05: data
+./-file06: data
+./-file07: ASCII text
+./-file08: data
+./-file09: data
+$bandit4@bandit:~/inhere$ cat ./-file07
+koReBOKuIDDepwhWk7jZC0RTdopnAYKh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Catcher</name></author><category term="linux" /><summary type="html">Linux 闯关游戏的通关秘籍，想通过这个游戏来熟悉 linux 命令，参考别人的通关秘籍来做的，这里主要记录一下我自己的实操过程。</summary></entry><entry><title type="html">渗透测试之信息收集</title><link href="http://localhost:4000/2018/08/20/collect_mes/" rel="alternate" type="text/html" title="渗透测试之信息收集" /><published>2018-08-20T00:00:00+08:00</published><updated>2018-08-20T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/20/collect_mes</id><content type="html" xml:base="http://localhost:4000/2018/08/20/collect_mes/">&lt;p&gt;《Web 安全攻防》渗透测试之信息收集&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -1490,7 +1551,292 @@ regExp = /^-?([1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0)$/;
 		&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ch&lt;/span&gt;
 	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;#############################################################&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……</summary></entry><entry><title type="html">NCTF 综合题2</title><link href="http://localhost:4000/2018/08/19/nctfzh2/" rel="alternate" type="text/html" title="NCTF 综合题2" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/nctfzh2</id><content type="html" xml:base="http://localhost:4000/2018/08/19/nctfzh2/">&lt;p&gt;nctf 上的一道题目，需要挺多技巧的，感觉不错，所以单独拿出来分析一下。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;16training-crypto---digraphs&quot;&gt;16.Training: Crypto - Digraphs&lt;/h2&gt;
+
+&lt;p&gt;先猜第一个对应的单词是&lt;code class=&quot;highlighter-rouge&quot;&gt;congratulations&lt;/code&gt;，然后建立字典慢慢玩下去，跟数独有点像。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#coding: utf-8&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;uansbneeuqxirstnvnxirsjznsbntvgj ninstn ggwkffuqyuqprswkgg rsejjztv iowktvtvxieewk tvtnffffwktvtvpftnvnvnyugj vexitv bnnsrs rsnsns ggjzpfpfjzfftnvnrs wkjzrsejwkuqex xyxitv jzrsqb vewkvnvnex eensnsgg fxnssugj kvbnrswkuq rsejjztv oqwkyuxynsuqgg xitv tvnsvntnrsjznsbnjt vnvnnseejzpfpfvnpfejejpfgj&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;congratulations&quot;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;#这里程序先运行一下再天剑这里&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ni&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;y&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ej&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;h&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;gg&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;d&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;io&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;m&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;wk&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;e&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;pf&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;f&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ff&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;c&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;gj&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;!&quot;&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;has_key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;*&quot;&lt;/span&gt;	
+	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;17training-mysql-i&quot;&gt;17.Training: MySQL I&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;admin'#&amp;amp;1&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;18training-mysql-ii&quot;&gt;18.Training: MySQL II&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;' union select md5(1),'admin',md5(1)#&amp;amp;1&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;19training-www-basics&quot;&gt;19.Training: WWW-Basics&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;这道题需要搭建服务器，如果在本地搭建需要在路由器上进行设置，我这里暂且不行。其次可以用代理的方式，可以设置全局代理，这里这道题目识别的就是你代理服务器的 IP 了，然后在代理服务器上新建相应的文件。(这里要注意要使用 SS 的话，代理服务器不能是国内大陆的)。注意: 用 XFF 欺骗欺骗不了。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;20training-register-globals&quot;&gt;20.Training: Register Globals&lt;/h2&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//注意这道题目: register_globals = on
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;isset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;GWF_HTML&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Register Globals'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$chall&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'msg_welcome_back'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 			&lt;span class=&quot;k&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;htmlspecialchars&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]),&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;htmlspecialchars&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))));&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;strtolower&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'admin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;nv&quot;&gt;$chall&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;onChallengeSolved&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;GWF_Session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getUserID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;所以只要&lt;code class=&quot;highlighter-rouge&quot;&gt;?login[0]=admin&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;21training-math-pyramid&quot;&gt;21.Training: Math Pyramid&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;a^3/18^.5&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;分子有理化，这道题很贱啊&lt;/p&gt;
+
+&lt;h2 id=&quot;22training-baconian&quot;&gt;22.Training: Baconian&lt;/h2&gt;
+
+&lt;p&gt;培根密码 =&amp;gt; 到&lt;a href=&quot;http://rumkin.com/tools/cipher/baconian.php&quot;&gt;这里&lt;/a&gt;解密&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#coding: utf-8&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+a = &quot;BaCoN's cIphEr or THE bacOnIAN CiPHer iS a meThOD oF sTEGaNOGrapHY (a METhoD Of HidIng A sECRet MeSsaGe as OpPOsEd TO a TRUe CiPHeR) dEVIseD BY francis bAcoN. a MessAge Is coNCeALED in THe pRESenTatIoN OF TexT, ratHer thaN iTs coNteNt. tO enCODe A MEsSaGe, eaCh lETter Of THe pLAInText Is rePLAcED By A groUp oF fIvE OF thE LEtTers 'a' oR 'B'. this rEPlaCemENt Is done acCOrdiNg To THE alPHAbeT OF tHe BACOnIAN cIpHeR, sHoWn bElOw. NoTe: A SeCoNd vErSiOn oF BaCoN'S CiPhEr uSeS A UnIqUe cOdE FoR EaCh lEtTeR. iN OtHeR WoRdS, i aNd j eAcH HaS ItS OwN PaTtErN. tHe wRiTeR MuSt mAkE UsE Of tWo dIfFeReNt tYpEfAcEs fOr tHiS CiPhEr. AfTeR PrEpArInG A FaLsE MeSsAgE WiTh tHe sAmE NuMbEr oF LeTtErS As aLl oF ThE As aNd bS In tHe rEaL, sEcReT MeSsAgE, tWo tYpEfAcEs aRe cHoSeN, oNe tO RePrEsEnT As aNd tHe oThEr bS. tHeN EaCh lEtTeR Of tHe fAlSe mEsSaGe mUsT Be pReSeNtEd iN ThE ApPrOpRiAtE TyPeFaCe, AcCoRdInG To wHeThEr iT StAnDs fOr aN A Or a b. To dEcOdE ThE MeSsAgE, tHe rEvErSe mEtHoD Is aPpLiEd. EaCh 'TyPeFaCe 1' LeTtEr iN ThE FaLsE MeSsAgE Is rEpLaCeD WiTh aN A AnD EaCh 'TyPeFaCe 2' LeTtEr iS RePlAcEd wItH A B. tHe bAcOnIaN AlPhAbEt iS ThEn uSeD To rEcOvEr tHe oRiGiNaL MeSsAgE. aNy mEtHoD Of wRiTiNg tHe mEsSaGe tHaT AlLoWs tWo dIsTiNcT RePrEsEnTaTiOnS FoR EaCh cHaRaCtEr cAn bE UsEd fOr tHe bAcOn cIpHeR. bAcOn hImSeLf pRePaReD A BiLiTeRaL AlPhAbEt[2] FoR HaNdWrItTeN CaPiTaL AnD SmAlL LeTtErS WiTh eAcH HaViNg tWo aLtErNaTiVe fOrMs, OnE To bE UsEd aS A AnD ThE OtHeR As b. ThIs wAs pUbLiShEd aS An iLlUsTrAtEd pLaTe iN HiS De aUgMeNtIs sCiEnTiArUm (ThE AdVaNcEmEnT Of lEaRnInG). BeCaUsE AnY MeSsAgE Of tHe rIgHt lEnGtH CaN Be uSeD To cArRy tHe eNcOdInG, tHe sEcReT MeSsAgE Is eFfEcTiVeLy hIdDeN In pLaIn sIgHt. ThE FaLsE MeSsAgE CaN Be oN AnY ToPiC AnD ThUs cAn dIsTrAcT A PeRsOn sEeKiNg tO FiNd tHe rEaL MeSsAgE.&quot;
+a = list(a)
+
+
+for i in range(len(a)):
+	if 'A' &amp;lt;= a[i] &amp;lt;= 'Z':
+		a[i] = 'b'
+	elif 'a' &amp;lt;= a[i] &amp;lt;= 'z':
+		a[i] = 'a'
+	else:
+		a[i] = &quot;&quot;
+print &quot;&quot;.join(a)
+
+&quot;&quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;VERYXWELLXDONEXFELLOWXHACKERXTHEXSECRETXKEYWORDXISXHIGBSNAGFOOOXXKVFKSUJOUWKWWURNWVFNFWJKSVEWVLKXLKJNJVMTMTEVLKUVJFKNKZEUVUVSKKSZKTNKWVKVSUSOEVWVJKKZKVKVJWWVSVUVKVJVJOSVVJUWKSKWVJLFJFJNJFLKVLNFKJUSKKVFJKKVNKWVWWVUWUSVJKZUWWKJKTFKSTMVJKVNKWKWVWVSKKFSSKVFNLFKSWKKWWVWNVWSKXKKTJFV&quot;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;X&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lower&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;23training-lsb&quot;&gt;23.Training: LSB&lt;/h2&gt;
+
+&lt;p&gt;一道隐写题，使用官方的 Java 小程序 steganabara 来解的。之前都是直接跳过的，这里参考&lt;a href=&quot;https://www.cnblogs.com/Martinium/p/wechall_stegano.html&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;LSB(The least significant bit)&lt;/p&gt;
+
+&lt;h2 id=&quot;24training-gpg&quot;&gt;24.Training: GPG&lt;/h2&gt;
+
+&lt;p&gt;这道题比较琐碎，参考&lt;a href=&quot;http://www.chiange.com/wechall-training-gpg-crypto-training/&quot;&gt;这里&lt;/a&gt;来做的，还有阮一峰老师关于 gpg 的一篇文章&lt;a href=&quot;http://www.ruanyifeng.com/blog/2013/07/gpg.html&quot;&gt;GPG入门教程&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;我开始在 kali 下做，按照步骤一步一步来开始是没啥问题，但是收到 wechall 邮件一直解密不了，报错&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gpg: WARNING: no command supplied.  Trying to guess what you mean ...
+gpg: no valid OpenPGP data found.
+gpg: processing message failed: 未知的系统错误
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后我在 Mac 上做还是遇到同样的报错，后来发现是拷贝出来之后加密数据的格式问题，邮件里的密文，凡是空格复制到文件中都要手动转成换行。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;步骤：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gpg2 --gen-key
+
+gpg2 --armor --output public-key.txt --export  &quot;YYXXP &amp;lt;2281XXXX95@qq.com&amp;gt;&quot;
+
+touch secret.txt
+gpg2 secret.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;25limited-access&quot;&gt;25.Limited Access&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;AuthUserFile .htpasswd
+AuthGroupFile /dev/null
+AuthName &quot;Authorization Required for the Limited Access Challenge&quot;
+AuthType Basic
+&amp;lt;Limit GET&amp;gt;
+require valid-user
+&amp;lt;/Limit&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;简单看下这里的源码，只对 &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt; 做了限制，所以我们使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; 访问即可&lt;/p&gt;
+
+&lt;h2 id=&quot;26limited-access-too&quot;&gt;26.Limited Access Too&lt;/h2&gt;
+
+&lt;p&gt;这道题比上一道题就是多禁了几个 http method，但是并没有禁完&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GET
+	GET方法请求一个指定资源的表示形式. 使用GET的请求应该只被用于获取数据.
+HEAD
+	HEAD方法请求一个与GET请求的响应相同的响应，但没有响应体.
+POST
+	POST方法用于将实体提交到指定的资源，通常导致状态或服务器上的副作用的更改. 
+PUT
+	PUT方法用请求有效载荷替换目标资源的所有当前表示。
+DELETE
+	DELETE方法删除指定的资源。
+CONNECT
+	CONNECT方法建立一个到由目标资源标识的服务器的隧道。
+OPTIONS
+	OPTIONS方法用于描述目标资源的通信选项。
+TRACE
+	TRACE方法沿着到目标资源的路径执行一个消息环回测试。
+PATCH
+	PATCH方法用于对资源应用部分修改。
+
+//这道题我就使用 PATCH
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;27shadowlamb---chapter-i&quot;&gt;27.Shadowlamb - Chapter I&lt;/h2&gt;
+
+&lt;p&gt;参考&lt;a href=&quot;http://www.chiange.com/wechall-shadowlamb-chapter-i-fun/&quot;&gt;这里&lt;/a&gt;，这里就来到一个游戏了。&lt;/p&gt;
+
+&lt;p&gt;我用的客户端是&lt;a href=&quot;http://xclient.info/s/textual.html?t=f25803378bc6aa0c0495c32f5db65c6edfb2dae5&quot;&gt;Texttual&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Ugah made game. You play game. You #use ScrollOfWisdom.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;连接的地址是: irc.gizmore.org
+频道是: #shadowlamb
+
+#exp 就是不断找小怪打，获取金币
+
+Your attributes: body:1(2), magic:1(5), quickness:3(6), wisdom:0(2), intelligence:2(6), charisma:1(5), luck:0, reputation:0, essence:6.
+#lvlup body  这个是升级的，升级一次会消耗 4 个 karma
+
+#use FirstAid 是涨血量(HP)的
+
+#use XXX
+#eq XXX 后面跟物品代号
+
+#ny 查看当前有多少钱
+#goto Redmond_Alchemist 去这里买 flag
+#use ScrollOfWisdom 就能拿到 flag
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;28training-warchall---the-beginning&quot;&gt;28.Training: Warchall - The Beginning&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;step1: 创建账号&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;step2: &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh -p 19198 catcher@warchall.net&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;此时该目录下有两个文件：&lt;code class=&quot;highlighter-rouge&quot;&gt;level  WELCOME.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;先看看 &lt;code class=&quot;highlighter-rouge&quot;&gt;WELCOME.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;You will find the solution to each level in 
+/home/level
+or
+/home/user/yournick/level
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这里说有两个路径，我在 level 下确实只看到 4、5、6，那么就去&lt;code class=&quot;highlighter-rouge&quot;&gt;/home/level&lt;/code&gt; 做 1、2、3。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$catcher@warchall /home/level/0 $ cat README.txt 
+bitwarrior
+
+$catcher@warchall /home/level/1 $ grep -rn &quot;solution&quot;*
+LameStartup
+
+$catcher@warchall /home/level/2 $ grep -rn &quot;solution&quot;*
+.porb/.solution:1:The solution is HiddenIsConfig
+grep: .ssh: 权限不够
+.bash_history:8:nano .porb/.solution
+$catcher@warchall /home/level/2/.porb $ ls -a
+HiddenIsConfig
+
+$catcher@warchall /home/level/3 $ grep -rn &quot;solution&quot;*
+RepeatingHistory
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;补充:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grep -rn &quot;hello,world!&quot; *
+
+* : 表示当前目录所有文件，也可以是某个文件名
+-r 是递归查找
+-n 是显示行号
+-R 查找所有文件包含子目录
+-i 忽略大小写
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;下面的 4、5、6 就要换目录了&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$catcher@warchall ~/level/4 $ cat README.txt 
+cat: README.txt: 权限不够
+$catcher@warchall ~/level/4 $ ls -l    &amp;lt;=&amp;gt;  查看权限情况
+总用量 4
+---------- 1 catcher catcher 63 8月  23 15:35 README.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;用户名和组名都是我自己，只要加一下可读即可。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$catcher@warchall ~/level/4 $ chmod 700 README.txt 
+$catcher@warchall ~/level/4 $ cat README.txt 
+AndIknowchown
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$catcher@warchall ~/level/5 $ cat README.txt 
+Protect your /home/user/catcher/level directory from other users. Then wait 5 minutes.
+
+$catcher@warchall ~ $ ls -l
+总用量 8
+drwx---r-x 5 catcher catcher 4096 8月  23 15:35 level
+-r--r--r-- 1 catcher catcher  463 1月  18 2014 WELCOME.txt
+$catcher@warchall ~/level/5 $ cat solution.txt 
+cat: solution.txt: 权限不够
+$catcher@warchall ~/level/5 $ chmod 700 solution.txt
+$catcher@warchall ~/level/5 $ cat solution.txt 
+The solution to level 5 is 'OhRightThePerms', without the quotes.
+OhRightThePerms
+
+bitwarrior,LameStartup,HiddenIsConfig,RepeatingHistory,AndIknowchown,OhRightThePerms
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/blog/wechall1.png&quot; alt=&quot;pic1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;参考：&lt;a href=&quot;http://www.chiange.com/wechall-training-warchall-the-beginning-realistic-linux-shell-warchall/&quot;&gt;[WeChall] Training: Warchall – The Beginning (Realistic, Linux, Shell, Warchall)&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;29repeating-history&quot;&gt;29.Repeating History&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;首先去 github 该项目的地址上找到该题目的文件夹&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;第一部分在   repeating 文件夹下&lt;/p&gt;
+
+&lt;p&gt;第二部分 在 history 文件夹下，查找 install.php 的历史记录找到正确的 solution&lt;/p&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……</summary></entry><entry><title type="html">NCTF 综合题2</title><link href="http://localhost:4000/2018/08/19/nctfzh2/" rel="alternate" type="text/html" title="NCTF 综合题2" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/nctfzh2</id><content type="html" xml:base="http://localhost:4000/2018/08/19/nctfzh2/">&lt;p&gt;nctf 上的一道题目，需要挺多技巧的，感觉不错，所以单独拿出来分析一下。
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;step1-不断尝试&quot;&gt;step1 不断尝试&lt;/h2&gt;
@@ -2594,24 +2940,4 @@ bugku is a nice plateform!
 
 &lt;h2 id=&quot;0x04-参考&quot;&gt;0x04 参考&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://ciphersaw.me/2017/12/26/%E3%80%90Bugku%20CTF%E3%80%91%20Web%20%E2%80%94%E2%80%94%20never%20give%20up/&quot;&gt;【Bugku CTF】 Web —— never give up&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">Bugku 上一道比较简单的 web 题目，但是仍然有单独拿出来看看的价值。</summary></entry><entry><title type="html">自言自语</title><link href="http://localhost:4000/2018/08/12/to_myself/" rel="alternate" type="text/html" title="自言自语" /><published>2018-08-12T00:00:00+08:00</published><updated>2018-08-12T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/12/to_myself</id><content type="html" xml:base="http://localhost:4000/2018/08/12/to_myself/">&lt;p&gt;&lt;strong&gt;当坚持成为一种习惯，成长比成功更重要，猥琐发育，别浪。&lt;/strong&gt;&lt;br /&gt;
-&lt;strong&gt;选择的方向很明确，但并不是每个人都有纵身一跃的勇气。&lt;/strong&gt;&lt;br /&gt;
-&lt;strong&gt;没有计划的学习都只是在浪费时间， 没有目标的努力都只是自己骗自己而已。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;每一段时间的生活必须要有一个焦点，研究漏洞、写代码、看书、看电影、跑步都行，没有焦点的生活就像一盘散沙，过去了就过去了，你连一点感觉都没有。&lt;/p&gt;
-
-&lt;p&gt;「毒品」易戒，心瘾难除。远离能让你获得快感，赚到快钱的东西。&lt;/p&gt;
-
-&lt;p&gt;维持知识输入与输出的平衡，只有知识的输入，并不会在你的脑子里留下较深的痕迹，保持整理与分享，维持这种输出的状态，有助于知识的理解与吸收。经过你自己思考的东西都值得被分享，闭门造车并不好，多「走出去」与别人交流。&lt;/p&gt;
-
-&lt;p&gt;每一次机会都来之不易，在预见机会的时候就要开始做充足的准备。&lt;/p&gt;
-
-&lt;p&gt;永远不要自我设限，无论当前的你多么的不堪。厉害的人之所以厉害，是因为他们花在这方面的时间和精力比你多很多很多。我时常想起几年前在「博士数学论坛」上将《数学分析精讲》看过 26 遍的前辈；还有《算法导论》刷过 4 遍的安姐；还有 p牛……厉害是有原因的，但是没有那些乱七八糟的原因。&lt;/p&gt;
-
-&lt;p&gt;人生中太多的需求都是被刻意制造出来的，唯有三件事是真的重要：亲人、知识和赚到手的钱；对所有的事情都要耐心一点，尽量用一个观察者的态度看待这个世界；多读书，看见别人一生怎么走过来的，多学学。(via:学长)&lt;/p&gt;
-
-&lt;p&gt;向着成为一名合格的白帽子不断努力。&lt;/p&gt;</content><author><name>Catcher</name></author><category term="thinking" /><summary type="html">当坚持成为一种习惯，成长比成功更重要，猥琐发育，别浪。 选择的方向很明确，但并不是每个人都有纵身一跃的勇气。 没有计划的学习都只是在浪费时间， 没有目标的努力都只是自己骗自己而已。</summary></entry></feed>
+&lt;p&gt;&lt;a href=&quot;https://ciphersaw.me/2017/12/26/%E3%80%90Bugku%20CTF%E3%80%91%20Web%20%E2%80%94%E2%80%94%20never%20give%20up/&quot;&gt;【Bugku CTF】 Web —— never give up&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">Bugku 上一道比较简单的 web 题目，但是仍然有单独拿出来看看的价值。</summary></entry></feed>

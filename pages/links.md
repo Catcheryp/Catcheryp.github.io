@@ -15,6 +15,7 @@ permalink: /links/
 - p0sec [http://p0sec.net/](http://p0sec.net/)
 - Archimesan [http://archimesan.me/](http://archimesan.me/)  (CTF、前端)
 - Qiqi's Blog [http://codeqi.top/](http://codeqi.top/) CTF
+- Junay [https://delcoding.github.io/](https://delcoding.github.io/) (CTF、Web 安全)
 - F0rmat [https://getpass.cn/](https://getpass.cn/)  代码审计
 - JuH0n [https://www.jianshu.com/u/13c720cf85fc](https://www.jianshu.com/u/13c720cf85fc) (Web安全、PWN)
 - 柳婼 の blog [https://www.liuchuo.net/](https://www.liuchuo.net/) (PAT、LeetCode...)
@@ -39,6 +40,7 @@ permalink: /links/
 - [梧桐百科](https://tricking.io/)
 - [CTF wiki](https://ctf-wiki.github.io/ctf-wiki/)
 - [SQL注入WIKI](http://sqlwiki.radare.cn/#/)
+- [Python全栈之路](https://blog.ansheng.me/article/python-full-stack-way)
 
 
 

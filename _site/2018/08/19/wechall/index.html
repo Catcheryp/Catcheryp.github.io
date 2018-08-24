@@ -270,6 +270,291 @@
 	<span class="k">print</span><span class="p">(</span><span class="s">"#############################################################"</span><span class="p">)</span>
 </code></pre></div></div>
 
+<h2 id="16training-crypto---digraphs">16.Training: Crypto - Digraphs</h2>
+
+<p>先猜第一个对应的单词是<code class="highlighter-rouge">congratulations</code>，然后建立字典慢慢玩下去，跟数独有点像。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#coding: utf-8</span>
+<span class="n">a</span> <span class="o">=</span> <span class="s">"uansbneeuqxirstnvnxirsjznsbntvgj ninstn ggwkffuqyuqprswkgg rsejjztv iowktvtvxieewk tvtnffffwktvtvpftnvnvnyugj vexitv bnnsrs rsnsns ggjzpfpfjzfftnvnrs wkjzrsejwkuqex xyxitv jzrsqb vewkvnvnex eensnsgg fxnssugj kvbnrswkuq rsejjztv oqwkyuxynsuqgg xitv tvnsvntnrsjznsbnjt vnvnnseejzpfpfvnpfejejpfgj"</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">" "</span><span class="p">)</span>
+
+<span class="n">data_A</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">ans</span> <span class="o">=</span> <span class="s">"congratulations"</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ans</span><span class="p">)):</span>
+	<span class="n">tmp</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">tmp</span> <span class="o">+=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+	<span class="n">data_A</span><span class="p">[</span><span class="n">tmp</span><span class="p">]</span> <span class="o">=</span> <span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+<span class="k">print</span> <span class="n">data_A</span>
+
+<span class="c">#这里程序先运行一下再天剑这里</span>
+<span class="n">data_A</span><span class="p">[</span><span class="s">"ni"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"y"</span>
+<span class="n">data_A</span><span class="p">[</span><span class="s">"ej"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"h"</span>
+<span class="n">data_A</span><span class="p">[</span><span class="s">"gg"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"d"</span>
+<span class="n">data_A</span><span class="p">[</span><span class="s">"io"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"m"</span>
+<span class="n">data_A</span><span class="p">[</span><span class="s">"wk"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"e"</span>
+<span class="n">data_A</span><span class="p">[</span><span class="s">"pf"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"f"</span>
+<span class="n">data_A</span><span class="p">[</span><span class="s">"ff"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"c"</span>
+<span class="n">data_A</span><span class="p">[</span><span class="s">"gj"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"!"</span>
+
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+	<span class="n">res</span> <span class="o">=</span> <span class="s">""</span>
+	<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">):</span>
+		<span class="n">tmp</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="p">]</span>
+		<span class="n">tmp</span> <span class="o">+=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+		<span class="k">if</span> <span class="n">data_A</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">tmp</span><span class="p">):</span>
+			<span class="n">res</span> <span class="o">+=</span> <span class="n">data_A</span><span class="p">[</span><span class="n">tmp</span><span class="p">]</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">res</span> <span class="o">+=</span> <span class="s">"*"</span>	
+	<span class="k">print</span> <span class="n">res</span>
+
+</code></pre></div></div>
+
+<h2 id="17training-mysql-i">17.Training: MySQL I</h2>
+
+<p><code class="highlighter-rouge">admin'#&amp;1</code></p>
+
+<h2 id="18training-mysql-ii">18.Training: MySQL II</h2>
+
+<p><code class="highlighter-rouge">' union select md5(1),'admin',md5(1)#&amp;1</code></p>
+
+<h2 id="19training-www-basics">19.Training: WWW-Basics</h2>
+
+<p><strong>这道题需要搭建服务器，如果在本地搭建需要在路由器上进行设置，我这里暂且不行。其次可以用代理的方式，可以设置全局代理，这里这道题目识别的就是你代理服务器的 IP 了，然后在代理服务器上新建相应的文件。(这里要注意要使用 SS 的话，代理服务器不能是国内大陆的)。注意: 用 XFF 欺骗欺骗不了。</strong></p>
+
+<h2 id="20training-register-globals">20.Training: Register Globals</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//注意这道题目: register_globals = on
+</span><span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$login</span><span class="p">))</span>
+<span class="p">{</span>
+        <span class="k">echo</span> <span class="nx">GWF_HTML</span><span class="o">::</span><span class="na">message</span><span class="p">(</span><span class="s1">'Register Globals'</span><span class="p">,</span> <span class="nv">$chall</span><span class="o">-&gt;</span><span class="na">lang</span><span class="p">(</span><span class="s1">'msg_welcome_back'</span><span class="p">,</span> 			<span class="k">array</span><span class="p">(</span><span class="nb">htmlspecialchars</span><span class="p">(</span><span class="nv">$login</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">htmlspecialchars</span><span class="p">(</span><span class="nv">$login</span><span class="p">[</span><span class="mi">1</span><span class="p">]))));</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">strtolower</span><span class="p">(</span><span class="nv">$login</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">===</span> <span class="s1">'admin'</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$chall</span><span class="o">-&gt;</span><span class="na">onChallengeSolved</span><span class="p">(</span><span class="nx">GWF_Session</span><span class="o">::</span><span class="na">getUserID</span><span class="p">());</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>所以只要<code class="highlighter-rouge">?login[0]=admin</code></p>
+
+<h2 id="21training-math-pyramid">21.Training: Math Pyramid</h2>
+
+<p><code class="highlighter-rouge">a^3/18^.5</code></p>
+
+<p>分子有理化，这道题很贱啊</p>
+
+<h2 id="22training-baconian">22.Training: Baconian</h2>
+
+<p>培根密码 =&gt; 到<a href="http://rumkin.com/tools/cipher/baconian.php">这里</a>解密</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#coding: utf-8</span>
+<span class="s">"""
+a = "BaCoN's cIphEr or THE bacOnIAN CiPHer iS a meThOD oF sTEGaNOGrapHY (a METhoD Of HidIng A sECRet MeSsaGe as OpPOsEd TO a TRUe CiPHeR) dEVIseD BY francis bAcoN. a MessAge Is coNCeALED in THe pRESenTatIoN OF TexT, ratHer thaN iTs coNteNt. tO enCODe A MEsSaGe, eaCh lETter Of THe pLAInText Is rePLAcED By A groUp oF fIvE OF thE LEtTers 'a' oR 'B'. this rEPlaCemENt Is done acCOrdiNg To THE alPHAbeT OF tHe BACOnIAN cIpHeR, sHoWn bElOw. NoTe: A SeCoNd vErSiOn oF BaCoN'S CiPhEr uSeS A UnIqUe cOdE FoR EaCh lEtTeR. iN OtHeR WoRdS, i aNd j eAcH HaS ItS OwN PaTtErN. tHe wRiTeR MuSt mAkE UsE Of tWo dIfFeReNt tYpEfAcEs fOr tHiS CiPhEr. AfTeR PrEpArInG A FaLsE MeSsAgE WiTh tHe sAmE NuMbEr oF LeTtErS As aLl oF ThE As aNd bS In tHe rEaL, sEcReT MeSsAgE, tWo tYpEfAcEs aRe cHoSeN, oNe tO RePrEsEnT As aNd tHe oThEr bS. tHeN EaCh lEtTeR Of tHe fAlSe mEsSaGe mUsT Be pReSeNtEd iN ThE ApPrOpRiAtE TyPeFaCe, AcCoRdInG To wHeThEr iT StAnDs fOr aN A Or a b. To dEcOdE ThE MeSsAgE, tHe rEvErSe mEtHoD Is aPpLiEd. EaCh 'TyPeFaCe 1' LeTtEr iN ThE FaLsE MeSsAgE Is rEpLaCeD WiTh aN A AnD EaCh 'TyPeFaCe 2' LeTtEr iS RePlAcEd wItH A B. tHe bAcOnIaN AlPhAbEt iS ThEn uSeD To rEcOvEr tHe oRiGiNaL MeSsAgE. aNy mEtHoD Of wRiTiNg tHe mEsSaGe tHaT AlLoWs tWo dIsTiNcT RePrEsEnTaTiOnS FoR EaCh cHaRaCtEr cAn bE UsEd fOr tHe bAcOn cIpHeR. bAcOn hImSeLf pRePaReD A BiLiTeRaL AlPhAbEt[2] FoR HaNdWrItTeN CaPiTaL AnD SmAlL LeTtErS WiTh eAcH HaViNg tWo aLtErNaTiVe fOrMs, OnE To bE UsEd aS A AnD ThE OtHeR As b. ThIs wAs pUbLiShEd aS An iLlUsTrAtEd pLaTe iN HiS De aUgMeNtIs sCiEnTiArUm (ThE AdVaNcEmEnT Of lEaRnInG). BeCaUsE AnY MeSsAgE Of tHe rIgHt lEnGtH CaN Be uSeD To cArRy tHe eNcOdInG, tHe sEcReT MeSsAgE Is eFfEcTiVeLy hIdDeN In pLaIn sIgHt. ThE FaLsE MeSsAgE CaN Be oN AnY ToPiC AnD ThUs cAn dIsTrAcT A PeRsOn sEeKiNg tO FiNd tHe rEaL MeSsAgE."
+a = list(a)
+
+
+for i in range(len(a)):
+	if 'A' &lt;= a[i] &lt;= 'Z':
+		a[i] = 'b'
+	elif 'a' &lt;= a[i] &lt;= 'z':
+		a[i] = 'a'
+	else:
+		a[i] = ""
+print "".join(a)
+
+"""</span>
+<span class="n">res</span> <span class="o">=</span> <span class="s">"VERYXWELLXDONEXFELLOWXHACKERXTHEXSECRETXKEYWORDXISXHIGBSNAGFOOOXXKVFKSUJOUWKWWURNWVFNFWJKSVEWVLKXLKJNJVMTMTEVLKUVJFKNKZEUVUVSKKSZKTNKWVKVSUSOEVWVJKKZKVKVJWWVSVUVKVJVJOSVVJUWKSKWVJLFJFJNJFLKVLNFKJUSKKVFJKKVNKWVWWVUWUSVJKZUWWKJKTFKSTMVJKVNKWKWVWVSKKFSSKVFNLFKSWKKWWVWNVWSKXKKTJFV"</span>
+
+<span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"X"</span><span class="p">,</span> <span class="s">" "</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">res</span>
+</code></pre></div></div>
+
+<h2 id="23training-lsb">23.Training: LSB</h2>
+
+<p>一道隐写题，使用官方的 Java 小程序 steganabara 来解的。之前都是直接跳过的，这里参考<a href="https://www.cnblogs.com/Martinium/p/wechall_stegano.html">这里</a></p>
+
+<p>LSB(The least significant bit)</p>
+
+<h2 id="24training-gpg">24.Training: GPG</h2>
+
+<p>这道题比较琐碎，参考<a href="http://www.chiange.com/wechall-training-gpg-crypto-training/">这里</a>来做的，还有阮一峰老师关于 gpg 的一篇文章<a href="http://www.ruanyifeng.com/blog/2013/07/gpg.html">GPG入门教程</a></p>
+
+<p>我开始在 kali 下做，按照步骤一步一步来开始是没啥问题，但是收到 wechall 邮件一直解密不了，报错</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gpg: WARNING: no command supplied.  Trying to guess what you mean ...
+gpg: no valid OpenPGP data found.
+gpg: processing message failed: 未知的系统错误
+</code></pre></div></div>
+
+<p>然后我在 Mac 上做还是遇到同样的报错，后来发现是拷贝出来之后加密数据的格式问题，邮件里的密文，凡是空格复制到文件中都要手动转成换行。</p>
+
+<p><strong>步骤：</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gpg2 --gen-key
+
+gpg2 --armor --output public-key.txt --export  "YYXXP &lt;2281XXXX95@qq.com&gt;"
+
+touch secret.txt
+gpg2 secret.txt
+</code></pre></div></div>
+
+<h2 id="25limited-access">25.Limited Access</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AuthUserFile .htpasswd
+AuthGroupFile /dev/null
+AuthName "Authorization Required for the Limited Access Challenge"
+AuthType Basic
+&lt;Limit GET&gt;
+require valid-user
+&lt;/Limit&gt;
+</code></pre></div></div>
+
+<p>简单看下这里的源码，只对 <code class="highlighter-rouge">GET</code> 做了限制，所以我们使用 <code class="highlighter-rouge">POST</code> 访问即可</p>
+
+<h2 id="26limited-access-too">26.Limited Access Too</h2>
+
+<p>这道题比上一道题就是多禁了几个 http method，但是并没有禁完</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET
+	GET方法请求一个指定资源的表示形式. 使用GET的请求应该只被用于获取数据.
+HEAD
+	HEAD方法请求一个与GET请求的响应相同的响应，但没有响应体.
+POST
+	POST方法用于将实体提交到指定的资源，通常导致状态或服务器上的副作用的更改. 
+PUT
+	PUT方法用请求有效载荷替换目标资源的所有当前表示。
+DELETE
+	DELETE方法删除指定的资源。
+CONNECT
+	CONNECT方法建立一个到由目标资源标识的服务器的隧道。
+OPTIONS
+	OPTIONS方法用于描述目标资源的通信选项。
+TRACE
+	TRACE方法沿着到目标资源的路径执行一个消息环回测试。
+PATCH
+	PATCH方法用于对资源应用部分修改。
+
+//这道题我就使用 PATCH
+</code></pre></div></div>
+
+<h2 id="27shadowlamb---chapter-i">27.Shadowlamb - Chapter I</h2>
+
+<p>参考<a href="http://www.chiange.com/wechall-shadowlamb-chapter-i-fun/">这里</a>，这里就来到一个游戏了。</p>
+
+<p>我用的客户端是<a href="http://xclient.info/s/textual.html?t=f25803378bc6aa0c0495c32f5db65c6edfb2dae5">Texttual</a></p>
+
+<p><strong>Ugah made game. You play game. You #use ScrollOfWisdom.</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>连接的地址是: irc.gizmore.org
+频道是: #shadowlamb
+
+#exp 就是不断找小怪打，获取金币
+
+Your attributes: body:1(2), magic:1(5), quickness:3(6), wisdom:0(2), intelligence:2(6), charisma:1(5), luck:0, reputation:0, essence:6.
+#lvlup body  这个是升级的，升级一次会消耗 4 个 karma
+
+#use FirstAid 是涨血量(HP)的
+
+#use XXX
+#eq XXX 后面跟物品代号
+
+#ny 查看当前有多少钱
+#goto Redmond_Alchemist 去这里买 flag
+#use ScrollOfWisdom 就能拿到 flag
+</code></pre></div></div>
+
+<h2 id="28training-warchall---the-beginning">28.Training: Warchall - The Beginning</h2>
+
+<p><strong>step1: 创建账号</strong></p>
+
+<p><strong>step2: <code class="highlighter-rouge">ssh -p 19198 catcher@warchall.net</code></strong></p>
+
+<p>此时该目录下有两个文件：<code class="highlighter-rouge">level  WELCOME.txt</code></p>
+
+<p>先看看 <code class="highlighter-rouge">WELCOME.txt</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>You will find the solution to each level in 
+/home/level
+or
+/home/user/yournick/level
+</code></pre></div></div>
+
+<p>这里说有两个路径，我在 level 下确实只看到 4、5、6，那么就去<code class="highlighter-rouge">/home/level</code> 做 1、2、3。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$catcher@warchall /home/level/0 $ cat README.txt 
+bitwarrior
+
+$catcher@warchall /home/level/1 $ grep -rn "solution"*
+LameStartup
+
+$catcher@warchall /home/level/2 $ grep -rn "solution"*
+.porb/.solution:1:The solution is HiddenIsConfig
+grep: .ssh: 权限不够
+.bash_history:8:nano .porb/.solution
+$catcher@warchall /home/level/2/.porb $ ls -a
+HiddenIsConfig
+
+$catcher@warchall /home/level/3 $ grep -rn "solution"*
+RepeatingHistory
+</code></pre></div></div>
+
+<p><strong>补充:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grep -rn "hello,world!" *
+
+* : 表示当前目录所有文件，也可以是某个文件名
+-r 是递归查找
+-n 是显示行号
+-R 查找所有文件包含子目录
+-i 忽略大小写
+</code></pre></div></div>
+
+<p>下面的 4、5、6 就要换目录了</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$catcher@warchall ~/level/4 $ cat README.txt 
+cat: README.txt: 权限不够
+$catcher@warchall ~/level/4 $ ls -l    &lt;=&gt;  查看权限情况
+总用量 4
+---------- 1 catcher catcher 63 8月  23 15:35 README.txt
+</code></pre></div></div>
+
+<p>用户名和组名都是我自己，只要加一下可读即可。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$catcher@warchall ~/level/4 $ chmod 700 README.txt 
+$catcher@warchall ~/level/4 $ cat README.txt 
+AndIknowchown
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$catcher@warchall ~/level/5 $ cat README.txt 
+Protect your /home/user/catcher/level directory from other users. Then wait 5 minutes.
+
+$catcher@warchall ~ $ ls -l
+总用量 8
+drwx---r-x 5 catcher catcher 4096 8月  23 15:35 level
+-r--r--r-- 1 catcher catcher  463 1月  18 2014 WELCOME.txt
+$catcher@warchall ~/level/5 $ cat solution.txt 
+cat: solution.txt: 权限不够
+$catcher@warchall ~/level/5 $ chmod 700 solution.txt
+$catcher@warchall ~/level/5 $ cat solution.txt 
+The solution to level 5 is 'OhRightThePerms', without the quotes.
+OhRightThePerms
+
+bitwarrior,LameStartup,HiddenIsConfig,RepeatingHistory,AndIknowchown,OhRightThePerms
+</code></pre></div></div>
+
+<p><img src="http://localhost:4000/images/blog/wechall1.png" alt="pic1" /></p>
+
+<p>参考：<a href="http://www.chiange.com/wechall-training-warchall-the-beginning-realistic-linux-shell-warchall/">[WeChall] Training: Warchall – The Beginning (Realistic, Linux, Shell, Warchall)</a></p>
+
+<h2 id="29repeating-history">29.Repeating History</h2>
+
+<p><strong>首先去 github 该项目的地址上找到该题目的文件夹</strong></p>
+
+<p>第一部分在   repeating 文件夹下</p>
+
+<p>第二部分 在 history 文件夹下，查找 install.php 的历史记录找到正确的 solution</p>
+
 
     </article>
   
