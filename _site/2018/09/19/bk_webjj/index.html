@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>代码审计 &mdash; Evil</title>
+    <title>Bugku writeup(Web进阶) &mdash; Evil</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -23,27 +23,29 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
+    <link rel="canonical" href="http://localhost:4000/2018/09/19/bk_webjj/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
     <link rel="shortcut icon" href="http://localhost:4000/images/favicon.jpg" >
     
-    <meta property="og:title" content="代码审计">
+    <meta property="og:title" content="Bugku writeup(Web进阶)">
       
     <meta name="keywords" content="Web Security">
     <meta name="og:keywords" content="Web Security">
       
-    <meta name="description" content="">
-    <meta name="og:description" content="">
+    <meta name="description" content="开始做 Web 进阶的题目啦，加油加油加油，不断加强 CTF 的题目的前期积累。">
+    <meta name="og:description" content="开始做 Web 进阶的题目啦，加油加油加油，不断加强 CTF 的题目的前期积累。">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
+    <meta property="og:url" content="http://localhost:4000/2018/09/19/bk_webjj/">
     <meta property="og:site_name" content="Evil">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2018-09-19">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -75,170 +77,101 @@
     </header>
     <!-- / header -->
 
-    <section class="collection-head small geopattern" data-pattern-id="代码审计">
-    <div class="container">
-        <div class="columns">
-            <div class="column three-fourths">
-                <div class="collection-title">
-                    <h1 class="collection-header">代码审计</h1>
-                </div>
-            </div>
+    <section class="collection-head small geopattern" data-pattern-id="Bugku writeup(W">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">Bugku writeup(Web进阶)</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2018/09/19
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/CTF" title="CTF">CTF</a>
+          </span>
+          
+
+          
+          <span class="meta-info">
+            <span class="octicon octicon-tag"></span>
+            <a href="http://localhost:4000/tags/#CTF" title="CTF">CTF</a>
+          </span>
+          
         </div>
+      </div>
     </div>
+  </div>
+</div>
 </section>
 <!-- / .banner -->
 <section class="container content">
-    <div class="columns">
-        <div class="column three-fourths" >
-            <article class="article-content markdown-body">
-                
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>开始做 Web 进阶的题目啦，加油加油加油，不断加强 CTF 的题目的前期积累。</p>
 
-                <section class="container posts-content">
-                <ol class="posts-list" id="">
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                </ol>
-                </section>
+<!--more-->
+
+<h2 id="1phpcmsv9">1.phpcmsV9</h2>
+
+<p><code class="highlighter-rouge">robots.txt</code></p>
+
+<h2 id="2海洋cms">2.海洋CMS</h2>
+
+<font color="red">题目被搞坏了</font>
+
+<h2 id="3小明的博客">3.小明的博客</h2>
 
 
-            </article>
-            <div class="share">
-                <!--<div class="share-component"></div>-->
-            </div>
-            <div class="comment">
-                
+    </article>
+  
+    <div class="newold">
+  <hr>
+  
+  <b>上一篇: <a href="/2018/09/19/bk_fx/">Bugku writeup(分析题)</a></b><br>
+     
+  
+  <b>下一篇: <a href="/2018/09/19/CBC/">CBC字节翻转攻击</a></b>
+   
+</div><!--上一篇 下一篇-->
 
-            </div>
-        </div>
-        <div class="column one-fourth">
-            
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2018/09/19/bk_webjj/',
+            clientID: '5a59fdc570f933e0c2ee',
+            clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
+            repo: 'blogcomments',
+            owner: 'Catcheryp',
+            admin: ['Catcheryp'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
 <h3>Search</h3>
 <div id="site_search">
     <input type="text" id="search_box" placeholder="Search">
@@ -263,171 +196,22 @@ SimpleJekyllSearch({
 })
 </script>
 
-            
-<h3>Tags</h3>
+    
 
-<div id="blog-tags">
     
-    
-    <a href="http://localhost:4000/tags/#CTF">
-    <span class="badge" id="tag">
-    CTF
-    <span>11</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#FQ">
-    <span class="badge" id="tag">
-    FQ
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#blog-theme">
-    <span class="badge" id="tag">
-    blog-theme
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#coding">
-    <span class="badge" id="tag">
-    coding
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#git">
-    <span class="badge" id="tag">
-    git
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#https">
-    <span class="badge" id="tag">
-    https
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#linux">
-    <span class="badge" id="tag">
-    linux
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#regex">
-    <span class="badge" id="tag">
-    regex
-    <span>2</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#shell">
-    <span class="badge" id="tag">
-    shell
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#sqlmap">
-    <span class="badge" id="tag">
-    sqlmap
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#sql注入">
-    <span class="badge" id="tag">
-    sql注入
-    <span>4</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#thinking">
-    <span class="badge" id="tag">
-    thinking
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#xss">
-    <span class="badge" id="tag">
-    xss
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#信息收集">
-    <span class="badge" id="tag">
-    信息收集
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#漏洞研究">
-    <span class="badge" id="tag">
-    漏洞研究
-    <span>2</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#读书">
-    <span class="badge" id="tag">
-    读书
-    <span>2</span>
-    </span>
-    </a>
-    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
 </div>
 
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
 
-
-            <h3>Categories</h3>
-<div id="blog-categories">
-  <ul class="list-group2">
-    
-    
-    <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/CTF"><span class="octicon octicon-file-directory"></span> CTF</a> <span id="nums">(11)</span>
-    </li>
-    
-    <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/program"><span class="octicon octicon-file-directory"></span> program</a> <span id="nums">(5)</span>
-    </li>
-    
-    <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/web安全"><span class="octicon octicon-file-directory"></span> web安全</a> <span id="nums">(10)</span>
-    </li>
-    
-    <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/折腾"><span class="octicon octicon-file-directory"></span> 折腾</a> <span id="nums">(3)</span>
-    </li>
-    
-    <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/有感"><span class="octicon octicon-file-directory"></span> 有感</a> <span id="nums">(1)</span>
-    </li>
-    
-    <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/读书"><span class="octicon octicon-file-directory"></span> 读书</a> <span id="nums">(2)</span>
-    </li>
-    
-  </ul>
+  </div>
 </div>
-
-<script type="text/javascript">
-
-  $(document).ready(function(){
-    $("#blog-categories li").css('text-transform','capitalize')
-  });
-
-</script>
-
-
-        </div>
-    </div>
 </section>
 <!-- /section.content -->
 

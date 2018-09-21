@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>代码审计 &mdash; Evil</title>
+    <title>Bugku writeup(分析题) &mdash; Evil</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -23,27 +23,29 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
+    <link rel="canonical" href="http://localhost:4000/2018/09/19/bk_fx/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
     <link rel="shortcut icon" href="http://localhost:4000/images/favicon.jpg" >
     
-    <meta property="og:title" content="代码审计">
+    <meta property="og:title" content="Bugku writeup(分析题)">
       
     <meta name="keywords" content="Web Security">
     <meta name="og:keywords" content="Web Security">
       
-    <meta name="description" content="">
-    <meta name="og:description" content="">
+    <meta name="description" content="Bugku 上的分析题，熟悉一下 wireshark 的使用，以及如何分析网络流量。">
+    <meta name="og:description" content="Bugku 上的分析题，熟悉一下 wireshark 的使用，以及如何分析网络流量。">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
+    <meta property="og:url" content="http://localhost:4000/2018/09/19/bk_fx/">
     <meta property="og:site_name" content="Evil">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2018-09-19">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -75,170 +77,101 @@
     </header>
     <!-- / header -->
 
-    <section class="collection-head small geopattern" data-pattern-id="代码审计">
-    <div class="container">
-        <div class="columns">
-            <div class="column three-fourths">
-                <div class="collection-title">
-                    <h1 class="collection-header">代码审计</h1>
-                </div>
-            </div>
+    <section class="collection-head small geopattern" data-pattern-id="Bugku writeup(分">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">Bugku writeup(分析题)</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2018/09/19
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/CTF" title="CTF">CTF</a>
+          </span>
+          
+
+          
+          <span class="meta-info">
+            <span class="octicon octicon-tag"></span>
+            <a href="http://localhost:4000/tags/#CTF" title="CTF">CTF</a>
+          </span>
+          
         </div>
+      </div>
     </div>
+  </div>
+</div>
 </section>
 <!-- / .banner -->
 <section class="container content">
-    <div class="columns">
-        <div class="column three-fourths" >
-            <article class="article-content markdown-body">
-                
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>Bugku 上的分析题，熟悉一下 wireshark 的使用，以及如何分析网络流量。</p>
 
-                <section class="container posts-content">
-                <ol class="posts-list" id="">
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                </ol>
-                </section>
+<!--more-->
+
+<h2 id="1flag被盗">1.flag被盗</h2>
+
+<p><img src="http://localhost:4000/images/blog/fx1.png" alt="fx1" /></p>
+
+<p><img src="http://localhost:4000/images/blog/fx2.png" alt="fx2" /></p>
+
+<h2 id="参考">参考</h2>
+
+<p><a href="https://zhuanlan.zhihu.com/p/31512066">https://zhuanlan.zhihu.com/p/31512066</a></p>
 
 
-            </article>
-            <div class="share">
-                <!--<div class="share-component"></div>-->
-            </div>
-            <div class="comment">
-                
+    </article>
+  
+    <div class="newold">
+  <hr>
+  
+  <b>上一篇: <a href="/2018/09/18/prompt/">prompt(1) to win</a></b><br>
+     
+  
+  <b>下一篇: <a href="/2018/09/19/bk_webjj/">Bugku writeup(Web进阶)</a></b>
+   
+</div><!--上一篇 下一篇-->
 
-            </div>
-        </div>
-        <div class="column one-fourth">
-            
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2018/09/19/bk_fx/',
+            clientID: '5a59fdc570f933e0c2ee',
+            clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
+            repo: 'blogcomments',
+            owner: 'Catcheryp',
+            admin: ['Catcheryp'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
 <h3>Search</h3>
 <div id="site_search">
     <input type="text" id="search_box" placeholder="Search">
@@ -263,171 +196,22 @@ SimpleJekyllSearch({
 })
 </script>
 
-            
-<h3>Tags</h3>
+    
 
-<div id="blog-tags">
     
-    
-    <a href="http://localhost:4000/tags/#CTF">
-    <span class="badge" id="tag">
-    CTF
-    <span>11</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#FQ">
-    <span class="badge" id="tag">
-    FQ
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#blog-theme">
-    <span class="badge" id="tag">
-    blog-theme
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#coding">
-    <span class="badge" id="tag">
-    coding
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#git">
-    <span class="badge" id="tag">
-    git
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#https">
-    <span class="badge" id="tag">
-    https
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#linux">
-    <span class="badge" id="tag">
-    linux
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#regex">
-    <span class="badge" id="tag">
-    regex
-    <span>2</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#shell">
-    <span class="badge" id="tag">
-    shell
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#sqlmap">
-    <span class="badge" id="tag">
-    sqlmap
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#sql注入">
-    <span class="badge" id="tag">
-    sql注入
-    <span>4</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#thinking">
-    <span class="badge" id="tag">
-    thinking
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#xss">
-    <span class="badge" id="tag">
-    xss
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#信息收集">
-    <span class="badge" id="tag">
-    信息收集
-    <span>1</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#漏洞研究">
-    <span class="badge" id="tag">
-    漏洞研究
-    <span>2</span>
-    </span>
-    </a>
-    
-    <a href="http://localhost:4000/tags/#读书">
-    <span class="badge" id="tag">
-    读书
-    <span>2</span>
-    </span>
-    </a>
-    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
 </div>
 
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
 
-
-            <h3>Categories</h3>
-<div id="blog-categories">
-  <ul class="list-group2">
-    
-    
-    <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/CTF"><span class="octicon octicon-file-directory"></span> CTF</a> <span id="nums">(11)</span>
-    </li>
-    
-    <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/program"><span class="octicon octicon-file-directory"></span> program</a> <span id="nums">(5)</span>
-    </li>
-    
-    <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/web安全"><span class="octicon octicon-file-directory"></span> web安全</a> <span id="nums">(10)</span>
-    </li>
-    
-    <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/折腾"><span class="octicon octicon-file-directory"></span> 折腾</a> <span id="nums">(3)</span>
-    </li>
-    
-    <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/有感"><span class="octicon octicon-file-directory"></span> 有感</a> <span id="nums">(1)</span>
-    </li>
-    
-    <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/读书"><span class="octicon octicon-file-directory"></span> 读书</a> <span id="nums">(2)</span>
-    </li>
-    
-  </ul>
+  </div>
 </div>
-
-<script type="text/javascript">
-
-  $(document).ready(function(){
-    $("#blog-categories li").css('text-transform','capitalize')
-  });
-
-</script>
-
-
-        </div>
-    </div>
 </section>
 <!-- /section.content -->
 

@@ -99,7 +99,7 @@
           
           <span class="meta-info">
             <span class="octicon octicon-tag"></span>
-            <a href="http://localhost:4000/tags/#CBC" title="CBC">CBC</a>
+            <a href="http://localhost:4000/tags/#漏洞研究" title="漏洞研究">漏洞研究</a>
           </span>
           
         </div>
@@ -125,9 +125,341 @@
 
 <p><strong>CBC字节翻转攻击:</strong><a href="http://drops.xmd5.com/static/drops/tips-7828.html">CBC字节翻转攻击-101Approach</a></p>
 
-<p>关于上面这道题目的解法主要参考这篇文章:<a href="https://rhythmmark.github.io/bugku-web-login4-WP/">https://rhythmmark.github.io/bugku-web-login4-WP/</a></p>
+<p>关于上面这道题目的解法主要参考这两篇文章:</p>
+
+<p><a href="https://rhythmmark.github.io/bugku-web-login4-WP/">https://rhythmmark.github.io/bugku-web-login4-WP/</a></p>
+
+<p><a href="https://www.cnblogs.com/s1ye/p/9021202.html">https://www.cnblogs.com/s1ye/p/9021202.html</a></p>
 
 <h2 id="0x02-tips">0x02 tips</h2>
+
+<p>在上面一部分基本给出了不错的分析过程，那么我这里主要总结一下<code class="highlighter-rouge">CBC字节翻转攻击</code>在这里主要的一些<strong>tips</strong>.</p>
+
+<h3 id="cbc字节翻转攻击之前">CBC字节翻转攻击之前</h3>
+
+<p>对于<code class="highlighter-rouge">index.php.swp</code>文件里面是16进制，首先要将其转换成源码</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$vi -r index.php.swp
+
+进入 vim 模式，然后按任意键
+
+:w index.php
+:q!
+
+这样swp文件16进制就会转换成源码保存在 index.php 文件中
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"Content-Type"</span> <span class="na">content=</span><span class="s">"text/html; charset=utf-8"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;title&gt;</span>Login Form<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">"static/css/style.css"</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"static/js/jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">$</span><span class="p">(</span><span class="s2">".username"</span><span class="p">).</span><span class="nx">focus</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+		<span class="nx">$</span><span class="p">(</span><span class="s2">".user-icon"</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s2">"left"</span><span class="p">,</span><span class="s2">"-48px"</span><span class="p">);</span>
+	<span class="p">});</span>
+	<span class="nx">$</span><span class="p">(</span><span class="s2">".username"</span><span class="p">).</span><span class="nx">blur</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+		<span class="nx">$</span><span class="p">(</span><span class="s2">".user-icon"</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s2">"left"</span><span class="p">,</span><span class="s2">"0px"</span><span class="p">);</span>
+	<span class="p">});</span>
+
+	<span class="nx">$</span><span class="p">(</span><span class="s2">".password"</span><span class="p">).</span><span class="nx">focus</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+		<span class="nx">$</span><span class="p">(</span><span class="s2">".pass-icon"</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s2">"left"</span><span class="p">,</span><span class="s2">"-48px"</span><span class="p">);</span>
+	<span class="p">});</span>
+	<span class="nx">$</span><span class="p">(</span><span class="s2">".password"</span><span class="p">).</span><span class="nx">blur</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+		<span class="nx">$</span><span class="p">(</span><span class="s2">".pass-icon"</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s2">"left"</span><span class="p">,</span><span class="s2">"0px"</span><span class="p">);</span>
+	<span class="p">});</span>
+<span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="cp">&lt;?php</span>
+<span class="nb">define</span><span class="p">(</span><span class="s2">"SECRET_KEY"</span><span class="p">,</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="s1">'/root/key'</span><span class="p">));</span>
+<span class="nb">define</span><span class="p">(</span><span class="s2">"METHOD"</span><span class="p">,</span> <span class="s2">"aes-128-cbc"</span><span class="p">);</span>
+<span class="nb">session_start</span><span class="p">();</span>
+
+<span class="k">function</span> <span class="nf">get_random_iv</span><span class="p">(){</span>
+    <span class="nv">$random_iv</span><span class="o">=</span><span class="s1">''</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="mi">16</span><span class="p">;</span><span class="nv">$i</span><span class="o">++</span><span class="p">){</span>
+        <span class="nv">$random_iv</span><span class="o">.=</span><span class="nb">chr</span><span class="p">(</span><span class="nb">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">255</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nv">$random_iv</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="nf">login</span><span class="p">(</span><span class="nv">$info</span><span class="p">){</span>
+    <span class="nv">$iv</span> <span class="o">=</span> <span class="nx">get_random_iv</span><span class="p">();</span>
+    <span class="nv">$plain</span> <span class="o">=</span> <span class="nb">serialize</span><span class="p">(</span><span class="nv">$info</span><span class="p">);</span>
+    <span class="nv">$cipher</span> <span class="o">=</span> <span class="nb">openssl_encrypt</span><span class="p">(</span><span class="nv">$plain</span><span class="p">,</span> <span class="nx">METHOD</span><span class="p">,</span> <span class="nx">SECRET_KEY</span><span class="p">,</span> <span class="nx">OPENSSL_RAW_DATA</span><span class="p">,</span> <span class="nv">$iv</span><span class="p">);</span>
+    <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'username'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$info</span><span class="p">[</span><span class="s1">'username'</span><span class="p">];</span>
+    <span class="nb">setcookie</span><span class="p">(</span><span class="s2">"iv"</span><span class="p">,</span> <span class="nb">base64_encode</span><span class="p">(</span><span class="nv">$iv</span><span class="p">));</span>
+    <span class="nb">setcookie</span><span class="p">(</span><span class="s2">"cipher"</span><span class="p">,</span> <span class="nb">base64_encode</span><span class="p">(</span><span class="nv">$cipher</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="nf">check_login</span><span class="p">(){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="s1">'cipher'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="s1">'iv'</span><span class="p">])){</span>
+        <span class="nv">$cipher</span> <span class="o">=</span> <span class="nb">base64_decode</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="s1">'cipher'</span><span class="p">]);</span>
+        <span class="nv">$iv</span> <span class="o">=</span> <span class="nb">base64_decode</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="s2">"iv"</span><span class="p">]);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$plain</span> <span class="o">=</span> <span class="nb">openssl_decrypt</span><span class="p">(</span><span class="nv">$cipher</span><span class="p">,</span> <span class="nx">METHOD</span><span class="p">,</span> <span class="nx">SECRET_KEY</span><span class="p">,</span> <span class="nx">OPENSSL_RAW_DATA</span><span class="p">,</span> <span class="nv">$iv</span><span class="p">)){</span>
+            <span class="nv">$info</span> <span class="o">=</span> <span class="nb">unserialize</span><span class="p">(</span><span class="nv">$plain</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">"&lt;p&gt;base64_decode('"</span><span class="o">.</span><span class="nb">base64_encode</span><span class="p">(</span><span class="nv">$plain</span><span class="p">)</span><span class="o">.</span><span class="s2">"') can't unserialize&lt;/p&gt;"</span><span class="p">);</span>
+            <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'username'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$info</span><span class="p">[</span><span class="s1">'username'</span><span class="p">];</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="k">die</span><span class="p">(</span><span class="s2">"ERROR!"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="nf">show_homepage</span><span class="p">(){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s2">"username"</span><span class="p">]</span><span class="o">===</span><span class="s1">'admin'</span><span class="p">){</span>
+        <span class="k">echo</span> <span class="s1">'&lt;p&gt;Hello admin&lt;/p&gt;'</span><span class="p">;</span>
+        <span class="k">echo</span> <span class="s1">'&lt;p&gt;Flag is $flag&lt;/p&gt;'</span><span class="p">;</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="k">echo</span> <span class="s1">'&lt;p&gt;hello '</span><span class="o">.</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'username'</span><span class="p">]</span><span class="o">.</span><span class="s1">'&lt;/p&gt;'</span><span class="p">;</span>
+        <span class="k">echo</span> <span class="s1">'&lt;p&gt;Only admin can see flag&lt;/p&gt;'</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">echo</span> <span class="s1">'&lt;p&gt;&lt;a href="loginout.php"&gt;Log out&lt;/a&gt;&lt;/p&gt;'</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'username'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'password'</span><span class="p">])){</span>
+    <span class="nv">$username</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'username'</span><span class="p">];</span>
+    <span class="nv">$password</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'password'</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="nv">$username</span> <span class="o">===</span> <span class="s1">'admin'</span><span class="p">){</span>
+        <span class="k">exit</span><span class="p">(</span><span class="s1">'&lt;p&gt;admin are not allowed to login&lt;/p&gt;'</span><span class="p">);</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="nv">$info</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'username'</span><span class="o">=&gt;</span><span class="nv">$username</span><span class="p">,</span><span class="s1">'password'</span><span class="o">=&gt;</span><span class="nv">$password</span><span class="p">);</span>
+        <span class="nx">login</span><span class="p">(</span><span class="nv">$info</span><span class="p">);</span>
+        <span class="nx">show_homepage</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s2">"username"</span><span class="p">])){</span>
+        <span class="nx">check_login</span><span class="p">();</span>
+        <span class="nx">show_homepage</span><span class="p">();</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="k">echo</span> <span class="s1">'&lt;body class="login-body"&gt;
+                &lt;div id="wrapper"&gt;
+                    &lt;div class="user-icon"&gt;&lt;/div&gt;
+                    &lt;div class="pass-icon"&gt;&lt;/div&gt;
+                    &lt;form name="login-form" class="login-form" action="" method="post"&gt;
+                        &lt;div class="header"&gt;
+                        &lt;h1&gt;Login Form&lt;/h1&gt;
+                        &lt;span&gt;Fill out the form below to login to my super awesome imaginary control panel.&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;div class="content"&gt;
+                        &lt;input name="username" type="text" class="input username" value="Username" onfocus="this.value=\'\'" /&gt;
+                        &lt;input name="password" type="password" class="input password" value="Password" onfocus="this.value=\'\'" /&gt;
+                        &lt;/div&gt;
+                        &lt;div class="footer"&gt;
+                        &lt;input type="submit" name="submit" value="Login" class="button" /&gt;
+                        &lt;/div&gt;
+                    &lt;/form&gt;
+                &lt;/div&gt;
+            &lt;/body&gt;'</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="cbc字节翻转攻击分析">CBC字节翻转攻击分析</h3>
+
+<p>主要看下面这两个函数</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="nf">login</span><span class="p">(</span><span class="nv">$info</span><span class="p">){</span>
+    <span class="nv">$iv</span> <span class="o">=</span> <span class="nx">get_random_iv</span><span class="p">();</span>
+    <span class="nv">$plain</span> <span class="o">=</span> <span class="nb">serialize</span><span class="p">(</span><span class="nv">$info</span><span class="p">);</span>
+    <span class="nv">$cipher</span> <span class="o">=</span> <span class="nb">openssl_encrypt</span><span class="p">(</span><span class="nv">$plain</span><span class="p">,</span> <span class="nx">METHOD</span><span class="p">,</span> <span class="nx">SECRET_KEY</span><span class="p">,</span> <span class="nx">OPENSSL_RAW_DATA</span><span class="p">,</span> <span class="nv">$iv</span><span class="p">);</span>
+    <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'username'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$info</span><span class="p">[</span><span class="s1">'username'</span><span class="p">];</span>
+    <span class="nb">setcookie</span><span class="p">(</span><span class="s2">"iv"</span><span class="p">,</span> <span class="nb">base64_encode</span><span class="p">(</span><span class="nv">$iv</span><span class="p">));</span>
+    <span class="nb">setcookie</span><span class="p">(</span><span class="s2">"cipher"</span><span class="p">,</span> <span class="nb">base64_encode</span><span class="p">(</span><span class="nv">$cipher</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="nf">check_login</span><span class="p">(){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="s1">'cipher'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="s1">'iv'</span><span class="p">])){</span>
+        <span class="nv">$cipher</span> <span class="o">=</span> <span class="nb">base64_decode</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="s1">'cipher'</span><span class="p">]);</span>
+        <span class="nv">$iv</span> <span class="o">=</span> <span class="nb">base64_decode</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="s2">"iv"</span><span class="p">]);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$plain</span> <span class="o">=</span> <span class="nb">openssl_decrypt</span><span class="p">(</span><span class="nv">$cipher</span><span class="p">,</span> <span class="nx">METHOD</span><span class="p">,</span> <span class="nx">SECRET_KEY</span><span class="p">,</span> <span class="nx">OPENSSL_RAW_DATA</span><span class="p">,</span> <span class="nv">$iv</span><span class="p">)){</span>
+            <span class="nv">$info</span> <span class="o">=</span> <span class="nb">unserialize</span><span class="p">(</span><span class="nv">$plain</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">"&lt;p&gt;base64_decode('"</span><span class="o">.</span><span class="nb">base64_encode</span><span class="p">(</span><span class="nv">$plain</span><span class="p">)</span><span class="o">.</span><span class="s2">"') can't unserialize&lt;/p&gt;"</span><span class="p">);</span>
+            <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'username'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$info</span><span class="p">[</span><span class="s1">'username'</span><span class="p">];</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="k">die</span><span class="p">(</span><span class="s2">"ERROR!"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'username'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'password'</span><span class="p">])){</span>
+    <span class="nv">$username</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'username'</span><span class="p">];</span>
+    <span class="nv">$password</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'password'</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="nv">$username</span> <span class="o">===</span> <span class="s1">'admin'</span><span class="p">){</span>
+        <span class="k">exit</span><span class="p">(</span><span class="s1">'&lt;p&gt;admin are not allowed to login&lt;/p&gt;'</span><span class="p">);</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="nv">$info</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'username'</span><span class="o">=&gt;</span><span class="nv">$username</span><span class="p">,</span><span class="s1">'password'</span><span class="o">=&gt;</span><span class="nv">$password</span><span class="p">);</span>
+        <span class="nx">login</span><span class="p">(</span><span class="nv">$info</span><span class="p">);</span>
+        <span class="nx">show_homepage</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>CBC字节翻转攻击的原理这里就不再介绍了，一图胜千言:</p>
+
+<p><img src="http://localhost:4000/images/blog/CBC.jpg" alt="CBC1" /></p>
+
+<p><strong>CBC字节翻转攻击的本质是:通过修改密文来达到修改下一个明文的效果。</strong></p>
+
+<p><strong>但是修改之后，该密文对应的明文会乱码，所以还要进行该明文的还原。</strong></p>
+
+<p><strong>所以，实现CBC字节翻转攻击主要就两点:1.通过修改第i组密文从而达到修改第i+1组明文的效果；2.修改第i组密文会造成第i组明文乱码，故需要复原第i组明文。</strong></p>
+
+<p>所使用的唯一且关键的技术就是：<strong>密文 = 密文 ⊕ 我们要改掉的 ⊕ 我们要改成的</strong></p>
+
+<h2 id="0x03-求解过程">0x03 求解过程</h2>
+
+<p><strong>1.通过修改第i组密文从而达到修改第i+1组明文的效果</strong></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>下面这是目标明文，每组16个字符
+
+a:2:{s:8:"userna
+me";s:5:"admi2";
+s:8:"password";s
+:8:"Password";}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># -*- coding:utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">unquote</span>
+<span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">quote_plus</span>
+
+<span class="n">bs</span> <span class="o">=</span> <span class="s">'J67IvH4OY9t6QfcCP4Mp88bRfPKdsYszlev3LNbgPQ872VR633trbWfCqhcDYm6c3Eysp36W2SFkx4CPBX9nDQ</span><span class="si">%3</span><span class="s">D</span><span class="si">%3</span><span class="s">D'</span>
+<span class="c">#密文cipher，从Chrome的插件EditThisCookie可以很轻松get到</span>
+<span class="n">bs</span> <span class="o">=</span> <span class="n">unquote</span><span class="p">(</span><span class="n">bs</span><span class="p">)</span>
+<span class="c">#url解码</span>
+<span class="n">bs_de</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">bs</span><span class="p">)</span>
+<span class="c">#base64解码</span>
+
+<span class="n">ch</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">bs_de</span><span class="p">[</span><span class="mi">13</span><span class="p">])</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="s">'2'</span><span class="p">)</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="s">'n'</span><span class="p">))</span>
+<span class="n">bs_de</span><span class="o">=</span><span class="n">bs_de</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span><span class="o">+</span><span class="n">ch</span><span class="o">+</span><span class="n">bs_de</span><span class="p">[</span><span class="mi">14</span><span class="p">::]</span>
+<span class="c">#其实就是bs_de[13]=chr(ord(bs_de[13]) ^ ord('2') ^ ord('n'))</span>
+<span class="c">#因为python里面字符串不可变，即你直接bs_de = 'a'这样会报错</span>
+
+<span class="n">rs</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">bs_de</span><span class="p">)</span>
+<span class="c">#print rs</span>
+<span class="k">print</span> <span class="n">quote_plus</span><span class="p">(</span><span class="n">rs</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bs = unquote(bs)
+bs_de = base64.b64decode(bs)
+
+以上是解除附加于密文上的编码效果
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ch = chr(ord(bs_de[13]) ^ ord('2') ^ ord('n'))
+通过修改第1组密文的第13个字符，从而达到修改第2组明文第13个字符的效果
+
+bs_de=bs_de[0:13]+ch+bs_de[14::]
+重组修改后的密文
+
+rs = base64.b64encode(bs_de)
+print quote_plus(rs)
+复原密文上base64和url的编码效果
+</code></pre></div></div>
+
+<p>以上就完美地完成了第一步，<strong>上面所达到的效果就是我们已经成功的修改了第2组明文的第13个字符，也就是说我们将<code class="highlighter-rouge">2</code>变成了<code class="highlighter-rouge">n</code>。</strong>但是，又带来了另一个麻烦就是我们一旦修改了第1组的密文，就导致第1组明文的变化(明文和密文有着对应关系。)所以就要就行第二步。</p>
+
+<p><strong>2.修改第i组密文会造成第i组明文乱码，故需要复原第i组明文</strong></p>
+
+<p>C0 = IV</p>
+
+<p>C1 = EK(Z1)</p>
+
+<p>C2 = EK(Z2)</p>
+
+<p>我们要第一个分组的明文，当然就要对C0 = IV下手了</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># -*- coding:utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">unquote</span>
+<span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">quote_plus</span>
+
+<span class="n">mingwen_de</span><span class="o">=</span><span class="s">'nj7W9vwn0gxyOdX3xUN/lG1lIjtzOjU6ImFkbWluIjtzOjg6InBhc3N3b3JkIjtzOjg6IlBhc3N3b3JkIjt9'</span>
+<span class="c">#base64_decode('这里面的') can't unserialize</span>
+<span class="n">mingwen</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">mingwen_de</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">mingwen</span>
+
+<span class="n">iv</span> <span class="o">=</span> <span class="s">'cFDYuzPtN1Q5ETd1E7s1Zw</span><span class="si">%3</span><span class="s">D</span><span class="si">%3</span><span class="s">D'</span>
+<span class="c">#此时cookie里的iv</span>
+<span class="n">iv</span> <span class="o">=</span> <span class="n">unquote</span><span class="p">(</span><span class="n">iv</span><span class="p">)</span>
+<span class="n">iv_de</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">iv</span><span class="p">)</span>
+<span class="n">new</span> <span class="o">=</span> <span class="s">'a:2:{s:8:"userna'</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+    <span class="n">iv_de</span> <span class="o">=</span> <span class="n">iv_de</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">iv_de</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="n">mingwen</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="n">new</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="o">+</span> <span class="n">iv_de</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+<span class="c">#iv_de[i]=chr(ord(iv_de[i]) ^ ord(mingwen[i]) ^ ord(new[i]))</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">quote_plus</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">iv_de</span><span class="p">)))</span>
+<span class="c">#用这个结果把原来的iv换掉</span>
+</code></pre></div></div>
+
+<p><strong>做事之前首先要明确我们要做什么</strong></p>
+
+<p><strong>要注意我们始终是逆后台php代码的<code class="highlighter-rouge">login</code>过程</strong></p>
+
+<p>此时我们<code class="highlighter-rouge">cookie</code>里面的<code class="highlighter-rouge">cipher</code>里面的数据就是目标明文加密之后且被处理之后的密文。(也就是第2组明文第13个字符被处理过了，第1组密文乱码)。</p>
+
+<p><strong>这一步所要做的就是修改<code class="highlighter-rouge">iv</code>，让其在经过后台的php代码处理之后能把<code class="highlighter-rouge">cipher</code>第1组乱码的明文复原。</strong></p>
+
+<p><strong>CBC加密过程</strong></p>
+
+<p><code class="highlighter-rouge">Ciphertext-0 = Encrypt(Plaintext XOR IV)</code>—只用于第一个组块</p>
+
+<p><img src="http://localhost:4000/images/blog/en.jpg" alt="en" /></p>
+
+<p><strong>CBC解密过程</strong></p>
+
+<p><img src="http://localhost:4000/images/blog/de.jpg" alt="de" /></p>
+
+<p><strong>从CBC解密过程可以看到，处理后的第1组的密文用于修改第二组的明文，就可以解决问题。它所引发的第1组明文乱码的问题就通过修改<code class="highlighter-rouge">iv</code>来解决。</strong></p>
+
+<p><strong>所以，总而言之，言而总之，就是在这里修改下<code class="highlighter-rouge">iv</code>就行了。</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mingwen = base64.b64decode(mingwen_de)
+print mingwen
+这里的mingwen就是 Decrypt(Ciphertext)
+
+iv = unquote(iv)
+iv_de = base64.b64decode(iv)
+以上是解除附加于密文上的编码效果
+</code></pre></div></div>
+
+<p><strong>密文 = 密文 ⊕ 我们要改掉的 ⊕ 我们要改成的</strong></p>
+
+<p><code class="highlighter-rouge">Plaintext-0 = Decrypt(Ciphertext) XOR IV</code>—只用于第一个组块</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>new = 'a:2:{s:8:"userna'
+for i in range(16):
+    iv_de = iv_de[:i] + chr(ord(iv_de[i]) ^ ord(mingwen[i]) ^ ord(new[i])) + iv_de[i+1:]
+#iv_de[i]=chr(ord(iv_de[i]) ^ ord(mingwen[i]) ^ ord(new[i]))
+这样iv就改成了我们想要的iv了
+</code></pre></div></div>
+
+<p><strong>使用修改后的<code class="highlighter-rouge">iv</code>解密，可以保证第1组的明文不会乱码，这样才能保证后台php代码反序列化的顺利进行。</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iv_de[i]=chr(ord(iv_de[i]) ^ ord(mingwen[i]) ^ ord(new[i]))
+等价于
+IV = IV ⊕ Decrypt(Ciphertext) ⊕ new
+这里的IV就是我们处理之后的IV
+</code></pre></div></div>
+
+<p>下面我们分析一下后台用处理之后的<code class="highlighter-rouge">IV</code>来进行解密的过程：</p>
+
+<p><strong>下面是这些是最核心的部分:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Plaintext-0 = Decrypt(Ciphertext) XOR IV
+上面的整个解密跟:
+i=2
+Pi[13] = DK(Ci)[13] ⊕ Ci-1[13] = DK(Ci)[13] ⊕ crypto[13] ⊕ ‘2’ ⊕ ‘n’ = ‘n’
+(这里的 DK(Ci)[13]='2')
+本质是一样的，在这里就是让 Plaintext-0 = new
+Plaintext-0 = Decrypt(Ciphertext) ⊕ IV ⊕ Decrypt(Ciphertext) ⊕ new = new
+</code></pre></div></div>
 
 
     </article>
@@ -135,8 +467,10 @@
     <div class="newold">
   <hr>
   
-  <b>上一篇: <a href="/2018/09/18/prompt/">prompt(1) to win</a></b><br>
+  <b>上一篇: <a href="/2018/09/19/bk_webjj/">Bugku writeup(Web进阶)</a></b><br>
      
+  
+  <b>下一篇: <a href="/2018/09/20/30days/">CTF-30days writeup(web 第一期)</a></b>
    
 </div><!--上一篇 下一篇-->
 

@@ -30,6 +30,7 @@ permalink: /links/
 - [XSS'OR](http://xssor.io/)
 - [Regex](https://regex101.com/)
 - [Regex 可视化](https://regexper.com/)
+- [Unicode表](https://unicode-table.com/en/#unified-canadian-aboriginal-syllabics)
 
 
 
