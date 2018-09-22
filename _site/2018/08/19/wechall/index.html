@@ -570,7 +570,65 @@ bitwarrior,LameStartup,HiddenIsConfig,RepeatingHistory,AndIknowchown,OhRightTheP
 
 <p><strong>tips:</strong>到<code class="highlighter-rouge">find_me</code>路径下找到 <code class="highlighter-rouge">p12</code>证书，然后火狐浏览器中<code class="highlighter-rouge">你的证书</code>中导入该证书即可，后面要求输入密码，密码为空。</p>
 
-<h2 id="33">33.</h2>
+<h2 id="33interesting">33.Interesting</h2>
+
+<h2 id="34wanda">34.Wanda</h2>
+
+<h2 id="35railsbin">35.Railsbin</h2>
+
+<h2 id="36connect-the-dots">36.Connect the Dots</h2>
+
+<p><strong>盲文密码，找到对应的盲文密码对应表即可</strong></p>
+
+<p><strong>thesolutionisXXX</strong></p>
+
+<h2 id="37hi">37.hi</h2>
+
+<p>大数的计算，发现一个在线的网站<a href="http://www.wolframalpha.com/">wolframalpha</a></p>
+
+<h2 id="38stegano-woman">38.Stegano Woman</h2>
+
+<p>这道题你如果用现成的工具来解压缩肯定是做不出来的。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ unzip stegano_woman.zip
+</code></pre></div></div>
+
+<p>回显</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Archive:  stegano_woman.zip
+Stegano
+	 	 	 			  	 			  		 	 		 					   		  	  	    	  	  			   	   	 			  	 		 	  	    	  	   			 						  	 		 	   		  		 		  		 			  				 	  	   		  		   	  		 	 	   		 		  	    	   	 	 	   	  		 						  	  	  	 		 	  		  		  		   	
+  inflating: 1.jpg                   
+  inflating: 2.jpg       
+</code></pre></div></div>
+
+<p>使用16进制编辑器打开，发现中间那段空白的部分是09(tab)和20(space)</p>
+
+<p>把其中的一个当作1另一个当作0，换成二进制再转换成字符串之后输出即可</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#coding: utf-8</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'stegano_woman.zip'</span><span class="p">,</span><span class="s">'rb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">index</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">'Stegano'</span><span class="p">)</span>
+<span class="c"># 上面这个获取的是 S 的下标</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">text</span><span class="p">[</span><span class="n">index</span><span class="p">:]</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+<span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="mi">9</span><span class="p">:]</span>
+<span class="c">#['S', 't', 'e', 'g', 'a', 'n', 'o', '\r', '\n']</span>
+<span class="c"># 所以这里要从 9 开始</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="s">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">'1'</span> <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="s">' '</span> <span class="k">else</span> <span class="s">'0'</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">text</span><span class="p">)</span>
+
+<span class="n">s</span><span class="o">=</span><span class="s">""</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">/</span><span class="mi">8</span><span class="p">):</span>
+   <span class="n">s</span><span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">8</span><span class="p">:</span><span class="n">i</span><span class="o">*</span><span class="mi">8</span><span class="o">+</span><span class="mi">8</span><span class="p">],</span><span class="mi">2</span><span class="p">))</span> 
+
+<span class="k">print</span> <span class="n">s</span>
+</code></pre></div></div>
+
 
     </article>
   
