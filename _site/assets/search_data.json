@@ -347,6 +347,41 @@
       "category" : "web安全",
       
       "url"      : "http://localhost:4000/2018/09/19/CBC/"
+    } ,
+  
+    {
+      "title"    : "XSS 构造剖析",
+      "category" : "web安全",
+      
+      "url"      : "http://localhost:4000/2018/10/05/XSSpxfy1/"
+    } ,
+  
+    {
+      "title"    : "alert(1) to win",
+      "category" : "web安全",
+      
+      "url"      : "http://localhost:4000/2018/10/05/alert/"
+    } ,
+  
+    {
+      "title"    : "JavaScript 常用函数",
+      "category" : "JavaScript",
+      
+      "url"      : "http://localhost:4000/2018/10/08/func/"
+    } ,
+  
+    {
+      "title"    : "JavaScript 剪贴板事件",
+      "category" : "JavaScript",
+      
+      "url"      : "http://localhost:4000/2018/10/10/event1/"
+    } ,
+  
+    {
+      "title"    : "客户端信息刺探",
+      "category" : "web安全",
+      
+      "url"      : "http://localhost:4000/2018/10/10/XSSpxfy2/"
     } 
   
 ]
