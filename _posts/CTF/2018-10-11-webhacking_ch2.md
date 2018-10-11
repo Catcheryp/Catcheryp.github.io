@@ -146,3 +146,15 @@ print(target_pass)
 
 ## 0x03 sqlmap 解决
 
+```
+python sqlmap.py -u "http://webhacking.kr/challenge/web/web-02/index.php" --dbms "mysql" --cookie "time=1; PHPSESSID=5357477fdfb7cc02bbe5e26f7622489d" -p "time" --current-db --level 2
+
+-p 是指定 cookie 里的参数
+--dbms 是指定数据库
+
+回显
+do you want to URL encode cookie values (implementation specific)? [Y/n] y
+[22:22:31] [WARNING] heuristic (basic) test shows that Cookie parameter 'time' might not be injectable
+```
+
+我再这里并没有使用 sqlmap 检测成功，这里暂且留个坑在这里⭐️
