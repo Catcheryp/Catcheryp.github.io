@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>网络钓鱼 &mdash; Evil</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/customize.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2018/10/10/Phishing/">
+    <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
+    
+    <link rel="shortcut icon" href="http://localhost:4000/images/favicon.jpg" >
+    
+    <meta property="og:title" content="网络钓鱼">
+      
+    <meta name="keywords" content="Web Security">
+    <meta name="og:keywords" content="Web Security">
+      
+    <meta name="description" content="继续学习《XSS 攻击剖析与防御》，在这里主要总结一下 网络钓鱼 的一些技巧。">
+    <meta name="og:description" content="继续学习《XSS 攻击剖析与防御》，在这里主要总结一下 网络钓鱼 的一些技巧。">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2018/10/10/Phishing/">
+    <meta property="og:site_name" content="Evil">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2018-10-10">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script src="http://localhost:4000/assets/js/main.js"></script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="Evil"><span class="octicon octicon-hubot"></span> Evil</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="主页">主页</a>
+                
+                <a href="http://localhost:4000/archives/" class=" site-header-nav-item" target="" title="归档">归档</a>
+                
+                <a href="http://localhost:4000/tags/" class=" site-header-nav-item" target="" title="标签">标签</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于">关于</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+    <section class="collection-head small geopattern" data-pattern-id="网络钓鱼">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">网络钓鱼</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2018/10/10
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/web安全" title="web安全">web安全</a>
+          </span>
+          
+
+          
+          <span class="meta-info">
+            <span class="octicon octicon-tag"></span>
+            <a href="http://localhost:4000/tags/#xss" title="xss">xss</a>
+          </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>继续学习《XSS 攻击剖析与防御》，在这里主要总结一下 <code class="highlighter-rouge">网络钓鱼</code> 的一些技巧。</p>
+
+<!--more-->
+
+<p>主要来自《XSS 攻击剖析与防御》</p>
+
+<h2 id="0x01-钓鱼页面">0x01 钓鱼页面</h2>
+
+<h2 id="0x0-javascript-键盘记录器">0x0 JavaScript 键盘记录器</h2>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!--在 chrome 测试成功--&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;script&gt;</span>
+    <span class="kd">function</span> <span class="nx">keyDown</span><span class="p">(){</span>
+      <span class="kd">var</span> <span class="nx">keycode</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">realkey</span> <span class="o">=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span><span class="p">);</span>
+      <span class="nx">alert</span><span class="p">(</span><span class="s2">"按键码:"</span> <span class="o">+</span> <span class="nx">keycode</span> <span class="o">+</span> <span class="s2">"    字符:"</span> <span class="o">+</span> <span class="nx">realkey</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">onkeydown</span> <span class="o">=</span> <span class="nx">keyDown</span><span class="p">;</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;HTML&gt;</span>
+ <span class="nt">&lt;HEAD&gt;</span>
+<span class="nt">&lt;TITLE&gt;</span>js 按键记录<span class="nt">&lt;/TITLE&gt;</span>
+ <span class="nt">&lt;META</span> <span class="na">NAME=</span><span class="s">"Generator"</span> <span class="na">CONTENT=</span><span class="s">"EditPlus"</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;META</span> <span class="na">NAME=</span><span class="s">"Keywords"</span> <span class="na">CONTENT=</span><span class="s">"js 按键记录"</span><span class="nt">&gt;</span> 
+<span class="nt">&lt;META</span> <span class="na">NAME=</span><span class="s">"Description"</span> <span class="na">CONTENT=</span><span class="s">"js 按键 记录"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+ <span class="kd">var</span> <span class="nx">keystring</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+ <span class="kd">function</span> <span class="nx">$</span><span class="p">(</span><span class="nx">s</span><span class="p">){</span><span class="k">return</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">s</span><span class="p">)?</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">s</span><span class="p">):</span><span class="nx">s</span><span class="p">;}</span> 
+<span class="kd">function</span> <span class="nx">keypress</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> 
+<span class="err">　</span> <span class="kd">var</span> <span class="nx">currKey</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="nx">CapsLock</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="nx">e</span><span class="o">=</span><span class="nx">e</span><span class="o">||</span><span class="nx">event</span><span class="p">;</span> 
+<span class="err">　</span>   <span class="nx">currKey</span><span class="o">=</span><span class="nx">e</span><span class="p">.</span><span class="nx">keyCode</span><span class="o">||</span><span class="nx">e</span><span class="p">.</span><span class="nx">which</span><span class="o">||</span><span class="nx">e</span><span class="p">.</span><span class="nx">charCode</span><span class="p">;</span> <span class="err">　</span>
+ <span class="nx">CapsLock</span><span class="o">=</span><span class="nx">currKey</span><span class="o">&gt;=</span><span class="mi">65</span><span class="o">&amp;&amp;</span><span class="nx">currKey</span><span class="o">&lt;=</span><span class="mi">90</span><span class="p">;</span> 
+<span class="err">　</span> <span class="k">switch</span><span class="p">(</span><span class="nx">currKey</span><span class="p">)</span> <span class="err">　</span> <span class="p">{</span>    <span class="err">　</span> 
+<span class="err">　</span>   <span class="err">　</span> 
+<span class="err">　</span> <span class="k">case</span> <span class="mi">8</span><span class="p">:</span> <span class="k">case</span> <span class="mi">9</span><span class="p">:</span><span class="k">case</span> <span class="mi">13</span><span class="p">:</span><span class="k">case</span> <span class="mi">32</span><span class="p">:</span><span class="k">case</span> <span class="mi">37</span><span class="p">:</span><span class="k">case</span> <span class="mi">38</span><span class="p">:</span><span class="k">case</span> <span class="mi">39</span><span class="p">:</span><span class="k">case</span> <span class="mi">40</span><span class="p">:</span><span class="k">case</span> <span class="mi">46</span><span class="p">:</span><span class="nx">keyName</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span><span class="k">break</span><span class="p">;</span>    
+<span class="err">　</span> <span class="err">　</span> <span class="k">default</span><span class="p">:</span><span class="nx">keyName</span> <span class="o">=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">currKey</span><span class="p">);</span> <span class="k">break</span><span class="p">;</span> <span class="err">　</span>
+ <span class="p">}</span> 
+<span class="err">　</span> <span class="nx">keystring</span> <span class="o">+=</span> <span class="nx">keyName</span><span class="p">;</span> 
+<span class="p">}</span> 
+<span class="kd">function</span> <span class="nx">keydown</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="err">　</span> 
+<span class="kd">var</span> <span class="nx">e</span><span class="o">=</span><span class="nx">e</span><span class="o">||</span><span class="nx">event</span><span class="p">;</span> 
+<span class="err">　</span> <span class="kd">var</span> <span class="nx">currKey</span><span class="o">=</span><span class="nx">e</span><span class="p">.</span><span class="nx">keyCode</span><span class="o">||</span><span class="nx">e</span><span class="p">.</span><span class="nx">which</span><span class="o">||</span><span class="nx">e</span><span class="p">.</span><span class="nx">charCode</span><span class="p">;</span> 
+<span class="err">　</span> <span class="k">if</span><span class="p">((</span><span class="nx">currKey</span><span class="o">&gt;</span><span class="mi">7</span><span class="o">&amp;&amp;</span><span class="nx">currKey</span><span class="o">&lt;</span><span class="mi">14</span><span class="p">)</span><span class="o">||</span><span class="p">(</span><span class="nx">currKey</span><span class="o">&gt;</span><span class="mi">31</span><span class="o">&amp;&amp;</span><span class="nx">currKey</span><span class="o">&lt;</span><span class="mi">47</span><span class="p">))</span> <span class="err">　</span> <span class="p">{</span> 
+<span class="err">　</span> <span class="err">　</span>   <span class="k">switch</span><span class="p">(</span><span class="nx">currKey</span><span class="p">)</span>    <span class="err">　</span> <span class="err">　</span> <span class="p">{</span> 
+    <span class="err">　</span> <span class="err">　</span> <span class="err">　</span> <span class="k">case</span> <span class="mi">8</span><span class="p">:</span> <span class="nx">keyName</span> <span class="o">=</span> <span class="s2">"[退格]"</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span> 
+    <span class="err">　</span> <span class="err">　</span> <span class="err">　</span> <span class="k">case</span> <span class="mi">9</span><span class="p">:</span> <span class="nx">keyName</span> <span class="o">=</span> <span class="s2">"[制表]"</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span>  
+   <span class="err">　</span> <span class="err">　</span> <span class="err">　</span>  <span class="k">case</span> <span class="mi">13</span><span class="p">:</span><span class="nx">keyName</span> <span class="o">=</span> <span class="s2">"[回车]"</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span>  
+   <span class="err">　</span> <span class="err">　</span> <span class="err">　</span>  <span class="k">case</span> <span class="mi">32</span><span class="p">:</span><span class="nx">keyName</span> <span class="o">=</span> <span class="s2">"[空格]"</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span>   
+  <span class="err">　</span> <span class="err">　</span> <span class="err">　</span>    <span class="k">case</span> <span class="mi">33</span><span class="p">:</span><span class="nx">keyName</span> <span class="o">=</span> <span class="s2">"[PageUp]"</span><span class="p">;</span>   <span class="k">break</span><span class="p">;</span> 
+    <span class="err">　</span> <span class="err">　</span> <span class="err">　</span>  <span class="k">case</span> <span class="mi">34</span><span class="p">:</span><span class="nx">keyName</span> <span class="o">=</span> <span class="s2">"[PageDown]"</span><span class="p">;</span>   <span class="k">break</span><span class="p">;</span>
+     <span class="err">　</span> <span class="err">　</span> <span class="err">　</span> <span class="k">case</span> <span class="mi">35</span><span class="p">:</span><span class="nx">keyName</span> <span class="o">=</span> <span class="s2">"[End]"</span><span class="p">;</span>   <span class="k">break</span><span class="p">;</span>     <span class="err">　</span>
+ <span class="err">　</span> <span class="err">　</span>       <span class="k">case</span> <span class="mi">36</span><span class="p">:</span><span class="nx">keyName</span> <span class="o">=</span> <span class="s2">"[Home]"</span><span class="p">;</span>   <span class="k">break</span><span class="p">;</span>     <span class="err">　</span>
+ <span class="err">　</span> <span class="err">　</span>       <span class="k">case</span> <span class="mi">37</span><span class="p">:</span><span class="nx">keyName</span> <span class="o">=</span> <span class="s2">"[方向键左]"</span><span class="p">;</span>   <span class="k">break</span><span class="p">;</span>    
+ <span class="err">　</span> <span class="err">　</span> <span class="err">　</span>    <span class="k">case</span> <span class="mi">38</span><span class="p">:</span><span class="nx">keyName</span> <span class="o">=</span> <span class="s2">"[方向键上]"</span><span class="p">;</span>   <span class="k">break</span><span class="p">;</span> 
+    <span class="err">　</span> <span class="err">　</span> <span class="err">　</span> <span class="k">case</span> <span class="mi">39</span><span class="p">:</span><span class="nx">keyName</span> <span class="o">=</span> <span class="s2">"[方向键右]"</span><span class="p">;</span>   <span class="k">break</span><span class="p">;</span>    
+<span class="err">　</span> <span class="err">　</span> <span class="err">　</span>   <span class="k">case</span> <span class="mi">40</span><span class="p">:</span><span class="nx">keyName</span> <span class="o">=</span> <span class="s2">"[方向键下]"</span><span class="p">;</span>   <span class="k">break</span><span class="p">;</span>  
+   <span class="err">　</span> <span class="err">　</span> <span class="err">　</span> <span class="k">case</span> <span class="mi">46</span><span class="p">:</span><span class="nx">keyName</span> <span class="o">=</span> <span class="s2">"[删除]"</span><span class="p">;</span>   <span class="k">break</span><span class="p">;</span>   
+  <span class="err">　</span> <span class="err">　</span> <span class="err">　</span> <span class="k">default</span><span class="p">:</span><span class="nx">keyName</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>    <span class="k">break</span><span class="p">;</span> <span class="err">　</span>
+ <span class="err">　</span>   <span class="p">}</span> <span class="err">　</span> <span class="err">　</span>   <span class="nx">keystring</span> <span class="o">+=</span> <span class="nx">keyName</span><span class="p">;</span> <span class="err">　</span> <span class="p">}</span> 
+<span class="err">　</span> <span class="nx">$</span><span class="p">(</span><span class="s2">"content"</span><span class="p">).</span><span class="nx">innerHTML</span><span class="o">=</span><span class="nx">keystring</span><span class="p">;</span>
+ <span class="p">}</span>
+<span class="kd">function</span> <span class="nx">keyup</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> 
+<span class="err">　</span> <span class="nx">$</span><span class="p">(</span><span class="s2">"content"</span><span class="p">).</span><span class="nx">innerHTML</span><span class="o">=</span><span class="nx">keystring</span><span class="p">;</span>
+ <span class="p">}</span> 
+<span class="nb">document</span><span class="p">.</span><span class="nx">onkeypress</span><span class="o">=</span><span class="nx">keypress</span><span class="p">;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">onkeydown</span> <span class="o">=</span><span class="nx">keydown</span><span class="p">;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">onkeyup</span> <span class="o">=</span><span class="nx">keyup</span><span class="p">;</span> <span class="nt">&lt;/script&gt;</span>
+
+
+ <span class="nt">&lt;/HEAD&gt;</span> 
+<span class="nt">&lt;BODY&gt;</span>
+ <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="nt">/&gt;</span> 
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">value=</span><span class="s">"清空记录"</span> <span class="na">onclick=</span><span class="s">"$('content').innerHTML = '';keystring = '';"</span><span class="nt">/&gt;</span> 
+<span class="nt">&lt;br/&gt;</span>请按下任意键查看键盘响应键值：<span class="nt">&lt;span</span> <span class="na">id=</span><span class="s">"content"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/span&gt;</span> 
+<span class="nt">&lt;/BODY&gt;</span> 
+<span class="nt">&lt;/HTML&gt;</span>
+</code></pre></div></div>
+
+
+    </article>
+  
+    <div class="newold">
+  <hr>
+  
+  <b>上一篇: <a href="/2018/10/10/event2/">JS 中的事件绑定、事件监听、事件委托</a></b><br>
+     
+  
+  <b>下一篇: <a href="/2018/10/10/%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BF%A1%E6%81%AF%E5%88%BA%E6%8E%A2/">客户端信息刺探</a></b>
+   
+</div><!--上一篇 下一篇-->
+
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2018/10/10/Phishing/',
+            clientID: '5a59fdc570f933e0c2ee',
+            clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
+            repo: 'blogcomments',
+            owner: 'Catcheryp',
+            admin: ['Catcheryp'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/simple-jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="Catcher">Catcher</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <!--<a href="" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>-->
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="主页" target="">主页</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/archives/" title="归档" target="">归档</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/tags/" title="标签" target="">标签</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="链接" target="">链接</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="关于" target="">关于</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <div class="tools-wrapper">
+      <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a>
+    </div>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
