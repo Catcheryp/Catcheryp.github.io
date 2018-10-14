@@ -8,7 +8,9 @@ menu: 关于
 permalink: /about/
 ---
 
-<font style="font-size: 20px;font-weight:bold;">苟有恒,何必三更眠五更起; 最无益,莫过一日暴十日寒</font>
+**苟有恒,何必三更眠五更起; 最无益,莫过一日暴十日寒**<br>
+**知行合一，及时止损**<br>
+**只有压倒性的投入才能获得压倒性的实力**
 
 ## ...me
 

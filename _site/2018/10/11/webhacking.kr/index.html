@@ -136,6 +136,154 @@
 
 <h2 id="challenge-2">challenge 2</h2>
 
+<p><a href="https://pengyang.me/2018/10/11/webhacking_ch2/">https://pengyang.me/2018/10/11/webhacking_ch2/</a></p>
+
+<h2 id="challenge-3">challenge 3</h2>
+
+<p><strong>tips：</strong></p>
+
+<p>注意到此时只有右下角那个<code class="highlighter-rouge">5x5</code> 可以选中，每一行的数字代表要选中多少个空格。</p>
+
+<p><strong>此时我们可以获得输入框，输入数据之后进行抓包，尝试提交的数据是否存在注入点。(可以发现只要存在输入的地方就想办法测试是否存在注入点。)</strong></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>经测试发现这里<code class="highlighter-rouge">--+,#,=,',or,and</code> 都被过滤了，另想办法构造 payload `</td>
+      <td> </td>
+      <td>1<code class="highlighter-rouge">，得到 </code>new_sql_injection`。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="challenge-4">challenge 4</h2>
+
+<p>一次 base64，两次 sha1</p>
+
+<p><a href="http://hashtoolkit.com/reverse-hash?hash=a94a8fe5ccb19ba61c4c0873d391e987982fbbd3">解密网站</a></p>
+
+<p>最终结果是 <code class="highlighter-rouge">test</code></p>
+
+<h2 id="challenge-5">challenge 5</h2>
+
+<p>这里真是的，直接点击<code class="highlighter-rouge">join</code> 按钮是不能访问的，需要在地址栏输入完整的路径 <code class="highlighter-rouge">webhacking.kr/challenge/web/web-05/mem/join.php</code> ，然后我们查看源码可以看到一段 JS 代码:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">l</span><span class="o">=</span><span class="s1">'a'</span><span class="p">;</span><span class="nx">ll</span><span class="o">=</span><span class="s1">'b'</span><span class="p">;</span><span class="nx">lll</span><span class="o">=</span><span class="s1">'c'</span><span class="p">;</span><span class="nx">llll</span><span class="o">=</span><span class="s1">'d'</span><span class="p">;</span><span class="nx">lllll</span><span class="o">=</span><span class="s1">'e'</span><span class="p">;</span><span class="nx">llllll</span><span class="o">=</span><span class="s1">'f'</span><span class="p">;</span><span class="nx">lllllll</span><span class="o">=</span><span class="s1">'g'</span><span class="p">;</span><span class="nx">llllllll</span><span class="o">=</span><span class="s1">'h'</span><span class="p">;</span><span class="nx">lllllllll</span><span class="o">=</span><span class="s1">'i'</span><span class="p">;</span><span class="nx">llllllllll</span><span class="o">=</span><span class="s1">'j'</span><span class="p">;</span><span class="nx">lllllllllll</span><span class="o">=</span><span class="s1">'k'</span><span class="p">;</span><span class="nx">llllllllllll</span><span class="o">=</span><span class="s1">'l'</span><span class="p">;</span><span class="nx">lllllllllllll</span><span class="o">=</span><span class="s1">'m'</span><span class="p">;</span><span class="nx">llllllllllllll</span><span class="o">=</span><span class="s1">'n'</span><span class="p">;</span><span class="nx">lllllllllllllll</span><span class="o">=</span><span class="s1">'o'</span><span class="p">;</span><span class="nx">llllllllllllllll</span><span class="o">=</span><span class="s1">'p'</span><span class="p">;</span><span class="nx">lllllllllllllllll</span><span class="o">=</span><span class="s1">'q'</span><span class="p">;</span><span class="nx">llllllllllllllllll</span><span class="o">=</span><span class="s1">'r'</span><span class="p">;</span><span class="nx">lllllllllllllllllll</span><span class="o">=</span><span class="s1">'s'</span><span class="p">;</span><span class="nx">llllllllllllllllllll</span><span class="o">=</span><span class="s1">'t'</span><span class="p">;</span><span class="nx">lllllllllllllllllllll</span><span class="o">=</span><span class="s1">'u'</span><span class="p">;</span><span class="nx">llllllllllllllllllllll</span><span class="o">=</span><span class="s1">'v'</span><span class="p">;</span><span class="nx">lllllllllllllllllllllll</span><span class="o">=</span><span class="s1">'w'</span><span class="p">;</span><span class="nx">llllllllllllllllllllllll</span><span class="o">=</span><span class="s1">'x'</span><span class="p">;</span><span class="nx">lllllllllllllllllllllllll</span><span class="o">=</span><span class="s1">'y'</span><span class="p">;</span><span class="nx">llllllllllllllllllllllllll</span><span class="o">=</span><span class="s1">'z'</span><span class="p">;</span><span class="nx">I</span><span class="o">=</span><span class="s1">'1'</span><span class="p">;</span><span class="nx">II</span><span class="o">=</span><span class="s1">'2'</span><span class="p">;</span><span class="nx">III</span><span class="o">=</span><span class="s1">'3'</span><span class="p">;</span><span class="nx">IIII</span><span class="o">=</span><span class="s1">'4'</span><span class="p">;</span><span class="nx">IIIII</span><span class="o">=</span><span class="s1">'5'</span><span class="p">;</span><span class="nx">IIIIII</span><span class="o">=</span><span class="s1">'6'</span><span class="p">;</span><span class="nx">IIIIIII</span><span class="o">=</span><span class="s1">'7'</span><span class="p">;</span><span class="nx">IIIIIIII</span><span class="o">=</span><span class="s1">'8'</span><span class="p">;</span><span class="nx">IIIIIIIII</span><span class="o">=</span><span class="s1">'9'</span><span class="p">;</span><span class="nx">IIIIIIIIII</span><span class="o">=</span><span class="s1">'0'</span><span class="p">;</span><span class="nx">li</span><span class="o">=</span><span class="s1">'.'</span><span class="p">;</span><span class="nx">ii</span><span class="o">=</span><span class="s1">'&lt;'</span><span class="p">;</span><span class="nx">iii</span><span class="o">=</span><span class="s1">'&gt;'</span><span class="p">;</span><span class="nx">lIllIllIllIllIllIllIllIllIllIl</span><span class="o">=</span><span class="nx">lllllllllllllll</span><span class="o">+</span><span class="nx">llllllllllll</span><span class="o">+</span><span class="nx">llll</span><span class="o">+</span><span class="nx">llllllllllllllllllllllllll</span><span class="o">+</span><span class="nx">lllllllllllllll</span><span class="o">+</span><span class="nx">lllllllllllll</span><span class="o">+</span><span class="nx">ll</span><span class="o">+</span><span class="nx">lllllllll</span><span class="o">+</span><span class="nx">lllll</span><span class="p">;</span>
+<span class="nx">lIIIIIIIIIIIIIIIIIIl</span><span class="o">=</span><span class="nx">llll</span><span class="o">+</span><span class="nx">lllllllllllllll</span><span class="o">+</span><span class="nx">lll</span><span class="o">+</span><span class="nx">lllllllllllllllllllll</span><span class="o">+</span><span class="nx">lllllllllllll</span><span class="o">+</span><span class="nx">lllll</span><span class="o">+</span><span class="nx">llllllllllllll</span><span class="o">+</span><span class="nx">llllllllllllllllllll</span><span class="o">+</span><span class="nx">li</span><span class="o">+</span><span class="nx">lll</span><span class="o">+</span><span class="nx">lllllllllllllll</span><span class="o">+</span><span class="nx">lllllllllllllll</span><span class="o">+</span><span class="nx">lllllllllll</span><span class="o">+</span><span class="nx">lllllllll</span><span class="o">+</span><span class="nx">lllll</span><span class="p">;</span><span class="k">if</span><span class="p">(</span><span class="kr">eval</span><span class="p">(</span><span class="nx">lIIIIIIIIIIIIIIIIIIl</span><span class="p">).</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">lIllIllIllIllIllIllIllIllIllIl</span><span class="p">)</span><span class="o">==-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="nx">bye</span><span class="p">;</span> <span class="p">}</span><span class="k">if</span><span class="p">(</span><span class="kr">eval</span><span class="p">(</span><span class="nx">llll</span><span class="o">+</span><span class="nx">lllllllllllllll</span><span class="o">+</span><span class="nx">lll</span><span class="o">+</span><span class="nx">lllllllllllllllllllll</span><span class="o">+</span><span class="nx">lllllllllllll</span><span class="o">+</span><span class="nx">lllll</span><span class="o">+</span><span class="nx">llllllllllllll</span><span class="o">+</span><span class="nx">llllllllllllllllllll</span><span class="o">+</span><span class="nx">li</span><span class="o">+</span><span class="s1">'U'</span><span class="o">+</span><span class="s1">'R'</span><span class="o">+</span><span class="s1">'L'</span><span class="p">).</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">lllllllllllll</span><span class="o">+</span><span class="nx">lllllllllllllll</span><span class="o">+</span><span class="nx">llll</span><span class="o">+</span><span class="nx">lllll</span><span class="o">+</span><span class="s1">'='</span><span class="o">+</span><span class="nx">I</span><span class="p">)</span><span class="o">==-</span><span class="mi">1</span><span class="p">){</span><span class="nx">alert</span><span class="p">(</span><span class="s1">'access_denied'</span><span class="p">);</span><span class="nx">history</span><span class="p">.</span><span class="nx">go</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);}</span><span class="k">else</span><span class="p">{</span><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'&lt;font size=2 color=white&gt;Join&lt;/font&gt;&lt;p&gt;'</span><span class="p">);</span><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'.&lt;p&gt;.&lt;p&gt;.&lt;p&gt;.&lt;p&gt;.&lt;p&gt;'</span><span class="p">);</span><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'&lt;form method=post action='</span><span class="o">+</span><span class="nx">llllllllll</span><span class="o">+</span><span class="nx">lllllllllllllll</span><span class="o">+</span><span class="nx">lllllllll</span><span class="o">+</span><span class="nx">llllllllllllll</span><span class="o">+</span><span class="nx">li</span><span class="o">+</span><span class="nx">llllllllllllllll</span><span class="o">+</span><span class="nx">llllllll</span><span class="o">+</span><span class="nx">llllllllllllllll</span>
+<span class="o">+</span><span class="s1">'&gt;'</span><span class="p">);</span><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'&lt;table border=1&gt;&lt;tr&gt;&lt;td&gt;&lt;font color=gray&gt;id&lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=text name='</span><span class="o">+</span><span class="nx">lllllllll</span><span class="o">+</span><span class="nx">llll</span><span class="o">+</span><span class="s1">' maxlength=5&gt;&lt;/td&gt;&lt;/tr&gt;'</span><span class="p">);</span><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'&lt;tr&gt;&lt;td&gt;&lt;font color=gray&gt;pass&lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=text name='</span><span class="o">+</span><span class="nx">llllllllllllllll</span><span class="o">+</span><span class="nx">lllllllllllllllllllllll</span><span class="o">+</span><span class="s1">' maxlength=10&gt;&lt;/td&gt;&lt;/tr&gt;'</span><span class="p">);</span><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'&lt;tr align=center&gt;&lt;td colspan=2&gt;&lt;input type=submit&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/form&gt;&lt;/table&gt;'</span><span class="p">);}</span>
+</code></pre></div></div>
+
+<p>上面代码的主要部分是下面这里：</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'&lt;font size=2 color=white&gt;Join&lt;/font&gt;&lt;p&gt;'</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'.&lt;p&gt;.&lt;p&gt;.&lt;p&gt;.&lt;p&gt;.&lt;p&gt;'</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'&lt;form method=post action="join.php"&gt;'</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'&lt;table border=1&gt;&lt;tr&gt;&lt;td&gt;&lt;font color=gray&gt;id&lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=text name="id" maxlength=5&gt;&lt;/td&gt;&lt;/tr&gt;'</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'&lt;tr&gt;&lt;td&gt;&lt;font color=gray&gt;pass&lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=text name="pw" maxlength=10&gt;&lt;/td&gt;&lt;/tr&gt;'</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'&lt;tr align=center&gt;&lt;td colspan=2&gt;&lt;input type=submit&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/form&gt;&lt;/table&gt;'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>这道题比较骚的地方就在于隐藏了输入框，需要自己运行 JS 代码。</p>
+
+<p>然后注册<code class="highlighter-rouge">admin+很多空格+1</code>，密码<code class="highlighter-rouge">123456</code> 即可，利用数据库的截断。最后登录即可。</p>
+
+<h2 id="challenge-6">challenge 6</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="nx">user</span><span class="p">])</span> 
+<span class="p">{</span> 
+    <span class="nv">$val_id</span><span class="o">=</span><span class="s2">"guest"</span><span class="p">;</span> 
+    <span class="nv">$val_pw</span><span class="o">=</span><span class="s2">"123qwe"</span><span class="p">;</span> 
+
+    <span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="mi">20</span><span class="p">;</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span> 
+    <span class="p">{</span> 
+        <span class="nv">$val_id</span><span class="o">=</span><span class="nb">base64_encode</span><span class="p">(</span><span class="nv">$val_id</span><span class="p">);</span> 
+        <span class="nv">$val_pw</span><span class="o">=</span><span class="nb">base64_encode</span><span class="p">(</span><span class="nv">$val_pw</span><span class="p">);</span> 
+
+    <span class="p">}</span> 
+
+    <span class="nv">$val_id</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"1"</span><span class="p">,</span><span class="s2">"!"</span><span class="p">,</span><span class="nv">$val_id</span><span class="p">);</span> 
+    <span class="nv">$val_id</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"2"</span><span class="p">,</span><span class="s2">"@"</span><span class="p">,</span><span class="nv">$val_id</span><span class="p">);</span> 
+    <span class="nv">$val_id</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"3"</span><span class="p">,</span><span class="s2">"$"</span><span class="p">,</span><span class="nv">$val_id</span><span class="p">);</span> 
+    <span class="nv">$val_id</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"4"</span><span class="p">,</span><span class="s2">"^"</span><span class="p">,</span><span class="nv">$val_id</span><span class="p">);</span> 
+    <span class="nv">$val_id</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"5"</span><span class="p">,</span><span class="s2">"&amp;"</span><span class="p">,</span><span class="nv">$val_id</span><span class="p">);</span> 
+    <span class="nv">$val_id</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"6"</span><span class="p">,</span><span class="s2">"*"</span><span class="p">,</span><span class="nv">$val_id</span><span class="p">);</span> 
+    <span class="nv">$val_id</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"7"</span><span class="p">,</span><span class="s2">"("</span><span class="p">,</span><span class="nv">$val_id</span><span class="p">);</span> 
+    <span class="nv">$val_id</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"8"</span><span class="p">,</span><span class="s2">")"</span><span class="p">,</span><span class="nv">$val_id</span><span class="p">);</span> 
+
+    <span class="nv">$val_pw</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"1"</span><span class="p">,</span><span class="s2">"!"</span><span class="p">,</span><span class="nv">$val_pw</span><span class="p">);</span> 
+    <span class="nv">$val_pw</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"2"</span><span class="p">,</span><span class="s2">"@"</span><span class="p">,</span><span class="nv">$val_pw</span><span class="p">);</span> 
+    <span class="nv">$val_pw</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"3"</span><span class="p">,</span><span class="s2">"$"</span><span class="p">,</span><span class="nv">$val_pw</span><span class="p">);</span> 
+    <span class="nv">$val_pw</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"4"</span><span class="p">,</span><span class="s2">"^"</span><span class="p">,</span><span class="nv">$val_pw</span><span class="p">);</span> 
+    <span class="nv">$val_pw</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"5"</span><span class="p">,</span><span class="s2">"&amp;"</span><span class="p">,</span><span class="nv">$val_pw</span><span class="p">);</span> 
+    <span class="nv">$val_pw</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"6"</span><span class="p">,</span><span class="s2">"*"</span><span class="p">,</span><span class="nv">$val_pw</span><span class="p">);</span> 
+    <span class="nv">$val_pw</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"7"</span><span class="p">,</span><span class="s2">"("</span><span class="p">,</span><span class="nv">$val_pw</span><span class="p">);</span> 
+    <span class="nv">$val_pw</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"8"</span><span class="p">,</span><span class="s2">")"</span><span class="p">,</span><span class="nv">$val_pw</span><span class="p">);</span> 
+
+    <span class="nx">Setcookie</span><span class="p">(</span><span class="s2">"user"</span><span class="p">,</span><span class="nv">$val_id</span><span class="p">);</span> 
+    <span class="nx">Setcookie</span><span class="p">(</span><span class="s2">"password"</span><span class="p">,</span><span class="nv">$val_pw</span><span class="p">);</span> 
+
+    <span class="k">echo</span><span class="p">(</span><span class="s2">"&lt;meta http-equiv=refresh content=0&gt;"</span><span class="p">);</span> 
+<span class="p">}</span> 
+<span class="cp">?&gt;</span> 
+</code></pre></div></div>
+
+<p>上面的代码我们可以不运行，直接绕过下面的代码，对 <code class="highlighter-rouge">admin</code> 进行 base64 编码 20 次。</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?</span> 
+
+<span class="nv">$decode_id</span><span class="o">=</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="nx">user</span><span class="p">];</span> 
+<span class="nv">$decode_pw</span><span class="o">=</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="nx">password</span><span class="p">];</span> 
+
+<span class="nv">$decode_id</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"!"</span><span class="p">,</span><span class="s2">"1"</span><span class="p">,</span><span class="nv">$decode_id</span><span class="p">);</span> 
+<span class="nv">$decode_id</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"@"</span><span class="p">,</span><span class="s2">"2"</span><span class="p">,</span><span class="nv">$decode_id</span><span class="p">);</span> 
+<span class="nv">$decode_id</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"$"</span><span class="p">,</span><span class="s2">"3"</span><span class="p">,</span><span class="nv">$decode_id</span><span class="p">);</span> 
+<span class="nv">$decode_id</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"^"</span><span class="p">,</span><span class="s2">"4"</span><span class="p">,</span><span class="nv">$decode_id</span><span class="p">);</span> 
+<span class="nv">$decode_id</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"&amp;"</span><span class="p">,</span><span class="s2">"5"</span><span class="p">,</span><span class="nv">$decode_id</span><span class="p">);</span> 
+<span class="nv">$decode_id</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"*"</span><span class="p">,</span><span class="s2">"6"</span><span class="p">,</span><span class="nv">$decode_id</span><span class="p">);</span> 
+<span class="nv">$decode_id</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"("</span><span class="p">,</span><span class="s2">"7"</span><span class="p">,</span><span class="nv">$decode_id</span><span class="p">);</span> 
+<span class="nv">$decode_id</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">")"</span><span class="p">,</span><span class="s2">"8"</span><span class="p">,</span><span class="nv">$decode_id</span><span class="p">);</span> 
+
+<span class="nv">$decode_pw</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"!"</span><span class="p">,</span><span class="s2">"1"</span><span class="p">,</span><span class="nv">$decode_pw</span><span class="p">);</span> 
+<span class="nv">$decode_pw</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"@"</span><span class="p">,</span><span class="s2">"2"</span><span class="p">,</span><span class="nv">$decode_pw</span><span class="p">);</span> 
+<span class="nv">$decode_pw</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"$"</span><span class="p">,</span><span class="s2">"3"</span><span class="p">,</span><span class="nv">$decode_pw</span><span class="p">);</span> 
+<span class="nv">$decode_pw</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"^"</span><span class="p">,</span><span class="s2">"4"</span><span class="p">,</span><span class="nv">$decode_pw</span><span class="p">);</span> 
+<span class="nv">$decode_pw</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"&amp;"</span><span class="p">,</span><span class="s2">"5"</span><span class="p">,</span><span class="nv">$decode_pw</span><span class="p">);</span> 
+<span class="nv">$decode_pw</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"*"</span><span class="p">,</span><span class="s2">"6"</span><span class="p">,</span><span class="nv">$decode_pw</span><span class="p">);</span> 
+<span class="nv">$decode_pw</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"("</span><span class="p">,</span><span class="s2">"7"</span><span class="p">,</span><span class="nv">$decode_pw</span><span class="p">);</span> 
+<span class="nv">$decode_pw</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">")"</span><span class="p">,</span><span class="s2">"8"</span><span class="p">,</span><span class="nv">$decode_pw</span><span class="p">);</span> 
+
+
+<span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="mi">20</span><span class="p">;</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span> 
+<span class="p">{</span> 
+    <span class="nv">$decode_id</span><span class="o">=</span><span class="nb">base64_decode</span><span class="p">(</span><span class="nv">$decode_id</span><span class="p">);</span> 
+    <span class="nv">$decode_pw</span><span class="o">=</span><span class="nb">base64_decode</span><span class="p">(</span><span class="nv">$decode_pw</span><span class="p">);</span> 
+<span class="p">}</span> 
+
+<span class="k">echo</span><span class="p">(</span><span class="s2">"&lt;font style=background:silver;color:black&gt;&amp;nbsp;&amp;nbsp;HINT : base64&amp;nbsp;&amp;nbsp;&lt;/font&gt;&lt;hr&gt;&lt;a href=index.phps style=color:yellow;&gt;index.phps&lt;/a&gt;&lt;br&gt;&lt;br&gt;"</span><span class="p">);</span> 
+<span class="k">echo</span><span class="p">(</span><span class="s2">"ID : </span><span class="nv">$decode_id</span><span class="s2">&lt;br&gt;PW : </span><span class="nv">$decode_pw</span><span class="s2">&lt;hr&gt;"</span><span class="p">);</span> 
+
+<span class="k">if</span><span class="p">(</span><span class="nv">$decode_id</span><span class="o">==</span><span class="s2">"admin"</span> <span class="o">&amp;&amp;</span> <span class="nv">$decode_pw</span><span class="o">==</span><span class="s2">"admin"</span><span class="p">)</span> 
+<span class="p">{</span> 
+    <span class="o">@</span><span class="nx">solve</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span> 
+<span class="p">}</span> 
+<span class="cp">?&gt;</span> 
+</code></pre></div></div>
+
+<p><strong>payload:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">base64</span>
+<span class="n">a</span> <span class="o">=</span> <span class="s">"admin"</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+    <span class="n">a</span><span class="o">=</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">a</span>
+</code></pre></div></div>
+
+<h2 id="参考">参考:</h2>
+
+<p><a href="http://shaobaobaoer.cn/archives/654/hackingweb-kr-81e998aee595">http://shaobaobaoer.cn/archives/654/hackingweb-kr-81e998aee595</a></p>
+
+<p><a href="https://blog.csdn.net/qq_19876131/article/details/51148227">https://blog.csdn.net/qq_19876131/article/details/51148227</a></p>
 
     </article>
   

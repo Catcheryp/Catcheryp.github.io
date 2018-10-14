@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Solve Me writeup(1-？) &mdash; Evil</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/customize.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2018/10/12/solveme/">
+    <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
+    
+    <link rel="shortcut icon" href="http://localhost:4000/images/favicon.jpg" >
+    
+    <meta property="og:title" content="Solve Me writeup(1-？)">
+      
+    <meta name="keywords" content="Web Security">
+    <meta name="og:keywords" content="Web Security">
+      
+    <meta name="description" content="又一个 CTF 的平台，知识点偏代码审计上面基本都是 web 题目感觉不错，那就做一下呗……">
+    <meta name="og:description" content="又一个 CTF 的平台，知识点偏代码审计上面基本都是 web 题目感觉不错，那就做一下呗……">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2018/10/12/solveme/">
+    <meta property="og:site_name" content="Evil">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2018-10-12">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script src="http://localhost:4000/assets/js/main.js"></script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="Evil"><span class="octicon octicon-hubot"></span> Evil</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="主页">主页</a>
+                
+                <a href="http://localhost:4000/archives/" class=" site-header-nav-item" target="" title="归档">归档</a>
+                
+                <a href="http://localhost:4000/tags/" class=" site-header-nav-item" target="" title="标签">标签</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于">关于</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+    <section class="collection-head small geopattern" data-pattern-id="Solve Me writeu">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">Solve Me writeup(1-？)</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2018/10/12
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/CTF" title="CTF">CTF</a>
+          </span>
+          
+
+          
+          <span class="meta-info">
+            <span class="octicon octicon-tag"></span>
+            <a href="http://localhost:4000/tags/#CTF" title="CTF">CTF</a>
+          </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>又一个 CTF 的平台，<strong>知识点偏代码审计</strong>上面基本都是 web 题目感觉不错，那就做一下呗……</p>
+
+<!--more-->
+
+<h2 id="1warm-up">1.Warm up</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    
+    <span class="nv">$s</span> <span class="o">=</span> <span class="s2">"1wMDEyY2U2YTY0M2NgMTEyZDQyMjAzNWczYjZgMWI4NTt3YWxmY="</span><span class="p">;</span>
+    <span class="nv">$res</span> <span class="o">=</span> <span class="nb">hex2bin</span><span class="p">(</span><span class="nb">strrev</span><span class="p">(</span><span class="nb">bin2hex</span><span class="p">(</span><span class="nb">base64_decode</span><span class="p">(</span><span class="nv">$s</span><span class="p">))));</span>
+    <span class="k">echo</span> <span class="nv">$res</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h2 id="2thirty-six">2.Thirty six</h2>
+
+<p>就是将所给的数字转换成 36 进制</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#coding: utf-8
+#59714216653669596140166323768414581512983971077273551022216
+# 开始我试图用在线的进制转换工具来进行转换，发现转换的结果并不正确，果然还是需要自己手写
+s = "0123456789abcdefghijklmnopqrstuvwxyz"
+a = 59714216653669596140166323768414581512983971077273551022216
+tmp = 36
+res = []
+while a:
+    b = a % tmp
+    a = a // tmp
+    res.append(b)
+res.reverse()
+ans = ""
+for i in res:
+    ans += s[i]
+print ans
+</code></pre></div></div>
+
+<h2 id="3bad-compare">3.Bad compare</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nb">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="k">require</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">'/lib.php'</span><span class="p">;</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'answer'</span><span class="p">])){</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'answer'</span><span class="p">]</span> <span class="o">===</span> <span class="s1">'роВхУъесЧМ'</span><span class="p">){</span>
+            <span class="k">echo</span> <span class="nv">$flag</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="k">echo</span> <span class="s1">'Wrong answer'</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">echo</span> <span class="s1">'&lt;hr&gt;'</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>会出错，猜测是返回的数据在浏览器解析上有问题</strong></p>
+
+<p><strong>把回显保存成文件再在16进制工具下打开</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl  -o  ./answer.txt  http://badcompare.solveme.peng.kr/?
+得到对应字符的 16 进制表示为
+f0eec2f5d3fae5f1d7cc
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$a</span> <span class="o">=</span> <span class="s2">"f0eec2f5d3fae5f1d7cc"</span><span class="p">;</span>
+    <span class="nv">$b</span> <span class="o">=</span> <span class="nb">hex2bin</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
+    <span class="k">echo</span> <span class="nb">urlencode</span><span class="p">(</span><span class="nv">$b</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+//%F0%EE%C2%F5%D3%FA%E5%F1%D7%CC
+</code></pre></div></div>
+
+<h2 id="4winter-sleep-️">4.Winter sleep ⭐️</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nb">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="k">require</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">'/lib.php'</span><span class="p">;</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'time'</span><span class="p">])){</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">is_numeric</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'time'</span><span class="p">])){</span>
+            <span class="k">echo</span> <span class="s1">'The time must be number.'</span><span class="p">;</span>
+
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'time'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">30</span> <span class="o">*</span> <span class="mi">2</span><span class="p">){</span>
+            <span class="k">echo</span> <span class="s1">'This time is too short.'</span><span class="p">;</span>
+
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'time'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">30</span> <span class="o">*</span> <span class="mi">3</span><span class="p">){</span>
+            <span class="k">echo</span> <span class="s1">'This time is too long.'</span><span class="p">;</span>
+
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="nb">sleep</span><span class="p">((</span><span class="nx">int</span><span class="p">)</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'time'</span><span class="p">]);</span>
+            <span class="k">echo</span> <span class="nv">$flag</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">echo</span> <span class="s1">'&lt;hr&gt;'</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong><code class="highlighter-rouge">6e6</code></strong></p>
+
+<p><strong>使用科学计数法绕过<code class="highlighter-rouge">is_numeric</code></strong></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">php</span> <span class="o">&gt;</span> <span class="k">echo</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span><span class="s1">'6e6'</span><span class="p">;</span>
+<span class="mi">6</span>
+</code></pre></div></div>
+
+<p><strong>此时进行比较时视为科学计数法，sleep 时字符串视为 6</strong></p>
+
+<h2 id="5hard-login">5.Hard login</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nb">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="nb">session_start</span><span class="p">();</span>
+    <span class="k">require</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">'/lib.php'</span><span class="p">;</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'username'</span><span class="p">],</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'password'</span><span class="p">])){</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'hard_login_check'</span><span class="p">])){</span>
+            <span class="k">echo</span> <span class="s1">'Already logged in..'</span><span class="p">;</span>
+
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'username'</span><span class="p">]{</span><span class="mi">3</span><span class="p">})</span> <span class="o">||</span> <span class="nb">strtolower</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'username'</span><span class="p">])</span> <span class="o">!=</span> <span class="nv">$hidden_username</span><span class="p">){</span>
+            <span class="k">echo</span> <span class="s1">'Wrong username..'</span><span class="p">;</span>
+
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'password'</span><span class="p">]{</span><span class="mi">7</span><span class="p">})</span> <span class="o">||</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'password'</span><span class="p">]</span> <span class="o">!=</span> <span class="nv">$hidden_password</span><span class="p">){</span>
+            <span class="k">echo</span> <span class="s1">'Wrong password..'</span><span class="p">;</span>
+
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'hard_login_check'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="k">echo</span> <span class="s1">'Login success!'</span><span class="p">;</span>
+            <span class="nb">header</span><span class="p">(</span><span class="s1">'Location: ./'</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">echo</span> <span class="s1">'&lt;hr&gt;'</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>注意到上面的代码这里:
+header('Location: ./');
+应该是 302 跳转隐藏了 flag
+curl 命令不会跟踪重定向
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl http://hardlogin.solveme.peng.kr/
+</code></pre></div></div>
+
+<h2 id="6url-filtering">6.URL filtering</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nb">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="k">require</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s2">"/lib.php"</span><span class="p">;</span>
+
+    <span class="nv">$url</span> <span class="o">=</span> <span class="nb">urldecode</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">'REQUEST_URI'</span><span class="p">]);</span>
+    <span class="nv">$url_query</span> <span class="o">=</span> <span class="nb">parse_url</span><span class="p">(</span><span class="nv">$url</span><span class="p">,</span> <span class="nx">PHP_URL_QUERY</span><span class="p">);</span>
+
+    <span class="nv">$params</span> <span class="o">=</span> <span class="nb">explode</span><span class="p">(</span><span class="s2">"&amp;"</span><span class="p">,</span> <span class="nv">$url_query</span><span class="p">);</span>
+    <span class="k">foreach</span><span class="p">(</span><span class="nv">$params</span> <span class="k">as</span> <span class="nv">$param</span><span class="p">){</span>
+
+        <span class="nv">$idx_equal</span> <span class="o">=</span> <span class="nb">strpos</span><span class="p">(</span><span class="nv">$param</span><span class="p">,</span> <span class="s2">"="</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$idx_equal</span> <span class="o">===</span> <span class="kc">false</span><span class="p">){</span>
+            <span class="nv">$key</span> <span class="o">=</span> <span class="nv">$param</span><span class="p">;</span>
+            <span class="nv">$value</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="nv">$key</span> <span class="o">=</span> <span class="nb">substr</span><span class="p">(</span><span class="nv">$param</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">$idx_equal</span><span class="p">);</span>
+            <span class="nv">$value</span> <span class="o">=</span> <span class="nb">substr</span><span class="p">(</span><span class="nv">$param</span><span class="p">,</span> <span class="nv">$idx_equal</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="nb">strpos</span><span class="p">(</span><span class="nv">$key</span><span class="p">,</span> <span class="s2">"do_you_want_flag"</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">false</span> <span class="o">||</span> <span class="nb">strpos</span><span class="p">(</span><span class="nv">$value</span><span class="p">,</span> <span class="s2">"yes"</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">){</span>
+            <span class="k">die</span><span class="p">(</span><span class="s2">"no hack"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'do_you_want_flag'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'do_you_want_flag'</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"yes"</span><span class="p">){</span>
+        <span class="k">die</span><span class="p">(</span><span class="nv">$flag</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+</code></pre></div></div>
+<p>这里主要用 <code class="highlighter-rouge">parse_url()</code>  在解析 <code class="highlighter-rouge">url</code> 时存在 bug，从而绕过:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>///?do_you_want_flag=yes
+</code></pre></div></div>
+
+<p>此时 <code class="highlighter-rouge">parse_url()</code> 会返回 <code class="highlighter-rouge">bool(false)</code>，此时<code class="highlighter-rouge">$params</code> 就为空。</p>
+
+<p>关于 <code class="highlighter-rouge">parse_url</code> 可以参考这里<a href="http://skysec.top/2017/12/15/parse-url%E5%87%BD%E6%95%B0%E5%B0%8F%E8%AE%B0/">parse_url函数小记</a></p>
+
+<h2 id="7hash-collision">7.Hash collision</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nb">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="k">require</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">'/lib.php'</span><span class="p">;</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'foo'</span><span class="p">],</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'bar'</span><span class="p">])){</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="nb">strlen</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'foo'</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">30</span> <span class="o">||</span> <span class="nb">strlen</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'bar'</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">){</span>
+            <span class="k">die</span><span class="p">(</span><span class="s1">'Too long'</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'foo'</span><span class="p">]</span> <span class="o">===</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'bar'</span><span class="p">]){</span>
+            <span class="k">die</span><span class="p">(</span><span class="s1">'Same value'</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="nb">hash</span><span class="p">(</span><span class="s1">'sha512'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'foo'</span><span class="p">])</span> <span class="o">!==</span> <span class="nb">hash</span><span class="p">(</span><span class="s1">'sha512'</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'bar'</span><span class="p">])){</span>
+            <span class="k">die</span><span class="p">(</span><span class="s1">'Different hash'</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">echo</span> <span class="nv">$flag</span><span class="p">,</span> <span class="s1">'&lt;hr&gt;'</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>payload</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/?foo[]=111&amp;bar[]=1111
+</code></pre></div></div>
+
+<h2 id="8gif89a">8.GIF89a</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nb">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+    <span class="nv">$filepath</span> <span class="o">=</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">'/gif89a'</span><span class="p">;</span>
+
+    <span class="k">echo</span> <span class="s1">'File : &lt;a href="gif89a"&gt;gif89a&lt;/a&gt;&lt;br&gt;'</span><span class="p">,</span>
+         <span class="s1">'Size : '</span><span class="p">,</span> <span class="nb">filesize</span><span class="p">(</span><span class="nv">$filepath</span><span class="p">),</span> <span class="s1">' bytes&lt;br&gt;'</span><span class="p">,</span>
+         <span class="s1">'MD5 : &lt;code&gt;'</span><span class="p">,</span> <span class="nb">md5_file</span><span class="p">(</span><span class="nv">$filepath</span><span class="p">),</span> <span class="s1">'&lt;/code&gt;&lt;br&gt;'</span><span class="p">,</span>
+         <span class="s1">'SHA1 : &lt;code&gt;'</span><span class="p">,</span> <span class="nb">sha1_file</span><span class="p">(</span><span class="nv">$filepath</span><span class="p">),</span> <span class="s1">'&lt;/code&gt;&lt;br&gt;'</span><span class="p">,</span>
+         <span class="s1">'&lt;hr&gt;'</span><span class="p">;</span>
+
+    <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>这题我按照这里的步骤并没有成功 <a href="https://kele1997.xyz/2018/03/15/solveme-writeup/">https://kele1997.xyz/2018/03/15/solveme-writeup/</a></p>
+
+<p><code class="highlighter-rouge">stegsolve.jar </code> 打开文件失败，目前猜测是因为我修改文件的后缀不太对。</p>
+
+<p>留个坑在这里，有时间回头再来战斗 ⭐️</p>
+
+<h2 id="9array2string">9.Array2String</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nb">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="k">require</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">'/lib.php'</span><span class="p">;</span>
+
+    <span class="nv">$value</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'value'</span><span class="p">];</span>
+
+    <span class="nv">$username</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'username'</span><span class="p">];</span>
+    <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'password'</span><span class="p">];</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$value</span><span class="p">);</span> <span class="o">++</span><span class="nv">$i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'username'</span><span class="p">])</span> <span class="nb">unset</span><span class="p">(</span><span class="nv">$username</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$value</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">32</span> <span class="o">&amp;&amp;</span> <span class="nv">$value</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">127</span><span class="p">)</span> <span class="nb">unset</span><span class="p">(</span><span class="nv">$value</span><span class="p">);</span>
+        <span class="k">else</span> <span class="nv">$username</span> <span class="o">.=</span> <span class="nb">chr</span><span class="p">(</span><span class="nv">$value</span><span class="p">[</span><span class="nv">$i</span><span class="p">]);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$username</span> <span class="o">==</span> <span class="s1">'15th_HackingCamp'</span> <span class="o">&amp;&amp;</span> <span class="nb">md5</span><span class="p">(</span><span class="nv">$password</span><span class="p">)</span> <span class="o">==</span> <span class="nb">md5</span><span class="p">(</span><span class="nb">file_get_contents</span><span class="p">(</span><span class="s1">'./secret.passwd'</span><span class="p">)))</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="s1">'Hello '</span><span class="o">.</span><span class="nv">$username</span><span class="o">.</span><span class="s1">'!'</span><span class="p">,</span> <span class="s1">'&lt;br&gt;'</span><span class="p">,</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+            <span class="k">echo</span> <span class="nv">$flag</span><span class="p">,</span> <span class="s1">'&lt;hr&gt;'</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nb">highlight_file</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>tips:</strong></p>
+
+<p>我们可以先访问<code class="highlighter-rouge">secret_passwd</code> 获得<code class="highlighter-rouge">password</code> 为 <code class="highlighter-rouge">simple_passw0rd</code></p>
+
+<p>我们主要绕过的就是这里</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$username</span> <span class="o">==</span> <span class="s1">'15th_HackingCamp'</span> <span class="o">&amp;&amp;</span> <span class="nb">md5</span><span class="p">(</span><span class="nv">$password</span><span class="p">)</span> <span class="o">==</span> <span class="nb">md5</span><span class="p">(</span><span class="nb">file_get_contents</span><span class="p">(</span><span class="s1">'./secret.passwd'</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>再分析一下，后面的密码我们已经知道了，接下来主要就是绕过 <code class="highlighter-rouge">$username == '15th_HackingCamp'</code></p>
+
+<p>但是我们不能直接传入 <code class="highlighter-rouge">username</code> 的值，否则的话这个值就会被销毁。</p>
+
+<p><strong>这里就要 <code class="highlighter-rouge">chr</code> 函数的特性来解决，<code class="highlighter-rouge">chr</code> 函数会自动将 <code class="highlighter-rouge">&gt;256</code>的数 <code class="highlighter-rouge">mod256</code></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo chr(48+256); 
+// '0'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#coding: utf-8</span>
+<span class="n">key</span> <span class="o">=</span> <span class="s">"15th_HackingCamp"</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="s">""</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">key</span><span class="p">:</span>
+	<span class="n">payload</span> <span class="o">+=</span> <span class="s">"value[]="</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="mi">256</span><span class="p">)</span> <span class="o">+</span> <span class="s">"&amp;"</span>
+<span class="k">print</span> <span class="n">payload</span>
+<span class="s">"""
+value[]=305&amp;value[]=309&amp;value[]=372&amp;value[]=360&amp;value[]=351&amp;value[]=328&amp;value[]=353&amp;value[]=355&amp;value[]=363&amp;value[]=361&amp;value[]=366&amp;value[]=359&amp;value[]=323&amp;value[]=353&amp;value[]=365&amp;value[]=368&amp;
+"""</span>
+</code></pre></div></div>
+
+<h2 id="10flag-not-found">10.Flag not found</h2>
+
+<p>这道题跟之前 <code class="highlighter-rouge">GIF89a</code> 属于同一类型，还是不会，暂且留坑在这里⭐️</p>
+
+<h2 id="11">11.</h2>
+
+<h2 id="参考">参考</h2>
+
+<p><a href="http://kirin-say.top/2018/04/10/solveme-peng-kr-Web%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/">solveme.peng.kr_Web代码审计练习</a></p>
+
+
+    </article>
+  
+    <div class="newold">
+  <hr>
+  
+  <b>上一篇: <a href="/2018/10/11/func/">PHP 常用函数</a></b><br>
+     
+   
+</div><!--上一篇 下一篇-->
+
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2018/10/12/solveme/',
+            clientID: '5a59fdc570f933e0c2ee',
+            clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
+            repo: 'blogcomments',
+            owner: 'Catcheryp',
+            admin: ['Catcheryp'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/simple-jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="Catcher">Catcher</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <!--<a href="" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>-->
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="主页" target="">主页</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/archives/" title="归档" target="">归档</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/tags/" title="标签" target="">标签</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="链接" target="">链接</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="关于" target="">关于</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <div class="tools-wrapper">
+      <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a>
+    </div>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
