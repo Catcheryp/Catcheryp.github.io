@@ -1,11 +1,11 @@
 ---
-title: webhacking.kr writeup(1-？)
+title: webhacking.kr writeup
 layout: post
 categories: CTF
 tags: CTF
 ---
 
-这个 CTF 平台都是 web 题目，感觉不错，这里记录一下做题的一些技巧......
+这个 CTF 平台都是 web 题目，感觉不错，这里记录一下做题的一些技巧，持续更新......
 
 <!--more-->
 
