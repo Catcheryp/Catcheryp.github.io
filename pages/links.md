@@ -47,7 +47,8 @@ permalink: /links/
 ## 博客
 
 ### 安全
-
+- **余弦** [https://evilcos.me/](https://evilcos.me/)
+- **leucosite** [https://leucosite.com/](https://leucosite.com/)
 - **phith0n** [https://www.leavesongs.com](https://www.leavesongs.com)
 - **Chybeta** [https://chybeta.github.io](https://chybeta.github.io)
 - **乘物游心** [https://blog.spoock.com/](https://blog.spoock.com/)
@@ -59,6 +60,8 @@ permalink: /links/
 
 - **酷壳** [https://coolshell.cn/](https://coolshell.cn/)
 - **阮一峰** [http://www.ruanyifeng.com](http://www.ruanyifeng.com)
+- **刘未鹏** [http://mindhacks.cn/](http://mindhacks.cn/)
+- **董伟明** [http://www.dongwm.com/](http://www.dongwm.com/)
 
 
 
@@ -68,6 +71,7 @@ permalink: /links/
 - [先知社区 https://xz.aliyun.com/](https://xz.aliyun.com/)
 - [SecWiki https://www.sec-wiki.com/skill/2](https://www.sec-wiki.com/skill/2)
 - [安全客 https://www.anquanke.com/knowledge](https://www.anquanke.com/knowledge)
+
 
 
 
