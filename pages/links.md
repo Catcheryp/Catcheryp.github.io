@@ -41,7 +41,6 @@ permalink: /links/
 - [梧桐百科](https://tricking.io/)
 - [CTF wiki](https://ctf-wiki.github.io/ctf-wiki/)
 - [SQL注入WIKI](http://sqlwiki.radare.cn/#/)
-- [Python全栈之路](https://blog.ansheng.me/article/python-full-stack-way)
 
 
 
@@ -74,6 +73,8 @@ permalink: /links/
 
 ## 教程
 
+- [JavaScript 教程](https://wangdoc.com/javascript/)
+- [Python全栈之路](https://blog.ansheng.me/article/python-full-stack-way)
 - [Vue.js](https://vuejscaff.com/courses)
 - [Laravel](https://laravel-china.org/courses)
 - [Django](https://www.zmrenwu.com/tutorials/)
