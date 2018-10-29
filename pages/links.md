@@ -55,6 +55,7 @@ permalink: /links/
 - **倾旋** [http://payloads.online/](http://payloads.online/)
 - **信安之路** [http://www.myh0st.cn/](http://www.myh0st.cn/)
 - **hackfun** [https://hackfun.org/](https://hackfun.org/)
+- **大老李** [https://laolisafe.com/](https://laolisafe.com/)
 
 ### 技术
 
@@ -77,11 +78,13 @@ permalink: /links/
 
 ## 教程
 
+- [学习CSS布局](http://zh.learnlayout.com/)
 - [JavaScript 教程](https://wangdoc.com/javascript/)
 - [Python全栈之路](https://blog.ansheng.me/article/python-full-stack-way)
 - [Vue.js](https://vuejscaff.com/courses)
 - [Laravel](https://laravel-china.org/courses)
 - [Django](https://www.zmrenwu.com/tutorials/)
+
 
 
 
