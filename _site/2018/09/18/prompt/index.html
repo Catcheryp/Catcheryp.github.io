@@ -26,7 +26,7 @@
     <link rel="canonical" href="http://localhost:4000/2018/09/18/prompt/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
-    <link rel="shortcut icon" href="http://localhost:4000/images/favicon.jpg" >
+    <link rel="shortcut icon" href="http://localhost:4000/images/favicon.ico" >
     
     <meta property="og:title" content="prompt(1) to win">
       
@@ -577,6 +577,7 @@ SimpleJekyllSearch({
                 
                 <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
             </ul>
+            <div id="zyzy"></div>
 
         </div>
     </footer>
@@ -620,5 +621,42 @@ SimpleJekyllSearch({
       </script>
     </div>
     
+    
 </body>
+<!--自言自语-->
+<script>
+    var xhr = new XMLHttpRequest();
+    var zyzy;
+    var arrayZyzy;
+    function getZyzy(){
+        var index1 = Math.floor(Math.random()*arrayZyzy.length);
+        var resText = "";
+        resText += "自言自语:\xa0「"+ arrayZyzy[index1] + "」";
+        zyzy.innerHTML = resText;
+    }
+    
+    xhr.onreadystatechange = function(){
+      // 通信成功时，状态值为4
+      if (xhr.readyState === 4){
+        if (xhr.status === 200){
+          console.log(xhr.responseText);
+          zyzy = document.getElementById("zyzy");
+          arrayZyzy = xhr.responseText.split("\n\n");
+
+          getZyzy();
+          setInterval("getZyzy()", 20000);
+
+        } else {
+          console.error(xhr.statusText);
+        }
+      }
+    };
+
+    xhr.onerror = function (e) {
+      console.error(xhr.statusText);
+    };
+
+    xhr.open('GET', '/zyzy.txt', true);
+    xhr.send(null);
+</script>
 </html>

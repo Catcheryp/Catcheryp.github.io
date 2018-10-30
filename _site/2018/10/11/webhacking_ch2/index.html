@@ -26,7 +26,7 @@
     <link rel="canonical" href="http://localhost:4000/2018/10/11/webhacking_ch2/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
-    <link rel="shortcut icon" href="http://localhost:4000/images/favicon.jpg" >
+    <link rel="shortcut icon" href="http://localhost:4000/images/favicon.ico" >
     
     <meta property="og:title" content="webhacking ch2(Cookie 布尔盲注)">
       
@@ -260,10 +260,10 @@ do you want to URL encode cookie values (implementation specific)? [Y/n] y
     <div class="newold">
   <hr>
   
-  <b>上一篇: <a href="/2018/10/11/webhacking.kr/">webhacking.kr writeup(1-？)</a></b><br>
+  <b>上一篇: <a href="/2018/10/11/webhacking.kr/">webhacking.kr writeup</a></b><br>
      
   
-  <b>下一篇: <a href="/2018/10/11/func/">PHP 常用函数</a></b>
+  <b>下一篇: <a href="/2018/10/12/solveme/">Solve Me writeup</a></b>
    
 </div><!--上一篇 下一篇-->
 
@@ -382,6 +382,7 @@ SimpleJekyllSearch({
                 
                 <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
             </ul>
+            <div id="zyzy"></div>
 
         </div>
     </footer>
@@ -425,5 +426,42 @@ SimpleJekyllSearch({
       </script>
     </div>
     
+    
 </body>
+<!--自言自语-->
+<script>
+    var xhr = new XMLHttpRequest();
+    var zyzy;
+    var arrayZyzy;
+    function getZyzy(){
+        var index1 = Math.floor(Math.random()*arrayZyzy.length);
+        var resText = "";
+        resText += "自言自语:\xa0「"+ arrayZyzy[index1] + "」";
+        zyzy.innerHTML = resText;
+    }
+    
+    xhr.onreadystatechange = function(){
+      // 通信成功时，状态值为4
+      if (xhr.readyState === 4){
+        if (xhr.status === 200){
+          console.log(xhr.responseText);
+          zyzy = document.getElementById("zyzy");
+          arrayZyzy = xhr.responseText.split("\n\n");
+
+          getZyzy();
+          setInterval("getZyzy()", 20000);
+
+        } else {
+          console.error(xhr.statusText);
+        }
+      }
+    };
+
+    xhr.onerror = function (e) {
+      console.error(xhr.statusText);
+    };
+
+    xhr.open('GET', '/zyzy.txt', true);
+    xhr.send(null);
+</script>
 </html>

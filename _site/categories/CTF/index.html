@@ -26,7 +26,7 @@
     <link rel="canonical" href="http://localhost:4000/categories/CTF/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
-    <link rel="shortcut icon" href="http://localhost:4000/images/favicon.jpg" >
+    <link rel="shortcut icon" href="http://localhost:4000/images/favicon.ico" >
     
     <meta property="og:title" content="CTF">
       
@@ -98,14 +98,14 @@
                 
                   
                     
-                    <li class="posts-list-item">
-                      <span class="posts-list-meta">2018-10-12</span>
-                      <a class="posts-list-name" href="http://localhost:4000/2018/10/12/solveme/">Solve Me writeup(1-？)</a>
-                    </li>
-                    
                   
                 
                   
+                    
+                    <li class="posts-list-item">
+                      <span class="posts-list-meta">2018-10-12</span>
+                      <a class="posts-list-name" href="http://localhost:4000/2018/10/12/solveme/">Solve Me writeup</a>
+                    </li>
                     
                   
                 
@@ -122,7 +122,7 @@
                     
                     <li class="posts-list-item">
                       <span class="posts-list-meta">2018-10-11</span>
-                      <a class="posts-list-name" href="http://localhost:4000/2018/10/11/webhacking.kr/">webhacking.kr writeup(1-？)</a>
+                      <a class="posts-list-name" href="http://localhost:4000/2018/10/11/webhacking.kr/">webhacking.kr writeup</a>
                     </li>
                     
                   
@@ -430,13 +430,6 @@ SimpleJekyllSearch({
     </span>
     </a>
     
-    <a href="http://localhost:4000/tags/#php">
-    <span class="badge" id="tag">
-    php
-    <span>1</span>
-    </span>
-    </a>
-    
     <a href="http://localhost:4000/tags/#regex">
     <span class="badge" id="tag">
     regex
@@ -475,7 +468,7 @@ SimpleJekyllSearch({
     <a href="http://localhost:4000/tags/#xss">
     <span class="badge" id="tag">
     xss
-    <span>5</span>
+    <span>6</span>
     </span>
     </a>
     
@@ -518,15 +511,11 @@ SimpleJekyllSearch({
     </li>
     
     <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/PHP"><span class="octicon octicon-file-directory"></span> PHP</a> <span id="nums">(1)</span>
-    </li>
-    
-    <li class="list-group-item2">
     <a href="http://localhost:4000/categories/program"><span class="octicon octicon-file-directory"></span> program</a> <span id="nums">(5)</span>
     </li>
     
     <li class="list-group-item2">
-    <a href="http://localhost:4000/categories/web安全"><span class="octicon octicon-file-directory"></span> web安全</a> <span id="nums">(14)</span>
+    <a href="http://localhost:4000/categories/web安全"><span class="octicon octicon-file-directory"></span> web安全</a> <span id="nums">(15)</span>
     </li>
     
     <li class="list-group-item2">
@@ -598,6 +587,7 @@ SimpleJekyllSearch({
                 
                 <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
             </ul>
+            <div id="zyzy"></div>
 
         </div>
     </footer>
@@ -641,5 +631,42 @@ SimpleJekyllSearch({
       </script>
     </div>
     
+    
 </body>
+<!--自言自语-->
+<script>
+    var xhr = new XMLHttpRequest();
+    var zyzy;
+    var arrayZyzy;
+    function getZyzy(){
+        var index1 = Math.floor(Math.random()*arrayZyzy.length);
+        var resText = "";
+        resText += "自言自语:\xa0「"+ arrayZyzy[index1] + "」";
+        zyzy.innerHTML = resText;
+    }
+    
+    xhr.onreadystatechange = function(){
+      // 通信成功时，状态值为4
+      if (xhr.readyState === 4){
+        if (xhr.status === 200){
+          console.log(xhr.responseText);
+          zyzy = document.getElementById("zyzy");
+          arrayZyzy = xhr.responseText.split("\n\n");
+
+          getZyzy();
+          setInterval("getZyzy()", 20000);
+
+        } else {
+          console.error(xhr.statusText);
+        }
+      }
+    };
+
+    xhr.onerror = function (e) {
+      console.error(xhr.statusText);
+    };
+
+    xhr.open('GET', '/zyzy.txt', true);
+    xhr.send(null);
+</script>
 </html>

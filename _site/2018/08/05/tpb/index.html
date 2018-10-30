@@ -26,7 +26,7 @@
     <link rel="canonical" href="http://localhost:4000/2018/08/05/tpb/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
-    <link rel="shortcut icon" href="http://localhost:4000/images/favicon.jpg" >
+    <link rel="shortcut icon" href="http://localhost:4000/images/favicon.ico" >
     
     <meta property="og:title" content="当我谈跑步时，我谈些什么">
       
@@ -144,10 +144,6 @@
 我知道对感兴趣的领域和相关事物，按照自己相配的节奏，借助自己喜欢的方法去探求，就能极其高效地掌握知识和技术。
 <br /><br />
 只是我想。年轻的时候姑且不论，人生中总有一个先后顺序，也就是如何依序安排时间和能量。到一定年龄之前，如果不在心中制定好这样的规划，人生就会失去焦点，变得张弛得当。
-<br /><br />
-什么才是公平，还得以长远的眼光来看才能看明白。
-<br /><br />然而并非只凭意志坚强就可以无所不能，人世不是那么单纯。我能够坚持跑二十年，恐怕还是因为跑步合乎我的性情，至少「不觉得痛苦」。人生来如此，喜欢的事自然可以坚持下去，不喜欢的事怎么也坚持不了。
-<br /><br />只是我想。年轻的时候姑且不论，人生中总有一个先后顺序，也就是如何依序安排时间和能量。到一定年龄之前，如果不在心中制定好这样的规划，人生就会失去焦点，变得张弛得当。
 <br /><br />
 什么才是公平，还得以长远的眼光来看才能看明白。
 <br /><br />然而并非只凭意志坚强就可以无所不能，人世不是那么单纯。我能够坚持跑二十年，恐怕还是因为跑步合乎我的性情，至少「不觉得痛苦」。人生来如此，喜欢的事自然可以坚持下去，不喜欢的事怎么也坚持不了。</p>
@@ -322,6 +318,7 @@ SimpleJekyllSearch({
                 
                 <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
             </ul>
+            <div id="zyzy"></div>
 
         </div>
     </footer>
@@ -365,5 +362,42 @@ SimpleJekyllSearch({
       </script>
     </div>
     
+    
 </body>
+<!--自言自语-->
+<script>
+    var xhr = new XMLHttpRequest();
+    var zyzy;
+    var arrayZyzy;
+    function getZyzy(){
+        var index1 = Math.floor(Math.random()*arrayZyzy.length);
+        var resText = "";
+        resText += "自言自语:\xa0「"+ arrayZyzy[index1] + "」";
+        zyzy.innerHTML = resText;
+    }
+    
+    xhr.onreadystatechange = function(){
+      // 通信成功时，状态值为4
+      if (xhr.readyState === 4){
+        if (xhr.status === 200){
+          console.log(xhr.responseText);
+          zyzy = document.getElementById("zyzy");
+          arrayZyzy = xhr.responseText.split("\n\n");
+
+          getZyzy();
+          setInterval("getZyzy()", 20000);
+
+        } else {
+          console.error(xhr.statusText);
+        }
+      }
+    };
+
+    xhr.onerror = function (e) {
+      console.error(xhr.statusText);
+    };
+
+    xhr.open('GET', '/zyzy.txt', true);
+    xhr.send(null);
+</script>
 </html>

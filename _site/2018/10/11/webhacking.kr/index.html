@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>webhacking.kr writeup(1-？) &mdash; Evil</title>
+    <title>webhacking.kr writeup &mdash; Evil</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -26,15 +26,15 @@
     <link rel="canonical" href="http://localhost:4000/2018/10/11/webhacking.kr/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
-    <link rel="shortcut icon" href="http://localhost:4000/images/favicon.jpg" >
+    <link rel="shortcut icon" href="http://localhost:4000/images/favicon.ico" >
     
-    <meta property="og:title" content="webhacking.kr writeup(1-？)">
+    <meta property="og:title" content="webhacking.kr writeup">
       
     <meta name="keywords" content="Web Security">
     <meta name="og:keywords" content="Web Security">
       
-    <meta name="description" content="这个 CTF 平台都是 web 题目，感觉不错，这里记录一下做题的一些技巧……">
-    <meta name="og:description" content="这个 CTF 平台都是 web 题目，感觉不错，这里记录一下做题的一些技巧……">
+    <meta name="description" content="这个 CTF 平台都是 web 题目，感觉不错，这里记录一下做题的一些技巧，持续更新……">
+    <meta name="og:description" content="这个 CTF 平台都是 web 题目，感觉不错，这里记录一下做题的一些技巧，持续更新……">
       
     
     
@@ -82,7 +82,7 @@
   <div class="columns">
     <div class="column three-fourths">
       <div class="collection-title">
-        <h1 class="collection-header">webhacking.kr writeup(1-？)</h1>
+        <h1 class="collection-header">webhacking.kr writeup</h1>
         <div class="collection-info">
           
           <span class="meta-info">
@@ -113,7 +113,7 @@
 <div class="columns">
   <div class="column three-fourths" >
     <article class="article-content markdown-body">
-    <p>这个 CTF 平台都是 web 题目，感觉不错，这里记录一下做题的一些技巧……</p>
+    <p>这个 CTF 平台都是 web 题目，感觉不错，这里记录一下做题的一些技巧，持续更新……</p>
 
 <!--more-->
 
@@ -290,7 +290,7 @@
     <div class="newold">
   <hr>
   
-  <b>上一篇: <a href="/2018/10/10/%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BF%A1%E6%81%AF%E5%88%BA%E6%8E%A2/">客户端信息刺探</a></b><br>
+  <b>上一篇: <a href="/2018/10/10/%E7%BD%91%E7%BB%9C%E9%92%93%E9%B1%BC/">网络钓鱼</a></b><br>
      
   
   <b>下一篇: <a href="/2018/10/11/webhacking_ch2/">webhacking ch2(Cookie 布尔盲注)</a></b>
@@ -412,6 +412,7 @@ SimpleJekyllSearch({
                 
                 <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
             </ul>
+            <div id="zyzy"></div>
 
         </div>
     </footer>
@@ -455,5 +456,42 @@ SimpleJekyllSearch({
       </script>
     </div>
     
+    
 </body>
+<!--自言自语-->
+<script>
+    var xhr = new XMLHttpRequest();
+    var zyzy;
+    var arrayZyzy;
+    function getZyzy(){
+        var index1 = Math.floor(Math.random()*arrayZyzy.length);
+        var resText = "";
+        resText += "自言自语:\xa0「"+ arrayZyzy[index1] + "」";
+        zyzy.innerHTML = resText;
+    }
+    
+    xhr.onreadystatechange = function(){
+      // 通信成功时，状态值为4
+      if (xhr.readyState === 4){
+        if (xhr.status === 200){
+          console.log(xhr.responseText);
+          zyzy = document.getElementById("zyzy");
+          arrayZyzy = xhr.responseText.split("\n\n");
+
+          getZyzy();
+          setInterval("getZyzy()", 20000);
+
+        } else {
+          console.error(xhr.statusText);
+        }
+      }
+    };
+
+    xhr.onerror = function (e) {
+      console.error(xhr.statusText);
+    };
+
+    xhr.open('GET', '/zyzy.txt', true);
+    xhr.send(null);
+</script>
 </html>
