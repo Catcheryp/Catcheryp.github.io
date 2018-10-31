@@ -81,6 +81,7 @@ permalink: /links/
 - [学习CSS布局](http://zh.learnlayout.com/)
 - [JavaScript 教程](https://wangdoc.com/javascript/)
 - [Python全栈之路](https://blog.ansheng.me/article/python-full-stack-way)
+- [React](https://yubolun.com/react-learn-1-1/)
 - [Vue.js](https://vuejscaff.com/courses)
 - [Laravel](https://laravel-china.org/courses)
 - [Django](https://www.zmrenwu.com/tutorials/)
