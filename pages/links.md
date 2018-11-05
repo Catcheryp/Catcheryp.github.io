@@ -26,6 +26,8 @@ permalink: /links/
 
 ## 在线工具
 
+- [ZoomEye](https://www.zoomeye.org/)
+- [FOFA](https://fofa.so/)
 - [CTF tools](http://ctf.ssleye.com/)
 - [XSS'OR](http://xssor.io/)
 - [Regex](https://regex101.com/)
@@ -63,6 +65,9 @@ permalink: /links/
 - **阮一峰** [http://www.ruanyifeng.com](http://www.ruanyifeng.com)
 - **刘未鹏** [http://mindhacks.cn/](http://mindhacks.cn/)
 - **董伟明** [http://www.dongwm.com/](http://www.dongwm.com/)
+- **Medium** [https://medium.com/](https://medium.com/)
+
+
 
 
 
@@ -72,6 +77,15 @@ permalink: /links/
 - [先知社区 https://xz.aliyun.com/](https://xz.aliyun.com/)
 - [SecWiki https://www.sec-wiki.com/skill/2](https://www.sec-wiki.com/skill/2)
 - [安全客 https://www.anquanke.com/knowledge](https://www.anquanke.com/knowledge)
+- [HackerOne https://hackerone.com](https://hackerone.com/hacktivity?sort_type=popular&filter=type%3Ahacker-published&page=1)
+- [lgtm https://lgtm.com/blog](https://lgtm.com/blog)
+- [乌云公开漏洞、知识库搜索](http://wooyun.jozxing.cc/)
+- [exploit-db](https://www.exploit-db.com/)
+- [CVE列表](http://cve.mitre.org/)
+
+
+
+
 
 
 
@@ -85,6 +99,7 @@ permalink: /links/
 - [Vue.js](https://vuejscaff.com/courses)
 - [Laravel](https://laravel-china.org/courses)
 - [Django](https://www.zmrenwu.com/tutorials/)
+- [hack101](https://www.hacker101.com/)
 
 
 
