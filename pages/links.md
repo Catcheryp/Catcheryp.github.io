@@ -21,6 +21,7 @@ permalink: /links/
 - 柳婼 の blog [https://www.liuchuo.net/](https://www.liuchuo.net/) (PAT、LeetCode...)
 - Go0s @ 老 锥 [https://www.bodkin.ren/](https://www.bodkin.ren/) Android 安全
 - skywang [http://wangkuiwu.github.io/](http://wangkuiwu.github.io/) (数据结构与算法、Java)
+- 勇幸|Thinking [http://www.ahathinking.com/](http://www.ahathinking.com/)  数据结构与算法、成长
 
 
 
@@ -82,6 +83,7 @@ permalink: /links/
 - [乌云公开漏洞、知识库搜索](http://wooyun.jozxing.cc/)
 - [exploit-db](https://www.exploit-db.com/)
 - [CVE列表](http://cve.mitre.org/)
+- [BRUTE XSS](http://brutelogic.com.br/blog/)
 
 
 

