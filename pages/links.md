@@ -21,7 +21,7 @@ permalink: /links/
 - 柳婼 の blog [https://www.liuchuo.net/](https://www.liuchuo.net/) (PAT、LeetCode...)
 - Go0s @ 老 锥 [https://www.bodkin.ren/](https://www.bodkin.ren/) Android 安全
 - skywang [http://wangkuiwu.github.io/](http://wangkuiwu.github.io/) (数据结构与算法、Java)
-- 勇幸|Thinking [http://www.ahathinking.com/](http://www.ahathinking.com/)  数据结构与算法、成长
+- 勇幸\|Thinking [http://www.ahathinking.com/](http://www.ahathinking.com/)  数据结构与算法、成长
 
 
 
@@ -74,12 +74,12 @@ permalink: /links/
 
 ## 安全技术
 
-- [知道创宇 https://paper.seebug.org/](https://paper.seebug.org/)
-- [先知社区 https://xz.aliyun.com/](https://xz.aliyun.com/)
-- [SecWiki https://www.sec-wiki.com/skill/2](https://www.sec-wiki.com/skill/2)
-- [安全客 https://www.anquanke.com/knowledge](https://www.anquanke.com/knowledge)
-- [HackerOne https://hackerone.com](https://hackerone.com/hacktivity?sort_type=popular&filter=type%3Ahacker-published&page=1)
-- [lgtm https://lgtm.com/blog](https://lgtm.com/blog)
+- [知道创宇](https://paper.seebug.org/)
+- [先知社区 ](https://xz.aliyun.com/)
+- [SecWiki ](https://www.sec-wiki.com/skill/2)
+- [安全客 ](https://www.anquanke.com/knowledge)
+- [HackerOne ](https://hackerone.com/hacktivity?sort_type=popular&filter=type%3Ahacker-published&page=1)
+- [lgtm ](https://lgtm.com/blog)
 - [乌云公开漏洞、知识库搜索](http://wooyun.jozxing.cc/)
 - [exploit-db](https://www.exploit-db.com/)
 - [CVE列表](http://cve.mitre.org/)

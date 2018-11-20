@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-11-19T10:50:57+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">XSS姿势-文件上传XSS</title><link href="http://localhost:4000/2018/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0XSS/" rel="alternate" type="text/html" title="XSS姿势-文件上传XSS" /><published>2018-11-19T00:00:00+08:00</published><updated>2018-11-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0XSS</id><content type="html" xml:base="http://localhost:4000/2018/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0XSS/">&lt;p&gt;早上在 wooyun 知识库看了一篇关于 XSS 文章，感觉写得真不错，在这里整理记录一下。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-11-20T08:22:29+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">XSS姿势-文件上传XSS</title><link href="http://localhost:4000/2018/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0XSS/" rel="alternate" type="text/html" title="XSS姿势-文件上传XSS" /><published>2018-11-19T00:00:00+08:00</published><updated>2018-11-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0XSS</id><content type="html" xml:base="http://localhost:4000/2018/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0XSS/">&lt;p&gt;早上在 wooyun 知识库看了一篇关于 XSS 文章，感觉写得真不错，在这里整理记录一下。&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -182,19 +182,21 @@ GIF89a/*&amp;lt;svg/onload=alert(1)&amp;gt;*/=alert(document.domain)//;
 
 &lt;p&gt;更多可以用作 javascript 变量赋值的 ASCII 文件类型标识符，请参见&lt;a href=&quot;https://en.wikipedia.org/wiki/List_of_file_signatures&quot;&gt;这里&lt;/a&gt;。&lt;/p&gt;
 
-&lt;p&gt;更多关于文件上传 XSS 的详尽示例，包括绕过像 GD 库等过滤的例子，请参见&lt;a href=&quot;https://github.com/d0lph1n98/Defeating-PHP-GD-imagecreatefro.gif&quot;&gt;这里&lt;/a&gt;。&lt;/p&gt;</content><author><name>Catcher</name></author><category term="xss" /><summary type="html">早上在 wooyun 知识库看了一篇关于 XSS 文章，感觉写得真不错，在这里整理记录一下。</summary></entry><entry><title type="html">XSS 学习</title><link href="http://localhost:4000/2018/10/17/XSSZL/" rel="alternate" type="text/html" title="XSS 学习" /><published>2018-10-17T00:00:00+08:00</published><updated>2018-10-17T00:00:00+08:00</updated><id>http://localhost:4000/2018/10/17/XSSZL</id><content type="html" xml:base="http://localhost:4000/2018/10/17/XSSZL/">&lt;p&gt;我在这里整理一下 XSS 学习过程中一些特别好的资料、文章和书，持续更新……&lt;/p&gt;
+&lt;p&gt;更多关于文件上传 XSS 的详尽示例，包括绕过像 GD 库等过滤的例子，请参见&lt;a href=&quot;https://github.com/d0lph1n98/Defeating-PHP-GD-imagecreatefro.gif&quot;&gt;这里&lt;/a&gt;。&lt;/p&gt;</content><author><name>Catcher</name></author><category term="xss" /><summary type="html">早上在 wooyun 知识库看了一篇关于 XSS 文章，感觉写得真不错，在这里整理记录一下。</summary></entry><entry><title type="html">XSS 学习</title><link href="http://localhost:4000/2018/10/17/XSS%E5%AD%A6%E4%B9%A0/" rel="alternate" type="text/html" title="XSS 学习" /><published>2018-10-17T00:00:00+08:00</published><updated>2018-10-17T00:00:00+08:00</updated><id>http://localhost:4000/2018/10/17/XSS%E5%AD%A6%E4%B9%A0</id><content type="html" xml:base="http://localhost:4000/2018/10/17/XSS%E5%AD%A6%E4%B9%A0/">&lt;p&gt;我在这里整理一下 XSS 学习过程中一些特别好的资料、文章和书，持续更新……&lt;/p&gt;
 
 &lt;!--more--&gt;
 
 &lt;h3 id=&quot;0x01-书&quot;&gt;0x01 书&lt;/h3&gt;
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;a href=&quot;https://www.prakash-khadka.com.np/wp-content/uploads/2018/06/xss.pdf&quot;&gt;XSS CHEAT SHEET&lt;/a&gt;&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;《XSS攻击剖析与防御》&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;XSS攻击剖析与防御&gt;&lt;/XSS攻击剖析与防御&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;0x02-文章&quot;&gt;0x02 文章&lt;/h3&gt;
+&lt;h3 id=&quot;0x02-文章--博客&quot;&gt;0x02 文章 &amp;amp; 博客&lt;/h3&gt;
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;a href=&quot;https://medium.com/@man.shum546/xss-payload-2018-5271c5e3bbce&quot;&gt;XSS Payload 2018&lt;/a&gt;&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;a href=&quot;http://brutelogic.com.br/blog/&quot;&gt;brutelogic&lt;/a&gt;&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;a href=&quot;http://wooyun.jozxing.cc/search?keywords=XSS&amp;amp;&amp;amp;content_search_by=by_drops&amp;amp;&amp;amp;search_by_html=False&amp;amp;&amp;amp;page=1&quot;&gt;Wooyun 知识库&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;0x03-项目&quot;&gt;0x03 项目&lt;/h3&gt;
