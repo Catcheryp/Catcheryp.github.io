@@ -123,9 +123,19 @@
 
 <p><img src="http://localhost:4000/images/blog/fx2.png" alt="fx2" /></p>
 
-<h2 id="参考">参考</h2>
+<p><strong>参考：</strong></p>
 
 <p><a href="https://zhuanlan.zhihu.com/p/31512066">https://zhuanlan.zhihu.com/p/31512066</a></p>
+
+<h2 id="2中国菜刀">2.中国菜刀</h2>
+
+<p>使用 <code class="highlighter-rouge">binwalk</code> 提取 <code class="highlighter-rouge">caidao.pcapng</code> 里的文件。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$binwalk -e caidao.pcapng 
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+7747          0x1E43          gzip compressed data, from Unix, last modified: 2016-06-27 08:44:39
+</code></pre></div></div>
 
 
     </article>

