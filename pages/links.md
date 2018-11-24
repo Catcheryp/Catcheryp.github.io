@@ -29,6 +29,7 @@ permalink: /links/
 
 - [ZoomEye](https://www.zoomeye.org/)
 - [FOFA](https://fofa.so/)
+- [shoda](https://www.shodan.io/)
 - [CTF tools](http://ctf.ssleye.com/)
 - [XSS'OR](http://xssor.io/)
 - [Regex](https://regex101.com/)
@@ -44,6 +45,7 @@ permalink: /links/
 - [梧桐百科](https://tricking.io/)
 - [CTF wiki](https://ctf-wiki.github.io/ctf-wiki/)
 - [SQL注入WIKI](http://sqlwiki.radare.cn/#/)
+- [sql_injection](https://websec.ca/kb/sql_injection)
 
 
 
@@ -84,6 +86,7 @@ permalink: /links/
 - [exploit-db](https://www.exploit-db.com/)
 - [CVE列表](http://cve.mitre.org/)
 - [BRUTE XSS](http://brutelogic.com.br/blog/)
+- [NaviSec.it–纳威安全导航](https://navisec.it/)
 
 
 

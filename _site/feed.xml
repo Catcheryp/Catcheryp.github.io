@@ -1,4 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-11-21T18:42:49+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">实验吧-简单登录(CBC)</title><link href="http://localhost:4000/2018/11/20/%E5%AE%9E%E9%AA%8C%E5%90%A7web/" rel="alternate" type="text/html" title="实验吧-简单登录(CBC)" /><published>2018-11-20T00:00:00+08:00</published><updated>2018-11-20T00:00:00+08:00</updated><id>http://localhost:4000/2018/11/20/%E5%AE%9E%E9%AA%8C%E5%90%A7web</id><content type="html" xml:base="http://localhost:4000/2018/11/20/%E5%AE%9E%E9%AA%8C%E5%90%A7web/">&lt;p&gt;实验吧上 Web 类型的题目，实验吧上的题目质量还是挺高的，简单登录不简单……&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-11-24T08:26:47+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">Bugku writeup(逆向)</title><link href="http://localhost:4000/2018/11/21/bk_%E9%80%86%E5%90%91/" rel="alternate" type="text/html" title="Bugku writeup(逆向)" /><published>2018-11-21T00:00:00+08:00</published><updated>2018-11-21T00:00:00+08:00</updated><id>http://localhost:4000/2018/11/21/bk_%E9%80%86%E5%90%91</id><content type="html" xml:base="http://localhost:4000/2018/11/21/bk_%E9%80%86%E5%90%91/">&lt;p&gt;Bugku 上逆向的题目，安全的研究从来都不是孤立的还是必须要会一些逆向的知识的……&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;1入门逆向&quot;&gt;1.入门逆向&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;tips:&lt;/strong&gt; 直接把 &lt;code class=&quot;highlighter-rouge&quot;&gt;baby.exe&lt;/code&gt; 拖到 &lt;code class=&quot;highlighter-rouge&quot;&gt;IDA Pro&lt;/code&gt; 里面去就可以了&lt;/p&gt;
+
+&lt;h2 id=&quot;2easy_vb&quot;&gt;2.Easy_vb&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;tips:&lt;/strong&gt; 直接把 &lt;code class=&quot;highlighter-rouge&quot;&gt;easy_vb.exe&lt;/code&gt; 拖入到 &lt;code class=&quot;highlighter-rouge&quot;&gt;IDA Pro&lt;/code&gt; 里面去就可以了&lt;/p&gt;
+
+&lt;h2 id=&quot;3easy_re&quot;&gt;3.Easy_Re&lt;/h2&gt;
+
+&lt;p&gt;使用 OD，在两处加上断点&lt;/p&gt;
+
+&lt;p&gt;参考:&lt;a href=&quot;https://blog.csdn.net/qq_38796701/article/details/80491298&quot;&gt;bugku 逆向 Easy_Re题解&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">Bugku 上逆向的题目，安全的研究从来都不是孤立的还是必须要会一些逆向的知识的……</summary></entry><entry><title type="html">实验吧-简单登录(CBC)</title><link href="http://localhost:4000/2018/11/20/%E5%AE%9E%E9%AA%8C%E5%90%A7web/" rel="alternate" type="text/html" title="实验吧-简单登录(CBC)" /><published>2018-11-20T00:00:00+08:00</published><updated>2018-11-20T00:00:00+08:00</updated><id>http://localhost:4000/2018/11/20/%E5%AE%9E%E9%AA%8C%E5%90%A7web</id><content type="html" xml:base="http://localhost:4000/2018/11/20/%E5%AE%9E%E9%AA%8C%E5%90%A7web/">&lt;p&gt;实验吧上 Web 类型的题目，实验吧上的题目质量还是挺高的，简单登录不简单……&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -431,7 +447,117 @@ flag
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;?password[]=1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;这里是数组的话，&lt;code class=&quot;highlighter-rouge&quot;&gt;ereg (&quot;^[a-zA-Z0-9]+$&quot;, $_GET['password'])&lt;/code&gt;  返回的是 &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">Bugku 上代码审计的题目，在这里记录一下解题的一些 tips 和 tricks……</summary></entry><entry><title type="html">XSS姿势-文件上传XSS</title><link href="http://localhost:4000/2018/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0XSS/" rel="alternate" type="text/html" title="XSS姿势-文件上传XSS" /><published>2018-11-19T00:00:00+08:00</published><updated>2018-11-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0XSS</id><content type="html" xml:base="http://localhost:4000/2018/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0XSS/">&lt;p&gt;早上在 wooyun 知识库看了一篇关于 XSS 文章，感觉写得真不错，在这里整理记录一下。&lt;/p&gt;
+&lt;p&gt;这里是数组的话，&lt;code class=&quot;highlighter-rouge&quot;&gt;ereg (&quot;^[a-zA-Z0-9]+$&quot;, $_GET['password'])&lt;/code&gt;  返回的是 &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;6弱类型整数大小比较绕过&quot;&gt;6.弱类型整数大小比较绕过&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;tips:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;?password=1337a
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;利用&lt;code class=&quot;highlighter-rouge&quot;&gt;PHP&lt;/code&gt;弱类型的一个特性，当一个整形和一个其他类型行比较的时候，会先把其他类型&lt;code class=&quot;highlighter-rouge&quot;&gt;intval&lt;/code&gt;再比。如果输入一个&lt;code class=&quot;highlighter-rouge&quot;&gt;1337a&lt;/code&gt;这样的字符串，在&lt;code class=&quot;highlighter-rouge&quot;&gt;is_numeric&lt;/code&gt;中返回&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;，然后在比较时被转换成数字&lt;code class=&quot;highlighter-rouge&quot;&gt;1337&lt;/code&gt;，这样就绕过判断输出&lt;code class=&quot;highlighter-rouge&quot;&gt;flag&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h2 id=&quot;7sha函数比较绕过&quot;&gt;7.sha()函数比较绕过&lt;/h2&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;flag&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;isset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;isset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'password'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;var_dump&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;
+&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;var_dump&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'password'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;var_dump&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sha1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]));&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;var_dump&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sha1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'password'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]));&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'password'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'
+
+Your password can not be your name!
+
+'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sha1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sha1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'password'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;die&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Flag: '&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'
+Invalid password.
+
+'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'
+Login first!
+
+'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;?&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;payload:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;?name[]=1&amp;amp;password[]=2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;===&lt;/code&gt;会比较类型，比如&lt;code class=&quot;highlighter-rouge&quot;&gt;bool&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;sha1()&lt;/code&gt;函数和&lt;code class=&quot;highlighter-rouge&quot;&gt;md5()&lt;/code&gt;函数存在着漏洞，&lt;code class=&quot;highlighter-rouge&quot;&gt;sha1()&lt;/code&gt;函数默认的传入参数类型是字符串型，那要是给它传入数组呢会出现错误，使&lt;code class=&quot;highlighter-rouge&quot;&gt;sha1()&lt;/code&gt;函数返回错误，也就是返回&lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt;，这样一来&lt;code class=&quot;highlighter-rouge&quot;&gt;===&lt;/code&gt;运算符就可以发挥作用了，需要构造&lt;code class=&quot;highlighter-rouge&quot;&gt;username&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;password&lt;/code&gt;既不相等，又同样是数组类型&lt;/p&gt;
+
+&lt;h2 id=&quot;8md5加密相等绕过&quot;&gt;8.md5加密相等绕过&lt;/h2&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$md51&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;md5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'QNKCDZO'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$md52&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;md5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;isset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)){&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'QNKCDZO'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$md51&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$md52&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;flag&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;false!!!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;please input a&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;?&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var_dump(md5('240610708') == md5('QNKCDZO'));
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;==&lt;/code&gt;对比的时候会进行数据转换，&lt;code class=&quot;highlighter-rouge&quot;&gt;0eXXXXXXXXXX&lt;/code&gt; 转成&lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;了，如果比较一个数字和字符串或者比较涉及到数字内容的字符串，则字符串会被转换为数值并且比较按照数值来进行&lt;/p&gt;
+
+&lt;h2 id=&quot;9十六进制与数字比较&quot;&gt;9.十六进制与数字比较&lt;/h2&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;error_reporting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;noother_says_correct&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'flag{test}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$one&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//ord — 返回字符的 ASCII 码值
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$nine&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'9'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//ord — 返回字符的 ASCII 码值
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'3735929054'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Check all the input characters!
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;strlen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Disallow all the digits!
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$digit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$digit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$one&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$digit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Aha, digit not allowed!
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;flase&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$flag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_GET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'password'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;noother_says_correct&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;?&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这里，它不让输入1到9的数字，但是后面却让比较一串数字，平常的方法肯定就不能行了，大家都知道计算机中的进制转换，当然也是可以拿来比较的，&lt;code class=&quot;highlighter-rouge&quot;&gt;0x&lt;/code&gt;开头则表示&lt;code class=&quot;highlighter-rouge&quot;&gt;16&lt;/code&gt;进制，将这串数字转换成&lt;code class=&quot;highlighter-rouge&quot;&gt;16&lt;/code&gt;进制之后发现，是d&lt;code class=&quot;highlighter-rouge&quot;&gt;eadc0de&lt;/code&gt;，在开头加上&lt;code class=&quot;highlighter-rouge&quot;&gt;0x&lt;/code&gt;，代表这个是&lt;code class=&quot;highlighter-rouge&quot;&gt;16&lt;/code&gt;进制的数字，然后再和十进制的 &lt;code class=&quot;highlighter-rouge&quot;&gt;3735929054&lt;/code&gt;比较，答案当然是相同的，返回&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;拿到&lt;code class=&quot;highlighter-rouge&quot;&gt;flag&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;echo  dechex ( 3735929054 ); // 将3735929054转为16进制
+结果为：deadc0de
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;10变量覆盖&quot;&gt;10.变量覆盖&lt;/h2&gt;
+
+&lt;font color=&quot;red&quot;&gt;题目好像坏了&lt;/font&gt;</content><author><name>Catcher</name></author><category term="CTF" /><summary type="html">Bugku 上代码审计的题目，在这里记录一下解题的一些 tips 和 tricks……</summary></entry><entry><title type="html">XSS姿势-文件上传XSS</title><link href="http://localhost:4000/2018/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0XSS/" rel="alternate" type="text/html" title="XSS姿势-文件上传XSS" /><published>2018-11-19T00:00:00+08:00</published><updated>2018-11-19T00:00:00+08:00</updated><id>http://localhost:4000/2018/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0XSS</id><content type="html" xml:base="http://localhost:4000/2018/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0XSS/">&lt;p&gt;早上在 wooyun 知识库看了一篇关于 XSS 文章，感觉写得真不错，在这里整理记录一下。&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -2728,10 +2854,4 @@ User-Agent: admin
 
 &lt;p&gt;&lt;strong&gt;参考:&lt;/strong&gt;&lt;br /&gt;
 &lt;a href=&quot;https://stackoverflow.com/questions/391979/how-to-get-clients-ip-address-using-javascript&quot;&gt;How to get client’s IP address using JavaScript?&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://blog.csdn.net/zyw_anquan/article/details/7970869&quot;&gt;JS获取IP、MAC和主机名的几种方法&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="xss" /><summary type="html">继续学习《XSS 攻击剖析与防御》，在这里主要总结一下 客户端信息刺探 的相关技术的应用。</summary></entry><entry><title type="html">JS 中的事件绑定、事件监听、事件委托</title><link href="http://localhost:4000/2018/10/10/event2/" rel="alternate" type="text/html" title="JS 中的事件绑定、事件监听、事件委托" /><published>2018-10-10T00:00:00+08:00</published><updated>2018-10-10T00:00:00+08:00</updated><id>http://localhost:4000/2018/10/10/event2</id><content type="html" xml:base="http://localhost:4000/2018/10/10/event2/">&lt;p&gt;因为在 XSS 中可能会需要探测目标剪贴板的内容，因此就需要研究相关的操作。&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;参考:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/24828829&quot;&gt;https://zhuanlan.zhihu.com/p/24828829&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="javascript" /><summary type="html">因为在 XSS 中可能会需要探测目标剪贴板的内容，因此就需要研究相关的操作。</summary></entry></feed>
+&lt;a href=&quot;https://blog.csdn.net/zyw_anquan/article/details/7970869&quot;&gt;JS获取IP、MAC和主机名的几种方法&lt;/a&gt;&lt;/p&gt;</content><author><name>Catcher</name></author><category term="xss" /><summary type="html">继续学习《XSS 攻击剖析与防御》，在这里主要总结一下 客户端信息刺探 的相关技术的应用。</summary></entry></feed>
