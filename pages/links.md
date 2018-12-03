@@ -61,6 +61,7 @@ permalink: /links/
 - **信安之路** [http://www.myh0st.cn/](http://www.myh0st.cn/)
 - **hackfun** [https://hackfun.org/](https://hackfun.org/)
 - **大老李** [https://laolisafe.com/](https://laolisafe.com/)
+- **detectify labs**[https://labs.detectify.com/category/security/](https://labs.detectify.com/category/security/)
 
 ### 技术
 
