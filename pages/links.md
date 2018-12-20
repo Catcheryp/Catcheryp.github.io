@@ -22,6 +22,7 @@ permalink: /links/
 - Go0s @ 老 锥 [https://www.bodkin.ren/](https://www.bodkin.ren/) Android 安全
 - skywang [http://wangkuiwu.github.io/](http://wangkuiwu.github.io/) (数据结构与算法、Java)
 - 勇幸\|Thinking [http://www.ahathinking.com/](http://www.ahathinking.com/)  数据结构与算法、成长
+- 回忆飘如雪 [http://gv7.me/](http://gv7.me/) Web安全、漏洞研究
 
 
 
@@ -88,6 +89,7 @@ permalink: /links/
 - [CVE列表](http://cve.mitre.org/)
 - [BRUTE XSS](http://brutelogic.com.br/blog/)
 - [NaviSec.it–纳威安全导航](https://navisec.it/)
+- [PHP SECURITY CALENDAR 2018](https://www.ripstech.com/php-security-calendar-2018/)
 
 
 

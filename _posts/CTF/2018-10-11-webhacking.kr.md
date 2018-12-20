@@ -386,11 +386,27 @@ Referer: http://webhacking.kr/challenge/codeing/code1.html
 
 
 
+## challenge 11
+
+```php
+$pat="/[1-3][a-f]{5}_.*194.156.230.212.*\tp\ta\ts\ts/";
+
+if(preg_match($pat,$_GET[val])) { echo("Password is ????"); }
+```
+
+基本的正则匹配
+
+payload
+
+```
+1aaaaa_11941156123012121	p	a	s	s
+\t => %09
+```
+
 
 
 
 ## 参考:
 
-[http://shaobaobaoer.cn/archives/654/hackingweb-kr-81e998aee595](http://shaobaobaoer.cn/archives/654/hackingweb-kr-81e998aee595)
-
+[http://shaobaobaoer.cn/archives/654/hackingweb-kr-81e998aee595](http://shaobaobaoer.cn/archives/654/hackingweb-kr-81e998aee595)<br>
 [https://blog.csdn.net/qq_19876131/article/details/51148227](https://blog.csdn.net/qq_19876131/article/details/51148227)
