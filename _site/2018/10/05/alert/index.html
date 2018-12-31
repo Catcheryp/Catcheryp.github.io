@@ -119,12 +119,23 @@
 
 <h3 id="1warmup">1.WarmUp</h3>
 
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="s1">'&lt;script&gt;console.log("'</span><span class="o">+</span><span class="nx">s</span><span class="o">+</span><span class="s1">'");&lt;/script&gt;'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
 <p><strong>payload:</strong></p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>");alert(1);("
 </code></pre></div></div>
 
 <h3 id="2adobe">2.Adobe</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">s</span> <span class="o">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/"/g</span><span class="p">,</span> <span class="s1">'</span><span class="err">\\</span><span class="s1">"'</span><span class="p">);</span>
+  <span class="k">return</span> <span class="s1">'&lt;script&gt;console.log("'</span> <span class="o">+</span> <span class="nx">s</span> <span class="o">+</span> <span class="s1">'");&lt;/script&gt;'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p><strong>payload:</strong></p>
 
@@ -147,6 +158,17 @@
 </code></pre></div></div>
 
 <h3 id="4javascript">4.JavaScript</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">'javascript:console.log('</span> <span class="o">+</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="o">+</span> <span class="s1">')'</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+
+  <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'a'</span><span class="p">);</span>
+  <span class="nx">a</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+  <span class="nx">a</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p>使用 URL 编码闭合双引号</p>
 
@@ -231,7 +253,6 @@
   <span class="kd">var</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/&lt;/g</span><span class="p">,</span> <span class="s1">'</span><span class="err">\\</span><span class="s1">u003c'</span><span class="p">);</span>
   <span class="k">return</span> <span class="s2">"&lt;script&gt;"</span> <span class="o">+</span> <span class="nx">thing</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">"("</span> <span class="o">+</span> <span class="nx">json</span> <span class="o">+</span><span class="s2">")&lt;/script&gt;"</span><span class="p">;</span>
 <span class="p">}</span>
-
 </code></pre></div></div>
 
 <p><strong>payload:</strong></p>
@@ -600,7 +621,7 @@ The problem is that it will alert “0” since “i” its initialized with “
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>### 20.K’Z’K</p>
+<h3 id="20kzk">20.K’Z’K</h3>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// submitted by Stephen Leppik</span>
 <span class="kd">function</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
@@ -655,9 +676,8 @@ console.log(""|[]["p\x6fp"]["c\x6fnstr\x75ct\x6fr"]('\x61l\x65rt(1)')()|"");
 
 <h3 id="参考">参考</h3>
 
-<p><a href="https://github.com/masazumi-github/alert-1-to-win">alert(1) to win payloads</a></p>
-
-<p><a href="https://medium.com/bugbountywriteup/alf-nu-alert-1-1-10-writeup-805cfb243403">alf.nu alert(1) 1~10 writeup</a><br />
+<p><a href="https://github.com/masazumi-github/alert-1-to-win">alert(1) to win payloads</a><br />
+<a href="https://medium.com/bugbountywriteup/alf-nu-alert-1-1-10-writeup-805cfb243403">alf.nu alert(1) 1~10 writeup</a><br />
 <a href="https://blog.spoock.com/2016/03/10/escape-alf-nu-xss-challenges-writeups/">escape.alf.nu XSS挑战赛writeup</a><br />
 <a href="http://www.pwntester.com/blog/2014/01/08/escape-alf-nu-xss-challenges-write-ups-part-257/">escape.alf.nu XSS Challenges Write-ups (Part 2)</a><br />
 <a href="https://github.com/cure53/XSSChallengeWiki/wiki/Older-Challenges-and-Write-Ups">Older Challenges and Write Ups</a></p>

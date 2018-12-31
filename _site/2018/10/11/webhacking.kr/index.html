@@ -470,11 +470,39 @@ User-Agent: admin
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Referer: http://webhacking.kr/challenge/codeing/code1.html
 </code></pre></div></div>
 
+<h2 id="challenge-11">challenge 11</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$pat</span><span class="o">=</span><span class="s2">"/[1-3][a-f]</span><span class="si">{</span><span class="nv">5</span><span class="si">}</span><span class="s2">_.*194.156.230.212.*</span><span class="se">\t</span><span class="s2">p</span><span class="se">\t</span><span class="s2">a</span><span class="se">\t</span><span class="s2">s</span><span class="se">\t</span><span class="s2">s/"</span><span class="p">;</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="nv">$pat</span><span class="p">,</span><span class="nv">$_GET</span><span class="p">[</span><span class="nx">val</span><span class="p">]))</span> <span class="p">{</span> <span class="k">echo</span><span class="p">(</span><span class="s2">"Password is ????"</span><span class="p">);</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>基本的正则匹配</p>
+
+<p>payload</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1aaaaa_11941156123012121	p	a	s	s
+\t =&gt; %09
+</code></pre></div></div>
+
+<h2 id="challenge-12">challenge 12</h2>
+
+<p><strong>tips:</strong></p>
+
+<p>进行简单的 JS 解码然后打印出关键信息就 OK了</p>
+
+<h2 id="challenge-13">challenge 13</h2>
+
+<h2 id="challenge-14">challenge 14</h2>
+
+<p><strong>tips:</strong></p>
+
+<p>直接看下 JS 代码，打印一下关键信息就可以了</p>
+
 <h2 id="参考">参考:</h2>
 
-<p><a href="http://shaobaobaoer.cn/archives/654/hackingweb-kr-81e998aee595">http://shaobaobaoer.cn/archives/654/hackingweb-kr-81e998aee595</a></p>
-
-<p><a href="https://blog.csdn.net/qq_19876131/article/details/51148227">https://blog.csdn.net/qq_19876131/article/details/51148227</a></p>
+<p><a href="http://shaobaobaoer.cn/archives/654/hackingweb-kr-81e998aee595">http://shaobaobaoer.cn/archives/654/hackingweb-kr-81e998aee595</a><br />
+<a href="https://blog.csdn.net/qq_19876131/article/details/51148227">https://blog.csdn.net/qq_19876131/article/details/51148227</a></p>
 
     </article>
   

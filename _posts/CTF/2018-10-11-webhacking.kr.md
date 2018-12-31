@@ -405,6 +405,24 @@ payload
 
 
 
+## challenge 12
+
+**tips:**
+
+进行简单的 JS 解码然后打印出关键信息就 OK了
+
+
+
+## challenge 13
+
+
+
+## challenge 14
+
+**tips:**
+
+直接看下 JS 代码，打印一下关键信息就可以了
+
 
 ## 参考:
 
