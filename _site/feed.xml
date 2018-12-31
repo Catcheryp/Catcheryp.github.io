@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-12-31T10:36:49+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">2018 总结</title><link href="http://localhost:4000/2018/12/31/2018/" rel="alternate" type="text/html" title="2018 总结" /><published>2018-12-31T00:00:00+08:00</published><updated>2018-12-31T00:00:00+08:00</updated><id>http://localhost:4000/2018/12/31/2018</id><content type="html" xml:base="http://localhost:4000/2018/12/31/2018/">&lt;p&gt;来自 2018 最后一天……&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-12-31T16:40:04+08:00</updated><id>http://localhost:4000/</id><title type="html">Evil</title><subtitle>Catcher's blog</subtitle><author><name>Catcher</name></author><entry><title type="html">2018 总结</title><link href="http://localhost:4000/2018/12/31/2018/" rel="alternate" type="text/html" title="2018 总结" /><published>2018-12-31T00:00:00+08:00</published><updated>2018-12-31T00:00:00+08:00</updated><id>http://localhost:4000/2018/12/31/2018</id><content type="html" xml:base="http://localhost:4000/2018/12/31/2018/">&lt;p&gt;来自 2018 最后一天……&lt;/p&gt;
 
 &lt;!--more--&gt;
 &lt;p&gt;2018 年 1 月 1 号那天的情景还历历在目，然后就到了 2018 年 12 月 31 号了……&lt;/p&gt;
@@ -50,7 +50,7 @@
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;英语不间断打卡，向四哥学习&lt;/li&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;跑步 300km&lt;/li&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;拒绝玩游戏&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Catcher</name></author><category term="thinking" /><summary type="html">来自 2018 最后一天……</summary></entry><entry><title type="html">hackme writeup</title><link href="http://localhost:4000/2018/11/26/hackme/" rel="alternate" type="text/html" title="hackme writeup" /><published>2018-11-26T00:00:00+08:00</published><updated>2018-11-26T00:00:00+08:00</updated><id>http://localhost:4000/2018/11/26/hackme</id><content type="html" xml:base="http://localhost:4000/2018/11/26/hackme/">&lt;p&gt;hackme 上的题目，在这里记录一下解题过程……&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Catcher</name></author><summary type="html">来自 2018 最后一天……</summary></entry><entry><title type="html">hackme writeup</title><link href="http://localhost:4000/2018/11/26/hackme/" rel="alternate" type="text/html" title="hackme writeup" /><published>2018-11-26T00:00:00+08:00</published><updated>2018-11-26T00:00:00+08:00</updated><id>http://localhost:4000/2018/11/26/hackme</id><content type="html" xml:base="http://localhost:4000/2018/11/26/hackme/">&lt;p&gt;hackme 上的题目，在这里记录一下解题过程……&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -948,7 +948,7 @@ GIF89a/*&amp;lt;svg/onload=alert(1)&amp;gt;*/=alert(document.domain)//;
 &lt;h3 id=&quot;0x01-书&quot;&gt;0x01 书&lt;/h3&gt;
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;a href=&quot;https://www.prakash-khadka.com.np/wp-content/uploads/2018/06/xss.pdf&quot;&gt;XSS CHEAT SHEET&lt;/a&gt;&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;XSS攻击剖析与防御&gt;&lt;/XSS攻击剖析与防御&gt;&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;《XSS攻击剖析与防御》&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;0x02-文章--博客&quot;&gt;0x02 文章 &amp;amp; 博客&lt;/h3&gt;
@@ -964,10 +964,12 @@ GIF89a/*&amp;lt;svg/onload=alert(1)&amp;gt;*/=alert(document.domain)//;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;a href=&quot;https://github.com/cure53/XSSChallengeWiki/wiki/Older-Challenges-and-Write-Ups&quot;&gt;Older Challenges and Write Ups&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;0x04-平台&quot;&gt;0x04 平台&lt;/h3&gt;
-
+&lt;h3 id=&quot;0x04-tools&quot;&gt;0x04 Tools&lt;/h3&gt;
 &lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;a href=&quot;http://xssor.io/&quot;&gt;xssor&lt;/a&gt;&lt;/li&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;a href=&quot;https://xsser.me/index.php&quot;&gt;xsser.me&lt;/a&gt;&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;a href=&quot;https://xsshunter.com/app&quot;&gt;xsshunter&lt;/a&gt;&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;a href=&quot;https://knoxss.me/&quot;&gt;KNOXSS&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</content><author><name>Catcher</name></author><category term="xss" /><summary type="html">我在这里整理一下 XSS 学习过程中一些特别好的资料、文章和书，持续更新……</summary></entry><entry><title type="html">Solve Me writeup</title><link href="http://localhost:4000/2018/10/12/solveme/" rel="alternate" type="text/html" title="Solve Me writeup" /><published>2018-10-12T00:00:00+08:00</published><updated>2018-10-12T00:00:00+08:00</updated><id>http://localhost:4000/2018/10/12/solveme</id><content type="html" xml:base="http://localhost:4000/2018/10/12/solveme/">&lt;p&gt;又一个 CTF 的平台，&lt;strong&gt;知识点偏代码审计&lt;/strong&gt;上面基本都是 web 题目感觉不错，未完待续……&lt;/p&gt;
 
 &lt;!--more--&gt;
