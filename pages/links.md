@@ -70,9 +70,10 @@ permalink: /links/
 - **阮一峰** [http://www.ruanyifeng.com](http://www.ruanyifeng.com)
 - **刘未鹏** [http://mindhacks.cn/](http://mindhacks.cn/)
 - **董伟明** [http://www.dongwm.com/](http://www.dongwm.com/)
-- **Medium** [https://medium.com/](https://medium.com/)
+- **沈沉舟**[http://scz.617.cn:8/](http://scz.617.cn:8/)
 
-
+### Python 
+- [静觅-崔庆才](https://cuiqingcai.com/)
 
 
 
