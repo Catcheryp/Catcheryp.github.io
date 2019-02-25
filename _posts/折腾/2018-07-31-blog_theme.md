@@ -36,7 +36,8 @@ tags: blog-theme
   ![demo10]({{ site.url }}/images/blog/blog_theme10.png)
 - [salt-neko](http://salt-neko.com/)
   ![demo11]({{ site.url }}/images/blog/blog_theme11.png)
-
+- [小白妹妹写代码](https://sabrinaluo.github.io/tech/)
+  ![demo14]({{ site.url }}/images/blog/blog_theme14.png)
 ## 0x03 wordpress
 
 - [bluesky](https://lms.im/theme/wordpress-theme-bluesky)
