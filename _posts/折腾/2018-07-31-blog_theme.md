@@ -12,37 +12,37 @@ tags: blog-theme
 
 ## 0x01 jekyll 
 - [Soot Spirits Jekyll Theme](https://sootspirits.github.io/)  
-  ![demo1]({{ site.url }}/images/blog/blog_theme1.png)
+  ![demo1](http://pu7rghmgc.bkt.clouddn.com/2019-07-06-102650.png)
 - [码志](https://github.com/mzlogin/mzlogin.github.io)
-  ![demo2]({{ site.url }}/images/blog/blog_theme2.png)
+  ![demo2](http://pu7rghmgc.bkt.clouddn.com/2019-07-06-102657.png)
 - [MDUI ](https://blog.kejun.me/)
-  ![demo3]({{ site.url }}/images/blog/blog_theme3.png)
+  ![demo3](http://pu7rghmgc.bkt.clouddn.com/2019-07-06-102711.png)
 - [TaylanTatli/Moon](https://taylantatli.github.io/Moon/)
-  ![demo4]({{ site.url }}/images/blog/blog_theme4.png)
+  ![demo4](http://pu7rghmgc.bkt.clouddn.com/2019-07-06-102719.png)
 - [easybook](https://github.com/laobubu/jekyll-theme-EasyBook)
-  ![demo5]({{ site.url }}/images/blog/blog_theme5.png)
+  ![demo5](http://pu7rghmgc.bkt.clouddn.com/2019-07-06-102725.png)
 - [jekyll-clean-dark](https://github.com/streetturtle/streetturtle.github.io)
-  ![demo8]({{ site.url }}/images/blog/blog_theme8.png)
+  ![demo8](http://pu7rghmgc.bkt.clouddn.com/2019-07-06-102736.png)
 - [de4dcr0w](https://de4dcr0w.github.io/)
-  ![demo9]({{ site.url }}/images/blog/blog_theme9.png)
+  ![demo9](http://pu7rghmgc.bkt.clouddn.com/2019-07-06-102738.png)
 - [jekyll-TeXt-theme](https://tianqi.name/blog/)
-  ![demo13]({{ site.url }}/images/blog/blog_theme13.png)
+  ![demo13](http://pu7rghmgc.bkt.clouddn.com/2019-07-06-102740.png)
 
 ## 0x02 hexo
 
 - [ Landscape-plus](http://wps2015.org/)
-  ![demo6]({{ site.url }}/images/blog/blog_theme6.png)
+  ![demo6](http://pu7rghmgc.bkt.clouddn.com/2019-07-06-102743.png)
 - [hexo-theme-apollo](http://youchen.me/)
-  ![demo10]({{ site.url }}/images/blog/blog_theme10.png)
+  ![demo10](http://pu7rghmgc.bkt.clouddn.com/2019-07-06-102744.png)
 - [salt-neko](http://salt-neko.com/)
-  ![demo11]({{ site.url }}/images/blog/blog_theme11.png)
+  ![demo11](http://pu7rghmgc.bkt.clouddn.com/2019-07-06-102746.png)
 - [小白妹妹写代码](https://sabrinaluo.github.io/tech/)
-  ![demo14]({{ site.url }}/images/blog/blog_theme14.png)
+  ![demo14](http://pu7rghmgc.bkt.clouddn.com/2019-07-06-102747.png)
 ## 0x03 wordpress
 
 - [bluesky](https://lms.im/theme/wordpress-theme-bluesky)
 <br>
-![demo7]({{ site.url }}/images/blog/blog_theme7.jpg)
+![demo7](http://pu7rghmgc.bkt.clouddn.com/2019-07-06-102749.jpg)
 - [cos](https://evilcos.me/)
-![demo12]({{ site.url }}/images/blog/blog_theme12.png)
+![demo12](http://pu7rghmgc.bkt.clouddn.com/2019-07-06-102750.png)
 
