@@ -339,10 +339,10 @@ mysql&gt; select username, count(*) from users group by username;
 
 <p>1).先建立虚拟表，如下图(其中key是主键，不可重复):</p>
 
-<p><img src="http://localhost:4000/images/blog/sqli-l51.jpg" alt="" /></p>
+<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-06-103534.jpg" alt="" /></p>
 
 <p>2).开始查询数据，取数据库数据，然后查看虚拟表存在不，不存在则插入新记录，存在则<code class="highlighter-rouge">count(*)</code>字段直接加1
-<img src="http://localhost:4000/images/blog/sqli-l52.png" alt="" /></p>
+<img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-06-103536.png" alt="" /></p>
 
 <p><strong>由此看到 如果key存在的话就+1， 不存在的话就新建一个key。</strong></p>
 
@@ -352,15 +352,15 @@ mysql&gt; select username, count(*) from users group by username;
 
 <p>1).查询前默认会建立空虚拟表如下图:</p>
 
-<p><img src="http://localhost:4000/images/blog/sqli-l53.jpg" alt="" /></p>
+<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-06-103539.jpg" alt="" /></p>
 
 <p>2).取第一条记录，执行<code class="highlighter-rouge">floor(rand(0)*2)</code>，发现结果为0(第一次计算),查询虚拟表，发现0的键值不存在（<strong>不存在就执行插入</strong>），则<code class="highlighter-rouge">floor(rand(0)*2)</code>会被再计算一次，结果为1(第二次计算)，插入虚表，这时第一条记录查询完毕，如下图:</p>
 
-<p><img src="http://localhost:4000/images/blog/sqli-l54.jpg" alt="" /></p>
+<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-06-103541.jpg" alt="" /></p>
 
 <p>3).查询第二条记录，再次计算<code class="highlighter-rouge">floor(rand(0)*2)</code>，发现结果为1(第三次计算)，查询虚表，发现1的键值存在（<strong>存在的话直接加1</strong>），所以<code class="highlighter-rouge">floor(rand(0)*2)</code>不会被计算第二次，直接<code class="highlighter-rouge">count(*)</code>加1，第二条记录查询完毕，结果如下:</p>
 
-<p><img src="http://localhost:4000/images/blog/sqli-l55.jpg" alt="" /></p>
+<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-06-103543.jpg" alt="" /></p>
 
 <p>4).查询第三条记录，再次计算<code class="highlighter-rouge">floor(rand(0)*2)</code>，发现结果为0(第4次计算)，查询虚表，发现键值没有0，则数据库尝试插入一条新的数据，在插入数据时<code class="highlighter-rouge">floor(rand(0)*2)</code>被再次计算，作为虚表的主键，其值为1(第5次计算)，然而1这个主键已经存在于虚拟表中，而新计算的值也为1(主键键值必须唯一)，所以插入的时候就直接报错了。</p>
 
@@ -370,11 +370,11 @@ mysql&gt; select username, count(*) from users group by username;
 
 <p>由 5 我们可以同样推理出不加入随机因子的情况，由于没加入随机因子，所以<code class="highlighter-rouge">floor(rand()*2)</code>是不可测的，因此在两条数据的时候，只要出现下面情况，即可报错，如下图:</p>
 
-<p><img src="http://localhost:4000/images/blog/sqli-l56.jpg" alt="" /></p>
+<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-06-103544.jpg" alt="" /></p>
 
 <p>最重要的是前面几条记录查询后不能让虚表存在0,1键值，如果存在了，那无论多少条记录，也都没办法报错，因为<code class="highlighter-rouge">floor(rand()*2)</code>不会再被计算做为虚表的键值，这也就是为什么不加随机因子有时候会报错，有时候不会报错的原因。如图：</p>
 
-<p><img src="http://localhost:4000/images/blog/sqli-l57.jpg" alt="" /></p>
+<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-06-103545.jpg" alt="" /></p>
 
 <p>当前面记录让虚表长成这样子后，由于不管查询多少条记录，<code class="highlighter-rouge">floor(rand()*2)</code>的值在虚表中都能找到，所以不会被再次计算，只是简单的增加<code class="highlighter-rouge">count(*)</code>字段的数量，所以不会报错。比如<code class="highlighter-rouge">floor(rand(1)*2)</code>:</p>
 

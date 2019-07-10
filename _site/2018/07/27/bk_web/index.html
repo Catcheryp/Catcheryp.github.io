@@ -969,6 +969,120 @@ print('The database name is '+flag)
 
 <p>参考：<a href="https://skysec.top/2018/11/16/EIS-2018-web/">https://skysec.top/2018/11/16/EIS-2018-web/</a></p>
 
+<h2 id="522-江湖魔头">52+2 江湖魔头</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://123.206.31.85:1616/wulin.php?action=start
+</code></pre></div></div>
+
+<p>查看源码，发现三个 JS 文件<code class="highlighter-rouge">script.js</code>、<code class="highlighter-rouge">md5.js</code>、<code class="highlighter-rouge">base64.js</code></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//script.js</span>
+<span class="kd">function</span> <span class="nx">getCookie</span><span class="p">(</span><span class="nx">cname</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">cname</span> <span class="o">+</span> <span class="s2">"="</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">ca</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">';'</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">ca</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="nx">ca</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">trim</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nx">c</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="nx">name</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="s2">""</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">decode_create</span><span class="p">(</span><span class="nx">temp</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">base</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Base64</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">base</span><span class="p">.</span><span class="nx">decode</span><span class="p">(</span><span class="nx">temp</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">result3</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">result</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nx">result</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">charCodeAt</span><span class="p">();</span>
+        <span class="nx">num</span> <span class="o">=</span> <span class="nx">num</span> <span class="o">^</span> <span class="nx">i</span><span class="p">;</span>
+        <span class="nx">num</span> <span class="o">=</span> <span class="nx">num</span> <span class="o">-</span> <span class="p">((</span><span class="nx">i</span> <span class="o">%</span> <span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">);</span>
+        <span class="nx">result3</span> <span class="o">+=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">result3</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">ertqwe</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">temp_name</span> <span class="o">=</span> <span class="s2">"user"</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">temp</span> <span class="o">=</span> <span class="nx">getCookie</span><span class="p">(</span><span class="nx">temp_name</span><span class="p">);</span>
+    <span class="nx">temp</span> <span class="o">=</span> <span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nx">temp</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">mingwen</span> <span class="o">=</span> <span class="nx">decode_create</span><span class="p">(</span><span class="nx">temp</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">ca</span> <span class="o">=</span> <span class="nx">mingwen</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">';'</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">key</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">ca</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="nx">ca</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">"flag"</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">key</span> <span class="o">=</span> <span class="nx">ca</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s2">":"</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">key</span> <span class="o">=</span> <span class="nx">key</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">'"'</span><span class="p">,</span> <span class="s2">""</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="s1">'"'</span><span class="p">,</span> <span class="s2">""</span><span class="p">);</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">'&lt;img id="attack-1" src="image/1-1.jpg"&gt;'</span><span class="p">);</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"attack-1"</span><span class="p">).</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">"image/1-2.jpg"</span>
+    <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"attack-1"</span><span class="p">).</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">"image/1-3.jpg"</span>
+    <span class="p">},</span> <span class="mi">2000</span><span class="p">);</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"attack-1"</span><span class="p">).</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">"image/1-4.jpg"</span>
+    <span class="p">},</span> <span class="mi">3000</span><span class="p">);</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"attack-1"</span><span class="p">).</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">"image/6.png"</span>
+    <span class="p">},</span> <span class="mi">4000</span><span class="p">);</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="s2">"你使用如来神掌打败了蒙老魔，但不知道是真身还是假身，提交试一下吧!flag{"</span> <span class="o">+</span> <span class="nx">md5</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"}"</span><span class="p">)</span>
+    <span class="p">},</span> <span class="mi">5000</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>重点关注一下<code class="highlighter-rouge">ertqwe()</code></p>
+
+<p>在 Console 执行以下代码</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;var test = getCookie('user');
+undefined
+&gt;test
+"UTw7PCxqe3FjcC42OThOjWtSUFYwbm99amlzbG0wI3MeHBoaZ1liZxQMWEFDXl8EdUUOCwwId016B34WUlFWWTVoATEAB3J5P3Z2CmYgPTY5Pj90FSUUFRkfL2ZnYnYhCRMTGRQPQCcHKFIvEShXUlYCGQMbDQ4FXEcXREo%2FBTzBxKbu6fbrB%2BH%2Bps3nsLrP6dCs0LgR8fj1%2F%2B6y3%2B%2FapJ3XnJnkjNPf0NnRjpPD7pjzzfaMiJDcxt%2FXkP%2FB%2BI2C5vTqgUE%3D"
+
+&gt;test = decodeURIComponent(test)
+"UTw7PCxqe3FjcC42OThOjWtSUFYwbm99amlzbG0wI3MeHBoaZ1liZxQMWEFDXl8EdUUOCwwId016B34WUlFWWTVoATEAB3J5P3Z2CmYgPTY5Pj90FSUUFRkfL2ZnYnYhCRMTGRQPQCcHKFIvEShXUlYCGQMbDQ4FXEcXREo/BTzBxKbu6fbrB+H+ps3nsLrP6dCs0LgR8fj1/+6y3+/apJ3XnJnkjNPf0NnRjpPD7pjzzfaMiJDcxt/XkP/B+I2C5vTqgUE="
+
+&gt;test = decode_create(test)
+"O:5:"human":10:{s:8:"xueliang";i:822;s:5:"neili";i:548;s:5:"lidao";i:72;s:6:"dingli";i:97;s:7:"waigong";i:0;s:7:"neigong";i:0;s:7:"jingyan";i:0;s:6:"yelian";i:0;s:5:"money";i:0;s:4:"flag";s:1:"0";}"
+</code></pre></div></div>
+
+<p>修改 money 属性值，然后再对 cookie 明文进行加密处理</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+	<span class="k">function</span> <span class="nf">encode</span><span class="p">(</span><span class="nv">$payload</span><span class="p">){</span>
+		<span class="nv">$result</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
+		<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nb">strlen</span><span class="p">(</span><span class="nv">$payload</span><span class="p">);</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> 
+			<span class="nv">$b</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="nv">$payload</span><span class="p">[</span><span class="nv">$i</span><span class="p">]);</span>
+			<span class="nv">$b</span> <span class="o">=</span> <span class="nv">$b</span> <span class="o">+</span> <span class="p">((</span><span class="nv">$i</span> <span class="o">%</span> <span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">);</span>
+			<span class="nv">$b</span> <span class="o">=</span> <span class="nv">$b</span> <span class="o">^</span> <span class="nv">$i</span><span class="p">;</span>
+			<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$result</span><span class="o">.</span><span class="nb">chr</span><span class="p">(</span><span class="nv">$b</span><span class="p">);</span>
+		<span class="p">}</span>
+		<span class="k">return</span> <span class="nv">$result</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nv">$payload</span> <span class="o">=</span> <span class="s1">'O:5:"human":10:{s:8:"xueliang";i:822;s:5:"neili";i:548;s:5:"lidao";i:72;s:6:"dingli";i:97;s:7:"waigong";i:0;s:7:"neigong";i:0;s:7:"jingyan";i:0;s:6:"yelian";i:0;s:5:"money";i:1000000;s:4:"flag";s:1:"0";}'</span><span class="p">;</span>
+	<span class="k">echo</span> <span class="nb">base64_encode</span><span class="p">(</span><span class="nx">encode</span><span class="p">(</span><span class="nv">$payload</span><span class="p">));</span>
+	<span class="c1">//encodeURIComponent()
+</span><span class="cp">?&gt;</span>
+ 
+ // 上面之所以这样来写是为了逆向 decode_create()函数的过程
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">decode_create</span><span class="p">(</span><span class="nx">temp</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">base</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Base64</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">base</span><span class="p">.</span><span class="nx">decode</span><span class="p">(</span><span class="nx">temp</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">result3</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">result</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="nx">result</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">charCodeAt</span><span class="p">();</span>
+        <span class="nx">num</span> <span class="o">=</span> <span class="nx">num</span> <span class="o">^</span> <span class="nx">i</span><span class="p">;</span>
+        <span class="nx">num</span> <span class="o">=</span> <span class="nx">num</span> <span class="o">-</span> <span class="p">((</span><span class="nx">i</span> <span class="o">%</span> <span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">);</span>
+        <span class="nx">result3</span> <span class="o">+=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">result3</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
 <h2 id="53login4">53.login4</h2>
 
 <p><a href="https://pengyang.me/2018/09/19/CBC/">https://pengyang.me/2018/09/19/CBC/</a></p>

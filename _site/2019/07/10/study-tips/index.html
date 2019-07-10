@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Bugku writeup(分析题) &mdash; Evil</title>
+    <title>Study Tips &mdash; Evil</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -23,29 +23,29 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/2018/09/19/bk_fx/">
+    <link rel="canonical" href="http://localhost:4000/2019/07/10/study-tips/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
     <link rel="shortcut icon" href="http://localhost:4000/images/favicon.ico" >
     
-    <meta property="og:title" content="Bugku writeup(分析题)">
+    <meta property="og:title" content="Study Tips">
       
     <meta name="keywords" content="Web Security">
     <meta name="og:keywords" content="Web Security">
       
-    <meta name="description" content="Bugku 上的分析题，熟悉一下 wireshark 的使用，以及如何分析网络流量。">
-    <meta name="og:description" content="Bugku 上的分析题，熟悉一下 wireshark 的使用，以及如何分析网络流量。">
+    <meta name="description" content="成长与修行从来都不是一帆风顺的，作为一个普通人不过是在不断地探索自己的上限，然后朝着自己的上限边界不断的前进，努力成为更好的自己，如是就好….">
+    <meta name="og:description" content="成长与修行从来都不是一帆风顺的，作为一个普通人不过是在不断地探索自己的上限，然后朝着自己的上限边界不断的前进，努力成为更好的自己，如是就好….">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/2018/09/19/bk_fx/">
+    <meta property="og:url" content="http://localhost:4000/2019/07/10/study-tips/">
     <meta property="og:site_name" content="Evil">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
     
-    <meta property="article:published_time" content="2018-09-19">
+    <meta property="article:published_time" content="2019-07-10">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -77,29 +77,29 @@
     </header>
     <!-- / header -->
 
-    <section class="collection-head small geopattern" data-pattern-id="Bugku writeup(分">
+    <section class="collection-head small geopattern" data-pattern-id="Study Tips">
 <div class="container">
   <div class="columns">
     <div class="column three-fourths">
       <div class="collection-title">
-        <h1 class="collection-header">Bugku writeup(分析题)</h1>
+        <h1 class="collection-header">Study Tips</h1>
         <div class="collection-info">
           
           <span class="meta-info">
-            <span class="octicon octicon-calendar"></span> 2018/09/19
+            <span class="octicon octicon-calendar"></span> 2019/07/10
           </span>
           
           
           <span class="meta-info">
             <span class="octicon octicon-file-directory"></span>
-            <a href="http://localhost:4000/categories/CTF" title="CTF">CTF</a>
+            <a href="http://localhost:4000/categories/有感" title="有感">有感</a>
           </span>
           
 
           
           <span class="meta-info">
             <span class="octicon octicon-tag"></span>
-            <a href="http://localhost:4000/tags/#CTF" title="CTF">CTF</a>
+            <a href="http://localhost:4000/tags/#Tips" title="Tips">Tips</a>
           </span>
           
         </div>
@@ -113,29 +113,77 @@
 <div class="columns">
   <div class="column three-fourths" >
     <article class="article-content markdown-body">
-    <p>Bugku 上的分析题，熟悉一下 wireshark 的使用，以及如何分析网络流量。</p>
+    <p>成长与修行从来都不是一帆风顺的，作为一个普通人不过是在不断地探索自己的上限，然后朝着自己的上限边界不断的前进，努力成为更好的自己，如是就好….</p>
 
 <!--more-->
 
-<h2 id="1flag被盗">1.flag被盗</h2>
+<p>I’m starting to think that hacking isn’t about tech skill. It’s being willing to stare at a screen for hours, try a million things, feel stupid, get mad, decide to eat a sandwich instead of throwing your laptop out a window, google more, figure it out, then WANT TO DO IT AGAIN</p>
 
-<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-06-104105.png" alt="fx1" /></p>
+<hr />
 
-<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-06-104116.png" alt="fx2" /></p>
+<p>If someone tells you to avoid learning something because its “challenging”  or time-consuming tell them to fuck off, and learn that shit anyway.</p>
 
-<p><strong>参考：</strong></p>
+<ol>
+  <li>It’s almost never as hard as they will make it seem</li>
+  <li>This is an exclusionary tactic</li>
+  <li>New eyes can and do solve old problems</li>
+</ol>
 
-<p><a href="https://zhuanlan.zhihu.com/p/31512066">https://zhuanlan.zhihu.com/p/31512066</a></p>
+<hr />
 
-<h2 id="2中国菜刀">2.中国菜刀</h2>
+<p>⭐️Tips to Master Something</p>
+<ol>
+  <li>Expose yourself to basics over and over again.</li>
+  <li>Stick to what you can understand, prove and explain.</li>
+  <li>Always think in new ways to do the same thing better.</li>
+</ol>
 
-<p>使用 <code class="highlighter-rouge">binwalk</code> 提取 <code class="highlighter-rouge">caidao.pcapng</code> 里的文件。</p>
+<p>@Brute Logic</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$binwalk -e caidao.pcapng 
-DECIMAL       HEXADECIMAL     DESCRIPTION
---------------------------------------------------------------------------------
-7747          0x1E43          gzip compressed data, from Unix, last modified: 2016-06-27 08:44:39
-</code></pre></div></div>
+<hr />
+
+<p>One vulnerability type at a time. Set clear, measurable goals. Create sandboxes / use CTFs do get used to how apps respond and train to get around common defenses. Don’t rely on tools, except for a proxy.</p>
+
+<p>@jobertabma</p>
+
+<hr />
+
+<p>They think we do things in a snap.</p>
+
+<p>But there’s a lot of hard work, endless hours of trial and error. Many hours parsing search engine results, reading tons of not so helpful information.</p>
+
+<p>What they end up seeing is the show time.</p>
+
+<p>We make it look easy but it’s not.</p>
+
+<p><code class="highlighter-rouge">#hack2learn</code>
+@BruteLogic</p>
+
+<hr />
+
+<ol>
+  <li>Always try to learn new stuff.</li>
+  <li>Share what you learned.</li>
+  <li>Practice what you learned.</li>
+</ol>
+
+<p>@ehsahil</p>
+
+<hr />
+
+<p>The goal is not to read a book, the goal is to become a reader.
+The goal is not to run a marathon, the goal is to become a runner.
+The goal is not to learn an instrument, the goal is to become a musician.</p>
+
+<p>Each time you write a page, you are a writer.
+Each time you practice the violin, you are a musician.
+Each time you start a workout, you are an athlete.
+Each time you encourge your employees, you are a leader.<br />
+《Atomic Habits》</p>
+
+<hr />
+
+<p>He who treads softly goes far</p>
 
 
     </article>
@@ -143,10 +191,8 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
     <div class="newold">
   <hr>
   
-  <b>上一篇: <a href="/2018/09/18/prompt/">prompt(1) to win</a></b><br>
+  <b>上一篇: <a href="/2019/07/08/Wireshark/">Wireshark常用技巧</a></b><br>
      
-  
-  <b>下一篇: <a href="/2018/09/19/bk_webjj/">Bugku writeup(Web进阶)</a></b>
    
 </div><!--上一篇 下一篇-->
 
@@ -164,7 +210,7 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
         <script>
         var gitalk = new Gitalk({
-            id: '/2018/09/19/bk_fx/',
+            id: '/2019/07/10/study-tips/',
             clientID: '5a59fdc570f933e0c2ee',
             clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
             repo: 'blogcomments',

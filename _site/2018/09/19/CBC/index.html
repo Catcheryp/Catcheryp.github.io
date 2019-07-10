@@ -302,7 +302,7 @@
 
 <p>CBC字节翻转攻击的原理这里就不再介绍了，一图胜千言:</p>
 
-<p><img src="http://localhost:4000/images/blog/CBC.jpg" alt="CBC1" /></p>
+<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-06-103759.jpg" alt="CBC1" /></p>
 
 <p><strong>CBC字节翻转攻击的本质是:通过修改密文来达到修改下一个明文的效果。</strong></p>
 
@@ -410,11 +410,11 @@ print quote_plus(rs)
 
 <p><code class="highlighter-rouge">Ciphertext-0 = Encrypt(Plaintext XOR IV)</code>—只用于第一个组块</p>
 
-<p><img src="http://localhost:4000/images/blog/en.jpg" alt="en" /></p>
+<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-06-103803.jpg" alt="en" /></p>
 
 <p><strong>CBC解密过程</strong></p>
 
-<p><img src="http://localhost:4000/images/blog/de.jpg" alt="de" /></p>
+<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-06-103807.jpg" alt="de" /></p>
 
 <p><strong>从CBC解密过程可以看到，处理后的第1组的密文用于修改第二组的明文，就可以解决问题。它所引发的第1组明文乱码的问题就通过修改<code class="highlighter-rouge">iv</code>来解决。</strong></p>
 

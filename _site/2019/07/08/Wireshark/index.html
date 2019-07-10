@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Bugku writeup(分析题) &mdash; Evil</title>
+    <title>Wireshark常用技巧 &mdash; Evil</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -23,29 +23,29 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/2018/09/19/bk_fx/">
+    <link rel="canonical" href="http://localhost:4000/2019/07/08/Wireshark/">
     <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
     
     <link rel="shortcut icon" href="http://localhost:4000/images/favicon.ico" >
     
-    <meta property="og:title" content="Bugku writeup(分析题)">
+    <meta property="og:title" content="Wireshark常用技巧">
       
     <meta name="keywords" content="Web Security">
     <meta name="og:keywords" content="Web Security">
       
-    <meta name="description" content="Bugku 上的分析题，熟悉一下 wireshark 的使用，以及如何分析网络流量。">
-    <meta name="og:description" content="Bugku 上的分析题，熟悉一下 wireshark 的使用，以及如何分析网络流量。">
+    <meta name="description" content="很久没有更新博客了，再不更新都要发霉了都，这一篇主要介绍Wireshark的常用技巧，因为毕业论文做协议方面的内容，所以在此记录一下。">
+    <meta name="og:description" content="很久没有更新博客了，再不更新都要发霉了都，这一篇主要介绍Wireshark的常用技巧，因为毕业论文做协议方面的内容，所以在此记录一下。">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/2018/09/19/bk_fx/">
+    <meta property="og:url" content="http://localhost:4000/2019/07/08/Wireshark/">
     <meta property="og:site_name" content="Evil">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
     
-    <meta property="article:published_time" content="2018-09-19">
+    <meta property="article:published_time" content="2019-07-08">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -77,29 +77,29 @@
     </header>
     <!-- / header -->
 
-    <section class="collection-head small geopattern" data-pattern-id="Bugku writeup(分">
+    <section class="collection-head small geopattern" data-pattern-id="Wireshark常用技巧">
 <div class="container">
   <div class="columns">
     <div class="column three-fourths">
       <div class="collection-title">
-        <h1 class="collection-header">Bugku writeup(分析题)</h1>
+        <h1 class="collection-header">Wireshark常用技巧</h1>
         <div class="collection-info">
           
           <span class="meta-info">
-            <span class="octicon octicon-calendar"></span> 2018/09/19
+            <span class="octicon octicon-calendar"></span> 2019/07/08
           </span>
           
           
           <span class="meta-info">
             <span class="octicon octicon-file-directory"></span>
-            <a href="http://localhost:4000/categories/CTF" title="CTF">CTF</a>
+            <a href="http://localhost:4000/categories/安全工具" title="安全工具">安全工具</a>
           </span>
           
 
           
           <span class="meta-info">
             <span class="octicon octicon-tag"></span>
-            <a href="http://localhost:4000/tags/#CTF" title="CTF">CTF</a>
+            <a href="http://localhost:4000/tags/#Wireshark" title="Wireshark">Wireshark</a>
           </span>
           
         </div>
@@ -113,40 +113,59 @@
 <div class="columns">
   <div class="column three-fourths" >
     <article class="article-content markdown-body">
-    <p>Bugku 上的分析题，熟悉一下 wireshark 的使用，以及如何分析网络流量。</p>
+    <p>很久没有更新博客了，再不更新都要发霉了都，这一篇主要介绍Wireshark的常用技巧，因为毕业论文做协议方面的内容，所以在此记录一下。</p>
 
 <!--more-->
 
-<h2 id="1flag被盗">1.flag被盗</h2>
+<h4 id="1常用过滤规则">1.常用过滤规则</h4>
 
-<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-06-104105.png" alt="fx1" /></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ip.src == 47.95.47.253 &amp;&amp; ip.dst== 192.168.1.133)||(ip.dst== 47.95.47.253 &amp;&amp; ip.src== 192.168.1.133)
 
-<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-06-104116.png" alt="fx2" /></p>
-
-<p><strong>参考：</strong></p>
-
-<p><a href="https://zhuanlan.zhihu.com/p/31512066">https://zhuanlan.zhihu.com/p/31512066</a></p>
-
-<h2 id="2中国菜刀">2.中国菜刀</h2>
-
-<p>使用 <code class="highlighter-rouge">binwalk</code> 提取 <code class="highlighter-rouge">caidao.pcapng</code> 里的文件。</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$binwalk -e caidao.pcapng 
-DECIMAL       HEXADECIMAL     DESCRIPTION
---------------------------------------------------------------------------------
-7747          0x1E43          gzip compressed data, from Unix, last modified: 2016-06-27 08:44:39
+# 提取有效 tcp 包
+tcp and !(tcp.analysis.flags &amp;&amp; !tcp.analysis.window_update) and !(http || tcp.port == 80 || http2)
 </code></pre></div></div>
 
+<p>参考：<br />
+<a href="http://blog.51cto.com/yttitan/1734425">http://blog.51cto.com/yttitan/1734425</a><br />
+<a href="https://www.magentonotes.com/wireshark-filter-ip.html">https://www.magentonotes.com/wireshark-filter-ip.html</a></p>
+
+<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-10-111.png" alt="Coloring Rules" /></p>
+
+<p><code class="highlighter-rouge">Coloring Rules</code> 里面会有对应报文类型规则</p>
+
+<h4 id="2wireshark-常用功能">2.Wireshark 常用功能</h4>
+
+<p><strong>查看TCP数据流</strong></p>
+
+<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-10-2.png" alt="Flow Graph" /></p>
+
+<p><strong>存储自定义的过滤规则</strong></p>
+
+<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-10-3.png" alt="zidingyi" /></p>
+
+<p><strong>查看会话条数</strong></p>
+
+<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-10-4.png" alt="2019-07-10-4.png" /></p>
+
+<p><strong>跟踪数据流</strong></p>
+
+<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-10-5.png" alt="2019-07-10-5" /></p>
+
+<p><strong>保存成特定文件</strong></p>
+
+<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-10-6.png" alt="2019-07-10-6" /></p>
+
+<p>以上就是我平时用到稍微多一点的地方，后续如果有更多tips会继续更新。</p>
 
     </article>
   
     <div class="newold">
   <hr>
   
-  <b>上一篇: <a href="/2018/09/18/prompt/">prompt(1) to win</a></b><br>
+  <b>上一篇: <a href="/2018/12/31/2018%E5%A5%BD%E6%96%87/">2018 好文推荐</a></b><br>
      
   
-  <b>下一篇: <a href="/2018/09/19/bk_webjj/">Bugku writeup(Web进阶)</a></b>
+  <b>下一篇: <a href="/2019/07/10/study-tips/">Study Tips</a></b>
    
 </div><!--上一篇 下一篇-->
 
@@ -164,7 +183,7 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
         <script>
         var gitalk = new Gitalk({
-            id: '/2018/09/19/bk_fx/',
+            id: '/2019/07/08/Wireshark/',
             clientID: '5a59fdc570f933e0c2ee',
             clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
             repo: 'blogcomments',
