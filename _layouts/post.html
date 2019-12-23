@@ -26,8 +26,10 @@ layout: default
             <a href="{{ site.url }}/tags/#{{ tag }}" title="{{ tag }}">{{ tag }}</a>
           </span>
           {% endfor %}
+           <!--本文字数-->
+          <span class="octicon octicon-book meta-info">{{ content | strip_html | strip_newlines | split: "" | size }} words</span>
           <!--本文阅读量-->
-          <span class="octicon octicon-eye">   <span id="busuanzi_value_page_pv"></span></span>
+          <span class="octicon octicon-eye meta-info"> <span id="busuanzi_value_page_pv"></span> views</span>
         </div>
       </div>
     </div>
