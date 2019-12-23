@@ -198,7 +198,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 
 CBC字节翻转攻击的原理这里就不再介绍了，一图胜千言:
 
-![CBC1](http://fight0days.cn/2019-07-06-103759.jpg)
+![CBC1](http://pu7rghmgc.bkt.clouddn.com/2019-07-06-103759.jpg)
 
 **CBC字节翻转攻击的本质是:通过修改密文来达到修改下一个明文的效果。**
 
@@ -315,11 +315,11 @@ print(quote_plus(base64.b64encode(iv_de)))
 
 `Ciphertext-0 = Encrypt(Plaintext XOR IV)`—只用于第一个组块
 
-![en](http://fight0days.cn/2019-07-06-103803.jpg)
+![en](http://pu7rghmgc.bkt.clouddn.com/2019-07-06-103803.jpg)
 
 **CBC解密过程**
 
-![de](http://fight0days.cn/2019-07-06-103807.jpg)
+![de](http://pu7rghmgc.bkt.clouddn.com/2019-07-06-103807.jpg)
 
 
 
