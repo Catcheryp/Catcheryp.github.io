@@ -50,6 +50,8 @@
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
     <script src="http://localhost:4000/assets/js/main.js"></script>
+    <!--不蒜子-网站计数-->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </head>
 <body class="" data-mz="">
     <header class="site-header">
@@ -102,6 +104,8 @@
             <a href="http://localhost:4000/tags/#Wireshark" title="Wireshark">Wireshark</a>
           </span>
           
+          <!--本文阅读量-->
+          <span class="octicon octicon-eye">   <span id="busuanzi_value_page_pv"></span></span>
         </div>
       </div>
     </div>
@@ -129,7 +133,7 @@ tcp and !(tcp.analysis.flags &amp;&amp; !tcp.analysis.window_update) and !(http 
 <a href="http://blog.51cto.com/yttitan/1734425">http://blog.51cto.com/yttitan/1734425</a><br />
 <a href="https://www.magentonotes.com/wireshark-filter-ip.html">https://www.magentonotes.com/wireshark-filter-ip.html</a></p>
 
-<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-10-111.png" alt="Coloring Rules" /></p>
+<p><img src="http://fight0days.cn/2019-07-10-111.png" alt="Coloring Rules" /></p>
 
 <p><code class="highlighter-rouge">Coloring Rules</code> 里面会有对应报文类型规则</p>
 
@@ -137,23 +141,23 @@ tcp and !(tcp.analysis.flags &amp;&amp; !tcp.analysis.window_update) and !(http 
 
 <p><strong>查看TCP数据流</strong></p>
 
-<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-10-2.png" alt="Flow Graph" /></p>
+<p><img src="http://fight0days.cn/2019-07-10-2.png" alt="Flow Graph" /></p>
 
 <p><strong>存储自定义的过滤规则</strong></p>
 
-<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-10-3.png" alt="zidingyi" /></p>
+<p><img src="http://fight0days.cn/2019-07-10-3.png" alt="zidingyi" /></p>
 
 <p><strong>查看会话条数</strong></p>
 
-<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-10-4.png" alt="2019-07-10-4.png" /></p>
+<p><img src="http://fight0days.cn/2019-07-10-4.png" alt="2019-07-10-4.png" /></p>
 
 <p><strong>跟踪数据流</strong></p>
 
-<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-10-5.png" alt="2019-07-10-5" /></p>
+<p><img src="http://fight0days.cn/2019-07-10-5.png" alt="2019-07-10-5" /></p>
 
 <p><strong>保存成特定文件</strong></p>
 
-<p><img src="http://pu7rghmgc.bkt.clouddn.com/2019-07-10-6.png" alt="2019-07-10-6" /></p>
+<p><img src="http://fight0days.cn/2019-07-10-6.png" alt="2019-07-10-6" /></p>
 
 <p>以上就是我平时用到稍微多一点的地方，后续如果有更多tips会继续更新。</p>
 
@@ -285,6 +289,9 @@ SimpleJekyllSearch({
                 <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
             </ul>
             <div id="zyzy"></div>
+            <!--本站访客数-->
+            <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次
+            </span>
 
         </div>
     </footer>
@@ -328,7 +335,7 @@ SimpleJekyllSearch({
       </script>
     </div>
     
-    
+   
 </body>
 <!--自言自语-->
 <script>
