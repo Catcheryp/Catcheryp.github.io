@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>C语言实现Linux的ls命令 &mdash; Evil</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/customize.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2020/01/04/C_Linux_ls/">
+    <link rel="alternate" type="application/atom+xml" title="Evil" href="http://localhost:4000/feed.xml">
+    
+    <link rel="shortcut icon" href="http://localhost:4000/images/favicon.ico" >
+    
+    <meta property="og:title" content="C语言实现Linux的ls命令">
+      
+    <meta name="keywords" content="Web Security">
+    <meta name="og:keywords" content="Web Security">
+      
+    <meta name="description" content="2020年第一篇正儿八经的博客，好好学习下Linux，用C语言实现Linux下的ls命令，很基础的知识……">
+    <meta name="og:description" content="2020年第一篇正儿八经的博客，好好学习下Linux，用C语言实现Linux下的ls命令，很基础的知识……">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2020/01/04/C_Linux_ls/">
+    <meta property="og:site_name" content="Evil">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2020-01-04">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script src="http://localhost:4000/assets/js/main.js"></script>
+    <!--不蒜子-网站计数-->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="Evil"><span class="octicon octicon-hubot"></span> Evil</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="主页">主页</a>
+                
+                <a href="http://localhost:4000/archives/" class=" site-header-nav-item" target="" title="归档">归档</a>
+                
+                <a href="http://localhost:4000/tags/" class=" site-header-nav-item" target="" title="标签">标签</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于">关于</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+    <section class="collection-head small geopattern" data-pattern-id="C语言实现Linux的ls命令">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">C语言实现Linux的ls命令</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2020/01/04
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/Linux" title="Linux">Linux</a>
+          </span>
+          
+
+          
+          <span class="meta-info">
+            <span class="octicon octicon-tag"></span>
+            <a href="http://localhost:4000/tags/#apue" title="apue">apue</a>
+          </span>
+          
+           <!--本文字数-->
+          <span class="octicon octicon-book meta-info">8250 words</span>
+          <!--本文阅读量-->
+          <span class="octicon octicon-eye meta-info"> <span id="busuanzi_value_page_pv"></span> views</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>2020年第一篇正儿八经的博客，好好学习下Linux，用C语言实现Linux下的ls命令，很基础的知识……</p>
+
+<!--more-->
+
+<h2 id="0x01-基础知识">0x01 基础知识</h2>
+
+<p>先看下DIR结构体、dirent结构体和stat结构体</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">__dirstream</span>
+<span class="p">{</span>
+    <span class="kt">void</span>    <span class="o">*</span><span class="n">__fd</span><span class="p">;</span>
+    <span class="kt">char</span>    <span class="o">*</span><span class="n">__data</span><span class="p">;</span>
+    <span class="kt">int</span>      <span class="n">__entry_data</span><span class="p">;</span>
+    <span class="kt">char</span>    <span class="o">*</span><span class="n">__ptr</span><span class="p">;</span>
+    <span class="kt">int</span>      <span class="n">__entry_ptr</span><span class="p">;</span>
+    <span class="kt">size_t</span>   <span class="n">__allocation</span><span class="p">;</span>
+    <span class="kt">size_t</span>   <span class="n">__size</span><span class="p">;</span>
+    <span class="n">__libc_lock_define</span> <span class="p">(,</span> <span class="n">__lock</span><span class="p">)</span>
+<span class="p">};</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">__dirstream</span> <span class="kt">DIR</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="n">dirent</span> <span class="p">{</span>
+    <span class="n">ino_t</span>          <span class="n">d_ino</span><span class="p">;</span>       <span class="cm">/* inode number 索引节点号*/</span>
+    <span class="kt">off_t</span>          <span class="n">d_off</span><span class="p">;</span>       <span class="cm">/* offset to the next dirent 在目录文件中的偏移 */</span>
+    <span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">d_reclen</span><span class="p">;</span>    <span class="cm">/* length of this record 文件名长*/</span>
+    <span class="kt">unsigned</span> <span class="kt">char</span>  <span class="n">d_type</span><span class="p">;</span>      <span class="cm">/* type of file; not supported by all file system types 文件类型 */</span>
+    <span class="kt">char</span>           <span class="n">d_name</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span> <span class="cm">/* filename 文件名*/</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="n">stat</span> <span class="p">{</span>
+        <span class="n">mode_t</span>     <span class="n">st_mode</span><span class="p">;</span>       <span class="c1">//文件访问权限
+</span>        <span class="n">ino_t</span>      <span class="n">st_ino</span><span class="p">;</span>       <span class="c1">//索引节点号
+</span>        <span class="n">dev_t</span>      <span class="n">st_dev</span><span class="p">;</span>        <span class="c1">//文件使用的设备号
+</span>        <span class="n">dev_t</span>      <span class="n">st_rdev</span><span class="p">;</span>       <span class="c1">//设备文件的设备号
+</span>        <span class="n">nlink_t</span>    <span class="n">st_nlink</span><span class="p">;</span>      <span class="c1">//文件的硬连接数
+</span>        <span class="n">uid_t</span>      <span class="n">st_uid</span><span class="p">;</span>        <span class="c1">//所有者用户识别号
+</span>        <span class="n">gid_t</span>      <span class="n">st_gid</span><span class="p">;</span>        <span class="c1">//组识别号
+</span>        <span class="kt">off_t</span>      <span class="n">st_size</span><span class="p">;</span>       <span class="c1">//以字节为单位的文件容量
+</span>        <span class="kt">time_t</span>     <span class="n">st_atime</span><span class="p">;</span>      <span class="c1">//最后一次访问该文件的时间
+</span>        <span class="kt">time_t</span>     <span class="n">st_mtime</span><span class="p">;</span>      <span class="c1">//最后一次修改该文件的时间
+</span>        <span class="kt">time_t</span>     <span class="n">st_ctime</span><span class="p">;</span>      <span class="c1">//最后一次改变该文件状态的时间
+</span>        <span class="n">blksize_t</span> <span class="n">st_blksize</span><span class="p">;</span>    <span class="c1">//包含该文件的磁盘块的大小
+</span>        <span class="n">blkcnt_t</span>   <span class="n">st_blocks</span><span class="p">;</span>     <span class="c1">//该文件所占的磁盘块
+</span><span class="p">};</span>
+</code></pre></div></div>
+
+<p>目录操作相关函数</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//功能:打开一个目录; 返回值:成功则返回DIR*型态的目录流, 打开失败则返回NULL.
+</span><span class="kt">DIR</span><span class="o">*</span> <span class="n">opendir</span><span class="p">(</span><span class="n">constchar</span> <span class="o">*</span> <span class="n">path</span><span class="p">);</span>
+
+<span class="c1">//功能:循环读取dp中的文件和目录，每读取一个文件或目录都返回一个dirent结构体指针; 返回值:读取失败返回NULL
+</span><span class="k">struct</span> <span class="n">dirent</span><span class="o">*</span> <span class="n">readdir</span><span class="p">(</span><span class="kt">DIR</span><span class="o">*</span> <span class="n">dp</span><span class="p">);</span>
+
+<span class="c1">//功能:关闭参数dp所指的目录流; 返回值:关闭成功则返回0,，失败返回-1
+</span><span class="kt">int</span> <span class="n">closedir</span><span class="p">(</span><span class="kt">DIR</span><span class="o">*</span><span class="n">dp</span><span class="p">);</span>
+
+<span class="c1">//功能:通过文件名file_name获取文件信息，并保存在buf所指的结构体stat中; 返回值:执行成功则返回0，失败返回-1
+</span><span class="kt">int</span> <span class="n">stat</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">file_name</span><span class="p">,</span><span class="k">struct</span> <span class="n">stat</span> <span class="o">*</span><span class="n">buf</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="0x02-ls的c语言实现">0x02 ls的C语言实现</h2>
+
+<p>先实现个最简单的V1.0版本</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;stdio.h&gt;
+#include&lt;sys/types.h&gt;
+#include&lt;dirent.h&gt;
+</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]){</span>
+
+    <span class="kt">DIR</span> <span class="o">*</span><span class="n">dp</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">dirp</span><span class="p">;</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">){</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"usage: ls directory_name</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+   <span class="k">if</span><span class="p">((</span><span class="n">dp</span> <span class="o">=</span> <span class="n">opendir</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"can't open %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+   <span class="p">}</span>
+   <span class="k">while</span><span class="p">((</span><span class="n">dirp</span> <span class="o">=</span> <span class="n">readdir</span><span class="p">(</span><span class="n">dp</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">dirp</span><span class="o">-&gt;</span><span class="n">d_name</span><span class="p">);</span>
+   <span class="p">}</span>
+   <span class="n">closedir</span><span class="p">(</span><span class="n">dp</span><span class="p">);</span>
+   <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>封装一下</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;stdio.h&gt;
+#include&lt;sys/types.h&gt;
+#include&lt;dirent.h&gt;
+</span>
+<span class="kt">void</span> <span class="n">do_ls</span><span class="p">(</span><span class="kt">char</span><span class="p">[]);</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">argc</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">do_ls</span><span class="p">(</span><span class="s">"."</span><span class="p">);</span>
+    <span class="n">do_ls</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+        
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">do_ls</span><span class="p">(</span><span class="kt">char</span> <span class="n">dirname</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">DIR</span> <span class="o">*</span><span class="n">dp</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">dirp</span><span class="p">;</span>
+
+    <span class="k">if</span><span class="p">((</span><span class="n">dp</span><span class="o">=</span><span class="n">opendir</span><span class="p">(</span><span class="n">dirname</span><span class="p">))</span><span class="o">==</span><span class="nb">NULL</span><span class="p">)</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="s">"can't open %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">dirname</span><span class="p">);</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="k">while</span><span class="p">((</span><span class="n">dirp</span><span class="o">=</span><span class="n">readdir</span><span class="p">(</span><span class="n">dp</span><span class="p">))</span><span class="o">!=</span><span class="nb">NULL</span><span class="p">)</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">dirp</span><span class="o">-&gt;</span><span class="n">d_name</span><span class="p">);</span>
+        <span class="n">closedir</span><span class="p">(</span><span class="n">dp</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>再实现个V2.0版本使用stat结构体可以列出每个文件详细信息</p>
+
+<pre><code class="language-C">#include&lt;stdio.h&gt;
+#include&lt;sys/types.h&gt;
+#include&lt;dirent.h&gt;
+#include&lt;sys/stat.h&gt;
+
+//代码的报错处理没写好
+
+//列出文件的信息
+void show_stat_info(char *, struct stat *);
+
+int main(int argc, char *argv[]){ 
+    struct stat info;
+    if(argc != 2){
+        printf("usage: ls directory_name\n");
+    }
+    //do_ls(*argv[1]);
+
+    if(stat(argv[1], &amp;info) != -1){
+        show_stat_info(argv[1],&amp;info);
+    }
+    exit(0);
+}
+
+void show_stat_info(char *fname, struct stat *buf)
+{
+    printf("  mode:  %o\n", buf-&gt;st_mode);
+    printf(" links:  %d\n", buf-&gt;st_nlink);
+    printf("  user:  %d\n", buf-&gt;st_uid);
+    printf("  group: %d\n", buf-&gt;st_gid);
+    printf("   size: %d\n", buf-&gt;st_size);
+    printf("modtime: %d\n", buf-&gt;st_mtime);
+    printf("  group: %s\n", fname);
+}
+
+------------------
+$./test2 test
+  mode:  100755
+ links:  1
+  user:  501
+  group: 20
+   size: 12772
+modtime: 1578118793
+  group: test
+</code></pre>
+
+<p>实现个V3.0版本</p>
+
+<pre><code class="language-C">#include&lt;stdio.h&gt;
+#include&lt;sys/types.h&gt;
+#include&lt;dirent.h&gt;
+#include&lt;sys/stat.h&gt;
+
+//代码的报错处理没写好
+
+//列出目录下的所有文件
+void do_ls(char[]);
+//展示文件信息
+void dostat(char *);
+//列出文件的信息
+void show_stat_info(char *, struct stat *);
+
+int main(int argc, char *argv[]){ 
+    if(argc==1)
+        do_ls(".");
+    do_ls(argv[1]);
+        
+    return 0;
+}
+
+void do_ls(char dirname[])
+{
+    DIR *dp;
+    struct dirent *dirp;
+
+    if((dp=opendir(dirname))==NULL)
+        fprintf(stderr,"can't open %s\n",dirname);
+    else
+    {
+        while((dirp=readdir(dp))!=NULL)
+            //printf("%s\n",dirp-&gt;d_name);
+            dostat(dirp-&gt;d_name);
+        closedir(dp);
+    }
+}
+
+void dostat(char *filename)
+{
+    struct stat info;
+    if(stat(filename,&amp;info)==-1)
+        perror(filename);
+    else
+        show_stat_info(filename,&amp;info);
+}
+
+
+void show_stat_info(char *fname, struct stat *buf)
+{
+    printf("  mode:  %o\n", buf-&gt;st_mode);
+    printf(" links:  %d\n", buf-&gt;st_nlink);
+    printf("  user:  %d\n", buf-&gt;st_uid);
+    printf("  group: %d\n", buf-&gt;st_gid);
+    printf("   size: %d\n", buf-&gt;st_size);
+    printf("modtime: %d\n", buf-&gt;st_mtime);
+    printf("  group: %s\n", fname);
+}
+
+--------------------
+$./test1 ./
+  mode:  40700
+ links:  63
+  user:  501
+  group: 20
+   size: 2016
+modtime: 1578125448
+  group: .
+  mode:  40755
+ links:  145
+  user:  501
+  group: 20
+   size: 4640
+modtime: 1578125452
+  group: ..
+  mode:  40755
+ links:  9
+  user:  501
+  group: 20
+   size: 288
+modtime: 1575381270
+  group: rce-over-spark
+  mode:  40755
+ links:  7
+  user:  501
+  group: 20
+   size: 224
+</code></pre>
+
+<p>现在可以写出最终版本了，把文件展示出来的信息修改成与ls一致的信息即可</p>
+
+<p>这里需要补充两个结构体，是将user和group的数字形式转换成name形式</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//pwd.h
+</span><span class="k">struct</span> <span class="n">passwd</span>
+<span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">pw_name</span><span class="p">;</span>                <span class="cm">/* Username.  */</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">pw_passwd</span><span class="p">;</span>              <span class="cm">/* Password.  */</span>
+  <span class="n">__uid_t</span> <span class="n">pw_uid</span><span class="p">;</span>               <span class="cm">/* User ID.  */</span>
+  <span class="n">__gid_t</span> <span class="n">pw_gid</span><span class="p">;</span>               <span class="cm">/* Group ID.  */</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">pw_gecos</span><span class="p">;</span>               <span class="cm">/* Real name.  */</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">pw_dir</span><span class="p">;</span>                 <span class="cm">/* Home directory.  */</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">pw_shell</span><span class="p">;</span>               <span class="cm">/* Shell program.  */</span>
+<span class="p">};</span>
+<span class="c1">//grp.h
+</span><span class="k">struct</span> <span class="n">group</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">gr_name</span><span class="p">;</span>              <span class="cm">/* Group name.  */</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">gr_passwd</span><span class="p">;</span>            <span class="cm">/* Password.    */</span>
+    <span class="n">__gid_t</span> <span class="n">gr_gid</span><span class="p">;</span>             <span class="cm">/* Group ID.    */</span>
+    <span class="kt">char</span> <span class="o">**</span><span class="n">gr_mem</span><span class="p">;</span>              <span class="cm">/* Member list. */</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;stdio.h&gt;
+#include&lt;sys/types.h&gt;
+#include&lt;dirent.h&gt;
+#include&lt;sys/stat.h&gt;
+#include &lt;grp.h&gt;
+#include &lt;pwd.h&gt;
+</span>
+<span class="c1">//代码的报错处理没写好
+</span>
+<span class="c1">//列出目录下的所有文件
+</span><span class="kt">void</span> <span class="n">do_ls</span><span class="p">(</span><span class="kt">char</span><span class="p">[]);</span>
+<span class="c1">//展示文件信息
+</span><span class="kt">void</span> <span class="n">dostat</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
+<span class="c1">//列出文件的信息
+</span><span class="kt">void</span> <span class="n">show_file_info</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">,</span> <span class="k">struct</span> <span class="n">stat</span> <span class="o">*</span><span class="p">);</span>
+<span class="c1">//将文件属性修改成d/-,权限修改成rwx
+</span><span class="kt">void</span> <span class="n">mode_to_letters</span><span class="p">(</span><span class="kt">int</span> <span class="p">,</span><span class="kt">char</span><span class="p">[]);</span>
+<span class="kt">char</span> <span class="o">*</span> <span class="n">uid_to_name</span><span class="p">(</span><span class="n">uid_t</span><span class="p">);</span>
+<span class="kt">char</span> <span class="o">*</span> <span class="n">gid_to_name</span><span class="p">(</span><span class="n">gid_t</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]){</span> 
+    <span class="k">if</span><span class="p">(</span><span class="n">argc</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">do_ls</span><span class="p">(</span><span class="s">"."</span><span class="p">);</span>
+    <span class="n">do_ls</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+        
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">do_ls</span><span class="p">(</span><span class="kt">char</span> <span class="n">dirname</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">DIR</span> <span class="o">*</span><span class="n">dp</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">dirp</span><span class="p">;</span>
+
+    <span class="k">if</span><span class="p">((</span><span class="n">dp</span><span class="o">=</span><span class="n">opendir</span><span class="p">(</span><span class="n">dirname</span><span class="p">))</span><span class="o">==</span><span class="nb">NULL</span><span class="p">)</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="s">"can't open %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">dirname</span><span class="p">);</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="k">while</span><span class="p">((</span><span class="n">dirp</span><span class="o">=</span><span class="n">readdir</span><span class="p">(</span><span class="n">dp</span><span class="p">))</span><span class="o">!=</span><span class="nb">NULL</span><span class="p">)</span>
+            <span class="c1">//printf("%s\n",dirp-&gt;d_name);
+</span>            <span class="n">dostat</span><span class="p">(</span><span class="n">dirp</span><span class="o">-&gt;</span><span class="n">d_name</span><span class="p">);</span>
+        <span class="n">closedir</span><span class="p">(</span><span class="n">dp</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">dostat</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">stat</span> <span class="n">info</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">stat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="o">&amp;</span><span class="n">info</span><span class="p">)</span><span class="o">==-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">perror</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
+    <span class="k">else</span>
+        <span class="n">show_file_info</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="o">&amp;</span><span class="n">info</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="kt">void</span> <span class="n">show_file_info</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">,</span> <span class="k">struct</span> <span class="n">stat</span> <span class="o">*</span><span class="n">info_p</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">uid_to_name</span><span class="p">(),</span> <span class="o">*</span><span class="n">ctime</span><span class="p">(),</span> <span class="o">*</span><span class="n">gid_to_name</span><span class="p">();</span>
+    <span class="kt">void</span> <span class="n">mode_to_letters</span><span class="p">();</span>
+    <span class="kt">char</span> <span class="n">modestr</span><span class="p">[</span><span class="mi">11</span><span class="p">];</span>
+
+    <span class="n">mode_to_letters</span><span class="p">(</span><span class="n">info_p</span><span class="o">-&gt;</span><span class="n">st_mode</span><span class="p">,</span><span class="n">modestr</span><span class="p">);</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span><span class="n">modestr</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%4d"</span><span class="p">,(</span><span class="kt">int</span><span class="p">)</span> <span class="n">info_p</span><span class="o">-&gt;</span><span class="n">st_nlink</span> <span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"% -8s"</span><span class="p">,</span> <span class="n">uid_to_name</span><span class="p">(</span><span class="n">info_p</span><span class="o">-&gt;</span><span class="n">st_uid</span><span class="p">));</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"% -8s"</span><span class="p">,</span><span class="n">gid_to_name</span><span class="p">(</span><span class="n">info_p</span><span class="o">-&gt;</span><span class="n">st_gid</span><span class="p">));</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%8ld"</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">info_p</span><span class="o">-&gt;</span><span class="n">st_size</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%.12s"</span><span class="p">,</span> <span class="mi">4</span><span class="o">+</span><span class="n">ctime</span><span class="p">(</span><span class="o">&amp;</span><span class="n">info_p</span><span class="o">-&gt;</span><span class="n">st_mtime</span><span class="p">));</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">filename</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">mode_to_letters</span><span class="p">(</span><span class="kt">int</span> <span class="n">mode</span><span class="p">,</span><span class="kt">char</span> <span class="n">str</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">strcpy</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="s">"----------"</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">S_ISDIR</span><span class="p">(</span><span class="n">mode</span><span class="p">))</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="sc">'d'</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">S_ISCHR</span><span class="p">(</span><span class="n">mode</span><span class="p">))</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="sc">'c'</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">S_ISBLK</span><span class="p">(</span><span class="n">mode</span><span class="p">))</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="sc">'b'</span><span class="p">;</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">&amp;</span> <span class="n">S_IRUSR</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="sc">'r'</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">&amp;</span> <span class="n">S_IWUSR</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="sc">'w'</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">&amp;</span> <span class="n">S_IXUSR</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="sc">'x'</span><span class="p">;</span>
+  
+    <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">&amp;</span> <span class="n">S_IRGRP</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">=</span><span class="sc">'r'</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">&amp;</span> <span class="n">S_IWGRP</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">=</span><span class="sc">'w'</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">&amp;</span> <span class="n">S_IXGRP</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">=</span><span class="sc">'x'</span><span class="p">;</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">&amp;</span> <span class="n">S_IROTH</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">=</span><span class="sc">'r'</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">&amp;</span> <span class="n">S_IWOTH</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">=</span><span class="sc">'w'</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">&amp;</span> <span class="n">S_IXOTH</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="o">=</span><span class="sc">'x'</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+
+<span class="kt">char</span> <span class="o">*</span><span class="n">uid_to_name</span><span class="p">(</span><span class="n">uid_t</span> <span class="n">uid</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">passwd</span> <span class="o">*</span><span class="n">getpwuid</span><span class="p">(),</span> <span class="o">*</span><span class="n">pw_ptr</span><span class="p">;</span>
+    <span class="k">static</span> <span class="kt">char</span> <span class="n">numstr</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+
+    <span class="k">if</span><span class="p">((</span><span class="n">pw_ptr</span> <span class="o">=</span> <span class="n">getpwuid</span><span class="p">(</span><span class="n">uid</span><span class="p">))</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+        <span class="n">sprintf</span><span class="p">(</span><span class="n">numstr</span><span class="p">,</span><span class="s">"%d"</span><span class="p">,</span><span class="n">uid</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">numstr</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="n">pw_ptr</span><span class="o">-&gt;</span><span class="n">pw_name</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="kt">char</span> <span class="o">*</span><span class="n">gid_to_name</span><span class="p">(</span><span class="n">gid_t</span> <span class="n">gid</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">group</span> <span class="o">*</span><span class="n">getgrgid</span><span class="p">(),</span> <span class="o">*</span><span class="n">grp_ptr</span><span class="p">;</span>
+    <span class="k">static</span> <span class="kt">char</span> <span class="n">numstr</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+
+    <span class="k">if</span><span class="p">((</span><span class="n">grp_ptr</span> <span class="o">=</span> <span class="n">getgrgid</span><span class="p">(</span><span class="n">gid</span><span class="p">))</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+        <span class="n">sprintf</span><span class="p">(</span><span class="n">numstr</span><span class="p">,</span><span class="s">"%d"</span><span class="p">,</span><span class="n">gid</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">numstr</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="n">grp_ptr</span><span class="o">-&gt;</span><span class="n">gr_name</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>下一篇用C语言实现Linux的ps命令……</p>
+
+<h2 id="ref">Ref</h2>
+
+<p><a href="https://blog.nowcoder.net/n/9a48a7f697864e3bbdae2fe5bfcb0ef9">https://blog.nowcoder.net/n/9a48a7f697864e3bbdae2fe5bfcb0ef9</a><br />
+<a href="https://melville.club/posts/a-20190123-095755">https://melville.club/posts/a-20190123-095755</a></p>
+
+    </article>
+  
+    <div class="newold">
+  <hr>
+  
+  <b>上一篇: <a href="/2019/12/31/2019/">2019 总结</a></b><br>
+     
+  
+  <b>下一篇: <a href="/2020/01/20/install_py_module_offline/">离线安装python各种库</a></b>
+   
+</div><!--上一篇 下一篇-->
+
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2020/01/04/C_Linux_ls/',
+            clientID: '5a59fdc570f933e0c2ee',
+            clientSecret: '4bfb41f4315d6e67dc7d994890a4fc8bf9dee142',
+            repo: 'blogcomments',
+            owner: 'Catcheryp',
+            admin: ['Catcheryp'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/simple-jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="Catcher">Catcher</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <!--<a href="" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>-->
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="主页" target="">主页</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/archives/" title="归档" target="">归档</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/tags/" title="标签" target="">标签</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="链接" target="">链接</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="关于" target="">关于</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+            <div id="zyzy"></div>
+            <!--本站访客数-->
+            <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次
+            </span>
+
+            <!--本站运行时间-->
+             | <span>本站已运行<span id="showDays"></span></span>
+
+        </div>
+    </footer>
+    <div class="tools-wrapper">
+      <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a>
+    </div>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+   
+</body>
+<!--自言自语-->
+<script>
+    var xhr = new XMLHttpRequest();
+    var zyzy;
+    var arrayZyzy;
+    function getZyzy(){
+        var index1 = Math.floor(Math.random()*arrayZyzy.length);
+        var resText = "";
+        resText += "自言自语:\xa0「"+ arrayZyzy[index1] + "」";
+        zyzy.innerHTML = resText;
+    }
+    
+    xhr.onreadystatechange = function(){
+      // 通信成功时，状态值为4
+      if (xhr.readyState === 4){
+        if (xhr.status === 200){
+          console.log(xhr.responseText);
+          zyzy = document.getElementById("zyzy");
+          arrayZyzy = xhr.responseText.split("\n\n");
+
+          getZyzy();
+          setInterval("getZyzy()", 5000);
+
+        } else {
+          console.error(xhr.statusText);
+        }
+      }
+    };
+
+    xhr.onerror = function (e) {
+      console.error(xhr.statusText);
+    };
+
+    xhr.open('GET', '/zyzy.txt', true);
+    xhr.send(null);
+</script>
+
+<!--网站运行时间-->
+<script>
+  var seconds = 1000;
+  var minutes = seconds * 60;
+  var hours = minutes * 60;
+  var days = hours * 24;
+  var years = days * 365;
+  var birthDay = Date.UTC(2018,04,26,00,00,00); // 这里设置建站时间
+  setInterval(function() {
+    var today = new Date();
+    var todayYear = today.getFullYear();
+    var todayMonth = today.getMonth()+1;
+    var todayDate = today.getDate();
+    var todayHour = today.getHours();
+    var todayMinute = today.getMinutes();
+    var todaySecond = today.getSeconds();
+    var now = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+    var diff = now - birthDay;
+    var diffYears = Math.floor(diff/years);
+    var diffDays = Math.floor((diff/days)-diffYears*365);
+    var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+    var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+    var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+      document.getElementById('showDays').innerHTML=""+diffYears+"年"+diffDays+"天"+diffHours+"小时"+diffMinutes+"分钟"+diffSeconds+"秒";
+  }, 1000);
+</script>
+</html>

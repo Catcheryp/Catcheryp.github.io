@@ -18,22 +18,15 @@
   
   
     {
-      "title"    : "JavaScript",
-      "url"      : "http://localhost:4000/categories/JavaScript/"
+      "title"    : "Linux",
+      "url"      : "http://localhost:4000/categories/Linux/"
     } ,
   
   
   
     {
-      "title"    : "PHP",
-      "url"      : "http://localhost:4000/categories/PHP/"
-    } ,
-  
-  
-  
-    {
-      "title"    : "Python",
-      "url"      : "http://localhost:4000/categories/Python/"
+      "title"    : "Tips",
+      "url"      : "http://localhost:4000/categories/Tips/"
     } ,
   
   
@@ -85,22 +78,8 @@
   
   
     {
-      "title"    : "web安全",
-      "url"      : "http://localhost:4000/categories/web%E5%AE%89%E5%85%A8/"
-    } ,
-  
-  
-  
-    {
-      "title"    : "代码审计",
-      "url"      : "http://localhost:4000/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"
-    } ,
-  
-  
-  
-    {
-      "title"    : "安全工具",
-      "url"      : "http://localhost:4000/categories/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/"
+      "title"    : "安全",
+      "url"      : "http://localhost:4000/categories/%E5%AE%89%E5%85%A8/"
     } ,
   
   
@@ -115,13 +94,6 @@
     {
       "title"    : "有感",
       "url"      : "http://localhost:4000/categories/%E6%9C%89%E6%84%9F/"
-    } ,
-  
-  
-  
-    {
-      "title"    : "读书",
-      "url"      : "http://localhost:4000/categories/%E8%AF%BB%E4%B9%A6/"
     } ,
   
   
@@ -164,7 +136,7 @@
   
     {
       "title"    : "追忆似水年华",
-      "category" : "读书",
+      "category" : "有感",
       
       "url"      : "http://localhost:4000/2018/06/02/zyshnh/"
     } ,
@@ -185,7 +157,7 @@
   
     {
       "title"    : "SQL注入的套路",
-      "category" : "web安全",
+      "category" : "安全",
       
       "url"      : "http://localhost:4000/2018/08/01/sql_injection1/"
     } ,
@@ -206,21 +178,21 @@
   
     {
       "title"    : "当我谈跑步时，我谈些什么",
-      "category" : "读书",
+      "category" : "有感",
       
       "url"      : "http://localhost:4000/2018/08/05/tpb/"
     } ,
   
     {
       "title"    : "反弹shell入门",
-      "category" : "web安全",
+      "category" : "安全",
       
       "url"      : "http://localhost:4000/2018/08/06/reverse_shell/"
     } ,
   
     {
       "title"    : "sqli-labs Less-5",
-      "category" : "web安全",
+      "category" : "安全",
       
       "url"      : "http://localhost:4000/2018/08/09/sqli-l5/"
     } ,
@@ -234,14 +206,14 @@
   
     {
       "title"    : "布尔盲注的套路",
-      "category" : "web安全",
+      "category" : "安全",
       
       "url"      : "http://localhost:4000/2018/08/11/bool_ij/"
     } ,
   
     {
       "title"    : "时间盲注的套路",
-      "category" : "web安全",
+      "category" : "安全",
       
       "url"      : "http://localhost:4000/2018/08/11/time_ij/"
     } ,
@@ -269,14 +241,14 @@
   
     {
       "title"    : "00截断上传",
-      "category" : "web安全",
+      "category" : "安全",
       
       "url"      : "http://localhost:4000/2018/08/17/jd00/"
     } ,
   
     {
       "title"    : "sqlmap系列(一)",
-      "category" : "web安全",
+      "category" : "安全",
       
       "url"      : "http://localhost:4000/2018/08/17/slmap1/"
     } ,
@@ -311,14 +283,14 @@
   
     {
       "title"    : "渗透测试之信息收集",
-      "category" : "web安全",
+      "category" : "安全",
       
       "url"      : "http://localhost:4000/2018/08/20/collect_mes/"
     } ,
   
     {
       "title"    : "Wargames-Linux 闯关游戏",
-      "category" : "program",
+      "category" : "Linux",
       
       "url"      : "http://localhost:4000/2018/08/24/linux_game/"
     } ,
@@ -332,7 +304,7 @@
   
     {
       "title"    : "prompt(1) to win",
-      "category" : "web安全",
+      "category" : "安全",
       
       "url"      : "http://localhost:4000/2018/09/18/prompt/"
     } ,
@@ -353,58 +325,58 @@
   
     {
       "title"    : "CBC字节翻转攻击",
-      "category" : "web安全",
+      "category" : "安全",
       
       "url"      : "http://localhost:4000/2018/09/19/CBC/"
     } ,
   
     {
       "title"    : "XSS 构造剖析",
-      "category" : "web安全",
+      "category" : "安全",
       
       "url"      : "http://localhost:4000/2018/10/05/XSS-%E6%9E%84%E9%80%A0%E5%89%96%E6%9E%90/"
     } ,
   
     {
       "title"    : "alert(1) to win",
-      "category" : "web安全",
+      "category" : "安全",
       
       "url"      : "http://localhost:4000/2018/10/05/alert/"
     } ,
   
     {
       "title"    : "JavaScript 常用函数",
-      "category" : "JavaScript",
+      "category" : "program",
       
       "url"      : "http://localhost:4000/2018/10/08/func/"
     } ,
   
     {
       "title"    : "JavaScript 剪贴板事件",
-      "category" : "JavaScript",
+      "category" : "program",
       
       "url"      : "http://localhost:4000/2018/10/10/event1/"
     } ,
   
     {
       "title"    : "JS 中的事件绑定、事件监听、事件委托",
-      "category" : "JavaScript",
+      "category" : "program",
       
       "url"      : "http://localhost:4000/2018/10/10/event2/"
     } ,
   
     {
-      "title"    : "网络钓鱼",
-      "category" : "web安全",
+      "title"    : "客户端信息刺探",
+      "category" : "安全",
       
-      "url"      : "http://localhost:4000/2018/10/10/%E7%BD%91%E7%BB%9C%E9%92%93%E9%B1%BC/"
+      "url"      : "http://localhost:4000/2018/10/10/%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BF%A1%E6%81%AF%E5%88%BA%E6%8E%A2/"
     } ,
   
     {
-      "title"    : "客户端信息刺探",
-      "category" : "web安全",
+      "title"    : "网络钓鱼",
+      "category" : "安全",
       
-      "url"      : "http://localhost:4000/2018/10/10/%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BF%A1%E6%81%AF%E5%88%BA%E6%8E%A2/"
+      "url"      : "http://localhost:4000/2018/10/10/%E7%BD%91%E7%BB%9C%E9%92%93%E9%B1%BC/"
     } ,
   
     {
@@ -430,14 +402,14 @@
   
     {
       "title"    : "XSS 学习",
-      "category" : "web安全",
+      "category" : "安全",
       
       "url"      : "http://localhost:4000/2018/10/17/XSS%E5%AD%A6%E4%B9%A0/"
     } ,
   
     {
       "title"    : "XSS姿势-文件上传XSS",
-      "category" : "web安全",
+      "category" : "安全",
       
       "url"      : "http://localhost:4000/2018/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0XSS/"
     } ,
@@ -486,7 +458,7 @@
   
     {
       "title"    : "Wireshark常用技巧",
-      "category" : "安全工具",
+      "category" : "安全",
       
       "url"      : "http://localhost:4000/2019/07/08/Wireshark/"
     } ,
@@ -496,6 +468,27 @@
       "category" : "有感",
       
       "url"      : "http://localhost:4000/2019/07/10/study-tips/"
+    } ,
+  
+    {
+      "title"    : "2019 总结",
+      "category" : "有感",
+      
+      "url"      : "http://localhost:4000/2019/12/31/2019/"
+    } ,
+  
+    {
+      "title"    : "C语言实现Linux的ls命令",
+      "category" : "Linux",
+      
+      "url"      : "http://localhost:4000/2020/01/04/C_Linux_ls/"
+    } ,
+  
+    {
+      "title"    : "离线安装python各种库",
+      "category" : "Tips",
+      
+      "url"      : "http://localhost:4000/2020/01/20/install_py_module_offline/"
     } 
   
 ]
