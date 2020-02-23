@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    markdown语法 - Newton
+  </title>
+	<meta name="description" content="基于jekyll的github极简主题" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="http://localhost:4000/Newton/assets/css/newton.css">
+	<link rel="stylesheet" href="http://localhost:4000/Newton/assets/css/syntax.css">
+	
+	<!-- mathjax -->
+  <script type="text/x-mathjax-config">
+		var mathId = document.getElementById("post-content"); //选择公式识别范围
+		MathJax.Hub.Config({
+				showProcessingMessages: false, //关闭js加载过程信息
+				messageStyle: "none", //不显示信息
+				extensions: ["tex2jax.js"],
+				jax: ["input/TeX", "output/HTML-CSS"],
+				tex2jax: {
+						inlineMath: [ ['$','$'], ["\\(","\\)"] ], //行内公式选择符
+						displayMath: [ ['$$','$$'], ["\\[","\\]"] ], //段内公式选择符
+						skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'] //避开某些标签
+				},
+				"HTML-CSS": {
+						availableFonts: ["STIX","TeX"], //可选字体
+						showMathMenu: false //关闭右击菜单显示
+				}
+		});
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub,mathId]);
+	</script>
+	<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+  <body>
+		 <header class="masthead">
+	<div class="container">
+		<h3 class="masthead-title">
+			<a href="http://localhost:4000/Newton/" title="首页">Newton</a>
+			<small>基于jekyll的github极简主题</small>
+		</h3>
+	</div>
+</header>
+		<div class="container">
+			<div class="post">
+	<h1 class="post-title">markdown语法</h1>
+	<span class="post-date">03 Dec 2018</span>
+
+	<p>Newton是一个极简的jekyll主题，虽然github提供了github-pages服务，但是搭建博客以及样式还是得自己定制，由于别人做的主题总是有不满意的地方，所以我做了这个
+主题，基本还原github的markdown语法，完全兼容中文。</p>
+
+<ol id="markdown-toc">
+  <li><a href="#段落" id="markdown-toc-段落">段落</a></li>
+  <li><a href="#代码高亮" id="markdown-toc-代码高亮">代码高亮</a></li>
+  <li><a href="#各种字体" id="markdown-toc-各种字体">各种字体</a></li>
+  <li><a href="#引用" id="markdown-toc-引用">引用</a></li>
+  <li><a href="#表格" id="markdown-toc-表格">表格</a></li>
+  <li><a href="#图片" id="markdown-toc-图片">图片</a></li>
+  <li><a href="#无序列表" id="markdown-toc-无序列表">无序列表</a></li>
+  <li><a href="#有序列表" id="markdown-toc-有序列表">有序列表</a></li>
+  <li><a href="#外部代码" id="markdown-toc-外部代码">外部代码</a></li>
+  <li><a href="#内联html标签" id="markdown-toc-内联html标签">内联html标签</a></li>
+  <li><a href="#水平线" id="markdown-toc-水平线">水平线</a></li>
+  <li><a href="#数学公式" id="markdown-toc-数学公式">数学公式</a></li>
+  <li><a href="#参考资料" id="markdown-toc-参考资料">参考资料</a></li>
+</ol>
+
+<hr />
+
+<h2> 二级标题 </h2>
+<h3> 三级标题 </h3>
+<h4> 四级标题 </h4>
+<h5> 五级标题 </h5>
+<h6> 六级标题 </h6>
+
+<hr />
+
+<h2 id="段落">段落</h2>
+<p>先帝创业未半而中道崩殂，今天下三分，益州疲弊，此诚危急存亡之秋也。然侍卫之臣不懈于内，
+忠志之士忘身于外者，盖追先帝之殊遇，欲报之于陛下也。诚宜开张圣听，以光先帝遗德，
+恢弘志士之气，不宜妄自菲薄，引喻失义，以塞忠谏之路也。</p>
+
+<h2 id="代码高亮">代码高亮</h2>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+  <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"hello world!"</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">//这是一段很长的注释，人生难免起起伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏伏
+</span></code></pre></div></div>
+
+<h2 id="各种字体">各种字体</h2>
+<ol>
+  <li><strong>粗体</strong></li>
+  <li><em>意大利斜体</em></li>
+  <li><del>删除线</del></li>
+  <li><code class="highlighter-rouge">颜色标记</code></li>
+  <li><a href="https://github.com/doublesand">链接</a></li>
+</ol>
+
+<h2 id="引用">引用</h2>
+<blockquote>
+  <p>金钱可以购买时间 - 鲁迅</p>
+</blockquote>
+
+<h2 id="表格">表格</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">名字</th>
+      <th style="text-align: center">语文</th>
+      <th style="text-align: center">数学</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">张三</td>
+      <td style="text-align: center">20</td>
+      <td style="text-align: center">80</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">李四</td>
+      <td style="text-align: center">80</td>
+      <td style="text-align: center">20</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">小花</td>
+      <td style="text-align: center">100</td>
+      <td style="text-align: center">100</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="图片">图片</h2>
+<p><img src="http://localhost:4000/Newton/assets/img/girl.jpg" alt="girl" /></p>
+
+<h2 id="无序列表">无序列表</h2>
+<ul>
+  <li>无</li>
+  <li>序</li>
+  <li>列</li>
+  <li>表</li>
+</ul>
+
+<h2 id="有序列表">有序列表</h2>
+<ol>
+  <li>有</li>
+  <li>序</li>
+  <li>列</li>
+  <li>表</li>
+</ol>
+
+<h2 id="外部代码">外部代码</h2>
+<p>可以通过社交网站的外链提供视频或者图片等服务，例如以下的视频</p>
+
+<iframe src="//player.bilibili.com/player.html?aid=21722417&amp;cid=35820632&amp;page=1" allowfullscreen="true"> </iframe>
+
+<p>当然也可以插入音乐</p>
+
+<audio src="http://music.163.com/song/media/outer/url?id=557581284.mp3" controls="" preload=""></audio>
+
+<h2 id="内联html标签">内联html标签</h2>
+<p>markdown支持任何html语法</p>
+
+<h2 id="水平线">水平线</h2>
+<hr />
+
+<h2 id="数学公式">数学公式</h2>
+
+<script type="math/tex; mode=display">\frac{\mathrm{d}}{\mathrm{d}t} \left ( \frac {\partial  L}{\partial \dot{q}_j} \right ) =  \frac {\partial L}{\partial q_j}</script>
+
+<h2 id="参考资料">参考资料</h2>
+<p>更多关于markdown的语法资料可以在以下链接找到:</p>
+
+<ul>
+  <li><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Here-Cheatsheet#code">Markdown Here Cheatsheet</a></li>
+  <li><a href="http://www.unexpected-vortices.com/sw/rippledoc/quick-markdown-example.html">Quick Markdown Example</a></li>
+  <li><a href="https://daringfireball.net/projects/markdown/basics">Markdown Basics</a></li>
+  <li><a href="https://github.github.com/gfm/">GitHub Flavoured Markdown Spec</a></li>
+  <li><a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/#lists">Basic writing and formatting syntax</a></li>
+</ul>
+
+	
+</div>
+
+		</div>
+		
+		<footer class="footer">
+	<div class="post-date"><a href="http://localhost:4000/Newton/about.html">Newton | 基于jekyll的github极简主题 by 邓文丰</a></div>
+</footer>
+  </body>
+</html>

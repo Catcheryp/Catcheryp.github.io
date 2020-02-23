@@ -1,123 +1,28 @@
 ---
 layout: default
+title: 首页
 ---
 
-Text can be **bold**, _italic_, ~~strikethrough~~ or `keyword`.
-
-[Link to another page](./another-page.html).
-
-There should be whitespace between paragraphs.
-
-There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.
-
-# Header 1
-
-This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.
-
-## Header 2
-
-> This is a blockquote following a header.
->
-> When something is important enough, you do it even if the odds are not in your favor.
-
-### Header 3
-
-```js
-// Javascript code with syntax highlighting.
-var fun = function lang(l) {
-  dateformat.i18n = require('./lang/' + l)
-  return true;
-}
-```
-
-```ruby
-# Ruby code with syntax highlighting
-GitHubPages::Dependencies.gems.each do |gem, version|
-  s.add_dependency(gem, "= #{version}")
-end
-```
-
-#### Header 4
-
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-
-##### Header 5
-
-1.  This is an ordered list following a header.
-2.  This is an ordered list following a header.
-3.  This is an ordered list following a header.
-
-###### Header 6
-
-| head1        | head two          | three |
-|:-------------|:------------------|:------|
-| ok           | good swedish fish | nice  |
-| out of stock | good and plenty   | nice  |
-| ok           | good `oreos`      | hmm   |
-| ok           | good `zoute` drop | yumm  |
-
-### There's a horizontal rule below this.
-
-* * *
-
-### Here is an unordered list:
-
-*   Item foo
-*   Item bar
-*   Item baz
-*   Item zip
-
-### And an ordered list:
-
-1.  Item one
-1.  Item two
-1.  Item three
-1.  Item four
-
-### And a nested list:
-
-- level 1 item
-  - level 2 item
-  - level 2 item
-    - level 3 item
-    - level 3 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-
-### Small image
-
-![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
-
-### Large image
-
-![Branching](https://guides.github.com/activities/hello-world/branching.png)
+这是一个极度简洁的jekyll主题，完全聚焦于内容，不含多余代码，如果你是一个写作者，或者仅仅希望有一个属于自己的展示空间，
+这个主题绝对适合你，完全兼容github文档语法。也许你会问，为什么将主题做得这么简单，不添加一些
+搜索功能、分享功能、评论功能以及各种动态效果，这些都可以有，但没必要，因为我的目的就是想
+简简单单地写文章。
 
 
-### Definition lists can be used with HTML syntax.
+<div class="archive">
+  <div class="timeline" id="timeline">
+    {% assign posts_by_year = site.posts | group_by_exp:"post", "post.date | date: '%Y' " %}
+    {% for group in posts_by_year %}
+      <div class="archive-title">
+        <h4 class="archive-year">{{ group.name }}</h4>
+      </div>
 
-<dl>
-<dt>Name</dt>
-<dd>Godzilla</dd>
-<dt>Born</dt>
-<dd>1952</dd>
-<dt>Birthplace</dt>
-<dd>Japan</dd>
-<dt>Color</dt>
-<dd>Green</dd>
-</dl>
+      <ul>
+      {% for post in group.items %}
+        <li><div style="width:4rem;float:left;">{{ post.date | date: "%b %-d" }}</div> <a href="{{ site.url }}{{ site.baseurl }}{{ post.url }}" class="archive-item-link" title="{{post.title}}">{{ post.title }}</a></li>
+      {% endfor %}
+      </ul>
 
-```
-Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-```
-
-```
-The final element.
-```
+    {% endfor %}
+  </div>
+</div>

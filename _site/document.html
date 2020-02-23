@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    博客使用文档 - Newton
+  </title>
+	<meta name="description" content="基于jekyll的github极简主题" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="http://localhost:4000/Newton/assets/css/newton.css">
+	<link rel="stylesheet" href="http://localhost:4000/Newton/assets/css/syntax.css">
+	
+	<!-- mathjax -->
+  <script type="text/x-mathjax-config">
+		var mathId = document.getElementById("post-content"); //选择公式识别范围
+		MathJax.Hub.Config({
+				showProcessingMessages: false, //关闭js加载过程信息
+				messageStyle: "none", //不显示信息
+				extensions: ["tex2jax.js"],
+				jax: ["input/TeX", "output/HTML-CSS"],
+				tex2jax: {
+						inlineMath: [ ['$','$'], ["\\(","\\)"] ], //行内公式选择符
+						displayMath: [ ['$$','$$'], ["\\[","\\]"] ], //段内公式选择符
+						skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'] //避开某些标签
+				},
+				"HTML-CSS": {
+						availableFonts: ["STIX","TeX"], //可选字体
+						showMathMenu: false //关闭右击菜单显示
+				}
+		});
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub,mathId]);
+	</script>
+	<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+  <body>
+		 <header class="masthead">
+	<div class="container">
+		<h3 class="masthead-title">
+			<a href="http://localhost:4000/Newton/" title="首页">Newton</a>
+			<small>基于jekyll的github极简主题</small>
+		</h3>
+	</div>
+</header>
+		<div class="container">
+			<div class="post">
+	<h1 class="post-title">博客使用文档</h1>
+	<span class="post-date">04 Dec 2018</span>
+
+	<p>博客基于<a href="https://jekyllrb.com/">jekyll</a>搭建，你也可以参考<a href="https://www.jekyll.com.cn/">中文文档</a>(但是内容不全)，博客主题
+吸收多平台的优点，摒弃所有的繁杂缺点搭建而成，主要集成了github平台的markdown语法样式和简书的字体。
+如果你想要快速利用我的模板搭建博客，请往下看。</p>
+
+<ol id="markdown-toc">
+  <li><a href="#fork我的仓库" id="markdown-toc-fork我的仓库">fork我的仓库</a></li>
+  <li><a href="#个性化定制" id="markdown-toc-个性化定制">个性化定制</a>    <ol>
+      <li><a href="#修改_configyml" id="markdown-toc-修改_configyml">修改_config.yml</a></li>
+      <li><a href="#清空_posts文件夹" id="markdown-toc-清空_posts文件夹">清空_posts文件夹</a></li>
+      <li><a href="#添加文章" id="markdown-toc-添加文章">添加文章</a></li>
+      <li><a href="#将修改后的仓库pull到github" id="markdown-toc-将修改后的仓库pull到github">将修改后的仓库pull到github</a></li>
+    </ol>
+  </li>
+  <li><a href="#自定义域名" id="markdown-toc-自定义域名">自定义域名</a></li>
+  <li><a href="#本地调试" id="markdown-toc-本地调试">本地调试</a></li>
+</ol>
+
+<h2 id="fork我的仓库">fork我的仓库</h2>
+<p>你只要fork我的仓库，然后将仓库名字改为<code class="highlighter-rouge">usename.github.io</code>即可。其中<code class="highlighter-rouge">usename</code>是你的github账户名称。
+过一会(因为github引擎渲染可能需要一分钟左右)，然后在浏览器中输入<code class="highlighter-rouge">usename.github.io</code>网址，就能看见你的
+博客了</p>
+
+<h2 id="个性化定制">个性化定制</h2>
+<p>前面你已经成功将博客移植到你的仓库，但是很多数据都是我的，所以你需要将仓库pull到本地进行修改，主要修改以下几项即可。</p>
+
+<h3 id="修改_configyml">修改_config.yml</h3>
+<p>该文件主要是一些个人信息，将其中的个人信息改成你的信息就行。</p>
+
+<h3 id="清空_posts文件夹">清空_posts文件夹</h3>
+<p>该文件夹里面的文章都是我个人的，全部删掉。</p>
+
+<h3 id="添加文章">添加文章</h3>
+<p>添加的文章是利用markdown语法写的，写文章之前需要一个头部标识，即在文章前面添加如下信息</p>
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">post</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s">你的标题</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+<p>接下去就可以继续写文章了
+注意，文章的命名是<code class="highlighter-rouge">year-month-day-title.md</code>，因为这是jekyll的读取格式。</p>
+
+<h3 id="将修改后的仓库pull到github">将修改后的仓库pull到github</h3>
+<p>做完上面的修改，就可以将仓库push到github上，过一会，你的博客就全部渲染好了。</p>
+
+<h2 id="自定义域名">自定义域名</h2>
+<p>你可以自定义域名，将域名存到CNAME文件夹中</p>
+
+<h2 id="本地调试">本地调试</h2>
+<p>jekyll是基于ruby的maekdown转换器，为了方便，建议在本机调试好再发送到服务器，需要下载ruby和jekyll</p>
+
+
+	
+</div>
+
+		</div>
+		
+		<footer class="footer">
+	<div class="post-date"><a href="http://localhost:4000/Newton/about.html">Newton | 基于jekyll的github极简主题 by 邓文丰</a></div>
+</footer>
+  </body>
+</html>

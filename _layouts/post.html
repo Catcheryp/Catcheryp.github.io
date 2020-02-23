@@ -1,14 +1,10 @@
 ---
 layout: default
 ---
+<div class="post">
+	<h1 class="post-title">{{ page.title }}</h1>
+	<span class="post-date">{{ page.date | date_to_string }}</span>
 
-<small>{{ page.date | date: "%-d %B %Y" }}</small>
-<h1>{{ page.title }}</h1>
-
-<p class="view">by {{ page.author | default: site.author }}</p>
-
-{{content}}
-
-{% if page.tags %}
-  <small>tags: <em>{{ page.tags | join: "</em> - <em>" }}</em></small>
-{% endif %}
+	{{ content }}
+	
+</div>

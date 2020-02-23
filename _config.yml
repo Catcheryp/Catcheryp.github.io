@@ -1,5 +1,17 @@
-title: Hacker theme
-description: Hacker is a theme for GitHub Pages.
-show_downloads: true
-google_analytics:
-theme: jekyll-theme-hacker
+#URL
+url: https://doublesand.github.io
+baseurl: /Newton
+
+
+#博客名字和描述自定义
+title: Newton
+description: 基于jekyll的github极简主题
+
+#个人信息
+author: 邓文丰
+github: doublesand
+email:  whenfung@gmail.com
+
+#下面的是配置和插件，不需要改
+permalink: none
+plugins: [jekyll-sitemap]
