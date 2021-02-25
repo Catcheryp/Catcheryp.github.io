@@ -10763,6 +10763,9 @@ body > .section {
   overflow: visible;
   border-radius: 0;
 }
+.card:hover {
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.1);
+}
 .card + .card,
 .card + .column-right-shadow {
   margin-top: 1.5rem;
@@ -10804,17 +10807,34 @@ article.media .media-content .title {
   margin: 0;
   line-height: inherit;
 }
+article.article {
+  padding: 1.5rem 1.8rem;
+}
+article.article .title {
+  margin: 0 0 0.5rem -0.1rem !important;
+}
+article.article .title .fas {
+  margin-right: 0.5rem;
+}
 article.article .article-meta,
 article.article .article-tags {
   color: #848484;
 }
 article.article .article-meta {
   overflow-x: auto;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem !important;
+}
+article.article .article-meta >:first-child {
+  flex-wrap: wrap;
+  width: 100%;
+}
+article.article .article-meta >:first-child >* {
+  flex-grow: 0 !important;
 }
 article.article .content {
   word-wrap: break-word;
   font-size: 1.1rem;
+  letter-spacing: 0.02rem;
 }
 article.article .content h1 {
   font-size: 1.75em;
@@ -10832,7 +10852,7 @@ article.article .content h5 {
   font-size: 1em;
 }
 article.article .content pre {
-  font-size: 0.85em;
+  font-size: 0.95em;
 }
 article.article .content code {
   padding: 0;
@@ -10850,7 +10870,7 @@ article.article .content blockquote footer strong + cite {
 }
 article.article .content .message.message-immersive {
   border-radius: 0;
-  margin: 0 -1.5rem 1.5rem -1.5rem;
+  margin: 0 -1.8rem 1.5rem -1.8rem;
 }
 article.article .content .message.message-immersive .message-body {
   border: none;
@@ -10930,6 +10950,39 @@ a.article-nav-next span {
   flex-shrink: 1;
   word-wrap: break-word;
   white-space: normal;
+}
+.has-link-black-ter {
+  transition: 0.2s ease;
+}
+.has-link-black-ter:hover {
+  color: #3273dc !important;
+}
+.has-link-black-ter {
+  color: #242424 !important;
+}
+.article {
+  counter-reset: section;
+}
+.article h2 {
+  counter-reset: sub-section;
+}
+.article h3 {
+  counter-reset: composite;
+}
+.article h4 {
+  counter-reset: detail;
+}
+.article h2:before {
+  content: counter(section) " ";
+  counter-increment: section;
+}
+.article h3:before {
+  content: counter(section) "." counter(sub-section) " ";
+  counter-increment: sub-section;
+}
+.article h4:before {
+  content: counter(section) "." counter(sub-section) "." counter(composite) " ";
+  counter-increment: composite;
 }
 .navbar-main {
   box-shadow: none;
@@ -11617,6 +11670,10 @@ figure.highlight .section {
   background-color: #f5e703;
 }
 @media screen and (min-width: 1280px) {
+  .is-3-column .container {
+    max-width: 1216px;
+    width: 1216px;
+  }
   .is-1-column .container,
   .is-2-column .container {
     max-width: 960px;
@@ -11624,6 +11681,10 @@ figure.highlight .section {
   }
 }
 @media screen and (min-width: 1472px) {
+  .is-3-column .container {
+    max-width: 1344px;
+    width: 1344px;
+  }
   .is-2-column .container {
     max-width: 1152px;
     width: 1152px;
