@@ -10959,30 +10959,6 @@ a.article-nav-next span {
 .has-link-black-ter {
   color: #242424 !important;
 }
-.article {
-  counter-reset: section;
-}
-.article h2 {
-  counter-reset: sub-section;
-}
-.article h3 {
-  counter-reset: composite;
-}
-.article h4 {
-  counter-reset: detail;
-}
-.article h2:before {
-  content: counter(section) " ";
-  counter-increment: section;
-}
-.article h3:before {
-  content: counter(section) "." counter(sub-section) " ";
-  counter-increment: sub-section;
-}
-.article h4:before {
-  content: counter(section) "." counter(sub-section) "." counter(composite) " ";
-  counter-increment: composite;
-}
 .navbar-main {
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
