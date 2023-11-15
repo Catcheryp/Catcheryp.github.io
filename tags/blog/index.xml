@@ -3,7 +3,15 @@
         <title>blog - 标签 - SecYP</title>
         <link>https://blog.sec-yp.me/tags/blog/</link>
         <description>blog - 标签 - SecYP</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 09 Nov 2023 07:48:35 &#43;0800</lastBuildDate><atom:link href="https://blog.sec-yp.me/tags/blog/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 15 Nov 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://blog.sec-yp.me/tags/blog/" rel="self" type="application/rss+xml" /><item>
+    <title>Github Actions研究</title>
+    <link>https://blog.sec-yp.me/posts/github-actions%E7%A0%94%E7%A9%B6/</link>
+    <pubDate>Wed, 15 Nov 2023 00:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://blog.sec-yp.me/posts/github-actions%E7%A0%94%E7%A9%B6/</guid>
+    <description><![CDATA[问题 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 name: deploy on: push: workflow_dispatch: schedule: # Runs everyday at 8:00 AM - cron: &#34;0 0 * * *&#34; jobs: build: runs-on: ubuntu-latest steps: - name: Checkout uses: actions/checkout@v2 with: submodules: true fetch-depth: 0 - name: Setup Hugo uses: peaceiris/actions-hugo@v2 with: hugo-version: &#34;latest&#34; - name: Build Web run: hugo - name: Deploy Web uses: peaceiris/actions-gh-pages@v3 with: PERSONAL_TOKEN: ${{ secrets.]]></description>
+</item>
+<item>
     <title>重拾Blog</title>
     <link>https://blog.sec-yp.me/posts/%E9%87%8D%E6%8B%BEblog/</link>
     <pubDate>Thu, 09 Nov 2023 07:48:35 &#43;0800</pubDate>
