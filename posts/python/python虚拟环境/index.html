@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Python虚拟环境 - SecYP</title><meta name="Description" content="这看似变化无章的世界，偏偏最循规蹈矩，因果是一切规矩的规矩。"><meta property="og:title" content="Python虚拟环境" />
+<meta property="og:description" content="python虚拟环境常用总结。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.sec-yp.me/posts/python/python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-02-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-02-08T00:00:00+00:00" /><meta property="og:site_name" content="SecYP" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Python虚拟环境"/>
+<meta name="twitter:description" content="python虚拟环境常用总结。"/>
+<meta name="twitter:site" content="@catcheryp"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="https://catcheryp.github.io/favicon-32x32.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.sec-yp.me/posts/python/python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" /><link rel="prev" href="https://blog.sec-yp.me/posts/python/python%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85%E5%BA%93/" /><link rel="next" href="https://blog.sec-yp.me/posts/python/python-tricks/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Python虚拟环境",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.sec-yp.me\/posts\/python\/python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83\/"
+        },"genre": "posts","keywords": "pipenv","wordcount":  99 ,
+        "url": "https:\/\/blog.sec-yp.me\/posts\/python\/python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83\/","datePublished": "2021-02-08T00:00:00+00:00","dateModified": "2021-02-08T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="SecYP"><span class="header-title-pre"><i class='fas fa-laptop'></i></span>SecYP</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fas fa-book'></i> 所有文章 </a><a class="menu-item" href="/categories/"><i class='fas fa-folder'></i> 分类 </a><a class="menu-item" href="/tags/"><i class='fas fa-tags'></i> 标签 </a><a class="menu-item" href="/about/"><i class='fas fa-id-card'></i> 关于 </a><a class="menu-item" href="https://m.sec-yp.cn" rel="noopener noreffer" target="_blank"><i class='fas fa-tools'></i> memos </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="SecYP"><span class="header-title-pre"><i class='fas fa-laptop'></i></span>SecYP</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title=""><i class='fas fa-book'></i>所有文章</a><a class="menu-item" href="/categories/" title=""><i class='fas fa-folder'></i>分类</a><a class="menu-item" href="/tags/" title=""><i class='fas fa-tags'></i>标签</a><a class="menu-item" href="/about/" title=""><i class='fas fa-id-card'></i>关于</a><a class="menu-item" href="https://m.sec-yp.cn" title="" rel="noopener noreffer" target="_blank"><i class='fas fa-tools'></i>memos</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Python虚拟环境</h1><div class="post-meta">
+            <div class="post-meta-line">
+                </div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-02-08">2021-02-08</time>&nbsp;<span class="post-category"><a href="/categories/python/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Python</a></span>&nbsp;<i class="fas fa-tags fa-fw" aria-hidden="true"></i><a href="/tags/pipenv/">pipenv</a></div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#pipenv">pipenv</a></li>
+    <li><a href="#virtualenv">virtualenv</a>
+      <ul>
+        <li><a href="#参考">参考：</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>python虚拟环境常用总结。</p>
+<h2 id="pipenv">pipenv</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install pipenv
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#用户安装，避免破坏全局的包</span>
+</span></span><span class="line"><span class="cl">pip install --user pipenv
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">pipenv install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#指定虚拟环境中的python版本</span>
+</span></span><span class="line"><span class="cl">--three
+</span></span><span class="line"><span class="cl">--two
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#激活虚拟环境</span>
+</span></span><span class="line"><span class="cl">pipenv shell
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#不显式激活虚拟环境，即可在当前项目的虚拟环境中执行命令</span>
+</span></span><span class="line"><span class="cl">pipenv run python  hello.py
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Pipfile: 记录项目依赖包列表
+</span></span><span class="line"><span class="cl">Pipfile.lock: 记录了固定版本的详细依赖包列表
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#更新</span>
+</span></span><span class="line"><span class="cl">pipenv update flask
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="virtualenv">virtualenv</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">virtualenv -p python3 envname
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>envname 是项目名称，可改</p>
+<p>我觉得你真的应该学一下virtualenv的命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">virtualenv -p python3 Django
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#进入虚拟环境</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> Django
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#激活虚拟环境</span>
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> ./bin/activate
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#退出虚拟环境</span>
+</span></span><span class="line"><span class="cl">deactivate
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#删除虚拟环境</span>
+</span></span><span class="line"><span class="cl">rm -rf Django
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#带上这个参数，就不会复制任何第三方的包过来</span>
+</span></span><span class="line"><span class="cl">--no-site-packages
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="参考">参考：</h3>
+<p><a href="http://stackoverflow.com/questions/23842713/using-python-3-in-virtualenv" target="_blank" rel="noopener noreffer ">http://stackoverflow.com/questions/23842713/using-python-3-in-virtualenv</a>
+<a href="https://www.liaoxuefeng.com/wiki/1016959663602400/10192731431204804" target="_blank" rel="noopener noreffer ">https://www.liaoxuefeng.com/wiki/1016959663602400/10192731431204804</a></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-02-08</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="post-nav"><a href="/posts/python/python%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85%E5%BA%93/" class="prev" rel="prev" title="离线安装Python各种库"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>离线安装Python各种库</a>
+            <a href="/posts/python/python-tricks/" class="next" rel="next" title="Python Tricks">Python Tricks<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.120.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{"gitalk":{"admin":["Catcheryp"],"clientID":"3413fcf55c460ebaeca0","clientSecret":"8236c957d217498d747a3052a231465f1de00a82","id":"2021-02-08T00:00:00Z","owner":"Catcheryp","repo":"blog-comment","title":"Python虚拟环境"}},"search":{"algoliaAppID":"85V4PL8VUD","algoliaIndex":"blog","algoliaSearchKey":"eb14bb554d2c95a05b991c7ea03dc9c4","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

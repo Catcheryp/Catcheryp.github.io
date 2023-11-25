@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>网络流量加密识别 - SecYP</title><meta name="Description" content="这看似变化无章的世界，偏偏最循规蹈矩，因果是一切规矩的规矩。"><meta property="og:title" content="网络流量加密识别" />
+<meta property="og:description" content="实验室的任务，搬砖的日常。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.sec-yp.me/posts/python/%E7%BD%91%E7%BB%9C%E6%B5%81%E9%87%8F%E5%8A%A0%E5%AF%86%E8%AF%86%E5%88%AB/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2018-05-04T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-05-04T00:00:00+00:00" /><meta property="og:site_name" content="SecYP" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="网络流量加密识别"/>
+<meta name="twitter:description" content="实验室的任务，搬砖的日常。"/>
+<meta name="twitter:site" content="@catcheryp"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="https://catcheryp.github.io/favicon-32x32.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.sec-yp.me/posts/python/%E7%BD%91%E7%BB%9C%E6%B5%81%E9%87%8F%E5%8A%A0%E5%AF%86%E8%AF%86%E5%88%AB/" /><link rel="next" href="https://blog.sec-yp.me/posts/%E6%8A%98%E8%85%BE/%E5%8D%9A%E5%AE%A2%E5%8A%A0https/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "网络流量加密识别",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.sec-yp.me\/posts\/python\/%E7%BD%91%E7%BB%9C%E6%B5%81%E9%87%8F%E5%8A%A0%E5%AF%86%E8%AF%86%E5%88%AB\/"
+        },"genre": "posts","keywords": "coding","wordcount":  1005 ,
+        "url": "https:\/\/blog.sec-yp.me\/posts\/python\/%E7%BD%91%E7%BB%9C%E6%B5%81%E9%87%8F%E5%8A%A0%E5%AF%86%E8%AF%86%E5%88%AB\/","datePublished": "2018-05-04T00:00:00+00:00","dateModified": "2018-05-04T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="SecYP"><span class="header-title-pre"><i class='fas fa-laptop'></i></span>SecYP</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fas fa-book'></i> 所有文章 </a><a class="menu-item" href="/categories/"><i class='fas fa-folder'></i> 分类 </a><a class="menu-item" href="/tags/"><i class='fas fa-tags'></i> 标签 </a><a class="menu-item" href="/about/"><i class='fas fa-id-card'></i> 关于 </a><a class="menu-item" href="https://m.sec-yp.cn" rel="noopener noreffer" target="_blank"><i class='fas fa-tools'></i> memos </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="SecYP"><span class="header-title-pre"><i class='fas fa-laptop'></i></span>SecYP</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title=""><i class='fas fa-book'></i>所有文章</a><a class="menu-item" href="/categories/" title=""><i class='fas fa-folder'></i>分类</a><a class="menu-item" href="/tags/" title=""><i class='fas fa-tags'></i>标签</a><a class="menu-item" href="/about/" title=""><i class='fas fa-id-card'></i>关于</a><a class="menu-item" href="https://m.sec-yp.cn" title="" rel="noopener noreffer" target="_blank"><i class='fas fa-tools'></i>memos</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">网络流量加密识别</h1><div class="post-meta">
+            <div class="post-meta-line">
+                </div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2018-05-04">2018-05-04</time>&nbsp;<span class="post-category"><a href="/categories/python/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Python</a></span>&nbsp;<i class="fas fa-tags fa-fw" aria-hidden="true"></i><a href="/tags/coding/">coding</a></div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简单介绍">简单介绍</a></li>
+    <li><a href="#代码">代码</a>
+      <ul>
+        <li><a href="#后续528">后续&hellip;（5.28）</a></li>
+      </ul>
+    </li>
+    <li><a href="#资源">资源</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>实验室的任务，搬砖的日常。</p>
+<h2 id="简单介绍">简单介绍</h2>
+<p>本来准备每个月好歹写一篇有那么一点点意义的博客，可是由于自己实在太懒了，搞得更新得实在很慢。</p>
+<p>这篇博客没有打算写什么内容，主要内容都在下面放的链接里面了，网络流量加密识别这个比较简单的任务是实验室的师兄某个项目里面的一个需求，然后就交给我这个很菜的菜鸟来做了。</p>
+<p>所谓的网络流量加密识别就是识别一段数据流是否加密，而是否加密的判断依据就是我们所要识别的数据流的信息熵是否在某个区间内，如果在这个区间内的话，那么我们就认为有多大可能是加密的，如果不在的话我们就认为该数据流没有加密。</p>
+<h2 id="代码">代码</h2>
+<p>因为我先是用Python来写的，后来师兄说代码要用C++来实现，所以这里给出两个版本。</p>
+<p>Python版本里面的是对txt文件里面的数据进行识别，注意这里的数据格式要严格按照我提供的数据格式来，否则需要修改代码里面的数据读取方式。数据来自于我用wireshark进行抓包的数据，是16进制的形式，这个在数据处理那里要注意一下，整个实现的原理参考云盘里的资料。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 产生随机的数据流(也就是标准的对照组)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">generateDatastream</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="n">entropy</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">		<span class="n">data_stream</span> <span class="o">=</span> <span class="p">[]</span>	<span class="c1">#每次清空这个数据流，重新生成 </span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">			<span class="n">F</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="n">data_stream</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">d</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">data_stream</span><span class="p">)</span> <span class="c1">#得到一个数据流中每个字节出现的次数</span>
+</span></span><span class="line"><span class="cl">		<span class="n">H</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">#计算一个数据流的字节熵</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">/</span> <span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">/</span> <span class="n">N</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="n">H</span> <span class="o">=</span> <span class="n">H</span> <span class="o">+</span> <span class="n">m</span>
+</span></span><span class="line"><span class="cl">		<span class="n">H</span> <span class="o">=</span> <span class="o">-</span><span class="n">H</span>
+</span></span><span class="line"><span class="cl">		<span class="n">entropy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">	<span class="n">mean_value</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">entropy</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span> 		<span class="c1">#计算均值</span>
+</span></span><span class="line"><span class="cl">	<span class="n">standard_deviation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">entropy</span><span class="p">)</span><span class="c1">#计算标准差</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">#下面计算置信区间以及置信度</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">		<span class="n">satisfy</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="n">en</span> <span class="ow">in</span> <span class="n">entropy</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">low</span> <span class="o">=</span> <span class="n">mean_value</span> <span class="o">-</span> <span class="n">y</span> <span class="o">*</span> <span class="n">standard_deviation</span>
+</span></span><span class="line"><span class="cl">			<span class="n">up</span> <span class="o">=</span> <span class="n">mean_value</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">standard_deviation</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="n">low</span> <span class="o">&lt;=</span> <span class="n">en</span> <span class="o">&lt;=</span> <span class="n">up</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">				<span class="n">satisfy</span> <span class="o">=</span> <span class="n">satisfy</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">confidence_level</span> <span class="o">=</span> <span class="n">satisfy</span> <span class="o">/</span> <span class="n">n</span> <span class="o">*</span> <span class="mi">100</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">low1</span> <span class="o">=</span> <span class="n">low</span>
+</span></span><span class="line"><span class="cl">			<span class="n">up1</span> <span class="o">=</span> <span class="n">up</span>
+</span></span><span class="line"><span class="cl">			<span class="n">confidence_level_1</span> <span class="o">=</span> <span class="n">confidence_level</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">low1</span><span class="p">,</span> <span class="n">up1</span><span class="p">,</span> <span class="n">confidence_level_1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 识别待检测的数据流，这里传入合适的置信区间</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">recognizeDatastream</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">confidence_level</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="n">fr</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">arrayLines</span> <span class="o">=</span> <span class="n">fr</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="n">numLines</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arrayLines</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">data_stream</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">arrayLines</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">line_1</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line_1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">l</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">	        <span class="n">data_stream</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line_1</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>        
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">data_stream</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data_stream</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_stream</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">d</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">H</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">/</span> <span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">/</span> <span class="n">N</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">H</span> <span class="o">=</span> <span class="n">H</span> <span class="o">+</span> <span class="n">m</span>   
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">H</span> <span class="o">=</span> <span class="o">-</span><span class="n">H</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span> <span class="s1">&#39;待检测数据流的字节熵为: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="n">low</span> <span class="o">&lt;=</span> <span class="n">H</span> <span class="o">&lt;=</span> <span class="n">up</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">print</span> <span class="s1">&#39;该数据流是加密的,置信度为:&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">confidence_level</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;%&#39;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">print</span> <span class="s1">&#39;该数据流没有加密&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>C++版本1.0跟上面用Python实现的效果一样，也是对txt文件里面的数据进行加密识别，在这里就不贴代码了，贴一下C++1.0版本的代码，这里唯一的区别就是对于数据的读取有区别，2.0是直接读取整个文件，把文件当成数据流来读取，然后进行加密识别。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Tools</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">string_to_hex</span><span class="p">(</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">)</span> <span class="c1">//transfer string to hex-string  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">{</span>    
+</span></span><span class="line"><span class="cl">	    <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">	    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">str</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl">	    <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">	        <span class="k">if</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="sc">&#39;0&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="sc">&#39;9&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	        	<span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">*</span> <span class="mi">16</span> <span class="o">+</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	        <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="sc">&#39;a&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="sc">&#39;f&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	        	<span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">*</span> <span class="mi">16</span> <span class="o">+</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span> <span class="o">+</span> <span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	        <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="sc">&#39;A&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="sc">&#39;F&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	        	<span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">*</span> <span class="mi">16</span> <span class="o">+</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;A&#39;</span> <span class="o">+</span> <span class="mi">10</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">	    <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">	    <span class="k">return</span> <span class="n">tmp</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">splitEx</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">src</span><span class="p">,</span> <span class="n">string</span> <span class="n">separate_character</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">strs</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	    
+</span></span><span class="line"><span class="cl">	    <span class="kt">int</span> <span class="n">separate_characterLen</span> <span class="o">=</span> <span class="n">separate_character</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="c1">//分割字符串的长度,这样就可以支持如“,,”多字符串的分隔符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	    <span class="kt">int</span> <span class="n">lastPosition</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	    <span class="k">while</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">!=</span> <span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="n">src</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">separate_character</span><span class="p">,</span><span class="n">lastPosition</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">	    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	        <span class="n">strs</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">src</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">lastPosition</span><span class="p">,</span><span class="n">index</span> <span class="o">-</span> <span class="n">lastPosition</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">	        <span class="n">lastPosition</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="n">separate_characterLen</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">string</span> <span class="n">lastString</span> <span class="o">=</span> <span class="n">src</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">lastPosition</span><span class="p">);</span><span class="c1">//截取最后一个分隔符后的内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">lastString</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">	        <span class="n">strs</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">lastString</span><span class="p">);</span><span class="c1">//如果最后一个分隔符后还有内容就入队
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	    <span class="k">return</span> <span class="n">strs</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Recognize</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//static double *result;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Tools</span> <span class="n">tl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Recognize</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span><span class="p">){</span><span class="c1">//n为生成数据流的个数，N为生成数据流的长度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">entropy</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">			<span class="kt">int</span> <span class="o">*</span><span class="n">data_stream</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">			<span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">				<span class="kt">int</span> <span class="n">F</span> <span class="o">=</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">255</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">				<span class="n">data_stream</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">F</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">				<span class="n">d</span><span class="p">[</span><span class="n">F</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="n">it</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">			<span class="kt">double</span> <span class="n">H</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="kt">double</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="k">while</span><span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="n">d</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
+</span></span><span class="line"><span class="cl">				<span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">)</span> <span class="o">/</span> <span class="kt">double</span><span class="p">(</span><span class="n">N</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="kt">double</span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">)</span> <span class="o">/</span> <span class="kt">double</span><span class="p">(</span><span class="n">N</span><span class="p">))</span> <span class="o">/</span> <span class="kt">double</span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)));</span>
+</span></span><span class="line"><span class="cl">				<span class="n">H</span> <span class="o">=</span> <span class="n">H</span> <span class="o">+</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">				<span class="n">it</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="n">H</span> <span class="o">=</span> <span class="o">-</span><span class="n">H</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="n">entropy</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">H</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="kt">double</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">accumulate</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">entropy</span><span class="p">),</span> <span class="n">end</span><span class="p">(</span><span class="n">entropy</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">		<span class="kt">double</span> <span class="n">mean_value</span> <span class="o">=</span>  <span class="n">sum</span> <span class="o">/</span> <span class="n">entropy</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="c1">//均值  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//这里的标准差最后除以的数据是(size-1)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  		<span class="kt">double</span> <span class="n">accum</span>  <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">  		<span class="c1">//计算标准差
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  			<span class="n">accum</span> <span class="o">+=</span> <span class="n">pow</span><span class="p">(</span><span class="n">entropy</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">mean_value</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">  		<span class="kt">double</span> <span class="n">standard_deviation</span> <span class="o">=</span> <span class="n">pow</span><span class="p">(</span><span class="n">accum</span> <span class="o">/</span> <span class="p">(</span><span class="n">entropy</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mf">0.5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  		<span class="c1">//下面计算置信区间和置信度,这里标准差的倍数我们取4
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">;</span> <span class="n">y</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  			<span class="kt">double</span> <span class="n">satisfy</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  			<span class="kt">double</span> <span class="n">low</span> <span class="o">=</span> <span class="n">mean_value</span> <span class="o">-</span> <span class="kt">double</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">standard_deviation</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  			<span class="kt">double</span> <span class="n">up</span> <span class="o">=</span> <span class="n">mean_value</span> <span class="o">+</span> <span class="kt">double</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">standard_deviation</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  			<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="n">entropy</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">num</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  				<span class="c1">//为了避免截断误差，这样比较大小
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  				<span class="k">if</span><span class="p">(</span><span class="n">entropy</span><span class="p">[</span><span class="n">num</span><span class="p">]</span> <span class="o">-</span> <span class="n">low</span> <span class="o">&gt;=</span> <span class="mf">1e-10</span> <span class="o">&amp;&amp;</span> <span class="n">up</span> <span class="o">-</span> <span class="n">entropy</span><span class="p">[</span><span class="n">num</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">1e-10</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  					<span class="n">satisfy</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  				<span class="p">}</span>
+</span></span><span class="line"><span class="cl">  			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">  			<span class="kt">double</span> <span class="n">confidence_level</span> <span class="o">=</span> <span class="n">satisfy</span> <span class="o">/</span> <span class="kt">double</span><span class="p">(</span><span class="n">entropy</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="o">*</span> <span class="kt">double</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  			<span class="c1">//打印不同置信度的置信区间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;置信区间为: [&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">low</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;,&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">up</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;]&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;置信度为: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">confidence_level</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;%&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;-------------------------&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  			<span class="k">if</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="mi">4</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  				<span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">low</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  				<span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">up</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  				<span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">confidence_level</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">  		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">recognizeDatastream</span><span class="p">(</span><span class="n">string</span> <span class="n">filename</span><span class="p">,</span> <span class="kt">int</span> <span class="n">N</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">double</span> <span class="n">low</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">double</span> <span class="n">up</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">double</span> <span class="n">confidence_level_1</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">		<span class="n">ifstream</span> <span class="n">fr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">fr</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">string</span> <span class="n">line</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">(</span><span class="n">fr</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">			<span class="n">getline</span><span class="p">(</span><span class="n">fr</span><span class="p">,</span> <span class="n">line</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;no such file&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">dd</span> <span class="o">=</span> <span class="n">tl</span><span class="p">.</span><span class="n">splitEx</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s">&#34; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="o">*</span><span class="n">data_stream</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">		<span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">			<span class="kt">int</span> <span class="n">F</span> <span class="o">=</span> <span class="n">tl</span><span class="p">.</span><span class="n">string_to_hex</span><span class="p">(</span><span class="n">dd</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">			<span class="n">data_stream</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">F</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="n">d</span><span class="p">[</span><span class="n">F</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">it</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">double</span> <span class="n">H</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">double</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">while</span><span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="n">d</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
+</span></span><span class="line"><span class="cl">			<span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">)</span> <span class="o">/</span> <span class="kt">double</span><span class="p">(</span><span class="n">N</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="kt">double</span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">)</span> <span class="o">/</span> <span class="kt">double</span><span class="p">(</span><span class="n">N</span><span class="p">))</span> <span class="o">/</span> <span class="kt">double</span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)));</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">//cout &lt;&lt; m &lt;&lt; endl;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">H</span> <span class="o">=</span> <span class="n">H</span> <span class="o">+</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="n">it</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="n">H</span> <span class="o">=</span> <span class="o">-</span><span class="n">H</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;待检测的数据流的字节熵为:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">H</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">(</span><span class="n">H</span> <span class="o">&gt;=</span> <span class="n">low</span> <span class="o">&amp;&amp;</span> <span class="n">H</span> <span class="o">&lt;=</span> <span class="n">up</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;该数据流是加密的,置信度为:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">confidence_level_1</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;%&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;该数据流没有加密.&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">N</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">filename</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;请输入要生成的随机数据流的个数(n): &#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;请输入要生成的每条数据流的长度(N&gt;=256): &#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">N</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;输入当前目录下要识别的加密数据流文件(filename): &#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">filename</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Recognize</span> <span class="n">rc</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">N</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">rc</span><span class="p">.</span><span class="n">recognizeDatastream</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">N</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="后续528">后续&hellip;（5.28）</h3>
+<p>后续就是：加密的代码还要自己写，项目里面不是识别我测试的数据，识别的是二进制数据流，所以下面还要实现两个功能。</p>
+<ul>
+<li>加密算法</li>
+<li>16进制转2进制</li>
+</ul>
+<p>1.加密算法我就直接从网上找然后改别人的，一共写了3种加密算法分别是DES，3DES，AES。开始写完的时候没有注意到密钥的问题，每次使用同一个密钥对数据进行加密，导致如果待检测二进制数据全为0的话，加密效果十分不好，随机性太弱。后来改进加密算法，因为这三个加密算法是对块进行加密的，那么我就将每一次对当前块的加密结果作为下一次的密钥，这样使得每次对块加密使用的密钥都不一样了，最终的加密效果就相当不错了，随机性很强。</p>
+<p>2.16进制转2进制，这个就很基础了，没啥可说的，代码写得很暴力，就不贴了。</p>
+<h2 id="资源">资源</h2>
+<p><a href="https://pan.baidu.com/s/1tgSxdHLcROE-M5yEKY9MKw" target="_blank" rel="noopener noreffer ">文件地址(百度网盘)</a>
+提取码：ajis</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2018-05-04</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="post-nav">
+            <a href="/posts/%E6%8A%98%E8%85%BE/%E5%8D%9A%E5%AE%A2%E5%8A%A0https/" class="next" rel="next" title="博客加小绿锁">博客加小绿锁<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.120.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{"gitalk":{"admin":["Catcheryp"],"clientID":"3413fcf55c460ebaeca0","clientSecret":"8236c957d217498d747a3052a231465f1de00a82","id":"2018-05-04T00:00:00Z","owner":"Catcheryp","repo":"blog-comment","title":"网络流量加密识别"}},"search":{"algoliaAppID":"85V4PL8VUD","algoliaIndex":"blog","algoliaSearchKey":"eb14bb554d2c95a05b991c7ea03dc9c4","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Python Tricks - SecYP</title><meta name="Description" content="这看似变化无章的世界，偏偏最循规蹈矩，因果是一切规矩的规矩。"><meta property="og:title" content="Python Tricks" />
+<meta property="og:description" content="python tricks，持续更新&hellip;&hellip;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.sec-yp.me/posts/python/python-tricks/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-02-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-02-08T00:00:00+00:00" /><meta property="og:site_name" content="SecYP" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Python Tricks"/>
+<meta name="twitter:description" content="python tricks，持续更新&hellip;&hellip;"/>
+<meta name="twitter:site" content="@catcheryp"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="https://catcheryp.github.io/favicon-32x32.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.sec-yp.me/posts/python/python-tricks/" /><link rel="prev" href="https://blog.sec-yp.me/posts/python/python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" /><link rel="next" href="https://blog.sec-yp.me/posts/%E6%8A%98%E8%85%BE/%E9%87%8D%E6%8B%BEblog/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Python Tricks",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.sec-yp.me\/posts\/python\/python-tricks\/"
+        },"genre": "posts","keywords": "tips","wordcount":  672 ,
+        "url": "https:\/\/blog.sec-yp.me\/posts\/python\/python-tricks\/","datePublished": "2021-02-08T00:00:00+00:00","dateModified": "2021-02-08T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="SecYP"><span class="header-title-pre"><i class='fas fa-laptop'></i></span>SecYP</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fas fa-book'></i> 所有文章 </a><a class="menu-item" href="/categories/"><i class='fas fa-folder'></i> 分类 </a><a class="menu-item" href="/tags/"><i class='fas fa-tags'></i> 标签 </a><a class="menu-item" href="/about/"><i class='fas fa-id-card'></i> 关于 </a><a class="menu-item" href="https://m.sec-yp.cn" rel="noopener noreffer" target="_blank"><i class='fas fa-tools'></i> memos </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="SecYP"><span class="header-title-pre"><i class='fas fa-laptop'></i></span>SecYP</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title=""><i class='fas fa-book'></i>所有文章</a><a class="menu-item" href="/categories/" title=""><i class='fas fa-folder'></i>分类</a><a class="menu-item" href="/tags/" title=""><i class='fas fa-tags'></i>标签</a><a class="menu-item" href="/about/" title=""><i class='fas fa-id-card'></i>关于</a><a class="menu-item" href="https://m.sec-yp.cn" title="" rel="noopener noreffer" target="_blank"><i class='fas fa-tools'></i>memos</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Python Tricks</h1><div class="post-meta">
+            <div class="post-meta-line">
+                </div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-02-08">2021-02-08</time>&nbsp;<span class="post-category"><a href="/categories/python/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Python</a></span>&nbsp;<i class="fas fa-tags fa-fw" aria-hidden="true"></i><a href="/tags/tips/">tips</a></div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#启动服务器">启动服务器</a></li>
+    <li><a href="#args和kwargs"><code>*args</code>和<code>**kwargs</code></a>
+      <ul>
+        <li><a href="#介绍">介绍</a></li>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+    <li><a href="#一行式">一行式</a></li>
+    <li><a href="#python的itertools模板">Python的itertools模板</a></li>
+    <li><a href="#python中定义二维数组">Python中定义二维数组</a>
+      <ul>
+        <li><a href="#引入">引入</a></li>
+        <li><a href="#延伸">延伸</a></li>
+      </ul>
+    </li>
+    <li><a href="#字典dict">字典(dict)</a>
+      <ul>
+        <li><a href="#基础使用">基础使用</a></li>
+        <li><a href="#按key值或按value值排序">按key值或按value值排序</a></li>
+      </ul>
+    </li>
+    <li><a href="#一个有趣的python排序模块bisect">一个有趣的python排序模块：bisect</a></li>
+    <li><a href="#python-中swap">python 中swap</a></li>
+    <li><a href="#python模块包">Python模块包</a></li>
+    <li><a href="#python排序">Python排序</a></li>
+    <li><a href="#yield用法">yield用法</a>
+      <ul>
+        <li><a href="#简介">简介</a></li>
+      </ul>
+    </li>
+    <li><a href="#python-zip">python zip()</a></li>
+    <li><a href="#牛逼哄哄的注释">牛逼哄哄的注释</a></li>
+    <li><a href="#列出当前目录下所有文件和目录名">列出当前目录下所有文件和目录名</a></li>
+    <li><a href="#简易进度条">简易进度条</a></li>
+    <li><a href="#collections">collections</a></li>
+    <li><a href="#hostname-ip">hostname-&gt;IP</a></li>
+    <li><a href="#py-文件转成-exe-文件">Py 文件转成 EXE 文件</a></li>
+    <li><a href="#单下划线和双下划线">单下划线和双下划线</a>
+      <ul>
+        <li><a href="#单下划线">单下划线</a></li>
+        <li><a href="#双下划线">双下划线</a></li>
+        <li><a href="#ref">ref</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>python tricks，持续更新&hellip;&hellip;</p>
+<h2 id="启动服务器">启动服务器</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># python2</span>
+</span></span><span class="line"><span class="cl"><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">SimpleHTTPServer</span> <span class="mi">8001</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># python3</span>
+</span></span><span class="line"><span class="cl"><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">http</span><span class="o">.</span><span class="n">server</span> <span class="mi">3000</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="args和kwargs"><code>*args</code>和<code>**kwargs</code></h2>
+<h3 id="介绍">介绍</h3>
+<p><code>*args</code>是可变的positional arguments列表
+<code>**kwargs</code>是可变的keyword arguments列表</p>
+<p><code>*args</code>必须位于<code>**kwargs</code>之前</p>
+<p>如果说在函数定义的位置使用<code>*args</code>和<code>**kwargs</code>是一个将参数pack的过程，那么在函数调用的时候就是一个将参数unpack的过程了</p>
+<h3 id="参考">参考</h3>
+<p><a href="https://kodango.com/variable-arguments-in-python" target="_blank" rel="noopener noreffer ">https://kodango.com/variable-arguments-in-python</a></p>
+<h2 id="一行式">一行式</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;self&#39;</span><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>参考</strong></p>
+<p><a href="https://eastlakeside.gitbook.io/interpy-zh/onelines" target="_blank" rel="noopener noreffer ">https://eastlakeside.gitbook.io/interpy-zh/onelines</a></p>
+<h2 id="python的itertools模板">Python的itertools模板</h2>
+<p>参考：
+<a href="http://wklken.me/posts/2013/08/20/python-extra-itertools.html" target="_blank" rel="noopener noreffer ">http://wklken.me/posts/2013/08/20/python-extra-itertools.html</a>
+<a href="https://blog.csdn.net/fuxuemingzhu/article/details/79869193" target="_blank" rel="noopener noreffer ">https://blog.csdn.net/fuxuemingzhu/article/details/79869193</a></p>
+<p>可以先看下 itertools.combinations(points, 3)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">()</span><span class="err">全排列</span>
+</span></span><span class="line"><span class="cl"><span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">()</span><span class="err">组合</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>经典题目：
+<a href="https://leetcode-cn.com/problems/ambiguous-coordinates/description/" target="_blank" rel="noopener noreffer ">https://leetcode-cn.com/problems/ambiguous-coordinates/description/</a></p>
+<h2 id="python中定义二维数组">Python中定义二维数组</h2>
+<h3 id="引入">引入</h3>
+<p>昨天做算法题目的时候遇到一个贼坑的Python语法问题，就跟我以前开始不知道Python里面的字符串不可更改一样。</p>
+<p>下面直接来看一个例子吧：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#coding: utf-8</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="p">[[]]</span><span class="o">*</span><span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span> <span class="n">a</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对于上面这个例子，我心里的预期结果是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[[1], [], [], [], []]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>但是很遗憾我得到的结果却是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[[1], [1], [1], [1], [1]]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>为什么会这样呢？究其原因是因为Python的语法特性，直接来看官方文档的<a href="https://docs.python.org/2/library/stdtypes.html#sequence-types-str-unicode-list-tuple-bytearray-buffer-xrange" target="_blank" rel="noopener noreffer ">解释</a></p>
+<blockquote>
+<p>What has happened is that <code>[[]]</code> is a one-element list containing an empty list, so all three elements of <code>[[]] * 3</code> are references to this single empty list. Modifying any of the elements of <code>lists</code> modifies this single list.</p>
+</blockquote>
+<p>所以创建二维数组时，应该按照以下方法创建：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">lists</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">lists</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">lists</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">lists</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">lists</span>
+</span></span><span class="line"><span class="cl"><span class="p">[[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">]]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>参考：
+<a href="https://www.cnblogs.com/woshare/p/5823303.html" target="_blank" rel="noopener noreffer ">https://www.cnblogs.com/woshare/p/5823303.html</a></p>
+<h3 id="延伸">延伸</h3>
+<p>新手常犯的错误：直接google新手常犯的错误</p>
+<h2 id="字典dict">字典(dict)</h2>
+<h3 id="基础使用">基础使用</h3>
+<p>Python 中的动态数组是如何使用的
+获取字典的键值和values</p>
+<p>dict.get(key, default=None)
+返回指定键的值，如果值不在字典中返回default值
+参考：菜鸟教程</p>
+<h3 id="按key值或按value值排序">按key值或按value值排序</h3>
+<p>下面是按key对字典进行排序</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">d</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="一个有趣的python排序模块bisect">一个有趣的python排序模块：bisect</h2>
+<p>参考：https://www.cnblogs.com/skydesign/archive/2011/09/02/2163592.html</p>
+<h2 id="python-中swap">python 中swap</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">在涉及到数组的时候会有点不一样</span><span class="err">，</span><span class="n">有时候出错很可能会在这里出错</span><span class="err">，</span><span class="n">最保险的是用3行进行交换</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="python模块包">Python模块包</h2>
+<p>可以将功能相似的模块放在同一个文件夹（比如说this_dir）中，构成一个模块包。</p>
+<p>通过</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">this_dir.module</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>引入this_dir文件夹中的module模块。</p>
+<p>该文件夹中必须包含一个<code>__init__.py</code>的文件，提醒Python，该文件夹为一个模块包。<code>__init__.py</code>可以是一个空文件。</p>
+<h2 id="python排序">Python排序</h2>
+<p>Python对二维数组进行排序</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 按照第二列进行排序</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#如果第一个元素相同那么按照第二个元素排序</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加负号表示逆序</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:(</span><span class="o">-</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>参考：
+<a href="https://blog.csdn.net/hanshileiai/article/details/44241385" target="_blank" rel="noopener noreffer ">https://blog.csdn.net/hanshileiai/article/details/44241385</a></p>
+<p>题目:<a href="https://leetcode-cn.com/problems/queue-reconstruction-by-height/description/" target="_blank" rel="noopener noreffer ">406. 根据身高重建队列</a></p>
+<h2 id="yield用法">yield用法</h2>
+<h3 id="简介">简介</h3>
+<p><code>next()</code>
+<code>send()</code>
+<code>yield from</code> 的用法
+参考：
+<a href="http://youchen.me/2017/02/10/Python-main-use-for-yield-from/" target="_blank" rel="noopener noreffer ">http://youchen.me/2017/02/10/Python-main-use-for-yield-from/</a>
+<a href="http://blog.gusibi.com/post/python-coroutine-yield-from/" target="_blank" rel="noopener noreffer ">http://blog.gusibi.com/post/python-coroutine-yield-from/</a></p>
+<p>参考：
+<a href="https://www.jianshu.com/p/d676543ccdbb" target="_blank" rel="noopener noreffer ">https://www.jianshu.com/p/d676543ccdbb</a>
+<a href="https://zhuanlan.zhihu.com/p/23276711" target="_blank" rel="noopener noreffer ">https://zhuanlan.zhihu.com/p/23276711</a>
+<a href="http://pyzh.readthedocs.io/en/latest/the-python-yield-keyword-explained.html" target="_blank" rel="noopener noreffer ">http://pyzh.readthedocs.io/en/latest/the-python-yield-keyword-explained.html</a></p>
+<h2 id="python-zip">python zip()</h2>
+<p>关于zip的使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">carFleet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">speed</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cars</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">speed</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">times</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">target</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">/</span> <span class="n">s</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">cars</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">lead</span> <span class="o">=</span> <span class="n">times</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">lead</span> <span class="o">&lt;</span> <span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span> <span class="n">ans</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># if lead arrives sooner, it can&#39;t be caught</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span> <span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">lead</span> <span class="c1"># else, fleet arrives at later time &#39;lead&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ans</span> <span class="o">+</span> <span class="nb">bool</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="c1"># remaining car is fleet (if it exists)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>例子：
+<a href="https://leetcode.com/problems/car-fleet/solution/" target="_blank" rel="noopener noreffer ">https://leetcode.com/problems/car-fleet/solution/</a></p>
+<h2 id="牛逼哄哄的注释">牛逼哄哄的注释</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#             Python大法好 入教保平安</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#                    _ooOoo_</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#                   o8888888o</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#                   88&#34; . &#34;88</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#                   (| °_° |)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#                   O\  =  /O</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#                ____/`---&#39;\____</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#              .&#39;  \\|     |//  `.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#             /  \\|||  :  |||//  \</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#            /  _||||| -:- |||||-  \</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#            |   | \\\  -  /// |   |</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#            | \_|  &#39;&#39;\---/&#39;&#39;  |   |</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#            \  .-\__  `-`  ___/-. /</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#          ___`. .&#39;  /--.--\  `. . __</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       .&#34;&#34; &#39;&lt;  `.___\_&lt;|&gt;_/___.&#39;  &gt;&#39;&#34;&#34;.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#      | | :  `- `.;`\ _ /`;.`/ - ` : | |</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#      \  \ `-.   \_ __\ /__ _/   .-` /  /</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ======`-.____`-.___\_____/___.-`____.-&#39;======</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#                    `=---=&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#             佛祖保佑       永无BUG</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    练手项目 锻炼技巧 不要做坏事 出事与本人无关</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="列出当前目录下所有文件和目录名">列出当前目录下所有文件和目录名</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span> <span class="c1">#导入os模块，模块的概念后面讲到</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)]</span> <span class="c1"># os.listdir可以列出文件和目录</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="简易进度条">简易进度条</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl"><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&#34;#:</span><span class="si">{0}</span><span class="se">\r</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>\r</code> 回到一行的头部</p>
+<p>example：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#encoding: utf-8</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&#34;##:</span><span class="si">{0}</span><span class="s2">/30</span><span class="se">\r</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>参考：
+<a href="http://python.jobbole.com/83692/" target="_blank" rel="noopener noreffer ">http://python.jobbole.com/83692/</a></p>
+<h2 id="collections">collections</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">collections</span>
+</span></span><span class="line"><span class="cl"><span class="n">lst</span> <span class="o">=</span> <span class="p">[]</span>    <span class="c1"># lst存放所谓的100万个元素</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 瞬间出结果</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># k是lst中的每个元素</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># d[k]是k在lst中出现的次数</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="hostname-ip">hostname-&gt;IP</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#Resolve all hostnames in a file to IP addresses:</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">socket</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ip</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostbyname</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ip</span> <span class="o">=</span> <span class="s2">&#34;Doesn&#39;t resolve&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="s2">&#34; -&gt; &#34;</span> <span class="o">+</span> <span class="n">ip</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="py-文件转成-exe-文件">Py 文件转成 EXE 文件</h2>
+<p>参考:https://www.youtube.com/watch?v=UZX5kH72Yx4&amp;t=28s</p>
+<p>这里我使用这个项目作为示例:https://github.com/yangshun/2048-python</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="err">$</span><span class="n">pip3</span> <span class="n">install</span> <span class="n">pyinstaller</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 这一步会生成两个文件夹和一个文件，只保留 dir 里面的 exe 文件就可以了</span>
+</span></span><span class="line"><span class="cl"><span class="err">$</span><span class="n">pyinstaller</span> <span class="o">--</span><span class="n">onefile</span> <span class="o">-</span><span class="n">w</span> <span class="n">puzzle</span><span class="o">.</span><span class="n">py</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下面将生成的 exe 文件移动到项目的主目录下，然后生成 zip 文件</p>
+<p>使用 NSIS 生成最终的可以在 windows 上安装的 exe 文件就可以了</p>
+<h2 id="单下划线和双下划线">单下划线和双下划线</h2>
+<h3 id="单下划线">单下划线</h3>
+<p>单下划线前缀名称(例如_pythonPoint)：
+这表示这是一个保护成员（属性或者方法），只有类对象和子类对象自己能访问到这些变量，是用来指定私有变量和方法的一种方式(约定而已)。</p>
+<p>单下划线后缀名称：
+通常用于和Python关键词区分开来</p>
+<h3 id="双下划线">双下划线</h3>
+<p>&ldquo;双下划线&rdquo; 开始的是私有成员，意思是只有类对象自己能访问，连子类对象也不能访问到这个数据。</p>
+<h3 id="ref">ref</h3>
+<p><a href="https://zhuanlan.zhihu.com/p/36173202" target="_blank" rel="noopener noreffer ">https://zhuanlan.zhihu.com/p/36173202</a></p>
+<p><a href="https://juejin.im/post/6844903937976303624" target="_blank" rel="noopener noreffer ">https://juejin.im/post/6844903937976303624</a></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-02-08</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="post-nav"><a href="/posts/python/python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" class="prev" rel="prev" title="Python虚拟环境"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Python虚拟环境</a>
+            <a href="/posts/%E6%8A%98%E8%85%BE/%E9%87%8D%E6%8B%BEblog/" class="next" rel="next" title="重拾Blog">重拾Blog<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.120.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{"gitalk":{"admin":["Catcheryp"],"clientID":"3413fcf55c460ebaeca0","clientSecret":"8236c957d217498d747a3052a231465f1de00a82","id":"2021-02-08T00:00:00Z","owner":"Catcheryp","repo":"blog-comment","title":"Python Tricks"}},"search":{"algoliaAppID":"85V4PL8VUD","algoliaIndex":"blog","algoliaSearchKey":"eb14bb554d2c95a05b991c7ea03dc9c4","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

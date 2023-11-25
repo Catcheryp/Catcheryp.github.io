@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>C语言实现Linux的ls命令 - SecYP</title><meta name="Description" content="这看似变化无章的世界，偏偏最循规蹈矩，因果是一切规矩的规矩。"><meta property="og:title" content="C语言实现Linux的ls命令" />
+<meta property="og:description" content="2020年第一篇正儿八经的博客，好好学习下Linux，用C语言实现Linux下的ls命令，很基础的知识。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.sec-yp.me/posts/linux/linux%E7%BC%96%E7%A8%8B/c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0ls/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-01-04T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-01-04T00:00:00+00:00" /><meta property="og:site_name" content="SecYP" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C语言实现Linux的ls命令"/>
+<meta name="twitter:description" content="2020年第一篇正儿八经的博客，好好学习下Linux，用C语言实现Linux下的ls命令，很基础的知识。"/>
+<meta name="twitter:site" content="@catcheryp"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="https://catcheryp.github.io/favicon-32x32.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.sec-yp.me/posts/linux/linux%E7%BC%96%E7%A8%8B/c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0ls/" /><link rel="prev" href="https://blog.sec-yp.me/posts/%E6%8A%98%E8%85%BE/%E5%8D%9A%E5%AE%A2%E5%8A%A0https/" /><link rel="next" href="https://blog.sec-yp.me/posts/python/python%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85%E5%BA%93/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "C语言实现Linux的ls命令",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.sec-yp.me\/posts\/linux\/linux%E7%BC%96%E7%A8%8B\/c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0ls\/"
+        },"genre": "posts","keywords": "apue","wordcount":  1122 ,
+        "url": "https:\/\/blog.sec-yp.me\/posts\/linux\/linux%E7%BC%96%E7%A8%8B\/c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0ls\/","datePublished": "2020-01-04T00:00:00+00:00","dateModified": "2020-01-04T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="SecYP"><span class="header-title-pre"><i class='fas fa-laptop'></i></span>SecYP</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"><i class='fas fa-book'></i> 所有文章 </a><a class="menu-item" href="/categories/"><i class='fas fa-folder'></i> 分类 </a><a class="menu-item" href="/tags/"><i class='fas fa-tags'></i> 标签 </a><a class="menu-item" href="/about/"><i class='fas fa-id-card'></i> 关于 </a><a class="menu-item" href="https://m.sec-yp.cn" rel="noopener noreffer" target="_blank"><i class='fas fa-tools'></i> memos </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="SecYP"><span class="header-title-pre"><i class='fas fa-laptop'></i></span>SecYP</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title=""><i class='fas fa-book'></i>所有文章</a><a class="menu-item" href="/categories/" title=""><i class='fas fa-folder'></i>分类</a><a class="menu-item" href="/tags/" title=""><i class='fas fa-tags'></i>标签</a><a class="menu-item" href="/about/" title=""><i class='fas fa-id-card'></i>关于</a><a class="menu-item" href="https://m.sec-yp.cn" title="" rel="noopener noreffer" target="_blank"><i class='fas fa-tools'></i>memos</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">C语言实现Linux的ls命令</h1><div class="post-meta">
+            <div class="post-meta-line">
+                </div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2020-01-04">2020-01-04</time>&nbsp;<span class="post-category"><a href="/categories/linux/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Linux</a></span>&nbsp;<i class="fas fa-tags fa-fw" aria-hidden="true"></i><a href="/tags/apue/">apue</a></div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#基础知识">基础知识</a></li>
+    <li><a href="#ls的c语言实现">ls的C语言实现</a></li>
+    <li><a href="#ref">Ref</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>2020年第一篇正儿八经的博客，好好学习下Linux，用C语言实现Linux下的ls命令，很基础的知识。</p>
+<h2 id="基础知识">基础知识</h2>
+<p>先看下DIR结构体、dirent结构体和stat结构体</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">__dirstream</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span>    <span class="o">*</span><span class="n">__fd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span>    <span class="o">*</span><span class="n">__data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span>      <span class="n">__entry_data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span>    <span class="o">*</span><span class="n">__ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span>      <span class="n">__entry_ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">size_t</span>   <span class="n">__allocation</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">size_t</span>   <span class="n">__size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">__libc_lock_define</span> <span class="p">(,</span> <span class="n">__lock</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">__dirstream</span> <span class="n">DIR</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">dirent</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">ino_t</span>          <span class="n">d_ino</span><span class="p">;</span>       <span class="cm">/* inode number 索引节点号*/</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">off_t</span>          <span class="n">d_off</span><span class="p">;</span>       <span class="cm">/* offset to the next dirent 在目录文件中的偏移 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">d_reclen</span><span class="p">;</span>    <span class="cm">/* length of this record 文件名长*/</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">char</span>  <span class="n">d_type</span><span class="p">;</span>      <span class="cm">/* type of file; not supported by all file system types 文件类型 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span>           <span class="n">d_name</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span> <span class="cm">/* filename 文件名*/</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">stat</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">mode_t</span>     <span class="n">st_mode</span><span class="p">;</span>       <span class="c1">//文件访问权限
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">ino_t</span>      <span class="n">st_ino</span><span class="p">;</span>       <span class="c1">//索引节点号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">dev_t</span>      <span class="n">st_dev</span><span class="p">;</span>        <span class="c1">//文件使用的设备号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">dev_t</span>      <span class="n">st_rdev</span><span class="p">;</span>       <span class="c1">//设备文件的设备号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">nlink_t</span>    <span class="n">st_nlink</span><span class="p">;</span>      <span class="c1">//文件的硬连接数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">uid_t</span>      <span class="n">st_uid</span><span class="p">;</span>        <span class="c1">//所有者用户识别号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">gid_t</span>      <span class="n">st_gid</span><span class="p">;</span>        <span class="c1">//组识别号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">off_t</span>      <span class="n">st_size</span><span class="p">;</span>       <span class="c1">//以字节为单位的文件容量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">time_t</span>     <span class="n">st_atime</span><span class="p">;</span>      <span class="c1">//最后一次访问该文件的时间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">time_t</span>     <span class="n">st_mtime</span><span class="p">;</span>      <span class="c1">//最后一次修改该文件的时间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">time_t</span>     <span class="n">st_ctime</span><span class="p">;</span>      <span class="c1">//最后一次改变该文件状态的时间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">blksize_t</span> <span class="n">st_blksize</span><span class="p">;</span>    <span class="c1">//包含该文件的磁盘块的大小
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">blkcnt_t</span>   <span class="n">st_blocks</span><span class="p">;</span>     <span class="c1">//该文件所占的磁盘块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>目录操作相关函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">//功能:打开一个目录; 返回值:成功则返回DIR*型态的目录流, 打开失败则返回NULL.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">DIR</span><span class="o">*</span> <span class="nf">opendir</span><span class="p">(</span><span class="n">constchar</span> <span class="o">*</span> <span class="n">path</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//功能:循环读取dp中的文件和目录，每读取一个文件或目录都返回一个dirent结构体指针; 返回值:读取失败返回NULL
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="n">dirent</span><span class="o">*</span> <span class="nf">readdir</span><span class="p">(</span><span class="n">DIR</span><span class="o">*</span> <span class="n">dp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//功能:关闭参数dp所指的目录流; 返回值:关闭成功则返回0,，失败返回-1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">closedir</span><span class="p">(</span><span class="n">DIR</span><span class="o">*</span><span class="n">dp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//功能:通过文件名file_name获取文件信息，并保存在buf所指的结构体stat中; 返回值:执行成功则返回0，失败返回-1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">stat</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">file_name</span><span class="p">,</span><span class="k">struct</span> <span class="n">stat</span> <span class="o">*</span><span class="n">buf</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="ls的c语言实现">ls的C语言实现</h2>
+<p>先实现个最简单的V1.0版本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;dirent.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]){</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">DIR</span> <span class="o">*</span><span class="n">dp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">dirp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;usage: ls directory_name</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="k">if</span><span class="p">((</span><span class="n">dp</span> <span class="o">=</span> <span class="nf">opendir</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;can&#39;t open %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="k">while</span><span class="p">((</span><span class="n">dirp</span> <span class="o">=</span> <span class="nf">readdir</span><span class="p">(</span><span class="n">dp</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">dirp</span><span class="o">-&gt;</span><span class="n">d_name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="nf">closedir</span><span class="p">(</span><span class="n">dp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   <span class="nf">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>封装一下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;dirent.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">do_ls</span><span class="p">(</span><span class="kt">char</span><span class="p">[]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">argc</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">do_ls</span><span class="p">(</span><span class="s">&#34;.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">do_ls</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">do_ls</span><span class="p">(</span><span class="kt">char</span> <span class="n">dirname</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DIR</span> <span class="o">*</span><span class="n">dp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">dirp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">((</span><span class="n">dp</span><span class="o">=</span><span class="nf">opendir</span><span class="p">(</span><span class="n">dirname</span><span class="p">))</span><span class="o">==</span><span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="s">&#34;can&#39;t open %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">dirname</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">((</span><span class="n">dirp</span><span class="o">=</span><span class="nf">readdir</span><span class="p">(</span><span class="n">dp</span><span class="p">))</span><span class="o">!=</span><span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">dirp</span><span class="o">-&gt;</span><span class="n">d_name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">closedir</span><span class="p">(</span><span class="n">dp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>再实现个V2.0版本使用stat结构体可以列出每个文件详细信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;dirent.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">//代码的报错处理没写好
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">//列出文件的信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">show_stat_info</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">,</span> <span class="k">struct</span> <span class="n">stat</span> <span class="o">*</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]){</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">stat</span> <span class="n">info</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;usage: ls directory_name</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//do_ls(*argv[1]);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nf">stat</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">info</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">show_stat_info</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="o">&amp;</span><span class="n">info</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">show_stat_info</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">fname</span><span class="p">,</span> <span class="k">struct</span> <span class="n">stat</span> <span class="o">*</span><span class="n">buf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;  mode:  %o</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span><span class="o">-&gt;</span><span class="n">st_mode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34; links:  %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span><span class="o">-&gt;</span><span class="n">st_nlink</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;  user:  %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span><span class="o">-&gt;</span><span class="n">st_uid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;  group: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span><span class="o">-&gt;</span><span class="n">st_gid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;   size: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span><span class="o">-&gt;</span><span class="n">st_size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;modtime: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span><span class="o">-&gt;</span><span class="n">st_mtime</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;  group: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">fname</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">------------------</span>
+</span></span><span class="line"><span class="cl"><span class="err">$</span><span class="p">.</span><span class="o">/</span><span class="n">test2</span> <span class="n">test</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">mode</span><span class="p">:</span>  <span class="mi">100755</span>
+</span></span><span class="line"><span class="cl"> <span class="nl">links</span><span class="p">:</span>  <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">user</span><span class="p">:</span>  <span class="mi">501</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">group</span><span class="p">:</span> <span class="mi">20</span>
+</span></span><span class="line"><span class="cl">   <span class="nl">size</span><span class="p">:</span> <span class="mi">12772</span>
+</span></span><span class="line"><span class="cl"><span class="nl">modtime</span><span class="p">:</span> <span class="mi">1578118793</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">group</span><span class="p">:</span> <span class="n">test</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>实现个V3.0版本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;dirent.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">//代码的报错处理没写好
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">//列出目录下的所有文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">do_ls</span><span class="p">(</span><span class="kt">char</span><span class="p">[]);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//展示文件信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">dostat</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//列出文件的信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">show_stat_info</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">,</span> <span class="k">struct</span> <span class="n">stat</span> <span class="o">*</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]){</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">argc</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">do_ls</span><span class="p">(</span><span class="s">&#34;.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">do_ls</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">do_ls</span><span class="p">(</span><span class="kt">char</span> <span class="n">dirname</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DIR</span> <span class="o">*</span><span class="n">dp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">dirp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">((</span><span class="n">dp</span><span class="o">=</span><span class="nf">opendir</span><span class="p">(</span><span class="n">dirname</span><span class="p">))</span><span class="o">==</span><span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="s">&#34;can&#39;t open %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">dirname</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">((</span><span class="n">dirp</span><span class="o">=</span><span class="nf">readdir</span><span class="p">(</span><span class="n">dp</span><span class="p">))</span><span class="o">!=</span><span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//printf(&#34;%s\n&#34;,dirp-&gt;d_name);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nf">dostat</span><span class="p">(</span><span class="n">dirp</span><span class="o">-&gt;</span><span class="n">d_name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">closedir</span><span class="p">(</span><span class="n">dp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">dostat</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">stat</span> <span class="n">info</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nf">stat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="o">&amp;</span><span class="n">info</span><span class="p">)</span><span class="o">==-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">perror</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">show_stat_info</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="o">&amp;</span><span class="n">info</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">show_stat_info</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">fname</span><span class="p">,</span> <span class="k">struct</span> <span class="n">stat</span> <span class="o">*</span><span class="n">buf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;  mode:  %o</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span><span class="o">-&gt;</span><span class="n">st_mode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34; links:  %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span><span class="o">-&gt;</span><span class="n">st_nlink</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;  user:  %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span><span class="o">-&gt;</span><span class="n">st_uid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;  group: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span><span class="o">-&gt;</span><span class="n">st_gid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;   size: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span><span class="o">-&gt;</span><span class="n">st_size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;modtime: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span><span class="o">-&gt;</span><span class="n">st_mtime</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;  group: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">fname</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">--------------------</span>
+</span></span><span class="line"><span class="cl"><span class="err">$</span><span class="p">.</span><span class="o">/</span><span class="n">test1</span> <span class="p">.</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">mode</span><span class="p">:</span>  <span class="mi">40700</span>
+</span></span><span class="line"><span class="cl"> <span class="nl">links</span><span class="p">:</span>  <span class="mi">63</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">user</span><span class="p">:</span>  <span class="mi">501</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">group</span><span class="p">:</span> <span class="mi">20</span>
+</span></span><span class="line"><span class="cl">   <span class="nl">size</span><span class="p">:</span> <span class="mi">2016</span>
+</span></span><span class="line"><span class="cl"><span class="nl">modtime</span><span class="p">:</span> <span class="mi">1578125448</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">group</span><span class="p">:</span> <span class="p">.</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">mode</span><span class="p">:</span>  <span class="mi">40755</span>
+</span></span><span class="line"><span class="cl"> <span class="nl">links</span><span class="p">:</span>  <span class="mi">145</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">user</span><span class="p">:</span>  <span class="mi">501</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">group</span><span class="p">:</span> <span class="mi">20</span>
+</span></span><span class="line"><span class="cl">   <span class="nl">size</span><span class="p">:</span> <span class="mi">4640</span>
+</span></span><span class="line"><span class="cl"><span class="nl">modtime</span><span class="p">:</span> <span class="mi">1578125452</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">group</span><span class="p">:</span> <span class="p">..</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">mode</span><span class="p">:</span>  <span class="mi">40755</span>
+</span></span><span class="line"><span class="cl"> <span class="nl">links</span><span class="p">:</span>  <span class="mi">9</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">user</span><span class="p">:</span>  <span class="mi">501</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">group</span><span class="p">:</span> <span class="mi">20</span>
+</span></span><span class="line"><span class="cl">   <span class="nl">size</span><span class="p">:</span> <span class="mi">288</span>
+</span></span><span class="line"><span class="cl"><span class="nl">modtime</span><span class="p">:</span> <span class="mi">1575381270</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">group</span><span class="p">:</span> <span class="n">rce</span><span class="o">-</span><span class="n">over</span><span class="o">-</span><span class="n">spark</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">mode</span><span class="p">:</span>  <span class="mi">40755</span>
+</span></span><span class="line"><span class="cl"> <span class="nl">links</span><span class="p">:</span>  <span class="mi">7</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">user</span><span class="p">:</span>  <span class="mi">501</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">group</span><span class="p">:</span> <span class="mi">20</span>
+</span></span><span class="line"><span class="cl">   <span class="nl">size</span><span class="p">:</span> <span class="mi">224</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>现在可以写出最终版本了，把文件展示出来的信息修改成与ls一致的信息即可</p>
+<p>这里需要补充两个结构体，是将user和group的数字形式转换成name形式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">//pwd.h
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="n">passwd</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">pw_name</span><span class="p">;</span>                <span class="cm">/* Username.  */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">pw_passwd</span><span class="p">;</span>              <span class="cm">/* Password.  */</span>
+</span></span><span class="line"><span class="cl">  <span class="n">__uid_t</span> <span class="n">pw_uid</span><span class="p">;</span>               <span class="cm">/* User ID.  */</span>
+</span></span><span class="line"><span class="cl">  <span class="n">__gid_t</span> <span class="n">pw_gid</span><span class="p">;</span>               <span class="cm">/* Group ID.  */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">pw_gecos</span><span class="p">;</span>               <span class="cm">/* Real name.  */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">pw_dir</span><span class="p">;</span>                 <span class="cm">/* Home directory.  */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">pw_shell</span><span class="p">;</span>               <span class="cm">/* Shell program.  */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//grp.h
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="n">group</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="o">*</span><span class="n">gr_name</span><span class="p">;</span>              <span class="cm">/* Group name.  */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="o">*</span><span class="n">gr_passwd</span><span class="p">;</span>            <span class="cm">/* Password.    */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">__gid_t</span> <span class="n">gr_gid</span><span class="p">;</span>             <span class="cm">/* Group ID.    */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="o">**</span><span class="n">gr_mem</span><span class="p">;</span>              <span class="cm">/* Member list. */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;dirent.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;grp.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;pwd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">//代码的报错处理没写好
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">//列出目录下的所有文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">do_ls</span><span class="p">(</span><span class="kt">char</span><span class="p">[]);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//展示文件信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">dostat</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//列出文件的信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">show_file_info</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">,</span> <span class="k">struct</span> <span class="n">stat</span> <span class="o">*</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//将文件属性修改成d/-,权限修改成rwx
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">mode_to_letters</span><span class="p">(</span><span class="kt">int</span> <span class="p">,</span><span class="kt">char</span><span class="p">[]);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="o">*</span> <span class="nf">uid_to_name</span><span class="p">(</span><span class="kt">uid_t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="o">*</span> <span class="nf">gid_to_name</span><span class="p">(</span><span class="kt">gid_t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]){</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">argc</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">do_ls</span><span class="p">(</span><span class="s">&#34;.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">do_ls</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">do_ls</span><span class="p">(</span><span class="kt">char</span> <span class="n">dirname</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DIR</span> <span class="o">*</span><span class="n">dp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">dirp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">((</span><span class="n">dp</span><span class="o">=</span><span class="nf">opendir</span><span class="p">(</span><span class="n">dirname</span><span class="p">))</span><span class="o">==</span><span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="s">&#34;can&#39;t open %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">dirname</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">((</span><span class="n">dirp</span><span class="o">=</span><span class="nf">readdir</span><span class="p">(</span><span class="n">dp</span><span class="p">))</span><span class="o">!=</span><span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//printf(&#34;%s\n&#34;,dirp-&gt;d_name);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nf">dostat</span><span class="p">(</span><span class="n">dirp</span><span class="o">-&gt;</span><span class="n">d_name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">closedir</span><span class="p">(</span><span class="n">dp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">dostat</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">stat</span> <span class="n">info</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nf">stat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="o">&amp;</span><span class="n">info</span><span class="p">)</span><span class="o">==-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">perror</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">show_file_info</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="o">&amp;</span><span class="n">info</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">show_file_info</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">,</span> <span class="k">struct</span> <span class="n">stat</span> <span class="o">*</span><span class="n">info_p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="o">*</span><span class="nf">uid_to_name</span><span class="p">(),</span> <span class="o">*</span><span class="nf">ctime</span><span class="p">(),</span> <span class="o">*</span><span class="nf">gid_to_name</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">mode_to_letters</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">modestr</span><span class="p">[</span><span class="mi">11</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">mode_to_letters</span><span class="p">(</span><span class="n">info_p</span><span class="o">-&gt;</span><span class="n">st_mode</span><span class="p">,</span><span class="n">modestr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%s&#34;</span><span class="p">,</span><span class="n">modestr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%4d&#34;</span><span class="p">,(</span><span class="kt">int</span><span class="p">)</span> <span class="n">info_p</span><span class="o">-&gt;</span><span class="n">st_nlink</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;% -8s&#34;</span><span class="p">,</span> <span class="nf">uid_to_name</span><span class="p">(</span><span class="n">info_p</span><span class="o">-&gt;</span><span class="n">st_uid</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;% -8s&#34;</span><span class="p">,</span><span class="nf">gid_to_name</span><span class="p">(</span><span class="n">info_p</span><span class="o">-&gt;</span><span class="n">st_gid</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%8ld&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">info_p</span><span class="o">-&gt;</span><span class="n">st_size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%.12s&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="o">+</span><span class="nf">ctime</span><span class="p">(</span><span class="o">&amp;</span><span class="n">info_p</span><span class="o">-&gt;</span><span class="n">st_mtime</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">filename</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">mode_to_letters</span><span class="p">(</span><span class="kt">int</span> <span class="n">mode</span><span class="p">,</span><span class="kt">char</span> <span class="n">str</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">strcpy</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="s">&#34;----------&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nf">S_ISDIR</span><span class="p">(</span><span class="n">mode</span><span class="p">))</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;d&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nf">S_ISCHR</span><span class="p">(</span><span class="n">mode</span><span class="p">))</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;c&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nf">S_ISBLK</span><span class="p">(</span><span class="n">mode</span><span class="p">))</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;b&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">&amp;</span> <span class="n">S_IRUSR</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;r&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">&amp;</span> <span class="n">S_IWUSR</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;w&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">&amp;</span> <span class="n">S_IXUSR</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;x&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">&amp;</span> <span class="n">S_IRGRP</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;r&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">&amp;</span> <span class="n">S_IWGRP</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;w&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">&amp;</span> <span class="n">S_IXGRP</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;x&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">&amp;</span> <span class="n">S_IROTH</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;r&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">&amp;</span> <span class="n">S_IWOTH</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;w&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">mode</span> <span class="o">&amp;</span> <span class="n">S_IXOTH</span><span class="p">)</span> <span class="n">str</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;x&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="o">*</span><span class="nf">uid_to_name</span><span class="p">(</span><span class="kt">uid_t</span> <span class="n">uid</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">passwd</span> <span class="o">*</span><span class="nf">getpwuid</span><span class="p">(),</span> <span class="o">*</span><span class="n">pw_ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="kt">char</span> <span class="n">numstr</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">((</span><span class="n">pw_ptr</span> <span class="o">=</span> <span class="nf">getpwuid</span><span class="p">(</span><span class="n">uid</span><span class="p">))</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sprintf</span><span class="p">(</span><span class="n">numstr</span><span class="p">,</span><span class="s">&#34;%d&#34;</span><span class="p">,</span><span class="n">uid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">numstr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">pw_ptr</span><span class="o">-&gt;</span><span class="n">pw_name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="o">*</span><span class="nf">gid_to_name</span><span class="p">(</span><span class="kt">gid_t</span> <span class="n">gid</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">group</span> <span class="o">*</span><span class="nf">getgrgid</span><span class="p">(),</span> <span class="o">*</span><span class="n">grp_ptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="kt">char</span> <span class="n">numstr</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">((</span><span class="n">grp_ptr</span> <span class="o">=</span> <span class="nf">getgrgid</span><span class="p">(</span><span class="n">gid</span><span class="p">))</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sprintf</span><span class="p">(</span><span class="n">numstr</span><span class="p">,</span><span class="s">&#34;%d&#34;</span><span class="p">,</span><span class="n">gid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">numstr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">grp_ptr</span><span class="o">-&gt;</span><span class="n">gr_name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下一篇用C语言实现Linux的ps命令&hellip;&hellip;</p>
+<h2 id="ref">Ref</h2>
+<p><a href="https://blog.nowcoder.net/n/9a48a7f697864e3bbdae2fe5bfcb0ef9" target="_blank" rel="noopener noreffer ">https://blog.nowcoder.net/n/9a48a7f697864e3bbdae2fe5bfcb0ef9</a></p>
+<p><a href="https://melville.club/posts/a-20190123-095755" target="_blank" rel="noopener noreffer ">https://melville.club/posts/a-20190123-095755</a></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-01-04</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="post-nav"><a href="/posts/%E6%8A%98%E8%85%BE/%E5%8D%9A%E5%AE%A2%E5%8A%A0https/" class="prev" rel="prev" title="博客加小绿锁"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>博客加小绿锁</a>
+            <a href="/posts/python/python%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85%E5%BA%93/" class="next" rel="next" title="离线安装Python各种库">离线安装Python各种库<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.120.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{"gitalk":{"admin":["Catcheryp"],"clientID":"3413fcf55c460ebaeca0","clientSecret":"8236c957d217498d747a3052a231465f1de00a82","id":"2020-01-04T00:00:00Z","owner":"Catcheryp","repo":"blog-comment","title":"C语言实现Linux的ls命令"}},"search":{"algoliaAppID":"85V4PL8VUD","algoliaIndex":"blog","algoliaSearchKey":"eb14bb554d2c95a05b991c7ea03dc9c4","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
