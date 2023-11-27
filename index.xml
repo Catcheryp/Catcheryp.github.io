@@ -3,9 +3,17 @@
         <title>SecYP</title>
         <link>https://blog.sec-yp.me/</link>
         <description>这看似变化无章的世界，偏偏最循规蹈矩，因果是一切规矩的规矩。</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 15 Nov 2023 00:00:00 &#43;0000</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 27 Nov 2023 00:00:00 &#43;0000</lastBuildDate>
             <atom:link href="https://blog.sec-yp.me/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>RSS信息</title>
+    <link>https://blog.sec-yp.me/posts/%E6%8A%98%E8%85%BE/rss/</link>
+    <pubDate>Mon, 27 Nov 2023 00:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://blog.sec-yp.me/posts/%E6%8A%98%E8%85%BE/rss/</guid>
+    <description><![CDATA[<p>我的RSS信息输入源、工具和方式。</p>]]></description>
+</item>
+<item>
     <title>Github Actions研究</title>
     <link>https://blog.sec-yp.me/posts/%E6%8A%98%E8%85%BE/github-actions%E7%A0%94%E7%A9%B6/</link>
     <pubDate>Wed, 15 Nov 2023 00:00:00 &#43;0000</pubDate>
@@ -51,7 +59,7 @@
     <pubDate>Mon, 20 Jan 2020 00:00:00 &#43;0000</pubDate>
     <author>作者</author>
     <guid>https://blog.sec-yp.me/posts/python/python%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85%E5%BA%93/</guid>
-    <description><![CDATA[<p>最近在搭建一个简易的平台，使用python cgi实现后台的简单逻辑需要安装paramiko库，但是很尴尬的是公司管理面的机器无法连外网，公司yum源的地址在这台机器上也没法使用，即使能使用pip源也用不了，就是各种坑。</p>]]></description>
+    <description><![CDATA[<p>要安装paramiko库，但是公司机器无法连外网，公司yum源在这台机器上也没法使用，即使能使用pip源也用不了。</p>]]></description>
 </item>
 <item>
     <title>C语言实现Linux的ls命令</title>

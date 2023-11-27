@@ -25,7 +25,7 @@
     <pubDate>Mon, 20 Jan 2020 00:00:00 &#43;0000</pubDate>
     <author>作者</author>
     <guid>https://blog.sec-yp.me/posts/python/python%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85%E5%BA%93/</guid>
-    <description><![CDATA[<p>最近在搭建一个简易的平台，使用python cgi实现后台的简单逻辑需要安装paramiko库，但是很尴尬的是公司管理面的机器无法连外网，公司yum源的地址在这台机器上也没法使用，即使能使用pip源也用不了，就是各种坑。</p>]]></description>
+    <description><![CDATA[<p>要安装paramiko库，但是公司机器无法连外网，公司yum源在这台机器上也没法使用，即使能使用pip源也用不了。</p>]]></description>
 </item>
 <item>
     <title>网络流量加密识别</title>
