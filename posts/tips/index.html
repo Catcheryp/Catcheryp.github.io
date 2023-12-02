@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/blog.sec-yp.me\/posts\/tips\/"
-        },"genre": "posts","keywords": "snipaste, git, typora","wordcount":  494 ,
+        },"genre": "posts","keywords": "snipaste, git, typora","wordcount":  434 ,
         "url": "https:\/\/blog.sec-yp.me\/posts\/tips\/","datePublished": "2023-11-09T07:51:41+08:00","dateModified": "2023-11-09T07:51:41+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -116,7 +116,6 @@
         <li><a href="#定时截图">定时截图</a></li>
       </ul>
     </li>
-    <li><a href="#git">Git</a></li>
     <li><a href="#typora">typora</a>
       <ul>
         <li><a href="#自动编号">自动编号</a></li>
@@ -143,49 +142,6 @@
 <h3 id="定时截图">定时截图</h3>
 <p>可以自动定时截图</p>
 <p><a href="https://www.faststone.org/FSCaptureDetail.htm" target="_blank" rel="noopener noreffer ">https://www.faststone.org/FSCaptureDetail.htm</a></p>
-<h2 id="git">Git</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1、当本地和远程的内容不一致，push报错的时候，使用下面的命令可以让，远程的仓库覆盖本地的仓库(如下图)</span>
-</span></span><span class="line"><span class="cl">git fetch --all <span class="o">&amp;&amp;</span>  git reset --hard origin/main <span class="o">&amp;&amp;</span> git pull
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 2、更新blog</span>
-</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">ub</span><span class="o">=</span><span class="s2">&#34;git add . &amp;&amp; git commit -m &#39;update blog&#39; &amp;&amp; git push&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 查看建立的软连接</span>
-</span></span><span class="line"><span class="cl"><span class="nb">alias</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 3、git bash中建立永久软连接：新建~/.bashrc文件，并将上面的命令添加进去即可</span>
-</span></span><span class="line"><span class="cl">vim ~/.bashrc
-</span></span><span class="line"><span class="cl"><span class="nb">source</span> ~/.bashrc
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 4、git强制提交本地分支覆盖远程分支</span>
-</span></span><span class="line"><span class="cl">git push origin master --force
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://image.sec-yp.cn/20231109185408.png"
-        data-srcset="https://image.sec-yp.cn/20231109185408.png, https://image.sec-yp.cn/20231109185408.png 1.5x, https://image.sec-yp.cn/20231109185408.png 2x"
-        data-sizes="auto"
-        alt="https://image.sec-yp.cn/20231109185408.png"
-        title="image-20231109185408783" /></p>
 <h2 id="typora">typora</h2>
 <h3 id="自动编号">自动编号</h3>
 <p>在<code>theme</code>主题的根目录下添加<code>base.user.css</code>文件，并在其中添加如下内容：</p>
@@ -498,7 +454,7 @@
             </noscript></div></article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.120.4">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2018 - 2023</span></div>
         </div>
     </footer></div>
 
