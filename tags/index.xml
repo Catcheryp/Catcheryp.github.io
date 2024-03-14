@@ -4,7 +4,7 @@
         <link>https://blog.sec-yp.me/tags/</link>
         <description>Tags - 标签 - SecYP</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 27 Nov 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://blog.sec-yp.me/tags/" rel="self" type="application/rss+xml" /><item>
-    <title>rss</title>
+    <title>Rss</title>
     <link>https://blog.sec-yp.me/tags/rss/</link>
     <pubDate>Mon, 27 Nov 2023 00:00:00 &#43;0000</pubDate>
     <author>作者</author>
@@ -20,7 +20,7 @@
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>blog</title>
+    <title>Blog</title>
     <link>https://blog.sec-yp.me/tags/blog/</link>
     <pubDate>Wed, 15 Nov 2023 00:00:00 &#43;0000</pubDate>
     <author>作者</author>
@@ -28,7 +28,7 @@
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>git</title>
+    <title>Git</title>
     <link>https://blog.sec-yp.me/tags/git/</link>
     <pubDate>Thu, 09 Nov 2023 07:51:41 &#43;0800</pubDate>
     <author>作者</author>
@@ -36,7 +36,7 @@
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>snipaste</title>
+    <title>Snipaste</title>
     <link>https://blog.sec-yp.me/tags/snipaste/</link>
     <pubDate>Thu, 09 Nov 2023 07:51:41 &#43;0800</pubDate>
     <author>作者</author>
@@ -44,7 +44,7 @@
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>typora</title>
+    <title>Typora</title>
     <link>https://blog.sec-yp.me/tags/typora/</link>
     <pubDate>Thu, 09 Nov 2023 07:51:41 &#43;0800</pubDate>
     <author>作者</author>
@@ -52,7 +52,7 @@
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>pipenv</title>
+    <title>Pipenv</title>
     <link>https://blog.sec-yp.me/tags/pipenv/</link>
     <pubDate>Mon, 08 Feb 2021 00:00:00 &#43;0000</pubDate>
     <author>作者</author>
@@ -60,7 +60,7 @@
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>tips</title>
+    <title>Tips</title>
     <link>https://blog.sec-yp.me/tags/tips/</link>
     <pubDate>Mon, 08 Feb 2021 00:00:00 &#43;0000</pubDate>
     <author>作者</author>
@@ -68,7 +68,7 @@
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>apue</title>
+    <title>Apue</title>
     <link>https://blog.sec-yp.me/tags/apue/</link>
     <pubDate>Sat, 04 Jan 2020 00:00:00 &#43;0000</pubDate>
     <author>作者</author>
@@ -76,7 +76,7 @@
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>coding</title>
+    <title>Coding</title>
     <link>https://blog.sec-yp.me/tags/coding/</link>
     <pubDate>Sat, 11 Aug 2018 00:00:00 &#43;0000</pubDate>
     <author>作者</author>
