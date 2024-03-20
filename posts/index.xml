@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>所有文章 - SecYP</title>
+        <title>所有文章 - sec-yp</title>
         <link>https://blog.sec-yp.me/posts/</link>
-        <description>所有文章 | SecYP</description>
+        <description>所有文章 | sec-yp</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 27 Nov 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://blog.sec-yp.me/posts/" rel="self" type="application/rss+xml" /><item>
     <title>RSS信息</title>
     <link>https://blog.sec-yp.me/posts/%E6%8A%98%E8%85%BE/rss/</link>

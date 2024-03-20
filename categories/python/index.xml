@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Python - 分类 - SecYP</title>
+        <title>Python - 分类 - sec-yp</title>
         <link>https://blog.sec-yp.me/categories/python/</link>
-        <description>Python - 分类 - SecYP</description>
+        <description>Python - 分类 - sec-yp</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 08 Feb 2021 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://blog.sec-yp.me/categories/python/" rel="self" type="application/rss+xml" /><item>
     <title>Python Tricks</title>
     <link>https://blog.sec-yp.me/posts/python/python-tricks/</link>

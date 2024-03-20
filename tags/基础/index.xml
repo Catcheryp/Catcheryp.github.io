@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>基础 - 标签 - SecYP</title>
+        <title>基础 - 标签 - sec-yp</title>
         <link>https://blog.sec-yp.me/tags/%E5%9F%BA%E7%A1%80/</link>
-        <description>基础 - 标签 - SecYP</description>
+        <description>基础 - 标签 - sec-yp</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 11 Aug 2018 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://blog.sec-yp.me/tags/%E5%9F%BA%E7%A1%80/" rel="self" type="application/rss+xml" /><item>
     <title>Git常用命令</title>
     <link>https://blog.sec-yp.me/posts/%E5%9F%BA%E7%A1%80/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/</link>
