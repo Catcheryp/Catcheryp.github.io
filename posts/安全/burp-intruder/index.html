@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Burp Intruder总结 - sec-yp</title><meta name="Description" content="学习没有失败，只有放弃。"><meta property="og:title" content="Burp Intruder总结" />
+<meta property="og:description" content="Burp Intruder总结，记录一些Tips和常用操作。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.sec-yp.me/posts/%E5%AE%89%E5%85%A8/burp-intruder/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-03-20T00:00:00+00:00" /><meta property="og:site_name" content="SecYP" />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Burp Intruder总结"/>
+<meta name="twitter:description" content="Burp Intruder总结，记录一些Tips和常用操作。"/>
+      <meta name="twitter:site" content="@catcheryp"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="https://catcheryp.github.io/favicon-32x32.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.sec-yp.me/posts/%E5%AE%89%E5%85%A8/burp-intruder/" /><link rel="prev" href="https://blog.sec-yp.me/posts/%E6%8A%98%E8%85%BE/rss/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Burp Intruder总结",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.sec-yp.me\/posts\/%E5%AE%89%E5%85%A8\/burp-intruder\/"
+        },"genre": "posts","keywords": "burpsuite","wordcount":  49 ,
+        "url": "https:\/\/blog.sec-yp.me\/posts\/%E5%AE%89%E5%85%A8\/burp-intruder\/","datePublished": "2024-03-20T00:00:00+00:00","dateModified": "2024-03-20T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="sec-yp"><span class="header-title-pre"><i class='fas fa-laptop'></i></span>sec-yp</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://m.sec-yp.cn" rel="noopener noreffer" target="_blank"> memos </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="sec-yp"><span class="header-title-pre"><i class='fas fa-laptop'></i></span>sec-yp</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://m.sec-yp.cn" title="" rel="noopener noreffer" target="_blank">memos</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Burp Intruder总结</h1><div class="post-meta">
+            <div class="post-meta-line">
+                </div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-20">2024-03-20</time>&nbsp;<span class="post-category"><a href="/categories/burp/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Burp</a></span>&nbsp;<i class="fas fa-tags fa-fw" aria-hidden="true"></i><a href="/tags/burpsuite/">Burpsuite</a></div>
+        </div><div class="content" id="content"><p>Burp Intruder总结，记录一些Tips和常用操作。</p>
+<p>基于 <a href="https://portswigger.net/web-security/nosql-injection/lab-nosql-injection-extract-unknown-fields" target="_blank" rel="noopener noreffer ">Exploiting NoSQL operator injection to extract unknown fields </a>靶场来介绍 intruder 的功能，该靶场的详解见<a href="https://sec-yp.me/testyp/NoSQL-injection-34ebe93949d74720b6a9a3065db8ddb4" target="_blank" rel="noopener noreffer ">这里</a>。</p>
+<h2 id="四种爆破模式">四种爆破模式</h2>
+<p>这里假设有两个位置需要爆破。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://image.sec-yp.cn/20240320213615.png"
+        data-srcset="https://image.sec-yp.cn/20240320213615.png, https://image.sec-yp.cn/20240320213615.png 1.5x, https://image.sec-yp.cn/20240320213615.png 2x"
+        data-sizes="auto"
+        alt="https://image.sec-yp.cn/20240320213615.png"
+        title="image-20240320213608010" /></p>
+<h3 id="sniper">Sniper</h3>
+<ul>
+<li>
+<p>第1个和第2个位置只能共用一个字典，假设字典中3个值</p>
+</li>
+<li>
+<p>先暴破第1个位置3次，第2个位置不变</p>
+</li>
+<li>
+<p>暴破第2个位置3次，第1个位置不变</p>
+</li>
+<li>
+<p>共暴破6次</p>
+</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://image.sec-yp.cn/20240320214408.png"
+        data-srcset="https://image.sec-yp.cn/20240320214408.png, https://image.sec-yp.cn/20240320214408.png 1.5x, https://image.sec-yp.cn/20240320214408.png 2x"
+        data-sizes="auto"
+        alt="https://image.sec-yp.cn/20240320214408.png"
+        title="image-20240320214408549" /></p>
+<h3 id="battering-ram">Battering ram</h3>
+<ul>
+<li>第1个和第2个位置只能共用一个字典，假设字典中3个值</li>
+<li>第1个位置和第2个位置同时暴破，每次使用相同的值</li>
+<li>共暴破3次</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://image.sec-yp.cn/20240320214545.png"
+        data-srcset="https://image.sec-yp.cn/20240320214545.png, https://image.sec-yp.cn/20240320214545.png 1.5x, https://image.sec-yp.cn/20240320214545.png 2x"
+        data-sizes="auto"
+        alt="https://image.sec-yp.cn/20240320214545.png"
+        title="image-20240320214545550" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://image.sec-yp.cn/20240320214603.png"
+        data-srcset="https://image.sec-yp.cn/20240320214603.png, https://image.sec-yp.cn/20240320214603.png 1.5x, https://image.sec-yp.cn/20240320214603.png 2x"
+        data-sizes="auto"
+        alt="https://image.sec-yp.cn/20240320214603.png"
+        title="image-20240320214603018" /></p>
+<h3 id="pitchfork">Pitchfork</h3>
+<ul>
+<li>第1个位置和第2个位置可以使用不同的字典</li>
+<li>假设第1个位置字典值为3个（1、2、3），第2个位置为4个（a、b、c、d）</li>
+<li>两个位置同时从各自字典的第1个值开始暴破</li>
+<li>暴破次数为<code>min(len(第1个字典), len(第2个字典))</code></li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://image.sec-yp.cn/20240320214921.png"
+        data-srcset="https://image.sec-yp.cn/20240320214921.png, https://image.sec-yp.cn/20240320214921.png 1.5x, https://image.sec-yp.cn/20240320214921.png 2x"
+        data-sizes="auto"
+        alt="https://image.sec-yp.cn/20240320214921.png"
+        title="image-20240320214921091" /></p>
+<h3 id="cluster-bomb">Cluster bomb</h3>
+<ul>
+<li>第1个位置和第2个位置可以使用不同的字典</li>
+<li>假设第1个位置字典值为3个（1、2、3），第2个位置为4个（a、b、c、d）</li>
+<li>两个位置同时进行暴破，类似使用全排列的方式进行暴破</li>
+<li>共暴破3*4=12次</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://image.sec-yp.cn/20240320215209.png"
+        data-srcset="https://image.sec-yp.cn/20240320215209.png, https://image.sec-yp.cn/20240320215209.png 1.5x, https://image.sec-yp.cn/20240320215209.png 2x"
+        data-sizes="auto"
+        alt="https://image.sec-yp.cn/20240320215209.png"
+        title="image-20240320215209790" /></p>
+<h2 id="常用内置字典">常用内置字典</h2>
+<img src="https://image.sec-yp.cn/20240320221004.png" alt="image-20240320221004515" style="zoom: 33%;" />
+<p>这里有很多常用的字典</p>
+<img src="https://image.sec-yp.cn/20240320221050.png" alt="image-20240320221050773" style="zoom:33%;" />
+<h2 id="结果排序">结果排序</h2>
+<p>先点击一下Payload1，再点击Length。就会在按Payload1排序的前提下，再按照Length排序。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://image.sec-yp.cn/20240320221249.png"
+        data-srcset="https://image.sec-yp.cn/20240320221249.png, https://image.sec-yp.cn/20240320221249.png 1.5x, https://image.sec-yp.cn/20240320221249.png 2x"
+        data-sizes="auto"
+        alt="https://image.sec-yp.cn/20240320221249.png"
+        title="image-20240320221249703" /></p>
+<h2 id="提取特定响应内容">提取特定响应内容</h2>
+<img src="https://image.sec-yp.cn/20240320221600.png" alt="image-20240320221600532" style="zoom:33%;" />
+<p>直接鼠标选中即可</p>
+<img src="https://image.sec-yp.cn/20240320221649.png" alt="image-20240320221649285" style="zoom: 33%;" />
+<p>这里涉及到一个问题，如果响应的页面是302，而我们想提取的是302跳转之后的页面，那么只需要选中下面即可。</p>
+<img src="https://image.sec-yp.cn/20240320221826.png" alt="image-20240320221826711" style="zoom:33%;" />
+<p>然后点击<code>Refetch response</code>，那么就会返回302跳转之后的页面响应内容。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://image.sec-yp.cn/20240320224242.png"
+        data-srcset="https://image.sec-yp.cn/20240320224242.png, https://image.sec-yp.cn/20240320224242.png 1.5x, https://image.sec-yp.cn/20240320224242.png 2x"
+        data-sizes="auto"
+        alt="https://image.sec-yp.cn/20240320224242.png"
+        title="image-20240320224242805" /></p>
+<h2 id="保存响应结果">保存响应结果</h2>
+<p>这里我需要保存payload2为token</p>
+<img src="https://image.sec-yp.cn/20240320224400.png" alt="image-20240320224400368" style="zoom: 33%;" />
+<img src="https://image.sec-yp.cn/20240320224514.png" alt="image-20240320224514815" style="zoom:33%;" />
+<img src="https://image.sec-yp.cn/20240320224554.png" alt="image-20240320224554266" style="zoom: 33%;" /></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-03-20</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="post-nav"><a href="/posts/%E6%8A%98%E8%85%BE/rss/" class="prev" rel="prev" title="RSS信息源"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>RSS信息源</a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.124.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2018 - 2024</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{"gitalk":{"admin":["Catcheryp"],"clientID":"3413fcf55c460ebaeca0","clientSecret":"8236c957d217498d747a3052a231465f1de00a82","id":"2024-03-20T00:00:00Z","owner":"Catcheryp","repo":"blog-comment","title":"Burp Intruder总结"}},"search":{"algoliaAppID":"1IZTQANL1G","algoliaIndex":"blog","algoliaSearchKey":"a679b25d9ca1818f09a255b94446d507","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

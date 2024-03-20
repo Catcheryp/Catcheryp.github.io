@@ -3,7 +3,15 @@
         <title>所有文章 - sec-yp</title>
         <link>https://blog.sec-yp.me/posts/</link>
         <description>所有文章 | sec-yp</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 27 Nov 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://blog.sec-yp.me/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 20 Mar 2024 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://blog.sec-yp.me/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Burp Intruder总结</title>
+    <link>https://blog.sec-yp.me/posts/%E5%AE%89%E5%85%A8/burp-intruder/</link>
+    <pubDate>Wed, 20 Mar 2024 00:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://blog.sec-yp.me/posts/%E5%AE%89%E5%85%A8/burp-intruder/</guid>
+    <description><![CDATA[<p>Burp Intruder总结，记录一些Tips和常用操作。</p>]]></description>
+</item>
+<item>
     <title>RSS信息源</title>
     <link>https://blog.sec-yp.me/posts/%E6%8A%98%E8%85%BE/rss/</link>
     <pubDate>Mon, 27 Nov 2023 00:00:00 &#43;0000</pubDate>
@@ -74,14 +82,6 @@
     <author>作者</author>
     <guid>https://blog.sec-yp.me/posts/%E5%9F%BA%E7%A1%80/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/</guid>
     <description><![CDATA[<p>记录常用的 git 命令，持续更新&hellip;&hellip;</p>]]></description>
-</item>
-<item>
-    <title>博客加小绿锁</title>
-    <link>https://blog.sec-yp.me/posts/%E6%8A%98%E8%85%BE/%E5%8D%9A%E5%AE%A2%E5%8A%A0https/</link>
-    <pubDate>Tue, 29 May 2018 00:00:00 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://blog.sec-yp.me/posts/%E6%8A%98%E8%85%BE/%E5%8D%9A%E5%AE%A2%E5%8A%A0https/</guid>
-    <description><![CDATA[<p>给博客添加小绿锁，将 http 转到 https。</p>]]></description>
 </item>
 </channel>
 </rss>

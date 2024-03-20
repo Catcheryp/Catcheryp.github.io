@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Burpsuite - 标签 - sec-yp</title>
+        <link>https://blog.sec-yp.me/tags/burpsuite/</link>
+        <description>Burpsuite - 标签 - sec-yp</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 20 Mar 2024 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://blog.sec-yp.me/tags/burpsuite/" rel="self" type="application/rss+xml" /><item>
+    <title>Burp Intruder总结</title>
+    <link>https://blog.sec-yp.me/posts/%E5%AE%89%E5%85%A8/burp-intruder/</link>
+    <pubDate>Wed, 20 Mar 2024 00:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://blog.sec-yp.me/posts/%E5%AE%89%E5%85%A8/burp-intruder/</guid>
+    <description><![CDATA[<p>Burp Intruder总结，记录一些Tips和常用操作。</p>]]></description>
+</item>
+</channel>
+</rss>
