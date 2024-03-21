@@ -1,9 +1,9 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Burpsuite - 标签 - sec-yp</title>
-        <link>https://blog.sec-yp.me/tags/burpsuite/</link>
-        <description>Burpsuite - 标签 - sec-yp</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 21 Mar 2024 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://blog.sec-yp.me/tags/burpsuite/" rel="self" type="application/rss+xml" /><item>
+        <title>Burpsuite - 分类 - sec-yp</title>
+        <link>https://blog.sec-yp.me/categories/burpsuite/</link>
+        <description>Burpsuite - 分类 - sec-yp</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 21 Mar 2024 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://blog.sec-yp.me/categories/burpsuite/" rel="self" type="application/rss+xml" /><item>
     <title>Burp 宏总结</title>
     <link>https://blog.sec-yp.me/posts/%E5%AE%89%E5%85%A8/burp-%E5%AE%8F/</link>
     <pubDate>Thu, 21 Mar 2024 00:00:00 &#43;0000</pubDate>
